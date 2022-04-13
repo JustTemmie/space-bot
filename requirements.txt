@@ -1,0 +1,10 @@
+python-dotenv
+datetime
+typing
+moviepy
+asyncio
+aiohttp
+requests
+wikipedia
+imgurpython
+py-cord
