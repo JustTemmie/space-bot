@@ -4,6 +4,7 @@ from discord.ext.commands import bot_has_permissions
 import ast
 import sys
 import os
+import subprocess
 
 # These imports are just for the run command, for convenience
 import datetime as dt
@@ -64,6 +65,16 @@ class Owner(commands.Cog):
     async def unload(self, ctx, extension):
         self.bot.unload_extension(f"cogs.{extension}")
         await ctx.send(f"{extension} was unloaded")
+        
+    @commands.is_owner()
+    @commands.command()
+    async def update(self, ctx):
+        var = subprocess.check_output(["git", "pull"])
+        await ctx.send(var.decode("utf-8"))
+        if var.decode("utf-8") != "Already up to date.\n":
+            await ctx.send("Restarting...")
+            os.execv(sys.executable, ['python3'] + sys.argv)
+        
     
     @commands.command()
     @commands.is_owner()
@@ -84,9 +95,9 @@ class Owner(commands.Cog):
     @commands.command(name= "restart", aliases=["reboot"])
     async def restart(self, ctx):
         try:
-          await self.bot.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name="restarting - won\'t respond"))
-          await ctx.send("Restarting bot...")
-          os.execv(sys.executable, ['python'] + sys.argv)
+            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name="restarting - won\'t respond"))
+            await ctx.send("Restarting bot...")
+            os.execv(sys.executable, ['python3'] + sys.argv)
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return
