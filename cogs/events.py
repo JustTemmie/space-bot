@@ -177,22 +177,17 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
 
-            if "beaver" in ctx.content or "revaeb" in ctx.content or "beavy" in ctx.content or "dam " in ctx.content or ctx.content == "dam" or ctx.content == "damn":
-                await ctx.add_reaction("<a:Beaver:950775158552014928>")
-                if random.randrange(0, 40) == 2 and "beaver" in ctx.content:
-                    message = [
-                        "DID SOMEONE JUST SAY BEAVER?", "beav :)",
-                        "beaver clicker my beloved <3",
-                        "wishlist beaver clicker today!",
-                        "have you wishlisted beaver clicker yet?",
-                        "go ahead, wishlist beaver clicker already"
-                    ]
-                    index = random.randrange(0, 6)
-                    await ctx.channel.send(
-                        f"{message[index]}\nhttps://store.steampowered.com/app/1718240/Beaver_Clicker/"
-                    )
+            listies = ["beaver", "revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"]
+            listies2 = ["dam ", "bidoof ", "beaver "]
+            for x in range(0, len(listies)):
+                if ctx.content == listies[x]:
+                    await react_beaver(ctx)
+            
+            for x in range(0, len(listies2)):
+                if listies2[x] in ctx.content:
+                    await react_beaver(ctx)
 
-            elif "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
+            if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
                 if random.randint(0, 50) == 2:
                     await ctx.add_reaction("<a:Beaver:950775158552014928>")
 
@@ -235,6 +230,21 @@ class events(commands.Cog):
                 "reminder to keep on henweeing :)",
                 file=discord.File("images/processed/henwee_fall.gif"))
 
+
+async def react_beaver(ctx):
+    await ctx.add_reaction("<a:Beaver:950775158552014928>")
+    if random.randrange(0, 40) == 2 and "beaver" in ctx.content:
+        message = [
+            "DID SOMEONE JUST SAY BEAVER?", "beav :)",
+            "beaver clicker my beloved <3",
+            "wishlist beaver clicker today!",
+            "have you wishlisted beaver clicker yet?",
+            "go ahead, wishlist beaver clicker already"
+        ]
+        index = random.randrange(0, 6)
+        await ctx.channel.send(
+            f"{message[index]}\nhttps://store.steampowered.com/app/1718240/Beaver_Clicker/"
+        )
 
 def setup(bot):
     bot.add_cog(events(bot))

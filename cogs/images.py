@@ -87,7 +87,7 @@ class images(commands.Cog):
             return await ctx.send("You forgot the image.")
 
         image = Image.open(io.BytesIO(data))
-        image = await resize(image, resolution)
+        image = await resize(image, 1024)
         
         in_scale = out_scale = 1
         dither = True
