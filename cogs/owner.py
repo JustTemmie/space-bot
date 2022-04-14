@@ -113,6 +113,24 @@ class Owner(commands.Cog):
         except Exception as error:
           await ctx.send(f"```py\n{error}```")
           return
+    
+    
+    @commands.is_owner()
+    @commands.command(name="addtofunny", aliases=['atf','makefunny','shitpostadd','addshitpost','jsonadd','addjson'], brief="adds the specified thing to shitpost.json")
+    async def addtofunnylist(ctx, *, funny = None):
+        with open("data/shitpost.json", "r") as f:
+            shitposts = json.load(f)
+        
+        if funny is None:
+            print("funny is None")
+            await ctx.send("funny is `None`")
+            
+        shitposts["list"].append(f"{funny}")
+        await ctx.send(f"added {funny} to list")
+        print(f"added {funny} to shitpost index")
+        
+        with open("data/shitpost.json", "w") as f:
+            json.dump(shitposts, f)
 
 
     @commands.command()
