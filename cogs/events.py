@@ -178,7 +178,7 @@ class events(commands.Cog):
                     await ctx.delete()
 
             listies = ["beaver", "revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev", "bidoof"]
-            listies2 = ["dam ", "bidoof ", "beaver "]
+            listies2 = ["dam ", "bidoof", "beaver"]
             for x in range(0, len(listies)):
                 if ctx.content == listies[x]:
                     await react_beaver(ctx)
