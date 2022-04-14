@@ -177,8 +177,8 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
 
-            listies = ["beaver", "revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev", "bidoof"]
-            listies2 = ["dam ", "bidoof", "beaver"]
+            listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
+            listies2 = ["dam ", "bidoof", "beaver"] # if in the message
             for x in range(0, len(listies)):
                 if ctx.content == listies[x]:
                     await react_beaver(ctx)
