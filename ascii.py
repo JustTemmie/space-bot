@@ -1,3 +1,5 @@
+#ascii commands are based of the code found here https://github.com/LyricLy/ASCIIpy/blob/master/bot.py
+
 
 import argparse
 import subprocess
