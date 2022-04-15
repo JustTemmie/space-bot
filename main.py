@@ -58,8 +58,8 @@ async def on_ready():
     bot.ready = True
 
 async def randomize_status():
-  status = "changed the host, should be more stable now :)" 
-  #status = random.choice(statuses)
+  #status = "changed the host, should be more stable now :)" 
+  status = random.choice(statuses)
   await bot.change_presence(status=discord.Status.idle,
   activity=discord.Activity(type=discord.ActivityType.watching, 
   name=(status)))
