@@ -72,8 +72,8 @@ class images(commands.Cog):
     @commands.command(name="ascii", invoke_without_command=True, brief=f"convert image to ascii art\n\nNote how True, False, and None are all case sensitive\nusage: a!ascii (output to text file True or False) (swap black and white True of False) (url for the image, None if you're uploading directly) (what font you want, default is Inconsolata) (a list of all the allowed characters)")
     async def _ascii(self, ctx, resolution = 128, out_text: Optional[bool] = False, invert: Optional[bool] = False, url=None, font="Inconsolata", *, charset=string.ascii_letters + string.punctuation + string.digits + " "):
         font = ascii.get_font(font)
-        if resolution > 256:
-            resolution = 256
+        if resolution > 1024:
+            resolution = 512
         if not font:
             await ctx.send("Invalid font.")
         if ctx.message.attachments:
