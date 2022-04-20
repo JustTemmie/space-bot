@@ -191,7 +191,7 @@ class events(commands.Cog):
                 if random.randint(0, 50) == 2:
                     await ctx.add_reaction("<a:Beaver:950775158552014928>")
 
-            if ("henwee" in ctx.content.lower() or "henw" in ctx.content.lower()) and ctx.author.id != self.bot.user.id:
+            if ("henwee" in ctx.content.lower() or "henw " in ctx.content.lower() or "411536312961597440" in ctx.content) and ctx.author.id != self.bot.user.id:
                 await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
                 await ctx.add_reaction(
                     "<a:henwee_fall_short:955878859197280306>")
