@@ -191,12 +191,12 @@ class events(commands.Cog):
                 if random.randint(0, 50) == 2:
                     await ctx.add_reaction("<a:Beaver:950775158552014928>")
 
-            if ("henwee" in ctx.content or "heenwee"
-                    in ctx.content) and ctx.author != self.bot.user:
+            if ("henwee" in ctx.content.lower() or "henw" in ctx.content.lower()) and ctx.author.id != self.bot.user.id:
                 await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
                 await ctx.add_reaction(
                     "<a:henwee_fall_short:955878859197280306>")
-                await ctx.add_reaction("<a:Beaver:950775158552014928>")
+                if random.randint(0, 5) == 2:
+                    await ctx.add_reaction("<a:Beaver:950775158552014928>")
                 if random.randrange(1, 9) == 2:  #1/8 chance
                     await ctx.channel.send(
                         henwees[hendex],
