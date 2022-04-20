@@ -196,7 +196,8 @@ class events(commands.Cog):
                 await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
                 await ctx.add_reaction(
                     "<a:henwee_fall_short:955878859197280306>")
-                if random.randrange(1, 6) == 2:  #1/6
+                await ctx.add_reaction("<a:Beaver:950775158552014928>")
+                if random.randrange(1, 9) == 2:  #1/8 chance
                     await ctx.channel.send(
                         henwees[hendex],
                         file=discord.File("images/processed/henwee_fall.gif"))
