@@ -188,11 +188,11 @@ class events(commands.Cog):
             listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
             listies2 = ["dam ", "bidoof", "beaver"] # if in the message
             for x in range(0, len(listies)):
-                if ctx.content == listies[x]:
+                if ctx.content.lower() == listies[x]:
                     await react_beaver(ctx)
             
             for x in range(0, len(listies2)):
-                if listies2[x] in ctx.content:
+                if listies2[x] in ctx.content.lower():
                     await react_beaver(ctx)
 
             if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
@@ -232,7 +232,7 @@ class events(commands.Cog):
             if ctx.content == "sus":
                     await ctx.reply("amogus")
             
-            if "avangers assemble" in ctx.content:
+            if "avengers assemble" in ctx.content.lower():
                     r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("avengers assemble", tenor_api_key, 10))
 
                     if r.status_code == 200:
@@ -242,7 +242,8 @@ class events(commands.Cog):
                             await ctx.send(realoutput)
             
             if "brain fuck" in ctx.content:
-                    await ctx.add_reaction("🧠🔫")
+                    await ctx.add_reaction("🧠")
+                    await ctx.add_reaction("🔫")
             
 
         except:
