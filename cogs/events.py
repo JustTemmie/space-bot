@@ -70,6 +70,8 @@ henwees = [
     "🏾",
     "🦫",
     "<:wishlistbeaverclickeronsteam:943915845023846401>",
+    "the crippledest man in the west",
+    "Playing Genshin Impact",
     "\"a\" -hen 2022",
     "\"psfttthhh i dunnu\" -hen 2022",
     "\"\⬛\" -hen 2022"
@@ -86,7 +88,36 @@ henwees = [
     "\"remember, everyone who doesn't say anything agrees, just ask Elly\" -hen 2022",
     "\"js is a shithole hellscape\n(which is nothing like c# i promise)\" -hen 2022",
     "\"uglies shit i've seen\" -hen 2022",
+    "\"USA er under india\" -hen 2022",
+    "\"not noticed that, so I guess it's less noticable\" - hen 2022"
+    "\"i dag seiner tidlig\" - not hen 2022"
+    "\“blaze can go ******* ***** ***** ********************\” - hen 2022",
+    "\“I mean walking is nice\nMiss being able to\”\n- henw2022",
+    "\"I'd fuck joker from persona 5\"\n\"I'd be fucked by joker from persona 5\"\n- hen 2022",
+    "\"You're like one foot in the grave, the other in the closet\" - related to hen 2022 ",
+    "\"æ har ingen oppion om uteliggere\" - hen 2022",
+    "\"no\" - hen 2022",
+    "\"what\" - hen 2022",
+    "\"æ skippe alltid denne delen av biler 1\" - hen 2022",
+    "\"du kan ikke bare si [...]\" - hen 2022",
+    "\"genshin impact e trash\" - hen 2022",
+    "\"cumfused\" - hen 2022",
+    "\"hvor mye packer lightning mcqueen\" - hen 2022",
+
+    #copilot lmao
+    "\"i'm not a fan of the word \"fucking\"\" -hen 2022 - github copilot",
+    "\“I'm not a fan of the word \"utility\"\” - hen 2022 - github copilot",
+    "\“I'm not a fan of the word \"control\"\” - hen 2022 - github copilot",
+    "\"my body is a trashcan\" - hen 2022 - github copilot",
+    "\"you're a fucking idiot\" - hen 2022 - github copilot",
+    "\"joker is a trash\" - hen 2022 - github copilot",
+    "\"henwee is a trash\" - hen 2022 - github copilot",
+
+
+    
 ]
+
+
 
 
 class events(commands.Cog):
@@ -242,8 +273,7 @@ class events(commands.Cog):
                             
                             await ctx.send(realoutput)
                 except Exception as e:
-                    print(e)
-                    await ctx.send(str(e) + "<:sad_frog:955830194902544415>")
+                    await ctx.send(e)
                     
             
             if "brain fuck" in ctx.content:
@@ -260,6 +290,38 @@ class events(commands.Cog):
             await self.bot.get_channel(919666600955760702).send(
                 "reminder to keep on henweeing :)",
                 file=discord.File("images/processed/henwee_fall.gif"))
+    
+    @tasks.loop(hours=1)
+    async def random_beaver(self):
+        if random.randrange(1, 400) == 2:
+            members = []
+            for guild in self.bot.guilds:
+                for member in guild.members:
+                    if member not in members:
+                        members.append(member)
+
+            lucky_winner = members[random.randint(0, len(members)-1)]
+            
+            try:
+                await lucky_winner.send(":Beaver: ")
+                return lucky_winner.id
+            except:
+                await lucky_beaver(self)
+
+
+async def lucky_beaver(self):
+    members = []
+    for guild in self.bot.guilds:
+        for member in guild.members:
+            if member not in members:
+                members.append(member)
+
+    lucky_winner = members[random.randint(0, len(members)-1)]
+    try:
+        await lucky_winner.send(":Beaver: ")
+        return lucky_winner.id
+    except:
+        await lucky_beaver()
 
 
 async def react_beaver(ctx):
