@@ -8,14 +8,7 @@ from discord.ext.commands import Cog, Greedy, CheckFailure, command, has_permiss
 import json
 
 
-
-with open('./data/reports.json', encoding='utf-8') as f:
-    try:
-        report = json.load(f)
-    except ValueError:
-        report = {}
-        report['users'] = []
-        
+       
         
 class admin(Cog):
     def __init__(self, bot):
@@ -64,14 +57,15 @@ class admin(Cog):
     @bot_has_permissions(kick_members=True)
     @has_permissions(kick_members=True)
     async def warn_members(self, ctx, targets: Greedy[Member], *, reason:Optional[str] = "No reason provided"):
+        report = open_warnings()
         for target in targets:
             for current_user in report['users']:
-                if current_user['name'] == target.name:
+                if current_user['id'] == target.id:
                     current_user['reasons'].append(reason)
                     break
             else:
                 report['users'].append({
-                'name':target.name,
+                'id':target.id,
                 'reasons': [reason,]
                 })
             with open('reports.json','w+') as f:
@@ -85,6 +79,7 @@ class admin(Cog):
     @bot_has_permissions(kick_members=True)
     @has_permissions(kick_members=True)
     async def warnings(ctx,user:discord.User):
+        report = open_warnings()
         for current_user in report['users']:
             if user.name == current_user['name']:
                 await ctx.send(f"{user.name} has been reported {len(current_user['reasons'])} times : {','.join(current_user['reasons'])}")
@@ -166,6 +161,15 @@ class admin(Cog):
             emoji = reaction
             message = await ctx.fetch_message(msgid)
             await message.add_reaction(emoji)
+
+
+async def open_warnings():
+    with open('./data/reports.json', encoding='utf-8') as f:
+        try:
+            report = json.load(f)
+        except ValueError:
+            report = {}
+            report['users'] = []
 
 def setup(bot):
     bot.add_cog(admin(bot))
