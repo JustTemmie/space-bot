@@ -220,6 +220,10 @@ class events(commands.Cog):
                         "you forgot an \"e\" at the end of you we there, it's fine though don't worry\n"
                         + henwees[hendex],
                         file=discord.File("images/processed/henwee_fall.gif"))
+            
+            if ctx.content == "sus":
+                    await ctx.reply("amogus")
+            
 
         except:
             pass
