@@ -132,7 +132,7 @@ class social(commands.Cog):
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == member:
+            if ctx.author == member[0]:
                 lonely_embed = Embed(title=f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+",
                     colour = ctx.author.colour)
                 if realoutput is not None:
