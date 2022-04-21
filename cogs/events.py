@@ -124,6 +124,9 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.henwee.start()
+        self.random_beaver.start()
+
+
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
@@ -290,6 +293,7 @@ class events(commands.Cog):
             await self.bot.get_channel(919666600955760702).send(
                 "reminder to keep on henweeing :)",
                 file=discord.File("images/processed/henwee_fall.gif"))
+    
     
     @tasks.loop(hours=1)
     async def random_beaver(self):
