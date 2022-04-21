@@ -7,6 +7,14 @@ from datetime import datetime
 
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
+import requests
+import json
+import os
+from dotenv import load_dotenv
+load_dotenv("TENOR_API_KEY.env")
+tenor_api_key = os.getenv("KEY")
+
+
 henwees = [
     "henwee :)",
     "henw",
@@ -223,6 +231,18 @@ class events(commands.Cog):
             
             if ctx.content == "sus":
                     await ctx.reply("amogus")
+            
+            if "avangers assemble" in ctx.content:
+                    r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("avengers assemble", tenor_api_key, 10))
+
+                    if r.status_code == 200:
+                            top_x_gifs = json.loads(r.content)
+                            realoutput = top_x_gifs['results'][random.randrange(0, 10)]['media'][0]["gif"]["url"]
+                            
+                            await ctx.send(realoutput)
+            
+            if "brain fuck" in ctx.content:
+                    await ctx.add_reaction("🧠🔫")
             
 
         except:
