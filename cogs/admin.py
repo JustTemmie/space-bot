@@ -5,13 +5,23 @@ from typing import Optional
 from discord import Embed, Member
 from discord.ext import commands
 from discord.ext.commands import Cog, Greedy, CheckFailure, command, has_permissions, bot_has_permissions
+import json
 
 
 
-
+with open('./data/reports.json', encoding='utf-8') as f:
+    try:
+        report = json.load(f)
+    except ValueError:
+        report = {}
+        report['users'] = []
+        
+        
 class admin(Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    
 
         
     @command(name="kick", brief="Kicks the specified users")
@@ -49,6 +59,39 @@ class admin(Cog):
         if isinstance(exc, CheckFailure):
             await ctx.send("Insufficient permissions to perform tat task")
 
+    
+    @command(name="warn", brief="Warns the specified users")
+    @bot_has_permissions(kick_members=True)
+    @has_permissions(kick_members=True)
+    async def warn_members(self, ctx, targets: Greedy[Member], *, reason:Optional[str] = "No reason provided"):
+        for target in targets:
+            for current_user in report['users']:
+                if current_user['name'] == target.name:
+                    current_user['reasons'].append(reason)
+                    break
+            else:
+                report['users'].append({
+                'name':target.name,
+                'reasons': [reason,]
+                })
+            with open('reports.json','w+') as f:
+                json.dump(report,f)
+            
+            await ctx.send(f"{target.mention} has been warned for {reason}")
+        
+    
+
+    @command(name = "warns", brief = "Shows the warns of the specified user")
+    @bot_has_permissions(kick_members=True)
+    @has_permissions(kick_members=True)
+    async def warnings(ctx,user:discord.User):
+        for current_user in report['users']:
+            if user.name == current_user['name']:
+                await ctx.send(f"{user.name} has been reported {len(current_user['reasons'])} times : {','.join(current_user['reasons'])}")
+                break
+            else:
+                await ctx.send(f"{user.name} has never been reported") 
+    
     
     @command(name="ban", brief="Bans the specified users")
     @bot_has_permissions(ban_members=True)
