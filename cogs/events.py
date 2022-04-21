@@ -232,7 +232,8 @@ class events(commands.Cog):
             if ctx.content == "sus":
                     await ctx.reply("amogus")
             
-            if "avengers assemble" in ctx.content.lower():
+            if "avengers assemble" in ctx.content:
+                try:
                     r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("avengers assemble", tenor_api_key, 10))
 
                     if r.status_code == 200:
@@ -240,6 +241,10 @@ class events(commands.Cog):
                             realoutput = top_x_gifs['results'][random.randrange(0, 10)]['media'][0]["gif"]["url"]
                             
                             await ctx.send(realoutput)
+                except Exception as e:
+                    print(e)
+                    await ctx.send(str(e) + "<:sad_frog:955830194902544415>")
+                    
             
             if "brain fuck" in ctx.content:
                     await ctx.add_reaction("🧠")
