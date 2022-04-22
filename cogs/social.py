@@ -119,20 +119,35 @@ class social(commands.Cog):
   
     @commands.command(name="kiss", aliases=["smooch"], brief="awwweee :D")
     @cooldown(8, 25, BucketType.guild)
-    async def smooches(self, ctx, *, member:discord.Member):
+    async def smooches(self, ctx, targets: Greedy[Member]):
         r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif kiss", tenor_api_key, 50))
 
+        kissees = []
+        for member in targets:
+            if member not in kissees:
+                kissees.append(member)
+        
+        kiss_string = f"{ctx.author.display_name} just kissed "
+        
+        for i in range(0, len(kissees)):
+            if i >= len(kissees) - 1 and i != 0:
+                kiss_string += f"and "
+            person = ctx.guild.get_member(kissees[i].display_name)
+            print(person)
+            kiss_string += f"{person}, "
+
+        
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=f"{ctx.author.display_name} smooched {member.display_name}",
+            embed = Embed(title=kiss_string,
                               description="i ship it",
-                              colour=member.colour)
+                              colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == member:
+            if ctx.author == kissees:
                 lonely_embed = Embed(title=f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+",
                     colour = ctx.author.colour)
                 if realoutput is not None:
