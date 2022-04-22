@@ -178,7 +178,7 @@ class Owner(commands.Cog):
             output = "```py\n{}\n\n{}```".format(out, result)
 
             if len(output) > 2000:
-                await ctx.send("The output is too long?")
+                await ctx.send("The output is too long?")                    
             else:
                 await ctx.send(output.format(result))
         except Exception as e:

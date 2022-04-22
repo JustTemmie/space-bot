@@ -74,7 +74,7 @@ henwees = [
     "Playing Genshin Impact",
     "\"a\" -hen 2022",
     "\"psfttthhh i dunnu\" -hen 2022",
-    "\"\⬛\" -hen 2022"
+    "\"\⬛\" -hen 2022",
     "\"who tf put the physical theorapist 5 stories up?\" -hen 2022",
     "\"ok fair\" -hen 2022",
     "\"yes these kids suck lmao\" -hen 2022",
@@ -111,6 +111,7 @@ henwees = [
     "\"time to commit mass suicide\" - hen 2022",
     "\"put de som en quote\" - hen 2022",
     "\"https://cdn.discordapp.com/attachments/847231965764780063/966342099043753984/unknown.png\" - hen 2022",
+    "\"you're a fucking idiot\" - hen 2022",
     
 
     #copilot lmao
@@ -118,7 +119,6 @@ henwees = [
     "\“I'm not a fan of the word \"utility\"\” - hen 2022 - github copilot",
     "\“I'm not a fan of the word \"control\"\” - hen 2022 - github copilot",
     "\"my body is a trashcan\" - hen 2022 - github copilot",
-    "\"you're a fucking idiot\" - hen 2022 - github copilot",
     "\"joker is a trash\" - hen 2022 - github copilot",
     "\"henwee is a trash\" - hen 2022 - github copilot",
 
