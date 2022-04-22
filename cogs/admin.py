@@ -18,8 +18,8 @@ class admin(Cog):
 
         
     @command(name="kick", brief="Kicks the specified users")
-    @bot_has_permissions(kick_members=True)
-    @has_permissions(kick_members=True)
+    @bot_has_permissions(manage_messages=True)
+    @has_permissions(manage_messages=True)
     async def kick_members(self, ctx, targets: Greedy[Member], *, reason:Optional[str] = "No reason provided"):
         if not len(targets):
             await ctx.send("One or more of the required arguments are missing")
@@ -54,24 +54,22 @@ class admin(Cog):
 
     
     @command(name="warn", brief="Warns the specified users")
-    @bot_has_permissions(kick_members=True)
-    @has_permissions(kick_members=True)
+    @bot_has_permissions(manage_messages=True)
+    @has_permissions(manage_messages=True)
     async def warn_members(self, ctx, targets: Greedy[Member], *, reason:Optional[str] = "No reason provided"):
-        report = open_warnings()
-        for target in targets:
-            for current_user in report['users']:
-                if current_user['id'] == target.id:
-                    current_user['reasons'].append(reason)
-                    break
-            else:
-                report['users'].append({
-                'id':target.id,
-                'reasons': [reason,]
-                })
-            with open('reports.json','w+') as f:
-                json.dump(report,f)
-            
-            await ctx.send(f"{target.mention} has been warned for {reason}")
+        rule_breakers_id = []
+        rule_breakers = ""
+        for user in targets:
+            rule_breakers_id.append(user.id)
+            rule_breakers.append(user.name + ", ")
+        
+        
+        embed = discord.Embed(title="Warning issued: ", color=0xf40000)
+        embed.add_field(name="Warning: ", value=f'Reason: {reason}', inline=False)
+        embed.add_field(name="User(s) warned: ", value=f'{rule_breakers}', inline=False)
+        embed.add_field(name="Warned by: ", value=f'{ctx.author}', inline=False)
+        
+        await ctx.send(embed=embed)
         
     
 
@@ -79,7 +77,7 @@ class admin(Cog):
     @bot_has_permissions(kick_members=True)
     @has_permissions(kick_members=True)
     async def warnings(ctx,user:discord.User):
-        report = open_warnings()
+        report = await open_warnings()
         for current_user in report['users']:
             if user.name == current_user['name']:
                 await ctx.send(f"{user.name} has been reported {len(current_user['reasons'])} times : {','.join(current_user['reasons'])}")
