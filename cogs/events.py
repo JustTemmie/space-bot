@@ -102,7 +102,15 @@ henwees = [
     "\"du kan ikke bare si [...]\" - hen 2022",
     "\"genshin impact e trash\" - hen 2022",
     "\"cumfused\" - hen 2022",
-    "\"hvor mye packer lightning mcqueen\" - hen 2022",
+    "\"hvor mye packer lightning mcqueen?\" - hen 2022",
+    "\"revert revert actually fixed collison\" - hen 2022",
+    "\"æ hate barn, æ hate barn\" - hen 2022",
+    "\"🦫\" - not hen 2022",
+    "\"henwee quote\" - hen 2022",
+    "\"æ like fugla deez nuts\" - hen 2022",
+    "\"time to commit mass suicide\" - hen 2022",
+    "\"put de som en quote\" - hen 2022",
+    "\"https://cdn.discordapp.com/attachments/847231965764780063/966342099043753984/unknown.png\" - hen 2022",
     
 
     #copilot lmao
@@ -175,7 +183,7 @@ class events(commands.Cog):
     @commands.command(name="henwee",
                       aliases=["henw"],
                       brief=henwees[random.randrange(0, len(henwees))])
-    @cooldown(2, 60, BucketType.guild)
+    @cooldown(20, 30, BucketType.guild)
     async def henw(self, ctx):
         await ctx.send(henwees[random.randrange(0, len(henwees))],
                        file=discord.File("images/processed/henwee_fall.gif"))
