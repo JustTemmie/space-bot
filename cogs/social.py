@@ -56,29 +56,39 @@ class social(commands.Cog):
       
     @commands.command(name="cuddle", aliases=["hug^2"], brief="it\'s like hugs, but ever more wholesome")
     @cooldown(8, 25, BucketType.guild)
-    async def cuddlecommand(self, ctx, *, member:discord.Member):
+    async def cuddlecommand(self, ctx, targets: Greedy[Member]):
         r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif cuddle", tenor_api_key, 20))
 
+        
+        actees = []
+        for member in targets:
+            if member.id not in actees:
+                actees.append(member.id)
+        
+        kiss_string = f"{ctx.author.display_name} took "
+        
+        if len(actees) == 1 and actees[0] == ctx.author.id:
+            kiss_string = f"{ctx.author.display_name} is hugging themselves, low key cute ngl+"""
+        
+        else:
+            for i in range(0, len(actees)):
+                if i >= len(actees) - 1 and i != 0:
+                    kiss_string += f"and "
+                person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
+                kiss_string += f"{person}, "
+
+        
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs['results'][random.randrange(0, 20)]['media'][0]["gif"]["url"]
+            realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=f"{ctx.author.display_name} took {member.display_name} and went <a:cuddle:888504653938044999> ",
-                              description="awweee",
-                              colour=member.colour)
+            embed = Embed(title=kiss_string[:-2] + " and went <a:cuddle:888504653938044999>",
+                              description="awweeee",
+                              colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == member:
-                lonely_embed = Embed(title=f"{ctx.author.display_name} is hugging themselves, low key cute ngl",
-                    colour = ctx.author.colour)
-                if realoutput is not None:
-                    lonely_embed.set_image(url=realoutput)
-                await ctx.send(embed=lonely_embed)
-            
-            else:
-                await ctx.send(embed=embed)
-
+            await ctx.send(embed=embed)
 
     @commands.command(name="kill", aliases=["murder"], brief="that's an official oisann moment")
     @cooldown(8, 25, BucketType.guild)
@@ -122,21 +132,21 @@ class social(commands.Cog):
     async def smooches(self, ctx, targets: Greedy[Member]):
         r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif kiss", tenor_api_key, 50))
 
-        kissees = []
+        actees = []
         for member in targets:
-            if member.id not in kissees:
-                kissees.append(member.id)
+            if member.id not in actees:
+                actees.append(member.id)
         
         kiss_string = f"{ctx.author.display_name} just kissed "
         
-        if len(kissees) == 1 and kissees[0] == ctx.author.id:
+        if len(actees) == 1 and actees[0] == ctx.author.id:
             kiss_string = f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+"""
         
         else:
-            for i in range(0, len(kissees)):
-                if i >= len(kissees) - 1 and i != 0:
+            for i in range(0, len(actees)):
+                if i >= len(actees) - 1 and i != 0:
                     kiss_string += f"and "
-                person = self.bot.get_guild(ctx.guild.id).get_member(kissees[i]).display_name
+                person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
                 kiss_string += f"{person}, "
 
         
@@ -150,8 +160,6 @@ class social(commands.Cog):
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            
-
             await ctx.send(embed=embed)
 
 
