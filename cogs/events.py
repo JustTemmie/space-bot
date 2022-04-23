@@ -272,7 +272,7 @@ class events(commands.Cog):
                         + henwees[hendex],
                         file=discord.File("images/processed/henwee_fall.gif"))
             
-            if ctx.content == "sus":
+            if "sus" in ctx.content:
                     await ctx.reply("amogus")
             
             if "avengers assemble" in ctx.content:
