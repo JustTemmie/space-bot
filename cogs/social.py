@@ -21,11 +21,11 @@ class social(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="rape", aliases=["sex", "r4pe", "r4p3", "rap3", "epar", "pare", "reap", "raape", "raaape", "raaaape", "rapee"], hidden = True)
-    async def rapeisbad(self, ctx, member:discord.Member):
-        member = ctx.author
-        await ctx.send(f"{ctx.author} tried to rape someone, to stop this from happening in the future they have been kicked from the server")
-        await member.kick(reason="tried to rape someone")
+    #@commands.command(name="rape", aliases=["sex", "r4pe", "r4p3", "rap3", "epar", "pare", "reap", "raape", "raaape", "raaaape", "rapee"], hidden = True)
+    #async def rapeisbad(self, ctx, member:discord.Member):
+    #    member = ctx.author
+    #    await ctx.send(f"{ctx.author} tried to rape someone, to stop this from happening in the future they have been kicked from the server")
+    #    await member.kick(reason="tried to rape someone")
 
 
     @commands.command(name="bite", aliases=["rawr"], brief="rawr x3")
@@ -173,7 +173,7 @@ class social(commands.Cog):
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string,
+            embed = Embed(title=kiss_string ,
                               description="i ship it",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -184,28 +184,41 @@ class social(commands.Cog):
 
     @commands.command(name="pat", aliases=["headpat","pet"], brief="what if we pat eachother in public :fleeshed:")
     @cooldown(8, 25, BucketType.guild)
-    async def patpat(self, ctx, *, member:discord.Member):
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif headpat", tenor_api_key, 50))
+    async def patpat(self, ctx, targets: Greedy[Member]):
+        gif_count = 50
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif headpat", tenor_api_key, gif_count))
 
+        actees = []
+        for member in targets:
+            if member.id not in actees:
+                actees.append(member.id)
+        
+        kiss_string = f"{ctx.author.display_name} gave "
+        
+        if len(actees) == 1 and actees[0] == ctx.author.id:
+            kiss_string = f"{ctx.author.display_name} got a big pat from themselves, impressive"
+        
+        else:
+            for i in range(0, len(actees)):
+                if i >= len(actees) - 1 and i != 0:
+                    kiss_string += f"and "
+                person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
+                kiss_string += f"{person}, "
+
+            kiss_string = kiss_string[:-2] + "a big ol' headpat"
+        
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
+            realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=f"{ctx.author.display_name} gave {member.display_name} a big o\'l pat",
+            embed = Embed(title=kiss_string ,
                               description=":)",
-                              colour=member.colour)
+                              colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == member:
-                lonely_embed = Embed(title=f"{ctx.author.display_name} got a big pat from themselves, impressive",
-                    colour = ctx.author.colour)
-                if realoutput is not None:
-                    lonely_embed.set_image(url=realoutput)
-                await ctx.send(embed=lonely_embed)
+            await ctx.send(embed=embed)
             
-            else:
-                await ctx.send(embed=embed)
 
 
     @commands.command(name="boop", aliases=["poke"], brief="make someone go bleep :)")
