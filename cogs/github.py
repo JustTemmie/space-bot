@@ -27,6 +27,19 @@ class github(commands.Cog):
             os.execv(sys.executable, ['python3'] + sys.argv)
     
     
+    @commands.command(name = "push", brief = "Updates the bot by pulling from github")
+    @commands.is_owner()
+    async def update_push(self, ctx, restart = False):
+        try:
+            repo = Repo(".")
+            repo.git.add(update=True)
+            repo.index.commit("automatic commit from server to backup database")
+            origin = repo.remote(name='origin')
+            origin.push()
+        except Exception as e:
+            await ctx.send(e)
+    
+    
     @tasks.loop(hours=24)
     async def update_git_push(self):
         #check that N is more than 0 because this function will run on startup, and i only want it to push every 24 hours so that i don't completely clog up my github commit history
