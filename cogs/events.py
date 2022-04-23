@@ -89,8 +89,8 @@ henwees = [
     "\"js is a shithole hellscape\n(which is nothing like c# i promise)\" -hen 2022",
     "\"uglies shit i've seen\" -hen 2022",
     "\"USA er under india\" -hen 2022",
-    "\"not noticed that, so I guess it's less noticable\" - hen 2022"
-    "\"i dag seiner tidlig\" - not hen 2022"
+    "\"not noticed that, so I guess it's less noticable\" - hen 2022",
+    "\"i dag seiner tidlig\" - not hen 2022",
     "\“blaze can go ******* ***** ***** ********************\” - hen 2022",
     "\“I mean walking is nice\nMiss being able to\”\n- henw2022",
     "\"I'd fuck joker from persona 5\"\n\"I'd be fucked by joker from persona 5\"\n- hen 2022",

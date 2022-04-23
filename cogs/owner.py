@@ -65,16 +65,7 @@ class Owner(commands.Cog):
     async def unload(self, ctx, extension):
         self.bot.unload_extension(f"cogs.{extension}")
         await ctx.send(f"{extension} was unloaded")
-        
-    @commands.is_owner()
-    @commands.command()
-    async def update(self, ctx, restart = False):
-        var = subprocess.check_output(["git", "pull"])
-        await ctx.send(var.decode("utf-8"))
-        if var.decode("utf-8") != "Already up to date.\n" and restart != False:
-            await ctx.send("Restarting...")
-            os.execv(sys.executable, ['python3'] + sys.argv)
-        
+                
     
     @commands.command()
     @commands.is_owner()
