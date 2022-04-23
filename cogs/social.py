@@ -205,7 +205,7 @@ class social(commands.Cog):
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
                 title_string += f"{person}, "
 
-            title_string = title_string[:-2] + "a big ol' headpat"
+            title_string = title_string a big ol' headpat"
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
@@ -224,7 +224,7 @@ class social(commands.Cog):
     @commands.command(name="boop", aliases=["poke"], brief="make someone go bleep :)")
     @cooldown(8, 25, BucketType.guild)
     async def boopcommand(self, ctx, targets: Greedy[Member]):
-        gif_count = 20
+        gif_count = 30
         r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif boop", tenor_api_key, gif_count))
 
         actees = []
@@ -244,7 +244,7 @@ class social(commands.Cog):
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
                 title_string += f"{person}, "
 
-            title_string = title_string[:-2] + "to go bleep"
+            title_string = title_string[:-2] + " to go bleep"
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
