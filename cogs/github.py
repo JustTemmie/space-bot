@@ -36,7 +36,7 @@ class github(commands.Cog):
             repo.git.add(update=True)
             repo.index.commit("automatic commit from server to backup database")
             origin = repo.remote(name='origin')
-            await ctx.send(origin.push())
+            await ctx.send(subprocess.check_output(origin.push()))
             await ctx.send("Pushed to github")
         except Exception as e:
             await ctx.send(e)
