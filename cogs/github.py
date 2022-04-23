@@ -8,13 +8,14 @@ import subprocess
 
 from git import Repo
 
-n = 0
 
 class github(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
         self.update_git_push.start()
+        
+        self.n = 0
 
 
     @commands.command(name = "update", brief = "Updates the bot by pulling from github")
@@ -27,7 +28,7 @@ class github(commands.Cog):
             os.execv(sys.executable, ['python3'] + sys.argv)
     
     
-    @commands.command(name = "push", brief = "Updates the bot by pulling from github")
+    @commands.command(name = "push", brief = "Updates the bot by pushing to github")
     @commands.is_owner()
     async def update_push(self, ctx, restart = False):
         try:
@@ -35,7 +36,8 @@ class github(commands.Cog):
             repo.git.add(update=True)
             repo.index.commit("automatic commit from server to backup database")
             origin = repo.remote(name='origin')
-            origin.push()
+            await ctx.send(origin.push())
+            await ctx.send("Pushed to github")
         except Exception as e:
             await ctx.send(e)
     
@@ -43,7 +45,7 @@ class github(commands.Cog):
     @tasks.loop(hours=24)
     async def update_git_push(self):
         #check that N is more than 0 because this function will run on startup, and i only want it to push every 24 hours so that i don't completely clog up my github commit history
-        if n > 0:
+        if self.n > 0:
             try:
                 repo = Repo(".")
                 repo.git.add(update=True)
@@ -53,7 +55,7 @@ class github(commands.Cog):
             except:
                 print('Some error occured while pushing the code')
         else:
-            n += 1
+            self.n += 1
         
 
 
