@@ -52,12 +52,13 @@ class social(commands.Cog):
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
                 kiss_string += f"{person}, "
 
+            kiss_string = kiss_string[:-2]
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string[:-2],
+            embed = Embed(title=kiss_string,
                               description="rawr",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -89,13 +90,15 @@ class social(commands.Cog):
                     kiss_string += f"and "
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
                 kiss_string += f"{person}, "
+            
+            kiss_string = kiss_string[:-2] + ", forcing them to go <a:cuddle:888504653938044999>"
 
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string[:-2] + ", forcing them to go <a:cuddle:888504653938044999>",
+            embed = Embed(title=kiss_string,
                               description="awweeee",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -155,7 +158,7 @@ class social(commands.Cog):
         kiss_string = f"{ctx.author.display_name} just kissed "
         
         if len(actees) == 1 and actees[0] == ctx.author.id:
-            kiss_string = f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+"""
+            kiss_string = f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+"
         
         else:
             for i in range(0, len(actees)):
@@ -164,12 +167,13 @@ class social(commands.Cog):
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
                 kiss_string += f"{person}, "
 
+            kiss_string = kiss_string[:-2] + ", and they're so cute!"
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string[:-2],
+            embed = Embed(title=kiss_string,
                               description="i ship it",
                               colour=ctx.author.colour)
             if realoutput is not None:
