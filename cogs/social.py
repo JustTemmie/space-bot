@@ -57,7 +57,8 @@ class social(commands.Cog):
     @commands.command(name="cuddle", aliases=["hug^2"], brief="it\'s like hugs, but ever more wholesome")
     @cooldown(8, 25, BucketType.guild)
     async def cuddlecommand(self, ctx, targets: Greedy[Member]):
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif cuddle", tenor_api_key, 20))
+        gif_count = 25
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif cuddle", tenor_api_key, gif_count))
 
         
         actees = []
@@ -80,9 +81,9 @@ class social(commands.Cog):
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
+            realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string[:-2] + " and went <a:cuddle:888504653938044999>",
+            embed = Embed(title=kiss_string[:-2] + ", forcing them to go <a:cuddle:888504653938044999>",
                               description="awweeee",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -130,7 +131,8 @@ class social(commands.Cog):
     @commands.command(name="kiss", aliases=["smooch"], brief="awwweee :D")
     @cooldown(8, 25, BucketType.guild)
     async def smooches(self, ctx, targets: Greedy[Member]):
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif kiss", tenor_api_key, 50))
+        gif_count = 50
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif kiss", tenor_api_key, gif_count))
 
         actees = []
         for member in targets:
@@ -152,7 +154,7 @@ class social(commands.Cog):
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
+            realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
             embed = Embed(title=kiss_string[:-2],
                               description="i ship it",
