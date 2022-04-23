@@ -224,7 +224,7 @@ class social(commands.Cog):
     @commands.command(name="boop", aliases=["poke"], brief="make someone go bleep :)")
     @cooldown(8, 25, BucketType.guild)
     async def boopcommand(self, ctx, targets: Greedy[Member]):
-        gif_count = 30
+        gif_count = 20
         r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif boop", tenor_api_key, gif_count))
 
         actees = []
