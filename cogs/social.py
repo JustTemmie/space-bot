@@ -40,25 +40,25 @@ class social(commands.Cog):
             if member.id not in actees:
                 actees.append(member.id)
         
-        kiss_string = f"{ctx.author.display_name} just bit "
+        title_string = f"{ctx.author.display_name} just bit "
         
         if len(actees) == 1 and actees[0] == ctx.author.id:
-            kiss_string = f"{ctx.author.display_name} just bit themselves... weirdo"
+            title_string = f"{ctx.author.display_name} just bit themselves... weirdo"
         
         else:
             for i in range(0, len(actees)):
                 if i >= len(actees) - 1 and i != 0:
-                    kiss_string += f"and "
+                    title_string += f"and "
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
-                kiss_string += f"{person}, "
+                title_string += f"{person}, "
 
-            kiss_string = kiss_string[:-2]
+            title_string = title_string[:-2]
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string,
+            embed = Embed(title=title_string,
                               description="rawr",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -79,26 +79,26 @@ class social(commands.Cog):
             if member.id not in actees:
                 actees.append(member.id)
         
-        kiss_string = f"{ctx.author.display_name} took "
+        title_string = f"{ctx.author.display_name} took "
         
         if len(actees) == 1 and actees[0] == ctx.author.id:
-            kiss_string = f"{ctx.author.display_name} is hugging themselves, low key cute ngl+"
+            title_string = f"{ctx.author.display_name} is hugging themselves, low key cute ngl+"
         
         else:
             for i in range(0, len(actees)):
                 if i >= len(actees) - 1 and i != 0:
-                    kiss_string += f"and "
+                    title_string += f"and "
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
-                kiss_string += f"{person}, "
+                title_string += f"{person}, "
             
-            kiss_string = kiss_string[:-2] + ", forcing them to go <a:cuddle:888504653938044999>"
+            title_string = title_string[:-2] + ", forcing them to go <a:cuddle:888504653938044999>"
 
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string,
+            embed = Embed(title=title_string,
                               description="awweeee",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -155,25 +155,25 @@ class social(commands.Cog):
             if member.id not in actees:
                 actees.append(member.id)
         
-        kiss_string = f"{ctx.author.display_name} just kissed "
+        title_string = f"{ctx.author.display_name} just kissed "
         
         if len(actees) == 1 and actees[0] == ctx.author.id:
-            kiss_string = f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+"
+            title_string = f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+"
         
         else:
             for i in range(0, len(actees)):
                 if i >= len(actees) - 1 and i != 0:
-                    kiss_string += f"and "
+                    title_string += f"and "
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
-                kiss_string += f"{person}, "
+                title_string += f"{person}, "
 
-            kiss_string = kiss_string[:-2] + ", and they're so cute!"
+            title_string = title_string[:-2] + ", and they're so cute!"
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string ,
+            embed = Embed(title=title_string ,
                               description="i ship it",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -182,7 +182,7 @@ class social(commands.Cog):
             await ctx.send(embed=embed)
 
 
-    @commands.command(name="pat", aliases=["headpat","pet"], brief="what if we pat eachother in public :fleeshed:")
+    @commands.command(name="pat", aliases=["headpat", "pet"], brief="what if we pat eachother in public :fleeshed:")
     @cooldown(8, 25, BucketType.guild)
     async def patpat(self, ctx, targets: Greedy[Member]):
         gif_count = 50
@@ -193,25 +193,25 @@ class social(commands.Cog):
             if member.id not in actees:
                 actees.append(member.id)
         
-        kiss_string = f"{ctx.author.display_name} gave "
+        title_string = f"{ctx.author.display_name} gave "
         
         if len(actees) == 1 and actees[0] == ctx.author.id:
-            kiss_string = f"{ctx.author.display_name} got a big pat from themselves, impressive"
+            title_string = f"{ctx.author.display_name} got a big pat from themselves, impressive"
         
         else:
             for i in range(0, len(actees)):
                 if i >= len(actees) - 1 and i != 0:
-                    kiss_string += f"and "
+                    title_string += f"and "
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
-                kiss_string += f"{person}, "
+                title_string += f"{person}, "
 
-            kiss_string = kiss_string[:-2] + "a big ol' headpat"
+            title_string = title_string[:-2] + "a big ol' headpat"
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string ,
+            embed = Embed(title=title_string ,
                               description=":)",
                               colour=ctx.author.colour)
             if realoutput is not None:
@@ -223,82 +223,119 @@ class social(commands.Cog):
 
     @commands.command(name="boop", aliases=["poke"], brief="make someone go bleep :)")
     @cooldown(8, 25, BucketType.guild)
-    async def boopcommand(self, ctx, *, member:discord.Member):
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime boop", tenor_api_key, 10))
+    async def boopcommand(self, ctx, targets: Greedy[Member]):
+        gif_count = 20
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif boop", tenor_api_key, gif_count))
 
+        actees = []
+        for member in targets:
+            if member.id not in actees:
+                actees.append(member.id)
+        
+        title_string = f"{ctx.author.display_name} just forced "
+        
+        if len(actees) == 1 and actees[0] == ctx.author.id:
+            title_string = f"{ctx.author.display_name} decided to bleep just cuz"
+        
+        else:
+            for i in range(0, len(actees)):
+                if i >= len(actees) - 1 and i != 0:
+                    title_string += f"and "
+                person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
+                title_string += f"{person}, "
+
+            title_string = title_string[:-2] + "to go bleep"
+        
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs['results'][random.randrange(0, 10)]['media'][0]["gif"]["url"]
+            realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=f"{ctx.author.display_name} just forced {member.display_name} to go bleep",
+            embed = Embed(title=title_string ,
                               description="uwu",
-                              colour=member.colour)
+                              colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == member:
-                lonely_embed = Embed(title=f"{ctx.author.display_name} decided to bleep just cuz",
-                colour = ctx.author.colour)
-                if realoutput is not None:
-                    lonely_embed.set_image(url=realoutput)
-                await ctx.send(embed=lonely_embed)
-                
-            else:
-                await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
+            
 
 
     
     @commands.command(name="punch", aliases=["hit"], brief="bit rude but o k")
     @cooldown(8, 25, BucketType.guild)
-    async def punchcommand(self, ctx, *, member:discord.Member):
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif punch", tenor_api_key, 50))
+    async def punchcommand(self, ctx, targets: Greedy[Member]):
+        gif_count = 50
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif punch", tenor_api_key, gif_count))
 
+        actees = []
+        for member in targets:
+            if member.id not in actees:
+                actees.append(member.id)
+        
+        title_string = f"{ctx.author.display_name} hit "
+        
+        if len(actees) == 1 and actees[0] == ctx.author.id:
+            title_string = f"{ctx.author.display_name} is punching, wait, why?"
+        
+        else:
+            for i in range(0, len(actees)):
+                if i >= len(actees) - 1 and i != 0:
+                    title_string += f"and "
+                person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
+                title_string += f"{person}, "
+
+            title_string = title_string[:-2]
+        
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
+            realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=f"{ctx.author.display_name} hit {member.display_name}",
+            embed = Embed(title=title_string ,
                               description="at least it\'s not murder",
-                              colour=member.colour)
+                              colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == member:
-                    lonely_embed = Embed(title=f"{ctx.author.display_name} is uhm, punching themselves?",
-                    colour = ctx.author.colour)
-                    if realoutput is not None:
-                        lonely_embed.set_image(url=realoutput)
-                    await ctx.send(embed=lonely_embed)
-            
-            else:
-                await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
+        
 
 
     @commands.command(name="steal", aliases=["joink"], brief="mine now")
     @cooldown(8, 25, BucketType.guild)
-    async def stealcommand(self, ctx, *, member:discord.Member):
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime steal", tenor_api_key, 50))
+    async def stealcommand(self, ctx, targets: Greedy[Member]):
+        gif_count = 50
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("anime gif steal", tenor_api_key, gif_count))
 
+        actees = []
+        for member in targets:
+            if member.id not in actees:
+                actees.append(member.id)
+        
+        title_string = f"{ctx.author.display_name} just stole something from "
+        
+        if len(actees) == 1 and actees[0] == ctx.author.id:
+            title_string = f"i think {ctx.author.display_name} is trying to cheat the system"
+        
+        else:
+            for i in range(0, len(actees)):
+                if i >= len(actees) - 1 and i != 0:
+                    title_string += f"and "
+                person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
+                title_string += f"{person}, "
+
+            title_string = title_string[:-2]
+        
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
+            realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=f"{ctx.author.display_name} just stole something from {member.display_name}",
-                            description="at least it\'s not murder Â¯\_(ã)_/Â¯",
-                            colour=member.colour)
+            embed = Embed(title=title_string ,
+                              description="don\'t steal my beavers >:(",
+                              colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == member:
-                    lonely_embed = Embed(title=f"i think {ctx.author.display_name} is trying to cheat the system",
-                    description="you can\'t just steal from yourself???",
-                    colour = ctx.author.colour)
-                    if realoutput is not None:
-                        lonely_embed.set_image(url=realoutput)
-                    await ctx.send(embed=lonely_embed)
-            
-            else:
-                await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
 
     
