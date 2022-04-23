@@ -26,8 +26,8 @@ class github(commands.Cog):
         if var.decode("utf-8") != "Already up to date.\n" and restart != False:
             await ctx.send("Restarting...")
             os.execv(sys.executable, ['python3'] + sys.argv)
-    
-    
+
+
     @commands.command(name = "push", brief = "Updates the bot by pushing to github")
     @commands.is_owner()
     async def update_push(self, ctx, restart = False):
@@ -40,8 +40,8 @@ class github(commands.Cog):
             await ctx.send("Pushed to github")
         except Exception as e:
             await ctx.send(e)
-    
-    
+
+
     @tasks.loop(hours=24)
     async def update_git_push(self):
         #check that N is more than 0 because this function will run on startup, and i only want it to push every 24 hours so that i don't completely clog up my github commit history
@@ -56,7 +56,7 @@ class github(commands.Cog):
                 print('Some error occured while pushing the code')
         else:
             self.n += 1
-        
+
 
 
 def setup(bot):
