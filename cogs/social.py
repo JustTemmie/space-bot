@@ -205,7 +205,7 @@ class social(commands.Cog):
                 person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
                 title_string += f"{person}, "
 
-            title_string = title_string a big ol' headpat"
+            title_string = title_string[:-2] + " a big ol' headpat"
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
