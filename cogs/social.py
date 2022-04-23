@@ -124,38 +124,35 @@ class social(commands.Cog):
 
         kissees = []
         for member in targets:
-            if member not in kissees:
-                kissees.append(member)
+            if member.id not in kissees:
+                kissees.append(member.id)
         
         kiss_string = f"{ctx.author.display_name} just kissed "
         
-        for i in range(0, len(kissees)):
-            if i >= len(kissees) - 1 and i != 0:
-                kiss_string += f"and "
-            person = ctx.guild.get_member(kissees[i].display_name)
-            print(person)
-            kiss_string += f"{person}, "
+        if len(kissees) == 1 and kissees[0] == ctx.author.id:
+            kiss_string = f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+"""
+        
+        else:
+            for i in range(0, len(kissees)):
+                if i >= len(kissees) - 1 and i != 0:
+                    kiss_string += f"and "
+                person = self.bot.get_guild(ctx.guild.id).get_member(kissees[i]).display_name
+                kiss_string += f"{person}, "
 
         
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs['results'][random.randrange(0, 50)]['media'][0]["gif"]["url"]
             print(realoutput)
-            embed = Embed(title=kiss_string,
+            embed = Embed(title=kiss_string[:-2],
                               description="i ship it",
                               colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
                 
-            if ctx.author == kissees:
-                lonely_embed = Embed(title=f"{ctx.author.display_name} is somehow cute enough to kiss themselves?????+",
-                    colour = ctx.author.colour)
-                if realoutput is not None:
-                    lonely_embed.set_image(url=realoutput)
-                await ctx.send(embed=lonely_embed)
             
-            else:
-                await ctx.send(embed=embed)
+
+            await ctx.send(embed=embed)
 
 
     @commands.command(name="pat", aliases=["headpat","pet"], brief="what if we pat eachother in public :fleeshed:")
