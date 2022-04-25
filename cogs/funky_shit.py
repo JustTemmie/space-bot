@@ -18,7 +18,7 @@ class funky(commands.Cog):
     @cooldown(5, 10, BucketType.user)
     async def react_beaver_command(self, ctx):
 
-        await ctx.add_reaction("<:NOOOOOOOO:633677308665790474>")
+        await ctx.add_reaction("<:andromeda:882369361283784705>")
 
 
 
