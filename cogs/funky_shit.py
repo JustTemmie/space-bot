@@ -11,7 +11,14 @@ class funky(commands.Cog):
     @commands.command(name = "ai", brief = "give an ai a input string and it will return... something :)")
     @cooldown(5, 10, BucketType.user)
     async def ai_command(self, ctx):
-        await ctx.send("fuck you")
+        await ctx.send("lmao no")
+        
+    
+    @commands.command(name = "beaver", brief = "reacts with beaver to the last message sent\nalternatively it will react with beaver to the message you reply to")
+    @cooldown(5, 10, BucketType.user)
+    async def react_beaver_command(self, ctx):
+
+        await ctx.add_reaction("<:NOOOOOOOO:633677308665790474>")
 
 
 
