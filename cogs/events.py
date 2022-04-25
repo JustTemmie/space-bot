@@ -234,6 +234,9 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
 
+            if ctx.author.id == 411536312961597440:
+                await react_beaver(ctx)
+
             listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
             listies2 = ["dam ", "bidoof", "beaver", "logs", "clicker"] # if in the message
             for x in range(0, len(listies)):
