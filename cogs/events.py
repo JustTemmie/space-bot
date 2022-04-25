@@ -193,6 +193,9 @@ class events(commands.Cog):
         print(
             f"{member} joined {member.guild} - ({member.id} joined {member.guild.id})"
         )
+        if member.bot:
+            return
+        
         if member.guild.id == 694107776015663146:  # space
             await self.bot.get_channel(694197942000680980).send(
                 f"Welcome, {member.mention}! Read through the <#694112817611276348>, assign yourself roles in <#925393973755908136>. And if you wish, introduce yourself in <#694192946387353680>"
