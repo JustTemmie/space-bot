@@ -225,6 +225,9 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
+        if random.randint(0,500) == 2:
+            await react_beaver(ctx)
+            
         try:
             hendex = random.randrange(0, len(henwees))
             if ctx.author.id == 192326730948542464:
