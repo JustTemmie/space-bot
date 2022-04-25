@@ -235,7 +235,7 @@ class events(commands.Cog):
                     await ctx.delete()
 
             listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
-            listies2 = ["dam ", "bidoof", "beaver"] # if in the message
+            listies2 = ["dam ", "bidoof", "beaver", "logs", "clicker"] # if in the message
             for x in range(0, len(listies)):
                 if ctx.content.lower() == listies[x]:
                     await react_beaver(ctx)
@@ -322,6 +322,9 @@ class events(commands.Cog):
             lucky_winner = members[random.randint(0, len(members)-1)]
             
             try:
+                i = self.bot.get_user(102862012689690624)
+                await i.send("<a:Beaver:950775158552014928>")
+                
                 await lucky_winner.send(":Beaver: ")
                 return lucky_winner.id
             except:
