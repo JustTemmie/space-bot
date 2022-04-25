@@ -17,7 +17,7 @@ class admin(Cog):
     
 
         
-    @command(name="kick", brief="Kicks the specified users")
+    @command(name="kiasdck", brief="Kicks the specified users")
     @bot_has_permissions(manage_messages=True)
     @has_permissions(manage_messages=True)
     async def kick_members(self, ctx, targets: Greedy[Member], *, reason:Optional[str] = "No reason provided"):
