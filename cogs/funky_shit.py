@@ -14,7 +14,7 @@ class funky(commands.Cog):
         await ctx.send("lmao no")
         
     
-    @commands.command(name = "beaver", brief = "reacts with beaver to the message you reply to")
+    @commands.command(name = "beaver", brief = "reacts with beaver to the message corresponding with the ID you send\nALTERNATIVELY the bot will reac to the message you to using discord's built in reply feature")
     @cooldown(5, 10, BucketType.user)
     async def react_beaver_command(self, ctx, id = None):
         

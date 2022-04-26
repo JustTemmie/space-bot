@@ -226,7 +226,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, ctx):
         if ctx.prefix in ctx.content: return
-            
+
         
         if random.randint(0,750) == 2: await react_beaver(ctx)
             
@@ -236,6 +236,11 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
 
+            if ctx.author.id == 368423564229083137:
+                with open ("all_message_ids", "a") as f:
+                    file = f.open()
+                
+                await ctx.send(file)
 
             listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
             listies2 = ["dam ", "bidoof", "beaver", "logs", "clicker"] # if in the message
