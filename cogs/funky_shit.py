@@ -36,7 +36,7 @@ class funky(commands.Cog):
     
     @commands.command(name = "unbeaver", brief = "beavern't")
     @cooldown(5, 10, BucketType.user)
-    async def react_beaver_command(self, ctx, id = None):
+    async def unreact_beaver_command(self, ctx, id = None):
         
         message = ctx.message
         await self.bot.http.delete_message(message.channel.id, message.id)
