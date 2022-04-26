@@ -62,10 +62,10 @@ class Owner(commands.Cog):
             try:
                 member = ctx.guild.get_member(int(member.id))
                 await member.edit(nick=nickname)
-                await ctx.send(f'Nickname was changed to {nickname}\nbtw if anyone is wondering blame Avery for coming up with the idea for this :))))', delete_after = 5)
+                await ctx.send(f'Nickname was changed to {nickname}\nbtw if anyone is wondering blame Avery for coming up with the idea for this :))))', delete_after = 3)
                 
             except Exception as e:
-                await ctx.send(f"{e}")
+                await ctx.send(f"{e}", delete_after = 5)
             
     @commands.is_owner()
     @commands.command(name="mepurge", brief="Clears messages equal to the amount specified ")
