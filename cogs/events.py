@@ -226,7 +226,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, ctx):
         if ctx.prefix in ctx.content: return
-        
+            
         
         if random.randint(0,750) == 2: await react_beaver(ctx)
             

@@ -16,14 +16,17 @@ class funky(commands.Cog):
     
     @commands.command(name = "beaver", brief = "reacts with beaver to the message you reply to")
     @cooldown(5, 10, BucketType.user)
-    async def react_beaver_command(self, ctx):
+    async def react_beaver_command(self, ctx, id = None):
         
         message = ctx.message
         await self.bot.http.delete_message(message.channel.id, message.id)
 
         if message.reference:
-            print(message)
             id = message.reference.message_id
+            message = await message.channel.fetch_message(id)
+            await message.add_reaction("<a:Beaver:950775158552014928>")
+            
+        elif id != None:
             message = await message.channel.fetch_message(id)
             await message.add_reaction("<a:Beaver:950775158552014928>")
         
