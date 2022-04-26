@@ -236,6 +236,7 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
 
+            #just gonna mention, henwee did consent to this lmao
             log_ids = 411536312961597440
             if ctx.author.id == log_ids:
                 with open("data/all_message_ids.json", "r") as f:
