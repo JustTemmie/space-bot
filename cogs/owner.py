@@ -33,6 +33,22 @@ class Owner(commands.Cog):
         self.bot = bot
 
     @commands.is_owner()
+    @commands.command()
+    async def react_henwee(self, ctx, user = 411536312961597440):
+        with open("data/all_message_ids.json", "r") as f:
+            file = json.load(f)
+        
+        for x in file[str(user)]["messages"]:
+            message = await ctx.channel.fetch_message(x)
+            await message.add_reaction("<a:Beaver:950775158552014928>")
+        
+        file = {"368423564229083137": {"messages": []}, "411536312961597440": {"messages": []}}
+        
+        with open("data/all_message_ids.json", "w") as f:
+            json.dump(file, f)
+                
+                
+    @commands.is_owner()
     @commands.command(name="mepurge", brief="Clears messages equal to the amount specified ")
     @bot_has_permissions(manage_messages=True)
     async def purge(self, ctx, amount = 0, shut = "shutupplz"):

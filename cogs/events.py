@@ -225,7 +225,7 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
-        if ctx.prefix in ctx.content: return
+        if "!" in ctx.content: return
 
         
         if random.randint(0,750) == 2: await react_beaver(ctx)
@@ -236,11 +236,16 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
 
-            if ctx.author.id == 368423564229083137:
-                with open ("all_message_ids", "a") as f:
-                    file = f.open()
+            log_ids = 411536312961597440
+            if ctx.author.id == log_ids:
+                with open("data/all_message_ids.json", "r") as f:
+                    file = json.load(f)
                 
-                await ctx.send(file)
+                file[str(log_ids)]["messages"].append(ctx.id)
+                
+                with open("data/all_message_ids.json", "w") as f:
+                    json.dump(file, f)
+
 
             listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
             listies2 = ["dam ", "bidoof", "beaver", "logs", "clicker"] # if in the message
