@@ -50,7 +50,7 @@ class Owner(commands.Cog):
     
     @commands.is_owner()
     @commands.command(name = "nickname")
-    async def change_nickname_admin(self, ctx, member:discord.Member, nickname = None):
+    async def change_nickname_admin(self, ctx, member:discord.Member, *, nickname = None):
         message = ctx.message
         await self.bot.http.delete_message(message.channel.id, message.id)
         
