@@ -19,19 +19,17 @@ class funky(commands.Cog):
     async def react_beaver_command(self, ctx):
         
         message = ctx.message
-        
-        
+        await self.bot.http.delete_message(message.channel.id, message.id)
 
-        
         if message.reference:
             print(message)
             id = message.reference.message_id
-            await ctx.send(id)
-            message = await fetch_message(id)
-            await message.add_reaction("🐻")
-            
-            
-        await self.bot.http.delete_message(message.channel.id, message.id)
+            message = await message.channel.fetch_message(id)
+            await message.add_reaction("🦫")
+        
+        else:
+            await ctx.send(f"to use this command, reply to a message with {ctx.prefix}beaver", delete_after = 7)
+        
         
 
 
