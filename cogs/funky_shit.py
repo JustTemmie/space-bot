@@ -14,7 +14,7 @@ class funky(commands.Cog):
         await ctx.send("lmao no")
         
     
-    @commands.command(name = "beaver", brief = "reacts with beaver to the last message sent\nalternatively it will react with beaver to the message you reply to")
+    @commands.command(name = "beaver", brief = "reacts with beaver to the message you reply to")
     @cooldown(5, 10, BucketType.user)
     async def react_beaver_command(self, ctx):
         
