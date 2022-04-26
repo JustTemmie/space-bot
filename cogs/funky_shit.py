@@ -25,7 +25,7 @@ class funky(commands.Cog):
             print(message)
             id = message.reference.message_id
             message = await message.channel.fetch_message(id)
-            await message.add_reaction("🦫")
+            await message.add_reaction("<a:Beaver:950775158552014928>")
         
         else:
             await ctx.send(f"to use this command, reply to a message with {ctx.prefix}beaver", delete_after = 7)
