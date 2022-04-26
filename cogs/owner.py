@@ -1,3 +1,4 @@
+from tkinter import E
 import discord
 from discord.ext import commands
 from discord.ext.commands import bot_has_permissions
@@ -46,8 +47,26 @@ class Owner(commands.Cog):
         
         with open("data/all_message_ids.json", "w") as f:
             json.dump(file, f)
+    
+    @commands.is_owner()
+    @commands.command(name = "nickname")
+    async def change_nickname_admin(self, ctx, member:discord.Member, nickname = None):
+        message = ctx.message
+        await self.bot.http.delete_message(message.channel.id, message.id)
+        
+        if nickname == None:
+            await ctx.send("please give me a nickname to change it to")
+            return
+
+        else:
+            try:
+                member = ctx.guild.get_member(int(member.id))
+                await member.edit(nick=nickname)
+                await ctx.send(f'Nickname was changed to {nickname}\nbtw if anyone is wondering blame Avery for coming up with the idea for this :))))', delete_after = 5)
                 
-                
+            except Exception as e:
+                await ctx.send(f"{e}")
+            
     @commands.is_owner()
     @commands.command(name="mepurge", brief="Clears messages equal to the amount specified ")
     @bot_has_permissions(manage_messages=True)
