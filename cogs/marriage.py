@@ -17,10 +17,10 @@ class marry(Cog):
     
     @commands.command(name = "marry")
     async def react_henwee(self, ctx, member:discord.Member):
-        await ctx.send("{} is now married to {}".format(ctx.author.mention, member.mention))
+        await ctx.send("{} is now married to {}".format(ctx.author.mention, member.mention), delete_after = 15)
         time.sleep(5)
 
-        await ctx.send("lmao yea as if i'm not storing that too much effort")
+        await ctx.send("lmao yea as if i'm not storing that too much effort", delete_after = 10)
 
 def setup(bot):
     bot.add_cog(marry(bot))
