@@ -44,11 +44,11 @@ class funky(commands.Cog):
         if message.reference:
             id = message.reference.message_id
             message = await message.channel.fetch_message(id)
-            await message.remove_reaction("<a:Beaver:950775158552014928>")
+            await message.remove_reaction("<a:Beaver:950775158552014928>", self.bot.user)
             
         elif id != None:
             message = await message.channel.fetch_message(id)
-            await message.remove_reaction("<a:Beaver:950775158552014928>")
+            await message.remove_reaction("<a:Beaver:950775158552014928>", self.bot.user)
         
         else:
             await ctx.send(f"to use this command, reply to a message with {ctx.prefix}beaver", delete_after = 7)
