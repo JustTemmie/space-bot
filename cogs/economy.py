@@ -294,7 +294,7 @@ class economy(commands.Cog):
         await self.update_bank_data(ctx.author, -1*amount)
         await self.update_bank_data(member, amount)
 
-        await ctx.send(f"{ctx.author.display_name} gave {amount} <:beaverCoin:968588341291397151> to {member.display_name}")
+        await ctx.send(f"{ctx.author.display_name} gave {amount} <:beaverCoin:968588341291397151> to s{member.display_name}")
 
 
     
