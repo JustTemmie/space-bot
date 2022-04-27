@@ -249,7 +249,7 @@ class events(commands.Cog):
 
 
             listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
-            listies2 = ["dam ", "bidoof", "beaver", "logs", "clicker"] # if in the message
+            listies2 = ["dam ", "bidoof", "beaver", "logs", "clicker", "bæver"] # if in the message
             for x in range(0, len(listies)):
                 if ctx.content.lower() == listies[x]:
                     await react_beaver(ctx)
