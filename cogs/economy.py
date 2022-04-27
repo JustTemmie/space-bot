@@ -268,7 +268,7 @@ class economy(commands.Cog):
         await ctx.send(embed = em)
 
 
-    @commands.command(name="send", aliases=["give", "simp", "transfer", "gift"], brief="puts money from your wallet into your bank")
+    @commands.command(name="send", aliases=["give", "simp", "transfer", "gift"], brief="give someone money, you simp :)")
     @cooldown(2, 10, BucketType.user)
     async def send_command(self, ctx, member:discord.Member, amount = None):
         await self.open_account(ctx.author)
