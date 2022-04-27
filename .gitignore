@@ -2,7 +2,7 @@
 # custom
 images/processed/*.png
 *.yaml
-data/bank.json
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
