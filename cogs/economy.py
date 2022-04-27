@@ -204,8 +204,10 @@ class economy(commands.Cog):
         loaded_time = data[str(ctx.author.id)]["speak_cooldown"]
         
         if loaded_time < time.time() - 300:
-            await self.update_bank_data(ctx.author, 1)
             await self.update_bank_data(ctx.author, time.time() - loaded_time + random.randint(0,300), "speak_cooldown")
+            await self.update_bank_data(ctx.author, 1)
+            await self.update_bank_data(ctx.author, 1, "xp")
+            
         
         
         
@@ -235,6 +237,7 @@ class economy(commands.Cog):
         else:
             users[str(user.id)] = {}
             users[str(user.id)]["wallet"] = 10.0
+            users[str(user.id)]["xp"] = 0
             users[str(user.id)]["speak_cooldown"] = time.time() + 300
             users[str(user.id)]["marriage"] = []
 
