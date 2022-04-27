@@ -228,8 +228,13 @@ class events(commands.Cog):
         if "!" in ctx.content: return
 
         
-        if random.randint(0,750) == 2: await react_beaver(ctx)
-            
+        if random.randint(0,7500) == 2: await react_beaver(ctx)
+        
+        listies = ["revaeb", "beavy", "dam", "beav", "bippa", "biba", "bev"] # if message ==
+        listies2 = ["dam ", "bidoof", "beaver", "bæver"] # if in the message
+        if ctx.guild.id != 918787074801401868:
+            listies.append("damn")
+        
         try:
             hendex = random.randrange(0, len(henwees))
             if ctx.author.id == 192326730948542464:
@@ -247,9 +252,7 @@ class events(commands.Cog):
                 with open("data/all_message_ids.json", "w") as f:
                     json.dump(file, f)
 
-
-            listies = ["revaeb", "beavy", "dam", "damn", "beav", "bippa", "biba", "bev"] # if message ==
-            listies2 = ["dam ", "bidoof", "beaver", "logs", "clicker", "bæver"] # if in the message
+            
             for x in range(0, len(listies)):
                 if ctx.content.lower() == listies[x]:
                     await react_beaver(ctx)
@@ -263,15 +266,14 @@ class events(commands.Cog):
                     await ctx.add_reaction("<a:Beaver:950775158552014928>")
 
             if ("henwee" in ctx.content.lower() or "henw " in ctx.content.lower() or "411536312961597440" in ctx.content):# and ctx.author.id != self.bot.user.id:
-                await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
-                await ctx.add_reaction(
-                    "<a:henwee_fall_short:955878859197280306>")
-                if random.randint(0, 5) == 2:
-                    await ctx.add_reaction("<a:Beaver:950775158552014928>")
-                if random.randrange(1, 9) == 2:  #1/8 chance
-                    await ctx.channel.send(
-                        henwees[hendex],
-                        file=discord.File("images/processed/henwee_fall.gif"))
+                if random.randint(0, 30) == 2:
+                    await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
+                    await ctx.add_reaction(
+                        "<a:henwee_fall_short:955878859197280306>")
+                    if random.randrange(1, 4) == 2:  #1/3 chance
+                        await ctx.channel.send(
+                            henwees[hendex],
+                            file=discord.File("images/processed/henwee_fall.gif"))
 
             elif "wee" in ctx.content and ctx.author != self.bot.user and (
                     ctx.guild.id == 926467601540993064

@@ -17,6 +17,10 @@ class marry(Cog):
     
     @commands.command(name = "marry")
     async def react_henwee(self, ctx, member:discord.Member):
+        if member == None:
+            await ctx.send("please give me a member to marry")
+            return
+            
         await ctx.send("{} is now married to {}".format(ctx.author.mention, member.mention), delete_after = 15)
         time.sleep(5)
 
