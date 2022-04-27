@@ -307,6 +307,8 @@ class economy(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, ctx):
+        if ctx.author.bot:
+            return
         
         await self.open_account(ctx.author)
         
