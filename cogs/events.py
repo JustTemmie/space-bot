@@ -226,7 +226,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, ctx):
         if "!" in ctx.content: return
-
+        if ctx.author.bot: return
         
         if random.randint(0,75000) == 2: await react_beaver(ctx)
         
