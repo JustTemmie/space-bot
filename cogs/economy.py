@@ -3,10 +3,8 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 import json
-import math
-import os
+import time
 import random
-import asyncio
 from datetime import datetime
 
 
@@ -100,7 +98,9 @@ class economy(commands.Cog):
 
         embed = discord.Embed(title = f"", colour = ctx.author.colour, timestamp=datetime.utcnow())
         embed.add_field(name = f"{user.display_name}", value = f"placeholder", inline=False)
-        embed.add_field(name = "balance", value = f"<:beaverCoin:968588341291397151> {int(wallet_amount)}", inline=False)
+        embed.add_field(name = "Balance:", value = f"<:beaverCoin:968588341291397151> {int(wallet_amount)}", inline=False)
+        
+        embed.add_field(name = "Married to:", value = f"no one", inline=False)
 
         embed.set_footer(text="Sent from my iPhone"),
         embed.set_thumbnail(url=f"{user.avatar_url}")
@@ -185,6 +185,30 @@ class economy(commands.Cog):
 
 
     
+    #########################################
+    #########################################
+    #### E V E N T     F U N C T I O N S ####
+    #########################################
+    #########################################
+    
+    
+    
+    
+    @commands.Cog.listener()
+    async def on_message(self, ctx):
+        if "a!" in ctx.content or ctx.author.bot: return
+        await self.open_account(ctx.author)
+        
+        data = await self.get_bank_data()
+        
+        if data[str(ctx.author.id)]["speak_cooldown"] < time.time() - 300:
+            await self.update_bank_data(ctx.author, 1)
+            await self.update_bank_data(ctx.author, time.time() + random.randint(0,300), "speak_cooldown")
+        
+        
+        
+        
+        
     ###########################################
     ###########################################
     #### H E L P E R     F U N C T I O N S ####
@@ -209,6 +233,8 @@ class economy(commands.Cog):
         else:
             users[str(user.id)] = {}
             users[str(user.id)]["wallet"] = 10.0
+            users[str(user.id)]["speak_cooldown"] = time.time() + 300
+            users[str(user.id)]["marriage"] = []
 
         with open("data/bank.json", "w") as f:
             json.dump(users, f)
@@ -224,15 +250,15 @@ class economy(commands.Cog):
         return users
 
     @commands.Cog.listener()
-    async def update_bank_data(self, user, change = 0):
+    async def update_bank_data(self, user, change = 0, mode = "wallet"):
         users = await self.get_bank_data()
 
-        users[str(user.id)]["wallet"] += change
+        users[str(user.id)][mode] += change
 
         with open("data/bank.json", "w") as f:
             json.dump(users, f)
 
-        bal = [users[str(user.id)]["wallet"]]
+        bal = [users[str(user.id)][mode]]
         return bal
 
     @commands.Cog.listener()

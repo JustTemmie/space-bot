@@ -228,7 +228,7 @@ class events(commands.Cog):
         if "!" in ctx.content: return
 
         
-        if random.randint(0,7500) == 2: await react_beaver(ctx)
+        if random.randint(0,75000) == 2: await react_beaver(ctx)
         
         listies = ["revaeb", "beavy", "dam", "beav", "bippa", "biba", "bev"] # if message ==
         listies2 = ["dam ", "bidoof", "beaver", "bæver"] # if in the message
@@ -261,9 +261,10 @@ class events(commands.Cog):
                 if listies2[x] in ctx.content.lower():
                     await react_beaver(ctx)
 
-            if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
-                if random.randint(0, 50) == 2:
-                    await ctx.add_reaction("<a:Beaver:950775158552014928>")
+            #if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
+            #    await ctx.add_reaction("<a:Beaver:950775158552014928>")
+
+
 
             if ("henwee" in ctx.content.lower() or "henw " in ctx.content.lower() or "411536312961597440" in ctx.content):# and ctx.author.id != self.bot.user.id:
                 if random.randint(0, 30) == 2:
@@ -275,24 +276,24 @@ class events(commands.Cog):
                             henwees[hendex],
                             file=discord.File("images/processed/henwee_fall.gif"))
 
-            elif "wee" in ctx.content and ctx.author != self.bot.user and (
-                    ctx.guild.id == 926467601540993064
-                    or ctx.guild.id == 918787074801401868
-                    or ctx.guild.id == 694107776015663146):
-                if random.randrange(1, 30) == 2:  #1/30
-                    await ctx.channel.send(
-                        henwees[hendex],
-                        file=discord.File("images/processed/henwee_fall.gif"))
+            #elif "wee" in ctx.content and ctx.author != self.bot.user and (
+            #        ctx.guild.id == 926467601540993064
+            #        or ctx.guild.id == 918787074801401868
+            #        or ctx.guild.id == 694107776015663146):
+            #    if random.randrange(1, 30) == 2:  #1/30
+            #        await ctx.channel.send(
+            #            henwees[hendex],
+            #            file=discord.File("images/processed/henwee_fall.gif"))
 
-            elif "we" in ctx.content and ctx.author != self.bot.user and (
-                    ctx.guild.id == 926467601540993064
-                    or ctx.guild.id == 918787074801401868
-                    or ctx.guild.id == 694107776015663146):
-                if random.randrange(1, 150) == 2:  #1/150
-                    await ctx.channel.send(
-                        "you forgot an \"e\" at the end of you we there, it's fine though don't worry\n"
-                        + henwees[hendex],
-                        file=discord.File("images/processed/henwee_fall.gif"))
+            #elif "we" in ctx.content and ctx.author != self.bot.user and (
+            #        ctx.guild.id == 926467601540993064
+            #        or ctx.guild.id == 918787074801401868
+            #        or ctx.guild.id == 694107776015663146):
+            #    if random.randrange(1, 150) == 2:  #1/150
+            #        await ctx.channel.send(
+            #            "you forgot an \"e\" at the end of you we there, it's fine though don't worry\n"
+            #            + henwees[hendex],
+            #            file=discord.File("images/processed/henwee_fall.gif"))
             
             if "sus" in ctx.content:
                     await ctx.reply("amogus")

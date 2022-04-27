@@ -11,7 +11,7 @@ import time
 
        
         
-class marry(Cog):
+class marriage(Cog):
     def __init__(self, bot):
         self.bot = bot
     
@@ -24,7 +24,7 @@ class marry(Cog):
         await ctx.send("{} is now married to {}".format(ctx.author.mention, member.mention), delete_after = 15)
         time.sleep(5)
 
-        await ctx.send("lmao yea as if i'm not storing that too much effort", delete_after = 10)
+        await ctx.send("lmao yea as if i'm not storing that too much effort", delete_after = 15)
 
 def setup(bot):
-    bot.add_cog(marry(bot))
+    bot.add_cog(marriage(bot))
