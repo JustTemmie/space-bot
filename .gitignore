@@ -1,7 +1,12 @@
 
+
+add data.json to .git/info/exclude
+
+
 # custom
 images/processed/*.png
 *.yaml
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
