@@ -4,13 +4,13 @@ from discord.ext.commands import bot_has_permissions
 import ast
 import sys
 import os
-import subprocess
 
 # These imports are just for the run command, for convenience
-import datetime as dt
+import subprocess
+import datetime
 import re
 import json
-
+import time
 
 def insert_returns(body):
     # insert return stmt if the last expression is a expression statement
