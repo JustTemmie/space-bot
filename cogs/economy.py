@@ -196,7 +196,7 @@ class economy(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, ctx):
-        if "a!" in ctx.content or ctx.author.bot: return
+        
         await self.open_account(ctx.author)
         
         data = await self.get_bank_data()
@@ -206,7 +206,8 @@ class economy(commands.Cog):
         if loaded_time < time.time() - 300:
             data[str(ctx.author.id)]["speak_cooldown"] = time.time() + 240 + random.randint(0,240)
             with open("data/bank.json", "w") as f:
-                json.dump(data, f)    
+                json.dump(data, f)
+             
             
             await self.update_bank_data(ctx.author, 1)
             await self.update_bank_data(ctx.author, 1, "xp")

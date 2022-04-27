@@ -1,7 +1,5 @@
 
 
-add data.json to .git/info/exclude
-
 
 # custom
 images/processed/*.png
