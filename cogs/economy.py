@@ -174,6 +174,8 @@ class economy(commands.Cog):
         if user is None:
             user = ctx.author
 
+        n = 0
+        
         await self.open_account(ctx.author)
         users = await self.get_bank_data()
         items = await self.get_items_data()
@@ -190,8 +192,9 @@ class economy(commands.Cog):
             for i in items:
                 if item == i:
                     embed.add_field(name=f"{items[i][0]} {items[i][1]}" , value=f"{inv[item]}", inline=False)
+                    n += 1
         
-        if embed.fields == 1:
+        if n == 0:
             embed.add_field(name="Empty", value=f"{user.display_name} does not have any items in their inventory", inline=False)
         
 
