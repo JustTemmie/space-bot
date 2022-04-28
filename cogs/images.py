@@ -69,7 +69,7 @@ class images(commands.Cog):
 
     
     #ascii commands are based of the code found here https://github.com/LyricLy/ASCIIpy/blob/master/bot.py
-    @commands.command(name="ascii", invoke_without_command=True, brief=f"convert image to ascii art\n\nNote how True, False, and None are all case sensitive\nusage: a!ascii (output to text file True or False) (swap black and white True of False) (url for the image, None if you're uploading directly) (what font you want, default is Inconsolata) (a list of all the allowed characters)")
+    @commands.command(name="ascii", invoke_without_command=True, brief=f"convert image to ascii art\n\nNote how True, False, and None are all case sensitive\nusage: a!ascii (how many characters wide it is) (output to text file True or False) (swap black and white True of False) (url for the image, None if you're uploading directly) (what font you want, default is Inconsolata) (a list of all the allowed characters)")
     async def _ascii(self, ctx, resolution = 128, out_text: Optional[bool] = False, invert: Optional[bool] = False, url=None, font="Inconsolata", *, charset=string.ascii_letters + string.punctuation + string.digits + " "):
         font = ascii.get_font(font)
         if resolution > 1024:

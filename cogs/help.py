@@ -93,8 +93,6 @@ class help(commands.Cog, name="Help command"):
     @commands.command(name="help", aliases=["commands"], description="The help command, woah")
     @cooldown(5, 35, BucketType.user)
     async def help_command(self, ctx, *, entity=None):
-        if entity == "render":
-            return
         if not entity:
             cog_embed = Embed(
             title="Cogs to call upon", description="these are the categories you can use with the help command, for example \"!help economy\" would bring back all commands related to money", colour=0xaf62eb)
