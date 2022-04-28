@@ -20,6 +20,9 @@ class marriage(Cog):
         if member == None:
             await ctx.send("please give me a member to marry")
             return
+        
+        await ctx.send(f"you do not have any rings to give {member.mention}", delete_after = 20)
+        return
             
         await ctx.send("{} is now married to {}".format(ctx.author.mention, member.mention), delete_after = 15)
         time.sleep(5)

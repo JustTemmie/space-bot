@@ -176,22 +176,23 @@ class economy(commands.Cog):
 
         await self.open_account(ctx.author)
         users = await self.get_bank_data()
+        items = await self.get_items_data()
 
         try:
-            inv = users[str(user.id)]["inv"]
+            inv = users[str(user.id)]["inventory"]
         except:
             inv = []
 
 
-        em = discord.Embed(title = "Inventory")
+        embed = discord.Embed(title=f"{user.display_name}'s Inventory", color=ctx.author.color)
+
         for item in inv:
-            icon = item["icon"]
-            name = item["item"]
-            amount = item["amount"]
+            for i in items:
+                if item == i:
+                    embed.add_field(name=f"{items[i][0]} {items[i][1]}" , value=f"{inv[item]}", inline=False)
 
-            em.add_field(name = icon + name, value = amount)    
 
-        await ctx.send(embed = em)
+        await ctx.send(embed = embed)
     
     
     @commands.command(name="profile", brief="tells you some basic info about the person specified")
@@ -264,7 +265,7 @@ class economy(commands.Cog):
                 await ctx.send(f"error: {e}")
                 break
         
-        await ctx.send(embed = embed)
+        await ctx.reply(embed = embed, mention_author = False)
 
     @commands.command(name="send", aliases=["give", "simp", "transfer", "gift"], brief="give someone money, you simp :)")
     @cooldown(2, 10, BucketType.user)
@@ -290,9 +291,57 @@ class economy(commands.Cog):
         await self.update_bank_data(ctx.author, -1*amount)
         await self.update_bank_data(member, amount)
 
-        await ctx.send(f"{ctx.author.display_name} gave {amount} <:beaverCoin:968588341291397151> to s{member.display_name}")
+        await ctx.send(f"{ctx.author.display_name} gave {amount} <:beaverCoin:968588341291397151> to {member.display_name}")
 
+    
+    
+    @commands.command(name = "shop", brief = "buy something, wouldya?")
+    @cooldown(3, 15, BucketType.user)
+    async def shop_command(self, ctx):
+        await self.open_account(ctx.author)
+        
+        shop = await self.get_shop_data()
+        
+        embed = discord.Embed(title = "Shop", description = "buy something, wouldya?", colour = ctx.author.colour)
+        
+        for i in shop:
+            embed.add_field(name = f"{i} {shop[i][1]}", value = f"{shop[i][0]} <:beaverCoin:968588341291397151>", inline=False)
 
+        await ctx.send(embed = embed)
+    
+    @commands.command(name = "buy", brief = "pay for something, wouldya?")
+    @cooldown(3, 15, BucketType.user)
+    async def buy_command(self, ctx, *, item):
+        await self.open_account(ctx.author)
+        
+        shop = await self.get_shop_data()
+        bank = await self.get_bank_data()
+        wallet = bank[str(ctx.author.id)]["wallet"]
+        
+        for i in shop:
+            if item.lower() == i.lower():
+                if wallet < shop[i][0]:
+                    await ctx.send("you don't have enough money to buy that")
+                    return
+
+                try:
+                    bank[str(ctx.author.id)]["inventory"][item.lower()] += 1
+                except:
+                    bank[str(ctx.author.id)]["inventory"][item.lower()] = 1
+                
+                bank[str(ctx.author.id)]["wallet"] -= shop[i][0]
+                    
+                with open("data/bank.json", "w") as f:
+                    json.dump(bank, f)
+
+                await ctx.send(f"You just bought {shop[i][1]} for {shop[i][0]} <:beaverCoin:968588341291397151>")
+                return
+        
+        await ctx.send("i could not find that item, sorry")
+        
+        
+
+    
     
     #########################################
     #########################################
@@ -308,7 +357,8 @@ class economy(commands.Cog):
         if ctx.author.bot:
             return
         
-        await self.open_account(ctx.author)
+        if random.randint(0,100) == 1:
+            await self.open_account(ctx.author)
         
         data = await self.get_bank_data()
         
@@ -334,20 +384,40 @@ class economy(commands.Cog):
     ###########################################
     ###########################################
 
-
+    
     @commands.Cog.listener()
-    async def open_shop(self):
+    async def get_items_data(self):
+        with open("data/items.json", "r") as f:
+            items = json.load(f)
+        
+        return items
+    
+    @commands.Cog.listener()
+    async def get_shop_data(self):
 
         with open("data/shop.json", "r") as f:
-            json.load(f)
+            shop = json.load(f)
+        
+        return shop
         
     @commands.Cog.listener()
     async def open_account(self, user):
 
         users = await self.get_bank_data()
 
+        try:
+            (users[str(user.id)]["inventory"])
+            
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["inventory"] = {}
+                with open("data/bank.json", "w") as f:
+                    json.dump(users, f)
+                
+                return
+                
         if str(user.id) in users:
-            return False
+            return
 
         else:
             users[str(user.id)] = {}
@@ -355,6 +425,7 @@ class economy(commands.Cog):
             users[str(user.id)]["xp"] = 0
             users[str(user.id)]["speak_cooldown"] = time.time() + 300
             users[str(user.id)]["marriage"] = []
+            users[str(user.id)]["inventory"] = {}
 
         with open("data/bank.json", "w") as f:
             json.dump(users, f)
@@ -380,56 +451,6 @@ class economy(commands.Cog):
 
         bal = [users[str(user.id)][mode]]
         return bal
-
-    @commands.Cog.listener()
-    async def buy_this(self, user,item_name,amount,shop):
-        item_name = item_name.lower()
-        name_ = None
-        for item in shop:
-            name = item["name"].lower()
-            if name == item_name:
-                icon = item["icon"]
-                name_ = name
-                price = item["price"]
-                break
-
-        if name_ == None:
-            return [False,1]
-
-        cost = price*amount
-
-        users = await self.get_bank_data()
-
-        bal = await self.update_bank_data(user)
-
-        if bal[0]<cost:
-            return [False,2]
-
-        try:
-            index = 0
-            t = None
-            for thing in users[str(user.id)]["inv"]:
-                n = thing["item"]
-                if n == item_name:
-                    old_amt = thing["amount"]
-                    new_amt = old_amt + amount
-                    users[str(user.id)]["inv"][index]["amount"] = new_amt
-                    t = 1
-                    break
-                index+=1 
-            if t == None:
-                obj = {"icon":icon , "item":item_name , "amount" : amount}
-                users[str(user.id)]["inv"].append(obj)
-        except:
-            obj = {"icon":icon , "item":item_name , "amount" : amount}
-            users[str(user.id)]["inv"] = [obj]        
-
-        with open("data/bank.json","w") as f:
-            json.dump(users,f)
-
-        await self.update_bank_data(user,cost*-1,)
-
-        return [True,"Worked"]
 
 
 def setup(bot):
