@@ -249,8 +249,7 @@ class economy(commands.Cog):
         leaderboard = []
         
         for user in users:
-            user_object = await self.bot.fetch_user(int(user))
-            leaderboard.append([user_object.display_name, users[user]["wallet"]])
+            leaderboard.append([user, users[user]["wallet"]])
         
         leaderboard.sort(key=lambda x: x[1], reverse=True)
         
@@ -258,9 +257,9 @@ class economy(commands.Cog):
         
         for i in range(0, x):
             try:
-                user = leaderboard[i][0]
+                user = await self.bot.fetch_user(int(leaderboard[i][0]))
                 balance = leaderboard[i][1]
-                embed.add_field(name = f"{i+1}. {user}", value = f"{balance} <:beaverCoin:968588341291397151>", inline=False)
+                embed.add_field(name = f"{i+1}. {user.display_name}", value = f"{balance} <:beaverCoin:968588341291397151>", inline=False)
             except Exception as e:
                 await ctx.send(f"error: {e}")
                 break
