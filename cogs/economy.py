@@ -315,13 +315,13 @@ class economy(commands.Cog):
         
         loaded_time = data[str(ctx.author.id)]["speak_cooldown"]
         
-        if loaded_time < time.time() - 300:
-            data[str(ctx.author.id)]["speak_cooldown"] = time.time() + 240 + random.randint(0,240)
+        if loaded_time < time.time():
+            data[str(ctx.author.id)]["speak_cooldown"] = time.time() + 450 + random.randint(0,150)
             with open("data/bank.json", "w") as f:
                 json.dump(data, f)
              
             
-            await self.update_bank_data(ctx.author, random.randint(1,5))
+            await self.update_bank_data(ctx.author, random.randint(2,5))
             await self.update_bank_data(ctx.author, 1, "xp")
             
         
