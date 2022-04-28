@@ -191,7 +191,7 @@ class economy(commands.Cog):
                 if item == i:
                     embed.add_field(name=f"{items[i][0]} {items[i][1]}" , value=f"{inv[item]}", inline=False)
         
-        if embed.fields == 0:
+        if embed.fields == 1:
             embed.add_field(name="Empty", value=f"{user.display_name} does not have any items in their inventory", inline=False)
         
 
