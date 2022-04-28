@@ -364,8 +364,7 @@ class economy(commands.Cog):
         if ctx.author.bot:
             return
         
-        if random.randint(0,100) == 1:
-            await self.open_account(ctx.author)
+        await self.open_account(ctx.author)
         
         data = await self.get_bank_data()
         
@@ -381,8 +380,28 @@ class economy(commands.Cog):
             await self.update_bank_data(ctx.author, 1, "xp")
             
         
+    
+    @commands.Cog.listener()
+    async def on_reaction_add(self, reaction, user):
+        if user.bot:
+            return
+
+        print(user)
         
+        await self.open_account(user)
         
+        data = await self.get_bank_data()
+        
+        loaded_time = data[str(user.id)]["speak_cooldown"]
+        
+        if loaded_time < time.time():
+            data[str(user.id)]["speak_cooldown"] = time.time() + 450 + random.randint(0,150)
+            with open("data/bank.json", "w") as f:
+                json.dump(data, f)
+             
+            
+            await self.update_bank_data(user, random.randint(2,5))
+            await self.update_bank_data(user, 1, "xp")
         
         
     ###########################################
