@@ -243,30 +243,29 @@ class economy(commands.Cog):
     @cooldown(2, 10, BucketType.user)
     async def leaderboard_command(self, ctx, x = 5):
         users = await self.get_bank_data()
-        leader_board = {}
-        total = []
+        if x > 10:
+            x = 10
+        
+        leaderboard = []
+        
         for user in users:
-            name = int(user)
-            total_amount = users[user]["wallet"]
-            leader_board[total_amount] = name
-            total.append(total_amount)
-
-        total = sorted(total,reverse=True)    
-
-        em = discord.Embed(title = f"Top {x} Richest People" , description = "this is decided based on the amount of money in the person\'s bank and wallet combined",color = discord.Color(0xfa43ee))
-        index = 1
-        for amt in total:
-            id_ = leader_board[amt]
-            member = self.bot.get_user(id_)
-            name = member.name
-            em.add_field(name = f"{index}. {name}" , value = f"{amt}",  inline = False)
-            if index == x:
+            user_object = await self.bot.fetch_user(int(user))
+            leaderboard.append([user_object.display_name, users[user]["wallet"]])
+        
+        leaderboard.sort(key=lambda x: x[1], reverse=True)
+        
+        embed = discord.Embed(title = f"Top {x} richest people", colour = ctx.author.colour)
+        
+        for i in range(0, x):
+            try:
+                user = leaderboard[i][0]
+                balance = leaderboard[i][1]
+                embed.add_field(name = f"{i+1}. {user}", value = f"{balance} <:beaverCoin:968588341291397151>", inline=False)
+            except Exception as e:
+                await ctx.send(f"error: {e}")
                 break
-            else:
-                index += 1
-
-        await ctx.send(embed = em)
-
+        
+        await ctx.send(embed = embed)
 
     @commands.command(name="send", aliases=["give", "simp", "transfer", "gift"], brief="give someone money, you simp :)")
     @cooldown(2, 10, BucketType.user)
