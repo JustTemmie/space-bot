@@ -389,6 +389,7 @@ class economy(commands.Cog):
                 await ctx.send(f"you do not have any rings to give {member.mention}")
                 return
         except:
+            await ctx.send(f"you do not have any rings to give {member.mention}")
             return
         
         await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring will disentegrate if you do")
