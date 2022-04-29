@@ -386,13 +386,13 @@ class economy(commands.Cog):
 
         try:
             if data[str(ctx.author.id)]["inventory"]["ring"] <= 0:
-                await ctx.send(f"you do not have any rings to give {member.mention}")
+                await ctx.send(f"you do not have any rings 💍 to give {member.mention}")
                 return
         except:
-            await ctx.send(f"you do not have any rings to give {member.mention}")
+            await ctx.send(f"you do not have any rings 💍 to give {member.mention}")
             return
         
-        await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring will disentegrate if you do")
+        await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring 💍 will disentegrate if you do")
         response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye"]
         if response.content.lower() not in confirmations:
