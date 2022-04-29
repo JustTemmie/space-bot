@@ -384,9 +384,11 @@ class economy(commands.Cog):
         
         await self.open_account(member)
 
-
-        if data[str(ctx.author.id)]["inventory"]["ring"] <= 0:
-            await ctx.send(f"you do not have any rings to give {member.mention}")
+        try:
+            if data[str(ctx.author.id)]["inventory"]["ring"] <= 0:
+                await ctx.send(f"you do not have any rings to give {member.mention}")
+                return
+        except:
             return
         
         await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring will disentegrate if you do")
