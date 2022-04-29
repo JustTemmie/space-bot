@@ -325,19 +325,15 @@ class events(commands.Cog):
         with open("images/video/date.json", "r") as f:
             jsoninfo = json.load(f)
 
-
         if jsoninfo == str(datetime.now().day):
             return
-
         if datetime.today().weekday() != 4:
             return
         
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
-        
-        
-        channel = self.bot.get_channel(918830241135353907)
-        await channel.send(
+
+        await self.bot.get_channel(918830241135353907).send(
                 "fish friday!!!",
                 file=discord.File("images/video/fish.mp4"))
 
