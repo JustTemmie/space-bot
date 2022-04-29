@@ -219,7 +219,22 @@ class economy(commands.Cog):
         embed.add_field(name = f"{user.display_name}", value = f"placeholder", inline=False)
         embed.add_field(name = "Balance:", value = f"<:beaverCoin:968588341291397151> {int(wallet_amount)}", inline=False)
         
-        embed.add_field(name = "Married to:", value = f"no one", inline=False)
+        married_to_data = bankdata[str(user.id)]["marriage"]
+        married_to = ""
+        n = 0
+        y = 0
+        for i in married_to_data:
+            if n < 5:
+                x = await self.bot.fetch_user(i)
+                married_to += str(x.display_name) + "\n"
+                n += 1
+                
+            else:
+                y += 1
+        if y != 0:
+            married_to += f"and {y} more"
+            
+        embed.add_field(name = "Married to:", value = f"{married_to}", inline=False)
 
         embed.set_footer(text="Sent from my iPhone"),
         embed.set_thumbnail(url=f"{user.avatar_url}")
@@ -347,8 +362,56 @@ class economy(commands.Cog):
         await ctx.send("i could not find that item, sorry")
         
         
-
+    #########################################
+    #########################################
+    ############ M A R R I A G E ############
+    #########################################
+    #########################################
     
+    #this code doesn't use any else statements btw 😎 i find it more clean :shrug:
+    @commands.command(name = "marry")
+    @cooldown(20, 600, BucketType.user)
+    async def react_henwee(self, ctx, member:discord.Member):
+        if member == None or member == ctx.author or member.bot:
+            await ctx.send("please tell me who you want to marry")
+            return
+
+        await self.open_account(ctx.author)
+        data = await self.get_bank_data()
+        if member.id in data[str(ctx.author.id)]["marriage"]:
+            await ctx.send(f"you're already married to {member.display_name}")
+            return
+        
+        await self.open_account(member)
+
+
+        if data[str(ctx.author.id)]["inventory"]["ring"] <= 0:
+            await ctx.send(f"you do not have any rings to give {member.mention}")
+            return
+        
+        await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring will disentegrate if you do")
+        response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
+        confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye"]
+        if response.content.lower() not in confirmations:
+            await ctx.send(f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall")
+            return
+        
+        await ctx.send(f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?")
+        member_response = await self.bot.wait_for("message", check=lambda m: m.author == member, timeout=20)
+        if member_response.content.lower() not in confirmations:
+            await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
+            return
+        
+        await ctx.send(f"it's a match! {ctx.author.mention} and {member.mention} are now married!! 🥳🥳\nyour marriage will now appear on both of your profiles")
+        
+        data = await self.get_bank_data()
+        data[str(ctx.author.id)]["inventory"]["ring"] -= 1
+        data[str(ctx.author.id)]["marriage"].append(member.id)
+        data[str(member.id)]["marriage"].append(ctx.author.id)
+        
+        with open("data/bank.json", "w") as f:
+            json.dump(data, f)
+        
     
     #########################################
     #########################################
