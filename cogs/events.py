@@ -132,6 +132,7 @@ henwees = [
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.fish_friday.start()
         self.henwee.start()
         self.random_beaver.start()
 
@@ -318,6 +319,29 @@ class events(commands.Cog):
 
         except:
             pass
+        
+    @tasks.loop(seconds=3)
+    async def fish_friday(self):
+        with open("images/video/date.json", "r") as f:
+            jsoninfo = json.load(f)
+
+
+        if jsoninfo == str(datetime.now().day):
+            return
+
+        if datetime.today().weekday() != 4:
+            return
+        
+        with open("images/video/date.json", "w") as f:
+            json.dump(f"{datetime.now().day}", f)
+        
+        
+        channel = self.bot.get_channel(918830241135353907)
+        await channel.send(
+                "fish friday!!!",
+                file=discord.File("images/video/fish.mp4"))
+
+    
 
     @tasks.loop(seconds=293)
     async def henwee(self):
