@@ -360,7 +360,39 @@ class economy(commands.Cog):
                 return
         
         await ctx.send("i could not find that item, sorry")
+    
+    @commands.command(name = "daily", brief = "get your daily beaver coins here!")
+    @cooldown(3, 15, BucketType.user)
+    async def daily_command(self, ctx):
+        await self.open_account(ctx.author)
         
+        bank = await self.get_bank_data()
+        daily_info = bank[str(ctx.author.id)]["daily"]
+                
+        if daily_info["day"] == (datetime.utcnow() - datetime(1970,1,1)).days:
+            return await ctx.send("you already got your daily, come back tomorrow")
+        
+        streak = ""
+        if daily_info["streak"] != 0 and daily_info["day"] < (datetime.utcnow() - datetime(1970,1,1)).days - 1:
+            daily_info["streak"] = 0
+            streak += f"you lost your streak of {daily_info['streak']} days!\n"
+        
+        else:
+            daily_info["streak"] += 1
+            streak += f"you got your daily {daily_info['streak']} days in a row!"
+          
+        payout = random.randint(25, 75) + round(random.randrange(5,10) * daily_info["streak"])
+        if payout >= 500:
+            payout = 500
+        
+        bank[str(ctx.author.id)]["wallet"] += payout
+        daily_info["day"] = (datetime.utcnow() - datetime(1970,1,1)).days
+        bank[str(ctx.author.id)]["daily"] = daily_info
+        with open("data/bank.json", "w") as f:
+            json.dump(bank, f)
+        
+        
+        await ctx.send(f"you got {payout} <:beaverCoin:968588341291397151>!\n{streak}")
         
     #########################################
     #########################################
@@ -506,18 +538,33 @@ class economy(commands.Cog):
                 with open("data/bank.json", "w") as f:
                     json.dump(users, f)
                 
+        
+        users = await self.get_bank_data()
+        
+        try:
+            (users[str(user.id)]["daily"])
+            
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["daily"] = {}
+                with open("data/bank.json", "w") as f:
+                    json.dump(users, f)
+                
                 return
                 
         if str(user.id) in users:
             return
 
-        else:
-            users[str(user.id)] = {}
-            users[str(user.id)]["wallet"] = 10.0
-            users[str(user.id)]["xp"] = 0
-            users[str(user.id)]["speak_cooldown"] = time.time() + 300
-            users[str(user.id)]["marriage"] = []
-            users[str(user.id)]["inventory"] = {}
+
+        users[str(user.id)] = {}
+        users[str(user.id)]["wallet"] = 10.0
+        users[str(user.id)]["xp"] = 0
+        users[str(user.id)]["speak_cooldown"] = time.time() + 300
+        users[str(user.id)]["marriage"] = []
+        users[str(user.id)]["inventory"] = {}
+        users[str(user.id)]["daily"] = {}
+        users[str(user.id)]["daily"]["day"] = 0
+        users[str(user.id)]["daily"]["streak"] = 0
 
         with open("data/bank.json", "w") as f:
             json.dump(users, f)
