@@ -526,7 +526,7 @@ class economy(commands.Cog):
         
     @commands.Cog.listener()
     async def open_account(self, user):
-
+        return
         users = await self.get_bank_data()
 
         try:
