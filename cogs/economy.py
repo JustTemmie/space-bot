@@ -547,6 +547,8 @@ class economy(commands.Cog):
         except:
             if str(user.id) in users:
                 users[str(user.id)]["daily"] = {}
+                users[str(user.id)]["daily"]["day"] = 0
+                users[str(user.id)]["daily"]["streak"] = 0
                 with open("data/bank.json", "w") as f:
                     json.dump(users, f)
                 
