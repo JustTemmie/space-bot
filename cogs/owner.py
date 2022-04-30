@@ -139,7 +139,7 @@ class Owner(commands.Cog):
           await ctx.send(f"```py\n{error}```")
           return
     
-    @commands.is_owner
+    @commands.is_owner()
     @commands.command(name = "status")
     async def change_status(self,ctx, *, input):
         try:
