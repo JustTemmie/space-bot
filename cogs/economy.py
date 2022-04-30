@@ -202,47 +202,7 @@ class economy(commands.Cog):
         await ctx.send(embed = embed)
     
     
-    @commands.command(name="profile", brief="tells you some basic info about the person specified")
-    @cooldown(3,10, BucketType.user)
-    async def generateprofile(self, ctx, user : discord.Member = None):
-
-        if user is None:
-            user = ctx.author
-            
-        await self.open_account(user)
-
-        bankdata = await self.get_bank_data()
-            
-        wallet_amount = bankdata[str(user.id)]["wallet"]
-
-        embed = discord.Embed(title = f"", colour = ctx.author.colour, timestamp=datetime.utcnow())
-        embed.add_field(name = f"{user.display_name}", value = f"placeholder", inline=False)
-        embed.add_field(name = "Balance:", value = f"<:beaverCoin:968588341291397151> {int(wallet_amount)}", inline=False)
-        
-        married_to_data = bankdata[str(user.id)]["marriage"]
-        married_to = ""
-        n = 0
-        y = 0
-        for i in married_to_data:
-            if n < 5:
-                x = await self.bot.fetch_user(i)
-                married_to += str(x.display_name) + "\n"
-                n += 1
-                
-            else:
-                y += 1
-        if y != 0:
-            married_to += f"and {y} more"
-            
-        embed.add_field(name = "Married to:", value = f"{married_to}", inline=False)
-
-        embed.set_footer(text="Sent from my iPhone"),
-        embed.set_thumbnail(url=f"{user.avatar_url}")
-
-        await ctx.send(embed = embed)
-
-
-
+    
     @commands.command(name="balance", aliases=["bank","bal","money"], brief="check your current balance")
     @cooldown(2, 10, BucketType.user)
     async def check_balance(self, ctx, user: discord.Member = None):
@@ -393,7 +353,79 @@ class economy(commands.Cog):
         
         
         await ctx.send(f"you got {payout} <:beaverCoin:968588341291397151>!\n{streak}")
+
+    
+    ###########################################################
+    ###########################################################
+    ##### P R O F I L E   R E L A T E D   C O M M A N D S #####
+    ###########################################################
+    ###########################################################
+    
+    
+    @commands.command(name="profile", brief="tells you some basic info about the person specified")
+    @cooldown(3,10, BucketType.user)
+    async def generateprofile(self, ctx, user : discord.Member = None):
+
+        if user is None:
+            user = ctx.author
+            
+        await self.open_account(user)
+
+        bankdata = await self.get_bank_data()
+            
+        wallet_amount = bankdata[str(user.id)]["wallet"]
+
+        embed = discord.Embed(title = f"", colour = ctx.author.colour, timestamp=datetime.utcnow())
+        embed.add_field(name = f"{user.display_name}", value = f"\"{bankdata[str(user.id)]['quote']}\"", inline=False)
+        embed.add_field(name = "Balance:", value = f"<:beaverCoin:968588341291397151> {int(wallet_amount)}", inline=False)
         
+        married_to_data = bankdata[str(user.id)]["marriage"]
+        married_to = ""
+        n = 0
+        y = 0
+        
+        for i in married_to_data:
+            i = married_to_data[i]
+            if n < 5:
+                if i["married"]:
+                    x = await self.bot.fetch_user(i["married_to"])
+                    married_to += f"{x.display_name} - {datetime.utcfromtimestamp(i['time']).strftime('%Y-%m-%d %H:%M:%S')}\n"
+                    n += 1
+                
+            else:
+                y += 1
+        if y != 0:
+            married_to += f"and {y} more"
+        
+        if n == 0:
+            married_to = "None"
+            
+        embed.add_field(name = "Married to:", value = f"{married_to}", inline=False)
+
+        embed.set_footer(text="Sent from my iPhone"),
+        embed.set_thumbnail(url=f"{user.avatar_url}")
+
+        await ctx.send(embed = embed)
+    
+    
+    @commands.command(name = "quote", brief = "set a quote, make it anything you want!")
+    @cooldown(5, 60, BucketType.user)
+    async def set_quote(self, ctx, *, quote):
+        if len(quote) > 128:
+            await ctx.send("your quote is too long, please shorten it to a max of 128 characters")
+            return
+    
+        await self.open_account(ctx.author)
+        
+        data = await self.get_bank_data()
+        data[str(ctx.author.id)]["quote"] = quote
+        with open("data/bank.json", "w") as f:
+            json.dump(data, f)
+        
+        await ctx.send(f"quote set to \"{quote}\"!")
+        
+        
+    
     #########################################
     #########################################
     ############ M A R R I A G E ############
@@ -403,7 +435,7 @@ class economy(commands.Cog):
     #this code doesn't use any else statements btw 😎 i find it more clean :shrug:
     @commands.command(name = "marry")
     @cooldown(20, 600, BucketType.user)
-    async def react_henwee(self, ctx, member:discord.Member):
+    async def marry_someone(self, ctx, member:discord.Member):
         if member == None or member == ctx.author or member.bot:
             await ctx.send("please tell me who you want to marry")
             return
@@ -441,11 +473,47 @@ class economy(commands.Cog):
         
         data = await self.get_bank_data()
         data[str(ctx.author.id)]["inventory"]["ring"] -= 1
-        data[str(ctx.author.id)]["marriage"].append(member.id)
-        data[str(member.id)]["marriage"].append(ctx.author.id)
+        data[str(ctx.author.id)]["marriage"][str(member.id)] = {"married": True, "married_to": member.id, "time": time.time()}
+        data[str(member.id)]["marriage"][str(ctx.author.id)] = {"married": True, "married_to": ctx.author.id, "time": time.time()}
         
         with open("data/bank.json", "w") as f:
             json.dump(data, f)
+    
+    
+    @commands.command(name = "divorce")
+    @cooldown(15, 600, BucketType.user)
+    async def divorce_someone(self, ctx, member:discord.Member):
+        if member == None or member == ctx.author or member.bot:
+            await ctx.send("please tell me who you wish to divorce")
+            return
+        
+        await self.open_account(ctx.author)
+        await self.open_account(member)
+        data = await self.get_bank_data()
+        
+        try:
+            data[str(ctx.author.id)]["marriage"][str(member.id)]["married"]
+        except:
+            await ctx.send(f"you're not married to {member.display_name}")
+            return
+        
+        await ctx.send(f"are you sure you want to divorce {member.mention}?")
+        confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye"]
+        response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
+        
+        if response.content.lower() not in confirmations:
+            await ctx.send(f"thankfully, {ctx.author.mention} did not want to divorce {member.mention}")
+            return
+        
+
+        data[str(ctx.author.id)]["marriage"][str(member.id)] = {"married": False, "married_to": None, "time": 0}
+        data[str(member.id)]["marriage"][str(ctx.author.id)] = {"married": False, "married_to": None, "time": 0}
+        with open("data/bank.json", "w") as f:
+            json.dump(data, f)
+            
+        await ctx.send(f"{ctx.author.mention} divorced {member.mention} 💔")
+        
+        
         
     
     #########################################
@@ -538,7 +606,7 @@ class economy(commands.Cog):
                     json.dump(users, f)
                 
         
-        users = await self.get_bank_data()
+            users = await self.get_bank_data()
         
         try:
             (users[str(user.id)]["daily"])
@@ -550,9 +618,21 @@ class economy(commands.Cog):
                 users[str(user.id)]["daily"]["streak"] = 0
                 with open("data/bank.json", "w") as f:
                     json.dump(users, f)
-                
-                return
-                
+            
+            users = await self.get_bank_data()
+        
+              
+        
+        try:
+            users[str(user.id)]["quote"]
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
+                with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+            
+            users = await self.get_bank_data()    
+                    
         if str(user.id) in users:
             return
 
@@ -560,8 +640,9 @@ class economy(commands.Cog):
         users[str(user.id)] = {}
         users[str(user.id)]["wallet"] = 10.0
         users[str(user.id)]["xp"] = 0
+        users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
         users[str(user.id)]["speak_cooldown"] = time.time() + 300
-        users[str(user.id)]["marriage"] = []
+        users[str(user.id)]["marriage"] = {}
         users[str(user.id)]["inventory"] = {}
         users[str(user.id)]["daily"] = {}
         users[str(user.id)]["daily"]["day"] = 0
