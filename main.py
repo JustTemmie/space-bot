@@ -66,7 +66,7 @@ async def randomize_status():
   name=(status)))
   await bot.status_out.send(f"status changed to \"{status}\"")
 
-@tasks.loop(hours = 5)
+@tasks.loop(hours = 5, minutes = random.randint(0, 120))
 async def change_status_task():
   await randomize_status()
 

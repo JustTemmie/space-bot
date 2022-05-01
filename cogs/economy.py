@@ -13,6 +13,8 @@ class economy(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        
+        self.confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye"]
 
     @commands.command(name="tutorial", aliases = ["start", "tut", "economy"], brief = "tells you the basics of the economy system")
     @cooldown(10, 200, BucketType.user)
@@ -277,23 +279,31 @@ class economy(commands.Cog):
 
     
     
-    @commands.command(name = "shop", brief = "buy something, wouldya?")
-    @cooldown(3, 15, BucketType.user)
-    async def shop_command(self, ctx):
-        await self.open_account(ctx.author)
+    @commands.command(name = "shop", aliases = ["market"], brief = "buy something, wouldya?")
+    @cooldown(5, 15, BucketType.user)
+    async def shop_command(self, ctx, page = 1):
+        pages = 1
+        if page > pages or page <= 0:
+            await ctx.send("that page doesn\'t exist, sorry")
+            return
         
+        await self.open_account(ctx.author)
         shop = await self.get_shop_data()
         
-        embed = discord.Embed(title = "Shop", description = "buy something, wouldya?", colour = ctx.author.colour)
-        
+        desc = "Buy something, wouldya?\n\n"
         for i in shop:
-            embed.add_field(name = f"{i} {shop[i][1]}", value = f"{shop[i][0]} <:beaverCoin:968588341291397151>", inline=False)
+            if shop[i][2] == page:
+                desc += f"{shop[i][1]} `{i}` | {shop[i][0]} <:beaverCoin:968588341291397151>\n{shop[i][3]}"
+        
+        embed = discord.Embed(title = "🛍 The Market", description = f"{desc}", colour = ctx.author.colour)
+        embed.set_footer(text = f"Use {ctx.prefix}buy <item> to buy something\npage {page}/1")
+        
 
         await ctx.send(embed = embed)
     
     @commands.command(name = "buy", brief = "pay for something, wouldya?")
-    @cooldown(3, 15, BucketType.user)
-    async def buy_command(self, ctx, *, item):
+    @cooldown(5, 15, BucketType.user)
+    async def buy_command(self, ctx, item, amount = 1):
         await self.open_account(ctx.author)
         
         shop = await self.get_shop_data()
@@ -302,21 +312,21 @@ class economy(commands.Cog):
         
         for i in shop:
             if item.lower() == i.lower():
-                if wallet < shop[i][0]:
-                    await ctx.send("you don't have enough money to buy that")
+                if wallet < (shop[i][0]) * amount:
+                    await ctx.send("you don't have enough money to buy that many")
                     return
 
                 try:
-                    bank[str(ctx.author.id)]["inventory"][item.lower()] += 1
+                    bank[str(ctx.author.id)]["inventory"][item.lower()] += 1 * amount
                 except:
-                    bank[str(ctx.author.id)]["inventory"][item.lower()] = 1
+                    bank[str(ctx.author.id)]["inventory"][item.lower()] = 1 * amount
                 
-                bank[str(ctx.author.id)]["wallet"] -= shop[i][0]
+                bank[str(ctx.author.id)]["wallet"] -= shop[i][0] * amount
                     
                 with open("data/bank.json", "w") as f:
                     json.dump(bank, f)
 
-                await ctx.send(f"You just bought {shop[i][1]} for {shop[i][0]} <:beaverCoin:968588341291397151>")
+                await ctx.send(f"You just bought {amount} {shop[i][1]} for {shop[i][0] * amount} <:beaverCoin:968588341291397151>")
                 return
         
         await ctx.send("i could not find that item, sorry")
@@ -334,12 +344,25 @@ class economy(commands.Cog):
         
         streak = ""
         if daily_info["streak"] != 0 and daily_info["day"] < (datetime.utcnow() - datetime(1970,1,1)).days - 1:
-            daily_info["streak"] = 0
-            streak += f"you lost your streak of {daily_info['streak']} days!\n"
+            if bank[str(ctx.author.id)]['inventory']['insurance'] >= 1:
+                await ctx.send(f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(ctx.author.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?") 
+                response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=45)
+                
+                if response.content.lower() in self.confirmations:
+                    streak += f"**you used a totem, you have a {daily_info['streak']} day streak!**"
+                    bank[str(ctx.author.id)]['inventory']['insurance'] -= 1
+                    
+
+                else:
+                    daily_info["streak"] = 0
+                    streak += f"**you lost your streak of {daily_info['streak']} days :(**"
+            else:
+                daily_info["streak"] = 0
+                streak += f"**you lost your streak of {daily_info['streak']} days :(**"
         
         else:
             daily_info["streak"] += 1
-            streak += f"you got your daily {daily_info['streak']} days in a row!"
+            streak += f"**{daily_info['streak']} day streak!**"
           
         payout = random.randint(25, 75) + round(random.randrange(5,10) * daily_info["streak"])
         if payout >= 500:
@@ -352,7 +375,7 @@ class economy(commands.Cog):
             json.dump(bank, f)
         
         
-        await ctx.send(f"you got {payout} <:beaverCoin:968588341291397151>!\n{streak}")
+        await ctx.send(f"you got +{payout} <:beaverCoin:968588341291397151>!\n{streak}")
 
     
     ###########################################################
@@ -458,14 +481,13 @@ class economy(commands.Cog):
         
         await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring 💍 will disentegrate if you do")
         response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
-        confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye"]
-        if response.content.lower() not in confirmations:
+        if response.content.lower() not in self.confirmations:
             await ctx.send(f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall")
             return
         
         await ctx.send(f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?")
         member_response = await self.bot.wait_for("message", check=lambda m: m.author == member, timeout=20)
-        if member_response.content.lower() not in confirmations:
+        if member_response.content.lower() not in self.confirmations:
             await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
             return
         
@@ -498,10 +520,9 @@ class economy(commands.Cog):
             return
         
         await ctx.send(f"are you sure you want to divorce {member.mention}?")
-        confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye"]
         response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         
-        if response.content.lower() not in confirmations:
+        if response.content.lower() not in self.confirmations:
             await ctx.send(f"thankfully, {ctx.author.mention} did not want to divorce {member.mention}")
             return
         
