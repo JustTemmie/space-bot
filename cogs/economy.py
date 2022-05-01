@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
+from typing import Optional
 import json
 import time
 import random
@@ -192,7 +193,7 @@ class economy(commands.Cog):
 
         for item in inv:
             for i in items:
-                if item == i:
+                if item == i and inv[item] >= 1:
                     embed.add_field(name=f"{items[i][0]} {items[i][1]}" , value=f"{inv[item]}", inline=False)
                     n += 1
         
@@ -280,30 +281,36 @@ class economy(commands.Cog):
     
     
     @commands.command(name = "shop", aliases = ["market"], brief = "buy something, wouldya?")
-    @cooldown(5, 15, BucketType.user)
+    @cooldown(5, 12, BucketType.user)
     async def shop_command(self, ctx, page = 1):
-        pages = 1
+        pages = 2
         if page > pages or page <= 0:
             await ctx.send("that page doesn\'t exist, sorry")
             return
-        
+
         await self.open_account(ctx.author)
         shop = await self.get_shop_data()
-        
-        desc = "Buy something, wouldya?\n\n"
+
+        page_bonus_string = {
+            1: "",
+            2: "**Rings:**\nUse them to marry someone\n"
+        }[page]
+
+
+        desc = f"Buy something, wouldya?\n\n{page_bonus_string}\n"
         for i in shop:
             if shop[i][2] == page:
-                desc += f"{shop[i][1]} `{i}` | {shop[i][0]} <:beaverCoin:968588341291397151>\n{shop[i][3]}"
-        
+                desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:968588341291397151>\n{shop[i][3]}"
+
         embed = discord.Embed(title = "🛍 The Market", description = f"{desc}", colour = ctx.author.colour)
-        embed.set_footer(text = f"Use {ctx.prefix}buy <item> to buy something\npage {page}/1")
-        
+        embed.set_footer(text = f"Use {ctx.prefix}buy <item> to buy something\npage {page}/{pages}")
 
         await ctx.send(embed = embed)
+
     
     @commands.command(name = "buy", brief = "pay for something, wouldya?")
     @cooldown(5, 15, BucketType.user)
-    async def buy_command(self, ctx, item, amount = 1):
+    async def buy_command(self, ctx, item, amount:Optional[int] = 1):
         await self.open_account(ctx.author)
         
         shop = await self.get_shop_data()
@@ -458,28 +465,51 @@ class economy(commands.Cog):
     #this code doesn't use any else statements btw 😎 i find it more clean :shrug:
     @commands.command(name = "marry")
     @cooldown(20, 600, BucketType.user)
-    async def marry_someone(self, ctx, member:discord.Member):
+    async def marry_someone(self, ctx, member:discord.Member, ring = None):
         if member == None or member == ctx.author or member.bot:
             await ctx.send("please tell me who you want to marry")
             return
+        
+        if ring == None:
+            await ctx.send(f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2")
+            return
 
+        
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
         if member.id in data[str(ctx.author.id)]["marriage"]:
             await ctx.send(f"you're already married to {member.display_name}")
             return
+
+        ring_emoji = "none"
+        match ring.lower():
+            case "common":
+                ring_emoji = "<:commoner_ring:970309052053733396>"
+            case "uncommon":
+                ring_emoji = "<:uncommon_ring:970309091249516555>"
+            case "rare":
+                ring_emoji = "<:rare_ring:970309099134803978>"
+            case "epic":
+                ring_emoji = "<:epic_ring:970309107489849435>"
+            case "mythical":
+                ring_emoji = "<:mythical_ring:970309114955702372>"
+
+        if ring_emoji == "none":
+            return await ctx.send("that's not a valid ring")
+               
+        ring_object = data[str(ctx.author.id)]["inventory"][ring.lower()]
         
         await self.open_account(member)
 
         try:
-            if data[str(ctx.author.id)]["inventory"]["ring"] <= 0:
-                await ctx.send(f"you do not have any rings 💍 to give {member.mention}")
+            if ring_object <= 0:
+                await ctx.send(f"you do not have any rings {ring_emoji} to give {member.mention}")
                 return
         except:
-            await ctx.send(f"you do not have any rings 💍 to give {member.mention}")
+            await ctx.send(f"you do not have any rings {ring_emoji} to give {member.mention}")
             return
         
-        await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring 💍 will disentegrate if you do")
+        await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring {ring_emoji} will disentegrate if you do")
         response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         if response.content.lower() not in self.confirmations:
             await ctx.send(f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall")
@@ -494,9 +524,9 @@ class economy(commands.Cog):
         await ctx.send(f"it's a match! {ctx.author.mention} and {member.mention} are now married!! 🥳🥳\nyour marriage will now appear on both of your profiles")
         
         data = await self.get_bank_data()
-        data[str(ctx.author.id)]["inventory"]["ring"] -= 1
-        data[str(ctx.author.id)]["marriage"][str(member.id)] = {"married": True, "married_to": member.id, "time": time.time()}
-        data[str(member.id)]["marriage"][str(ctx.author.id)] = {"married": True, "married_to": ctx.author.id, "time": time.time()}
+        data[str(ctx.author.id)]["inventory"][ring.lower()] -= 1
+        data[str(ctx.author.id)]["marriage"][str(member.id)] = {"married": True, "married_to": member.id, "time": time.time(), "ring": ring.lower()}
+        data[str(member.id)]["marriage"][str(ctx.author.id)] = {"married": True, "married_to": ctx.author.id, "time": time.time(), "ring": ring.lower()}
         
         with open("data/bank.json", "w") as f:
             json.dump(data, f)
@@ -519,7 +549,7 @@ class economy(commands.Cog):
             await ctx.send(f"you're not married to {member.display_name}")
             return
         
-        await ctx.send(f"are you sure you want to divorce {member.mention}?")
+        await ctx.send(f"are you sure you want to divorce {member.mention}?\nyour ring will be disentegrated")
         response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         
         if response.content.lower() not in self.confirmations:

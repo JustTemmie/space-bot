@@ -1,1 +1,45 @@
-{"Ring": [99999999999, "💍", 1, "╰Use it to marry someone\n"], "Insurance": [5000, "<:totem:970122712192274513>", 1, "╰Protects you from losing your daily - this lets you miss one daily and then will be removed\n"]}
+{
+    "Insurance": [
+        5000,
+        "<:totem:970122712192274513>",
+        1,
+        "╰Protects you from losing your daily - this lets you miss one daily and then will be removed\n",
+        ""
+    ],
+
+    "Common": [
+        2500,
+        "<:commoner_ring:970309052053733396>",
+        2,
+        "",
+        "Ring "
+    ],
+    "Uncommon": [
+        25000,
+        "<:uncommon_ring:970309091249516555>",
+        2,
+        "",
+        "Ring "
+    ],
+    "Rare": [
+        250000,
+        "<:rare_ring:970309099134803978>",
+        2,
+        "",
+        "Ring "
+    ],
+    "Epic": [
+        2500000,
+        "<:epic_ring:970309107489849435>",
+        2,
+        "",
+        "Ring"
+    ],
+    "Mythical": [
+        2500000,
+        "<:mythical_ring:970309114955702372>",
+        2,
+        "",
+        "Ring "
+    ]  
+}

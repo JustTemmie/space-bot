@@ -1,1 +1,38 @@
-{"ring": ["Ring", "💍"], "insurance": ["Insurance", "<:totem:970122712192274513>"], "test": ["Testing item teehee ", "uwu"]}
+{
+    "insurance": [
+        "Insurance",
+        "<:totem:970122712192274513>"
+    ],
+
+    "common": [
+        "Common Ring",
+        "<:commoner_ring:970309052053733396>"
+    ],
+    "uncommon": [
+        "Uncommon Ring",
+        "<:uncommon_ring:970309091249516555>"
+    ],
+    "rare": [
+        "Rare Ring",
+        "<:rare_ring:970309099134803978>"
+    ],
+    "epic": [
+        "Epic Ring",
+        "<:epic_ring:970309107489849435>"
+    ],
+    "mythical": [
+        "Mythical Ring",
+        "<:mythical_ring:970309114955702372>"
+    ],
+    
+    
+    
+    "ring": [
+        "Ring",
+        "💍 (this shouldn't be optainable wth)"
+    ],
+    "test": [
+        "Testing item teehee ",
+        "uwu"
+    ]
+}
