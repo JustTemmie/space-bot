@@ -21,10 +21,9 @@ import os
 
 import os
 from dotenv import load_dotenv
-load_dotenv("TENOR_API_KEY.env")
-tenor_api_key = os.getenv("KEY")
-load_dotenv("DEEPAI_KEY.env")
-deepai_key = os.getenv('KEY')
+load_dotenv("keys.env")
+tenor_api_key = os.getenv("TENOR")
+deepai_key = os.getenv('DEEP_AI')
 
 class fun(commands.Cog):
 
