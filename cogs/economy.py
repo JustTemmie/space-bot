@@ -577,13 +577,16 @@ class economy(commands.Cog):
     async def scavenge_logs(self, ctx):
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
-        temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] 
+        
         try:
-            temporal -= 450
-            payout = round(0.01 * temporal**0.95 + random.randrange(10,15))
+            temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 450
+            payout = round(0.01 * temporal**0.9 + random.randrange(10,15))
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] 
-            payout = round(0.01 * temporal**0.95 + random.randrange(10,15))
+            payout = round(0.01 * temporal**0.9 + random.randrange(10,15))
+        
+        if payout >= 20000:
+            payout = 20000
         
         data = await self.get_bank_data()
         data[str(ctx.author.id)]["inventory"]["logs"] += payout
@@ -592,7 +595,7 @@ class economy(commands.Cog):
         with open("data/bank.json", "w") as f:
             json.dump(data, f)
         
-        await ctx.send(f"you have been scavenged for {payout} <:log:970325254461329438> ")
+        await ctx.send(f"you have scavenged for {payout} <:log:970325254461329438> ")
     
     
     #########################################
