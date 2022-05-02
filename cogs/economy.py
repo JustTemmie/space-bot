@@ -308,7 +308,7 @@ class economy(commands.Cog):
         await ctx.send(embed = embed)
 
     
-    @commands.command(name = "buy", brief = "pay for something, wouldya?")
+    @commands.command(name = "buy", aliases = ["transact"], brief = "pay for something, wouldya?")
     @cooldown(5, 15, BucketType.user)
     async def buy_command(self, ctx, item, amount:Optional[int] = 1):
         await self.open_account(ctx.author)
@@ -565,7 +565,35 @@ class economy(commands.Cog):
         await ctx.send(f"{ctx.author.mention} divorced {member.mention} 💔")
         
         
+    ###########################################
+    ###########################################
+    #### M O N E Y     G E N E R A T I O N ####
+    ###########################################
+    ###########################################
+    
+    
+    @commands.command(name = "scavenge", aliases = ["search", "find"], brief = "go scavenge for some l ö g <:log:970325254461329438>")
+    @cooldown(1, 450, BucketType.user)
+    async def scavenge_logs(self, ctx):
+        await self.open_account(ctx.author)
+        data = await self.get_bank_data()
+        temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] 
+        try:
+            temporal -= 450
+            payout = round(0.01 * temporal**0.95 + random.randrange(10,15))
+        except:
+            temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] 
+            payout = round(0.01 * temporal**0.95 + random.randrange(10,15))
         
+        data = await self.get_bank_data()
+        data[str(ctx.author.id)]["inventory"]["logs"] += payout
+        data[str(ctx.author.id)]["scavenge_cooldown"] = time.time()
+        
+        with open("data/bank.json", "w") as f:
+            json.dump(data, f)
+        
+        await ctx.send(f"you have been scavenged for {payout} <:log:970325254461329438> ")
+    
     
     #########################################
     #########################################
@@ -683,7 +711,18 @@ class economy(commands.Cog):
                         json.dump(users, f)
             
             users = await self.get_bank_data()    
-                    
+        
+        try:
+            users[str(user.id)]["scavenge_cooldown"]
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["scavenge_cooldown"] = time.time()
+                users[str(user.id)]["inventory"]["logs"] = 0
+                with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+            
+            users = await self.get_bank_data()   
+
         if str(user.id) in users:
             return
 
@@ -692,9 +731,11 @@ class economy(commands.Cog):
         users[str(user.id)]["wallet"] = 10.0
         users[str(user.id)]["xp"] = 0
         users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
+        users[str(user.id)]["scavenge_cooldown"] = time.time()
         users[str(user.id)]["speak_cooldown"] = time.time() + 300
         users[str(user.id)]["marriage"] = {}
         users[str(user.id)]["inventory"] = {}
+        users[str(user.id)]["inventory"]["logs"] = 0
         users[str(user.id)]["daily"] = {}
         users[str(user.id)]["daily"]["day"] = 0
         users[str(user.id)]["daily"]["streak"] = 0
