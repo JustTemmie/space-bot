@@ -1,4 +1,4 @@
-@commands.command(name="coin", aliases=["flip"], brief="flip a coin! if you win you doulbe your bet, if you lose you don\'t")
+    @commands.command(name="coin", aliases=["flip"], brief="flip a coin! if you win you doulbe your bet, if you lose you don\'t")
     @cooldown(1, 2, BucketType.user)
     async def coinflip(self, ctx, amount = None, side: str = "heads"):
         await self.open_account(ctx.author)
