@@ -756,14 +756,25 @@ class economy(commands.Cog):
         users[str(user.id)]["wallet"] = 10.0
         users[str(user.id)]["xp"] = 0
         users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
+        
         users[str(user.id)]["scavenge_cooldown"] = time.time()
         users[str(user.id)]["speak_cooldown"] = time.time() + 300
+        
         users[str(user.id)]["marriage"] = {}
+        
         users[str(user.id)]["inventory"] = {}
         users[str(user.id)]["inventory"]["logs"] = 0
+        
         users[str(user.id)]["daily"] = {}
         users[str(user.id)]["daily"]["day"] = 0
         users[str(user.id)]["daily"]["streak"] = 0
+        
+        users[str(user.id)]["stats"] = {}
+        users[str(user.id)]["stats"]["strength"] = 0
+        users[str(user.id)]["stats"]["dexterity"] = 0
+        users[str(user.id)]["stats"]["intelligence"] = 0
+        users[str(user.id)]["stats"]["wisdom"] = 0
+        users[str(user.id)]["stats"]["charisma"] = 0
 
         with open("data/bank.json", "w") as f:
             json.dump(users, f)
