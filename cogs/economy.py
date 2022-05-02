@@ -164,12 +164,6 @@ class economy(commands.Cog):
 
 
 
-    @commands.command(name="sell", brief="try selling your useless items")
-    @cooldown(3, 10, BucketType.user)
-    async def sell_command(self, ctx):
-        await ctx.send("lmao no")
-
-
     @commands.command(name="inventory", aliases=["inv", "items"], brief="lets you check your items n\' stuff")
     @cooldown(1, 3, BucketType.user)
     async def inv_command(self, ctx, user: discord.Member = None):
@@ -598,6 +592,17 @@ class economy(commands.Cog):
         await ctx.send(f"you have scavenged for {payout} <:log:970325254461329438> ")
     
     
+    @commands.command(name="sell", brief="try selling your <:log:970325254461329438> for money")
+    @cooldown(3, 10, BucketType.user)
+    async def sell_command(self, ctx, amount = 0):
+        if amount <= 0:
+            return await ctx.send("please specify an amount of logs to sell")
+        
+        await self.open_account(ctx.author)
+        await ctx.send("ok boomer")
+        
+        
+        
     #########################################
     #########################################
     #### E V E N T     F U N C T I O N S ####
@@ -721,6 +726,23 @@ class economy(commands.Cog):
             if str(user.id) in users:
                 users[str(user.id)]["scavenge_cooldown"] = time.time()
                 users[str(user.id)]["inventory"]["logs"] = 0
+                with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+            
+            users = await self.get_bank_data()
+        
+        
+        try:
+            users[str(user.id)]["stats"]
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["stats"] = {}
+                users[str(user.id)]["stats"]["strength"] = 0
+                users[str(user.id)]["stats"]["dexterity"] = 0
+                users[str(user.id)]["stats"]["intelligence"] = 0
+                users[str(user.id)]["stats"]["wisdom"] = 0
+                users[str(user.id)]["stats"]["charisma"] = 0
+                
                 with open("data/bank.json", "w") as f:
                         json.dump(users, f)
             
