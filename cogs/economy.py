@@ -54,63 +54,41 @@ class economy(commands.Cog):
     
     
         
-    @commands.command(name="coinflip", aliases=["flip", "cf"], brief="flip a coin! if you win you doulbe your bet, if you lose you don\'t")
+    @commands.command(name="coinflip", aliases=["flip", "cf"], brief="flip a coin! if you win you double your bet, if you lose you don\'t")
     @cooldown(1, 2, BucketType.user)
     async def coinflip(self, ctx, amount = None, side: str = "heads"):
-        await self.open_account(ctx.author)
-
-        bal = await self.update_bank_data(ctx.author)
-
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")
             return
-
+        
         amount = int(amount)
         if amount > 50000:
             amount = 50000
 
-        if amount > bal[0]:
-            await ctx.send("you don\'t have THAT much money")
-            return
-
         if amount < 5:
             await ctx.send("please bet at leaaaast 5 <:beaverCoin:968588341291397151>")
             return
-                
-        if amount < 0:
-            await ctx.send("sorry, you have to gamble a positive amount of money")
+        
+        await self.open_account(ctx.author)
+        bal = await self.update_bank_data(ctx.author)
+        
+        if amount > bal[0]:
+            await ctx.send("you don\'t have THAT much money")
             return
         
-        coinsides = ["heads", "tails"]
-        if side not in coinsides:
-            return await ctx.send("Please only use `heads` or `tails`!")
-
-        headslist = ["heads"]
-
-        result = random.choice(coinsides)
-
+        coinsides = ["Heads", "Tails"]
+        
+        result = coinsides[random.randint(0,1)]
         msg = await ctx.send("the coin landed and...")
-        await asyncio.sleep(1.5)
+        await asyncio.sleep(1.2)
 
-        if result == side:
-            await self.update_bank_data(ctx.author, 1*amount, "wallet")
-            
-            if side in headslist:
-                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>")
-
-            else:
-                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>")
-
-
-
-        else:
-            await self.update_bank_data(ctx.author, -1*amount, "wallet")
-
-            if side in headslist:
-                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>")
-
-            else:
-                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>")
+        if result.lower() == side:
+            await self.update_bank_data(ctx.author, amount, "wallet")
+            await msg.edit(content=f"{msg.content} it was {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>")
+            return
+        
+        await self.update_bank_data(ctx.author, -amount, "wallet")
+        await msg.edit(content=f"{msg.content} it was {result}!\n{ctx.author.display_name} lost {2*amount} <:beaverCoin:968588341291397151>")
                 
 
 
