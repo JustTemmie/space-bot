@@ -589,7 +589,7 @@ class economy(commands.Cog):
         with open("data/bank.json", "w") as f:
             json.dump(data, f)
         
-        await ctx.send(f"you have scavenged for {payout} <:log:970325254461329438> ")
+        await ctx.send(f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!")
     
     
     @commands.command(name="sell", brief="try selling your <:log:970325254461329438> for money")
