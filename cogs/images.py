@@ -74,6 +74,7 @@ class images(commands.Cog):
     async def _ascii(self, ctx, resolution = 128, out_text: Optional[bool] = False, invert: Optional[bool] = False, url=None, font="Inconsolata", *, charset=string.ascii_letters + string.punctuation + string.digits + " "):
         font = ascii.get_font(font)
         if resolution > 512 and ctx.author.id != 368423564229083137:
+            await ctx.send("to prevent abuse, your resolution has been changed to 512")
             resolution = 512
         elif resolution > 2048:
             resolution = 512
