@@ -567,17 +567,17 @@ class economy(commands.Cog):
     
     
     @commands.command(name = "scavenge", aliases = ["search", "find"], brief = "go scavenge for some l ö g <:log:970325254461329438>")
-    @cooldown(1, 450, BucketType.user)
+    @cooldown(1, 300, BucketType.user)
     async def scavenge_logs(self, ctx):
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
         
         try:
-            temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 450
-            payout = round(0.01 * temporal**0.9 + random.randrange(10,15))
+            temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
+            payout = round(0.008 * temporal**0.9 + random.randrange(10,15))
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] 
-            payout = round(0.01 * temporal**0.9 + random.randrange(10,15))
+            payout = round(0.008 * temporal**0.9 + random.randrange(10,15))
         
         if payout >= 20000:
             payout = 20000
