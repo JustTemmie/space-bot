@@ -42,8 +42,9 @@ class weather(Cog):
         for a in forecast:
             x = a.split()
             if x[0] != "Forecast":
-                if x[0] == "air_temperature": 
-                    embed.add_field(name = "air_temperature", value = f"{x[1]}°C, {(x[1]-32)/9*5}°F", inline = True)
+                if x[0] == "air_temperature:": 
+                    farenheit = round(float(x[1][:-7])*1.8+32, 1)
+                    embed.add_field(name = "air temperature", value = f"{x[1][:-7]}°C, {float(farenheit)}°F", inline = True)
                 else:
                     embed.add_field(name = x[0].replace("_", " "), value = x[1], inline = False)
             
