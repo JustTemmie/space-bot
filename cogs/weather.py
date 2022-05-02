@@ -18,7 +18,12 @@ class weather(Cog):
     
     @commands.command(name = "weather", brief = "hey what's the weather?")
     @cooldown(5, 60, BucketType.user)
-    async def check_weather(self, ctx, *, input = "tromsø"):
+    async def check_weather(self, ctx, *, input = None):
+        if input == None:
+            if ctx.guild.id != 918787074801401868
+                return await ctx.send("Please specify a location.")
+            input = "tromsø"
+
         r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
         request = json.loads(r.content)
         realoutput = request[0]
