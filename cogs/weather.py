@@ -20,7 +20,7 @@ class weather(Cog):
     @cooldown(5, 60, BucketType.user)
     async def check_weather(self, ctx, *, input = None):
         if input == None:
-            if ctx.guild.id != 918787074801401868
+            if ctx.guild.id != 918787074801401868:
                 return await ctx.send("Please specify a location.")
             input = "tromsø"
 
