@@ -79,7 +79,7 @@ class economy(commands.Cog):
         coinsides = ["Heads", "Tails"]
         
         result = coinsides[random.randint(0,1)]
-        msg = await ctx.send("the coin landed and...")
+        msg = await ctx.reply("the coin landed and...")
         await asyncio.sleep(1.)
 
         if result.lower() == side:
