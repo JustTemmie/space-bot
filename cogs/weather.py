@@ -32,7 +32,7 @@ class weather(Cog):
         
         forecast = str(my_forecast.data.intervals[0]).split("\n")
     
-        embed = Embed(title = f"{forecast[0]} in {input}", description = "", color = 0x00ff00)
+        embed = Embed(title = f"{forecast[0][:-1]}\nUTC, in {realoutput['name']}, {realoutput['country']}", description = "", color = 0x00ff00)
         
         for a in forecast:
             x = a.split()
