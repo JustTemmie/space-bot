@@ -74,7 +74,7 @@ class economy(commands.Cog):
             return
 
         if amount < 5:
-            await ctx.send("please bet at leaaaast 5 <a:spinningspacecoin:891686810328125502>")
+            await ctx.send("please bet at leaaaast 5 <:beaverCoin:968588341291397151>")
             return
                 
         if amount < 0:
@@ -96,10 +96,10 @@ class economy(commands.Cog):
             await self.update_bank_data(ctx.author, 1*amount, "wallet")
             
             if side in headslist:
-                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} won {2*amount} <a:spinningspacecoin:891686810328125502>")
+                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>")
 
             else:
-                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} won {2*amount} <a:spinningspacecoin:891686810328125502>")
+                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>")
 
 
 
@@ -107,10 +107,10 @@ class economy(commands.Cog):
             await self.update_bank_data(ctx.author, -1*amount, "wallet")
 
             if side in headslist:
-                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} lost {amount} <a:spinningspacecoin:891686810328125502>")
+                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>")
 
             else:
-                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} lost {amount} <a:spinningspacecoin:891686810328125502>")
+                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>")
                 
 
 
