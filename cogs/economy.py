@@ -566,7 +566,7 @@ class economy(commands.Cog):
     ###########################################
     
     
-    @commands.command(name = "scavenge", aliases = ["search", "find"], brief = "go scavenge for some l ö g <:log:970325254461329438>")
+    @commands.command(name = "scavenge", aliases = ["search", "find", "loot"], brief = "go scavenge for some l ö g <:log:970325254461329438>")
     @cooldown(1, 300, BucketType.user)
     async def scavenge_logs(self, ctx):
         await self.open_account(ctx.author)
