@@ -80,7 +80,7 @@ class economy(commands.Cog):
         
         result = coinsides[random.randint(0,1)]
         msg = await ctx.send("the coin landed and...")
-        await asyncio.sleep(1.2)
+        await asyncio.sleep(1.)
 
         if result.lower() == side:
             await self.update_bank_data(ctx.author, amount, "wallet")
@@ -88,7 +88,7 @@ class economy(commands.Cog):
             return
         
         await self.update_bank_data(ctx.author, -amount, "wallet")
-        await msg.edit(content=f"{msg.content} it was {result}!\n{ctx.author.display_name} lost {2*amount} <:beaverCoin:968588341291397151>")
+        await msg.edit(content=f"{msg.content} it was {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>")
                 
 
 
