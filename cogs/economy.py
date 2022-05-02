@@ -574,10 +574,10 @@ class economy(commands.Cog):
         
         try:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round(0.008 * temporal**0.9 + random.randrange(10,15))
+            payout = round(0.008 * temporal**0.85 + random.randrange(10,15))
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] 
-            payout = round(0.008 * temporal**0.9 + random.randrange(10,15))
+            payout = round(0.008 * temporal**0.85 + random.randrange(10,15))
         
         if payout >= 20000:
             payout = 20000
