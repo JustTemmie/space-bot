@@ -42,7 +42,10 @@ class weather(Cog):
         for a in forecast:
             x = a.split()
             if x[0] != "Forecast":
-                embed.add_field(name = x[0].replace("_", " "), value = x[1], inline = False)
+                if x[0] == "air_temperature": 
+                    embed.add_field(name = "air temperature", value = f"{x[1]}°C, {(x[1]-32)/9*5}°F", inline = True)
+                else:
+                    embed.add_field(name = x[0].replace("_", " "), value = x[1], inline = False)
             
         await ctx.send(embed = embed)
 
