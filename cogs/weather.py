@@ -23,7 +23,7 @@ class weather(Cog):
             if ctx.guild.id != 918787074801401868:
                 return await ctx.send("Please specify a location.")
             input = "tromsø"
-            await ctx.send("https://www.yr.no/nb/v%C3%A6rvarsel/daglig-tabell/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8")
+            await ctx.send("read this for more in depth info\n<https://www.yr.no/nb/v%C3%A6rvarsel/daglig-tabell/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8>")
 
         r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
         request = json.loads(r.content)
