@@ -7,8 +7,8 @@ from discord.ext import tasks, commands
 
 
 from dotenv import load_dotenv
-load_dotenv("DIS_TOKEN.env")
-TOKEN = os.getenv("KEY")
+load_dotenv("keys.env")
+TOKEN = os.getenv("DISCORD")
 
 statuses = ['you', 'the sky', 'vtubers play The Sims 4', 'goggy play meincraf', 'my friends, their souls to be exact', ' fire, thinking \"ooo, shiny\"', 'the sun...', 'into s p a a c e', 'a doublee rainbowww', 'teknobled', 'youtube ruin it\'s TOS for the 284th time', 'rick and morty? idk i\'m not a weeb', 'bees', 'upon the galaxy', 'star wars - a new mistake', 'the clock', 'daily dose of internet', 'my friend step on a corn flake', 'my cereal killer friend', 'stalin standing on a straight circle', 'the cashier whilst they\'re confused at the fact i want a green pen with red ink', 'random cat videos', 'you realize cats can jump over six times their lenght', 'a cat with 18 toes', 'strangers implode after learning them how to play 5D chess', 'my terraria farm actually work', 'my summons killing thousands of enemies, still without dropping a rod of discord', 'mark succy burg', 'amogus mem es', 'https://youtu.be/VY-PqPpyRVU', 'good luck techno <3', 'myself in the mirror whilst i\'m doing yo mom', 'shrek 5', 'idk? netflix?? i\'m not a normiee idk', 'yo mom', 'amazon break another 7924 laws', 'you <3', 'beavers :D', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '... watching ... watching ... watc', 'frogs :)', 'beav', 'PLEASE DON\'T SING LAST CHRISTMAS RIGHT NOW APELSDFOIANFIW', 'yet another 2981 hours of youtube', '<3', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', 'beav clicker', 'you playin video game (you\'re really bad btw)', 'wait can i put emojis in here? 🦫💓', "🦫🐝 (i\'m not sorry)", 'hehehe beav', 'shrek 91847109832470192743197234718797239489.5', 'da bee movi', 'timberborn my beloved <3', 'my beloved, you <3', 'what do i even put here?', 'amogus', 'you bein sus uwu', 'cookie clicker < coochie clicker', 'holy fuck beaver make me go :)))', 'the co- i mean clock','henwee ;)', "bevers", "bævere", "beavers", "beaver dams", "dams", "Bībā", "beavers :)"]
 

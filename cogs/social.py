@@ -12,8 +12,8 @@ import requests
 
 import os
 from dotenv import load_dotenv
-load_dotenv("TENOR_API_KEY.env")
-tenor_api_key = os.getenv("KEY")
+load_dotenv("keys.env")
+tenor_api_key = os.getenv("TENOR")
 
 
 class social(commands.Cog):
@@ -237,6 +237,7 @@ class social(commands.Cog):
         if len(actees) == 1 and actees[0] == ctx.author.id:
             title_string = f"{ctx.author.display_name} decided to bleep just cuz"
         
+        #realoutput = top_x_gifs['results'][random.randrange(0, gif_count)]['media'][0]["gif"]["url"]
         else:
             for i in range(0, len(actees)):
                 if i >= len(actees) - 1 and i != 0:

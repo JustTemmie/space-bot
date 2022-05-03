@@ -452,7 +452,7 @@ class economy(commands.Cog):
             if n < 5:
                 if i["married"]:
                     x = await self.bot.fetch_user(i["married_to"])
-                    married_to += f"{x.display_name} - {datetime.utcfromtimestamp(i['time']).strftime('%Y-%m-%d %H:%M:%S')}\n"
+                    married_to += f"{x.display_name} - {datetime.utcfromtimestamp(i['time']).strftime('%Y-%m-%d %H:%M')} UTC\n"
                     n += 1
                 
             else:
@@ -499,13 +499,11 @@ class economy(commands.Cog):
     @commands.command(name = "marry")
     @cooldown(20, 600, BucketType.user)
     async def marry_someone(self, ctx, member:discord.Member, ring = None):
-        if member == None or member == ctx.author or member.bot:
-            await ctx.send("please tell me who you want to marry")
-            return
+        if member == None or member == ctx.author:
+            return await ctx.send("please tell me who you want to marry")
         
         if ring == None:
-            await ctx.send(f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2")
-            return
+            return await ctx.send(f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2")
 
         
         await self.open_account(ctx.author)
@@ -548,11 +546,12 @@ class economy(commands.Cog):
             await ctx.send(f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall")
             return
         
-        await ctx.send(f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?")
-        member_response = await self.bot.wait_for("message", check=lambda m: m.author == member, timeout=20)
-        if member_response.content.lower() not in self.confirmations:
-            await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
-            return
+        if not member.bot:
+            await ctx.send(f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?")
+            member_response = await self.bot.wait_for("message", check=lambda m: m.author == member, timeout=20)
+            if member_response.content.lower() not in self.confirmations:
+                await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
+                return
         
         await ctx.send(f"it's a match! {ctx.author.mention} and {member.mention} are now married!! 🥳🥳\nyour marriage will now appear on both of your profiles")
         
@@ -616,7 +615,7 @@ class economy(commands.Cog):
             payout = round(0.008 * temporal**0.85 + random.randrange(10,15))
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] 
-            payout = round(0.008 * temporal**0.85 + random.randrange(10,15))
+            payout = round(0.0011 * temporal**0.9 + random.randrange(10,15))
         
         if payout >= 20000:
             payout = 20000

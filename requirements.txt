@@ -1,0 +1,5 @@
+metno_locationforecast
+wikipedia
+py-cord
+buttons
+gitpython

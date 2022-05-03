@@ -11,8 +11,8 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-load_dotenv("TENOR_API_KEY.env")
-tenor_api_key = os.getenv("KEY")
+load_dotenv("keys.env")
+tenor_api_key = os.getenv("TENOR")
 
 
 henwees = [
