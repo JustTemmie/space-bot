@@ -170,35 +170,35 @@ class economy(commands.Cog):
 
         if final[0] == "<:Diamond:848602702132019210>" and final[1] == "<:Diamond:848602702132019210>" and final[2] == "<:Diamond:848602702132019210>":
             await self.update_bank_data(ctx.author, 19*amount, "wallet")
-            await ctx.send(f"{ctx.author.display_name} won {20*amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"{ctx.author.display_name} won {20*amount} <:beaverCoin:968588341291397151>")
 
         elif final[0] == "<:Emerald:848602691337060412>" and final[1] == "<:Emerald:848602691337060412>" and final[2] == "<:Emerald:848602691337060412>":
             await self.update_bank_data(ctx.author, 9*amount, "wallet")
-            await ctx.send(f"{ctx.author.display_name} won {10*amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"{ctx.author.display_name} won {10*amount} <:beaverCoin:968588341291397151>")
 
         elif final[0] == "<:Gold:848602678031548427>" and final[1] == "<:Gold:848602678031548427>" and final[2] == "<:Gold:848602678031548427>":
             await self.update_bank_data(ctx.author, 13*amount, "wallet")
-            await ctx.send(f"{ctx.author.display_name} won {14*amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"{ctx.author.display_name} won {14*amount} <:beaverCoin:968588341291397151>")
 
         elif final[0] == "<:Iron:848602645207842846>" and final[1] == "<:Iron:848602645207842846>" and final[2] == "<:Iron:848602645207842846>":
             await self.update_bank_data(ctx.author, 6*amount, "wallet")
-            await ctx.send(f"{ctx.author.display_name} won {7*amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"{ctx.author.display_name} won {7*amount} <:beaverCoin:968588341291397151>")
 
         elif final[0] == "<:Redstone:848604340658241576>" and final[1] == "<:Redstone:848604340658241576>" and final[2] == "<:Redstone:848604340658241576>":
             await self.update_bank_data(ctx.author, 5*amount, "wallet")
-            await ctx.send(f"{ctx.author.display_name} won {6*amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"{ctx.author.display_name} won {6*amount} <:beaverCoin:968588341291397151>")
 
         elif final[0] == "<:Coal:848602311659618315>" and final[1] == "<:Coal:848602311659618315>" and final[2] == "<:Coal:848602311659618315>":
             await self.update_bank_data(ctx.author, 4*amount, "wallet")
-            await ctx.send(f"{ctx.author.display_name} won {5*amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"{ctx.author.display_name} won {5*amount} <:beaverCoin:968588341291397151>")
         
         elif final[0] == final[1] or final[0] == final[2] or final[1] == final[2]:
             await self.update_bank_data(ctx.author, 0.5*amount, "wallet")
-            await ctx.send(f"{ctx.author.display_name} won {1.5*amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"{ctx.author.display_name} won {1.5*amount} <:beaverCoin:968588341291397151>")
 
         else:
             await self.update_bank_data(ctx.author, -1*amount, "wallet")
-            await ctx.send(f"<:sadcat:849342846582390834> - {ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>")
+            await msg.reply(f"<:sadcat:849342846582390834> - {ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>")
 
 
 
