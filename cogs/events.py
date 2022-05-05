@@ -243,7 +243,7 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
             
-            if ctx.author.id == 411536312961597440:o
+            if ctx.author.id == 411536312961597440:
                 with open("data/hendex.json", "r") as f:
                     file = json.load(f)
                 
