@@ -247,9 +247,9 @@ class events(commands.Cog):
                 with open("data/hendex.json", "r") as f:
                     file = json.load(f)
                 
-                file[str(time.time)] = ctx.id
+                file[str(time.time())] = ctx.id
                 
-                with open("data/all_message_ids.json", "w") as f:
+                with open("data/hendex.json", "w") as f:
                     json.dump(file, f)
 
 
