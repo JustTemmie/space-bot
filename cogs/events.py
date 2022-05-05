@@ -4,6 +4,7 @@ from discord.errors import HTTPException, Forbidden
 from discord.ext.commands import CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown, cooldown, BucketType
 import random
 from datetime import datetime
+import time
 
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
@@ -241,6 +242,18 @@ class events(commands.Cog):
             if ctx.author.id == 192326730948542464:
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
+            
+            if ctx.author.id == 411536312961597440:
+                with open("data/hendex.json", "r") as f:
+                    file = json.load(f)
+                
+                file[str(time.time)] = ctx.id
+                
+                with open("data/all_message_ids.json", "w") as f:
+                    json.dump(file, f)
+
+
+
 
             #just gonna mention, henwee did consent to this lmao
             log_ids = 411536312961597440
