@@ -24,7 +24,6 @@ def get_prefix(bot, message):
     #try:
         #prefix = db[f"prefix_{message.guild.id}"]
         #return commands.when_mentioned_or(prefix)(bot, message)
-
     #except:
         return commands.when_mentioned_or("a!")(bot, message)
 
