@@ -12,6 +12,7 @@ import re
 import json
 import time
 
+
 def insert_returns(body):
     # insert return stmt if the last expression is a expression statement
     if isinstance(body[-1], ast.Expr):
@@ -34,25 +35,28 @@ class Owner(commands.Cog):
 
     @commands.is_owner()
     @commands.command()
-    async def react_henwee(self, ctx, user = 411536312961597440):
+    async def react_henwee(self, ctx, user=411536312961597440):
         with open("data/all_message_ids.json", "r") as f:
             file = json.load(f)
-        
+
         for x in file[str(user)]["messages"]:
             message = await ctx.channel.fetch_message(x)
             await message.add_reaction("<a:Beaver:950775158552014928>")
-        
-        file = {"368423564229083137": {"messages": []}, "411536312961597440": {"messages": []}}
-        
+
+        file = {
+            "368423564229083137": {"messages": []},
+            "411536312961597440": {"messages": []},
+        }
+
         with open("data/all_message_ids.json", "w") as f:
             json.dump(file, f)
-    
+
     @commands.is_owner()
-    @commands.command(name = "nickname")
-    async def change_nickname_admin(self, ctx, member:discord.Member, *, nickname = None):
+    @commands.command(name="nickname")
+    async def change_nickname_admin(self, ctx, member: discord.Member, *, nickname=None):
         message = ctx.message
         await self.bot.http.delete_message(message.channel.id, message.id)
-        
+
         if nickname == None:
             await ctx.send("please give me a nickname to change it to")
             return
@@ -61,15 +65,18 @@ class Owner(commands.Cog):
             try:
                 member = ctx.guild.get_member(int(member.id))
                 await member.edit(nick=nickname)
-                await ctx.send(f'Nickname was changed to {nickname}\nbtw if anyone is wondering blame Avery for coming up with the idea for this :))))', delete_after = 3)
-                
+                await ctx.send(
+                    f"Nickname was changed to {nickname}\nbtw if anyone is wondering blame Avery for coming up with the idea for this :))))",
+                    delete_after=3,
+                )
+
             except Exception as e:
-                await ctx.send(f"{e}", delete_after = 5)
-            
+                await ctx.send(f"{e}", delete_after=5)
+
     @commands.is_owner()
     @commands.command(name="mepurge", brief="Clears messages equal to the amount specified ")
     @bot_has_permissions(manage_messages=True)
-    async def purge(self, ctx, amount = 0, shut = "shutupplz"):
+    async def purge(self, ctx, amount=0, shut="shutupplz"):
         if amount == 0:
             await ctx.send("please specifiy an amount")
             return
@@ -77,17 +84,20 @@ class Owner(commands.Cog):
             channel = ctx.message.channel
             messages = []
             async for message in channel.history(limit=amount + 1):
-                      messages.append(message)
+                messages.append(message)
 
             await channel.delete_messages(messages)
             if shut == "shutupplz":
-                await ctx.send(f'{amount} messages have been purged by {ctx.message.author.mention}', delete_after=10)
+                await ctx.send(
+                    f"{amount} messages have been purged by {ctx.message.author.mention}",
+                    delete_after=10,
+                )
             else:
                 pass
 
         else:
             await ctx.send("The limit provided is not within acceptable bounds.")
-          
+
     @commands.is_owner()
     @commands.command()
     async def load(self, ctx, extension):
@@ -99,8 +109,7 @@ class Owner(commands.Cog):
     async def unload(self, ctx, extension):
         self.bot.unload_extension(f"cogs.{extension}")
         await ctx.send(f"{extension} was unloaded")
-                
-    
+
     @commands.command()
     @commands.is_owner()
     async def reload(self, ctx: commands.Context, cog: str):
@@ -117,53 +126,78 @@ class Owner(commands.Cog):
         print(f"------------Reloaded {cog}------------")
 
     @commands.is_owner()
-    @commands.command(name= "restart", aliases=["reboot"])
+    @commands.command(name="restart", aliases=["reboot"])
     async def restart(self, ctx):
         try:
-            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name="restarting - won\'t respond"))
+            await self.bot.change_presence(
+                status=discord.Status.idle,
+                activity=discord.Activity(
+                    type=discord.ActivityType.watching,
+                    name="restarting - won't respond",
+                ),
+            )
             await ctx.send("Restarting bot...")
-            os.execv(sys.executable, ['python3'] + sys.argv)
+            os.execv(sys.executable, ["python3"] + sys.argv)
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return
 
     @commands.is_owner()
-    @commands.command(name= "shutdown", aliases=["poweroff", "turnoff"])
+    @commands.command(name="shutdown", aliases=["poweroff", "turnoff"])
     async def shutdown(self, ctx):
         try:
-          await ctx.send("turning off the bot...")
-          await self.bot.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name="turning offline - won\'t respond"))
-          await self.bot.close()
-          print("closed using !shutdown command")
-        except Exception as error:
-          await ctx.send(f"```py\n{error}```")
-          return
-    
-    @commands.is_owner()
-    @commands.command(name = "status")
-    async def change_status_owner(self,ctx, *, input):
-        try:
-            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name=f"{input}"))
+            await ctx.send("turning off the bot...")
+            await self.bot.change_presence(
+                status=discord.Status.idle,
+                activity=discord.Activity(
+                    type=discord.ActivityType.watching,
+                    name="turning offline - won't respond",
+                ),
+            )
+            await self.bot.close()
+            print("closed using !shutdown command")
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
-    
+            return
+
     @commands.is_owner()
-    @commands.command(name="addtofunny", aliases=['atf','makefunny','shitpostadd','addshitpost','jsonadd','addjson'], brief="adds the specified thing to shitpost.json")
-    async def addtofunnylist(ctx, *, funny = None):
+    @commands.command(name="status")
+    async def change_status_owner(self, ctx, *, input):
+        try:
+            await self.bot.change_presence(
+                status=discord.Status.idle,
+                activity=discord.Activity(type=discord.ActivityType.watching, name=f"{input}"),
+            )
+        except Exception as error:
+            await ctx.send(f"```py\n{error}```")
+
+    @commands.is_owner()
+    @commands.command(
+        name="addtofunny",
+        aliases=[
+            "atf",
+            "makefunny",
+            "shitpostadd",
+            "addshitpost",
+            "jsonadd",
+            "addjson",
+        ],
+        brief="adds the specified thing to shitpost.json",
+    )
+    async def addtofunnylist(ctx, *, funny=None):
         with open("./data/shitpost.json", "r") as f:
             shitposts = json.load(f)
-        
+
         if funny is None:
             print("funny is None")
             await ctx.send("funny is `None`")
-            
+
         shitposts["list"].append(f"{funny}")
         await ctx.send(f"added {funny} to list")
         print(f"added {funny} to shitpost index")
-        
+
         with open("./data/shitpost.json", "w") as f:
             json.dump(shitposts, f)
-
 
     @commands.command()
     @commands.is_owner()
@@ -190,27 +224,27 @@ class Owner(commands.Cog):
             insert_returns(body)
 
             env = {
-                'bot': self.bot,
-                'ctx': ctx,
-                'message': ctx.message,
-                'server': ctx.message.guild,
-                'channel': ctx.message.channel,
-                'author': ctx.message.author,
-                'commands': commands,
-                'discord': discord,
-                'guild': ctx.message.guild,
+                "bot": self.bot,
+                "ctx": ctx,
+                "message": ctx.message,
+                "server": ctx.message.guild,
+                "channel": ctx.message.channel,
+                "author": ctx.message.author,
+                "commands": commands,
+                "discord": discord,
+                "guild": ctx.message.guild,
             }
             env.update(globals())
 
             exec(compile(parsed, filename="<ast>", mode="exec"), env)
 
-            result = (await eval(f"{fn_name}()", env))
+            result = await eval(f"{fn_name}()", env)
 
             out = ">>> " + code + "\n"
             output = "```py\n{}\n\n{}```".format(out, result)
 
             if len(output) > 2000:
-                await ctx.send("The output is too long?")                    
+                await ctx.send("The output is too long?")
             else:
                 await ctx.send(output.format(result))
         except Exception as e:
