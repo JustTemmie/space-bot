@@ -1,6 +1,6 @@
 create a file named keys.env and fill in the values
 
-DISCORD=
+DISCORD=\n
 DEEP_AI=
 IMGUR_CLIENT_ID=
 IMGUR_CLIENT_SECRET=
