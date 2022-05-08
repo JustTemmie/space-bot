@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands, tasks
-from discord.ext.commands import bot_has_permissions
 import ast
 import sys
 import os

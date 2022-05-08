@@ -1,5 +1,7 @@
 import os
 import random
+import logging
+from time import time
 
 import discord
 from discord import Intents
@@ -91,6 +93,14 @@ STANDARD_OUT = 805175024762748929
 WELCOME_OUT = 694197942000680980
 LOGS_OUT = 844979417449234442
 
+
+logging.basicConfig(level=logging.INFO, filename=f"logs/{time()}.log", filemode="w",
+                    format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
+
+
+logging.warning("warning")
+logging.error("error")
+logging.critical("critical")
 
 def get_prefix(bot, message):
     # try:
