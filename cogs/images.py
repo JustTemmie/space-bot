@@ -84,6 +84,7 @@ class images(commands.Cog):
         await ctx.send(file=discord.File("images/processed/thicc.png"))
 
     # ascii commands are based of the code found here https://github.com/LyricLy/ASCIIpy/blob/master/bot.py
+    @cooldown(6, 120, BucketType.user)
     @commands.command(
         name="ascii",
         invoke_without_command=True,
