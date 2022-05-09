@@ -106,7 +106,7 @@ class images(commands.Cog):
             await ctx.send("to prevent abuse, your resolution has been changed to 512")
             resolution = 512
         elif resolution > 2048:
-            resolution = 512
+            resolution = 2048
 
         if not font:
             await ctx.send("Invalid font.")
