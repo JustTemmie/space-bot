@@ -94,13 +94,18 @@ WELCOME_OUT = 694197942000680980
 LOGS_OUT = 844979417449234442
 
 
-logging.basicConfig(level=logging.INFO, filename=f"logs/{time()}.log", filemode="w",
-                    format="%(asctime)s:%(levelname)s:%(name)s:%(message)s")
+logging.basicConfig(
+    level=logging.INFO,
+    filename=f"logs/{time()}.log",
+    filemode="w",
+    format="%(asctime)s:%(levelname)s:%(name)s:%(message)s",
+)
 
 
 logging.warning("warning")
 logging.error("error")
 logging.critical("critical")
+
 
 def get_prefix(bot, message):
     # try:
@@ -110,11 +115,7 @@ def get_prefix(bot, message):
     return commands.when_mentioned_or("a!")(bot, message)
 
 
-bot = commands.Bot(
-    command_prefix=(get_prefix),
-    owner_ids=OWNER_IDS,
-    intents=Intents.all()
-    )
+bot = commands.Bot(command_prefix=(get_prefix), owner_ids=OWNER_IDS, intents=Intents.all())
 
 bot.remove_command("help")
 bot.ready = False

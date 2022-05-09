@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 load_dotenv("keys.env")
 weather_key = os.getenv("OPENWEATHER")
 
+
 class weather(Cog):
     def __init__(self, bot):
         self.bot = bot

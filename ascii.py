@@ -1,4 +1,4 @@
-#ascii commands are based of the code found here https://github.com/LyricLy/ASCIIpy/blob/master/bot.py
+# ascii commands are based of the code found here https://github.com/LyricLy/ASCIIpy/blob/master/bot.py
 
 
 import argparse
@@ -19,8 +19,12 @@ def get_font(font_name):
         return None
     return ImageFont.truetype(filename, 12)
 
+
 def get_size(text, font, spacing=0):
-    return ImageDraw.Draw(Image.new("1", (0, 0))).multiline_textsize(text, font=font, spacing=spacing)
+    return ImageDraw.Draw(Image.new("1", (0, 0))).multiline_textsize(
+        text, font=font, spacing=spacing
+    )
+
 
 def make_mapping(charset, font, invert):
     float_mapping = {}
@@ -40,6 +44,7 @@ def make_mapping(charset, font, invert):
         mapping.append(((total[0] - mn) / (mx - mn), total[1]))
     return mapping, (x, y)
 
+
 def convert(im, mapping, ratio, dither):
     width, height = im.size
     text = []
@@ -55,16 +60,17 @@ def convert(im, mapping, ratio, dither):
             new_px = px + offsets[i]
             value, char = mapping[min(max(int(new_px), 0), 255)]
             error = new_px - value * 255
-            if i+1 % width != 0:
-                offsets[i+1] += error * (7 / 16)
-                offsets[i+width+1] += error * (1 / 16)
+            if i + 1 % width != 0:
+                offsets[i + 1] += error * (7 / 16)
+                offsets[i + width + 1] += error * (1 / 16)
             if i % width != 0:
-                offsets[i+width-1] += error * (3 / 16)
-            offsets[i+width] += error * (5 / 16)
+                offsets[i + width - 1] += error * (3 / 16)
+            offsets[i + width] += error * (5 / 16)
         else:
             char = mapping[px][1]
         text[-1].extend(char * int(chars))
     return "\n".join("".join(l) for l in text)
+
 
 def to_image(text, font, invert, spacing):
     size = get_size(text, font, spacing)
@@ -72,6 +78,7 @@ def to_image(text, font, invert, spacing):
     draw = ImageDraw.Draw(im)
     draw.multiline_text((0, 0), text, font=font, fill=0 if invert else 255, spacing=spacing)
     return im
+
 
 def full_convert(im, *, invert, font, spacing, charset, out_text, dither, in_scale, out_scale):
     width, height = im.size
@@ -83,20 +90,61 @@ def full_convert(im, *, invert, font, spacing, charset, out_text, dither, in_sca
     else:
         out_im = to_image(text, font, invert, spacing)
         out_width, out_height = out_im.size
-        return out_im.resize((int(out_width * out_scale), int(out_height * out_scale)), Image.BILINEAR)
+        return out_im.resize(
+            (int(out_width * out_scale), int(out_height * out_scale)), Image.BILINEAR
+        )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert an image or sequence of images to text.")
     parser.add_argument("input_file", help="Image to convert to ASCII.")
     parser.add_argument("output_file", help="File to save the result to.")
-    parser.add_argument("-i", "--invert", action="store_true", help="Target black on white instead of white on black.")
-    parser.add_argument("-f", "--font", default=DEFAULT_FONT, help="The font to target. Defaults to Consolas.")
-    parser.add_argument("-s", "--spacing", default=0, type=int, help="The line spacing, in pixels, to target. Defaults to 0.")
-    parser.add_argument("-c", "--charset", default=DEFAULT_CHARS, help="The set of valid characters to use. Defaults to printable ASCII.")
-    parser.add_argument("-is", "--in-scale", type=float, default=1, help="Factor to scale the input image by. Defaults to 1.")
-    parser.add_argument("-os", "--out-scale", type=float, default=1, help="Factor to scale the output image by. Does nothing if the --text flag is passed. Defaults to 1.")
+    parser.add_argument(
+        "-i",
+        "--invert",
+        action="store_true",
+        help="Target black on white instead of white on black.",
+    )
+    parser.add_argument(
+        "-f",
+        "--font",
+        default=DEFAULT_FONT,
+        help="The font to target. Defaults to Consolas.",
+    )
+    parser.add_argument(
+        "-s",
+        "--spacing",
+        default=0,
+        type=int,
+        help="The line spacing, in pixels, to target. Defaults to 0.",
+    )
+    parser.add_argument(
+        "-c",
+        "--charset",
+        default=DEFAULT_CHARS,
+        help="The set of valid characters to use. Defaults to printable ASCII.",
+    )
+    parser.add_argument(
+        "-is",
+        "--in-scale",
+        type=float,
+        default=1,
+        help="Factor to scale the input image by. Defaults to 1.",
+    )
+    parser.add_argument(
+        "-os",
+        "--out-scale",
+        type=float,
+        default=1,
+        help="Factor to scale the output image by. Does nothing if the --text flag is passed. Defaults to 1.",
+    )
     parser.add_argument("-t", "--text", action="store_true", help="Output a text file.")
-    parser.add_argument("-nd", "--no-dither", action="store_true", help="Don't apply dithering to the output.")
+    parser.add_argument(
+        "-nd",
+        "--no-dither",
+        action="store_true",
+        help="Don't apply dithering to the output.",
+    )
     args = parser.parse_args()
 
     im = Image.open(args.input_file)
@@ -110,7 +158,7 @@ if __name__ == "__main__":
         out_text=args.text,
         dither=not args.no_dither,
         in_scale=args.in_scale,
-        out_scale=args.out_scale
+        out_scale=args.out_scale,
     )
 
     if args.text:

@@ -198,19 +198,22 @@ class Owner(commands.Cog):
 
         with open("./data/shitpost.json", "w") as f:
             json.dump(shitposts, f)
-    
+
     @commands.is_owner()
     @commands.command(name="pip")
     async def pipe(self, ctx, action, pip):
         if action == "install":
-            await ctx.send(subprocess.check_call([sys.executable, "-m", "pip", f"{action}", f"{pip}"]))
+            await ctx.send(
+                subprocess.check_call([sys.executable, "-m", "pip", f"{action}", f"{pip}"])
+            )
         elif action == "uninstall":
-            await ctx.send(subprocess.check_call([sys.executable, "-m", "pip", f"{action}", "-y", f"{pip}"]))
+            await ctx.send(
+                subprocess.check_call([sys.executable, "-m", "pip", f"{action}", "-y", f"{pip}"])
+            )
         else:
             await ctx.send("invalid action")
             return
         await ctx.send(f"{pip} has been {action}ed")
-        
 
     @commands.command()
     @commands.is_owner()

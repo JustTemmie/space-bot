@@ -14,7 +14,21 @@ class economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye", "oui", "sure", "uhuh", "i do", "i am", "woah"]
+        self.confirmations = [
+            "yes",
+            "yep",
+            "yup",
+            "y",
+            "correct",
+            "ys",
+            "ye",
+            "oui",
+            "sure",
+            "uhuh",
+            "i do",
+            "i am",
+            "woah",
+        ]
 
     @commands.command(
         name="tutorial",
@@ -455,9 +469,7 @@ class economy(commands.Cog):
             if shop[i][2] == page:
                 desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:968588341291397151>\n{shop[i][3]}"
 
-        embed = discord.Embed(
-            title="🛍 The Market", description=f"{desc}", colour=ctx.author.colour
-        )
+        embed = discord.Embed(title="🛍 The Market", description=f"{desc}", colour=ctx.author.colour)
         embed.set_footer(text=f"Use {ctx.prefix}buy <item> to buy something\npage {page}/{pages}")
 
         await ctx.send(embed=embed)
@@ -519,9 +531,7 @@ class economy(commands.Cog):
                 )
 
                 if response.content.lower() in self.confirmations:
-                    streak += (
-                        f"**you used a totem, you have a {daily_info['streak']} day streak!**"
-                    )
+                    streak += f"**you used a totem, you have a {daily_info['streak']} day streak!**"
                     bank[str(ctx.author.id)]["inventory"]["insurance"] -= 1
 
                 else:

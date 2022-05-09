@@ -122,8 +122,6 @@ henwees = [
     '"put de som en quote" - hen 2022',
     '"https://cdn.discordapp.com/attachments/847231965764780063/966342099043753984/unknown.png" - hen 2022',
     '"you\'re a fucking idiot" - hen 2022',
-    
-    
     # copilot lmao
     '"i\'m not a fan of the word "fucking"" -hen 2022 - github copilot',
     '\“I\'m not a fan of the word "utility"\” - hen 2022 - github copilot',
