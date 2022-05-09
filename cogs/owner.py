@@ -201,7 +201,7 @@ class Owner(commands.Cog):
     
     @commands.is_owner()
     @commands.command(name="pip")
-    async def run(self, ctx, action, pip):
+    async def pipe(self, ctx, action, pip):
         await ctx.send(subprocess.check_call([sys.executable, "-m", "pip", "{action}", "{pip}"]))
         await ctx.send(f"{pip} has been {action}ed")
         
