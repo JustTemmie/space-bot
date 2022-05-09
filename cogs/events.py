@@ -123,6 +123,7 @@ henwees = [
     '"https://cdn.discordapp.com/attachments/847231965764780063/966342099043753984/unknown.png" - hen 2022',
     '"you\'re a fucking idiot" - hen 2022',
     
+    
     # copilot lmao
     '"i\'m not a fan of the word "fucking"" -hen 2022 - github copilot',
     '\“I\'m not a fan of the word "utility"\” - hen 2022 - github copilot',
@@ -289,7 +290,7 @@ class events(commands.Cog):
                     await react_beaver(ctx)
 
             # if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
-            #    await ctx.add_reaction("<a:Beaver:950775158552014928>")
+            #    await ctx.add_reaction("<a:beav:973130744190869575>")
 
             if (
                 "henwee" in ctx.content.lower()
@@ -389,7 +390,7 @@ class events(commands.Cog):
 
             try:
                 i = self.bot.get_user(102862012689690624)
-                await i.send("<a:Beaver:950775158552014928>")
+                await i.send("<a:beav:973130744190869575>")
 
                 await lucky_winner.send(":Beaver: ")
                 return lucky_winner.id
@@ -413,7 +414,7 @@ async def lucky_beaver(self):
 
 
 async def react_beaver(ctx):
-    await ctx.add_reaction("<a:Beaver:950775158552014928>")
+    await ctx.add_reaction("<a:beav:973130744190869575>")
     if random.randrange(0, 40) == 2 and "beaver" in ctx.content:
         message = [
             "DID SOMEONE JUST SAY BEAVER?",

@@ -14,7 +14,7 @@ class economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye"]
+        self.confirmations = ["yes", "yep", "yup", "y", "correct", "ys", "ye", "oui", "sure", "uhuh", "i do", "i am", "woah"]
 
     @commands.command(
         name="tutorial",
