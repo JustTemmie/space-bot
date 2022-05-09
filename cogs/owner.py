@@ -41,7 +41,7 @@ class Owner(commands.Cog):
 
         for x in file[str(user)]["messages"]:
             message = await ctx.channel.fetch_message(x)
-            await message.add_reaction("<a:Beaver:950775158552014928>")
+            await message.add_reaction("<a:beav:973130744190869575>")
 
         file = {
             "368423564229083137": {"messages": []},

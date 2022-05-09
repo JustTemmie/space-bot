@@ -27,11 +27,11 @@ class funky(commands.Cog):
         if message.reference:
             id = message.reference.message_id
             message = await message.channel.fetch_message(id)
-            await message.add_reaction("<a:Beaver:950775158552014928>")
+            await message.add_reaction("<a:beav:973130744190869575>")
 
         elif id != None:
             message = await message.channel.fetch_message(id)
-            await message.add_reaction("<a:Beaver:950775158552014928>")
+            await message.add_reaction("<a:beav:973130744190869575>")
 
         else:
             await ctx.send(
@@ -49,11 +49,11 @@ class funky(commands.Cog):
         if message.reference:
             id = message.reference.message_id
             message = await message.channel.fetch_message(id)
-            await message.remove_reaction("<a:Beaver:950775158552014928>", self.bot.user)
+            await message.remove_reaction("<a:beav:973130744190869575>", self.bot.user)
 
         elif id != None:
             message = await message.channel.fetch_message(id)
-            await message.remove_reaction("<a:Beaver:950775158552014928>", self.bot.user)
+            await message.remove_reaction("<a:beav:973130744190869575>", self.bot.user)
 
         else:
             await ctx.send(
