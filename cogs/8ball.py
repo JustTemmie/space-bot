@@ -33,8 +33,7 @@ responses = [
     'No.',
     '||No||',
     '||Yes||',
-    'Hang on',
-    'It\'s over',
+    'Hang on, what?',
     'It\'s just the beginning',
     'Good Luck',
 ]
