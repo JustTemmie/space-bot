@@ -15,6 +15,7 @@ import time
 
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
+import logging
 import requests
 import json
 import os
@@ -121,6 +122,7 @@ henwees = [
     '"put de som en quote" - hen 2022',
     '"https://cdn.discordapp.com/attachments/847231965764780063/966342099043753984/unknown.png" - hen 2022',
     '"you\'re a fucking idiot" - hen 2022',
+    
     # copilot lmao
     '"i\'m not a fan of the word "fucking"" -hen 2022 - github copilot',
     '\“I\'m not a fan of the word "utility"\” - hen 2022 - github copilot',
@@ -178,6 +180,7 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
+        logging.info(f"{ctx.command.name} was successfully invoked by {ctx.author}")
         print(
             f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}"
         )
