@@ -243,7 +243,7 @@ class fun(commands.Cog):
 
     @commands.command(
         name="fact",
-        aliases=["info", "animal"],
+        aliases=["animal"],
         brief="Tells you a random fact about the specified animal",
         description="The list of animals you can ask facts about are, dog, cat, panda, fox, bird, koala",
     )
