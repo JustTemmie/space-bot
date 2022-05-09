@@ -161,7 +161,7 @@ class Owner(commands.Cog):
             return
 
     @commands.is_owner()
-    @commands.command(name="status")
+    @commands.command(name="change_status")
     async def change_status_owner(self, ctx, *, input):
         try:
             await self.bot.change_presence(
@@ -198,6 +198,12 @@ class Owner(commands.Cog):
 
         with open("./data/shitpost.json", "w") as f:
             json.dump(shitposts, f)
+    
+    @commands.is_owner()
+    @commands.command(name="pip")
+    async def run(self, ctx, *, pip):
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "{pip}"])
+        
 
     @commands.command()
     @commands.is_owner()
