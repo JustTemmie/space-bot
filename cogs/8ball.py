@@ -5,6 +5,7 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 import random
+import time
 
 responses = [
     'It is certain.',
@@ -44,7 +45,11 @@ class ball8(commands.Cog):
 
     @commands.command(name="8ball", brief="Ask the 8ball a question")
     async def ball8_command(self, ctx):
-        await ctx.send(random.choice(responses))
+        msg = await ctx.send("connecting to the oracle...")
+        time.sleep(1.8)
+        await msg.edit(content="considering...")
+        time.sleep(1.5)
+        await msg.edit(content=random.choice(responses))
 
 
 def setup(bot):
