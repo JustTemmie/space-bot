@@ -28,7 +28,7 @@ class hw(commands.Cog):
         aliases=["information", "stats", "status"],
         brief="Get info about the bot",
     )
-    @cooldown(8, 900, BucketType.user)
+    @cooldown(8, 120, BucketType.user)
     async def info_command(self, ctx, page=1):
         pages = 4
 
