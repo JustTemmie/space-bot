@@ -201,8 +201,8 @@ class Owner(commands.Cog):
     
     @commands.is_owner()
     @commands.command(name="pip")
-    async def run(self, ctx, *, pip):
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "{pip}"])
+    async def run(self, ctx, action, pip):
+        subprocess.check_call([sys.executable, "-m", "pip", "{action}", "{pip}"])
         
 
     @commands.command()
