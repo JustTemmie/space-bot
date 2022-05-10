@@ -73,7 +73,7 @@ class weather(Cog):
                         inline=True,
                     )
                 else:
-                    embed.add_field(name=x[0].replace("_", " "), value=x[1], inline=False
+                    embed.add_field(name=x[0].replace("_", " "), value=x[1], inline=False)
 
         await ctx.send(embed=embed)
         
