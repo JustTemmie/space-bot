@@ -7,3 +7,4 @@ python-dotenv
 psutil
 apscheduler
 pillow
+pdf2image
