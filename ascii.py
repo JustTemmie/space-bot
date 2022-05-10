@@ -6,7 +6,7 @@ import subprocess
 import string
 
 from collections import defaultdict
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFontars
 
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation + " "
