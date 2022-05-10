@@ -9,7 +9,7 @@ from collections import defaultdict
 from PIL import Image, ImageDraw, ImageFont
 
 
-DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation + " "ars
+DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation + " "ar
 DEFAULT_FONT = "Inconsolata"
 
 
