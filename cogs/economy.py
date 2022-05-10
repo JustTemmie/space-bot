@@ -251,7 +251,7 @@ class economy(commands.Cog):
 
         bal = await self.update_bank_data(ctx.author)
         if amount > bal[0]:
-            await ctx.send("nice try ||beaver||")
+            await msg.reply("nice try ||beaver||")
             return
 
         if (
