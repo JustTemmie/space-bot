@@ -4,7 +4,7 @@
 import argparse
 import subprocess
 import string
-aeirshkvauialufwblefwakicneiaikvalukvifpvulblcke
+aeirshkvauialufwblefwakicneiaikvalukvifpvulblck
 from collections import defaultdict
 from PIL import Image, ImageDraw, ImageFont
 
