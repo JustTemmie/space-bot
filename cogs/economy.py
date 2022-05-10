@@ -151,6 +151,11 @@ class economy(commands.Cog):
         msg = await ctx.reply("the coin landed and...")
         await asyncio.sleep(1.0)
 
+        bal = await self.update_bank_data(ctx.author)
+        if amount > bal[0]:
+            await ctx.send("nice try ||beaver||")
+            return
+
         if result.lower() == side:
             await self.update_bank_data(ctx.author, amount, "wallet")
             await msg.edit(
@@ -243,6 +248,11 @@ class economy(commands.Cog):
         )
         final.append(slot3)
         await msg.edit(content=f"{str(slot1)}{str(slot2)}{str(slot3)}")
+
+        bal = await self.update_bank_data(ctx.author)
+        if amount > bal[0]:
+            await ctx.send("nice try ||beaver||")
+            return
 
         if (
             final[0] == "<:Diamond:848602702132019210>"
