@@ -12,6 +12,7 @@ import json
 import requests
 
 from metno_locationforecast import Place, Forecast
+from pdf2image import convert_from_path
 
 import os
 from dotenv import load_dotenv
@@ -34,9 +35,14 @@ class weather(Cog):
             if ctx.guild.id != 918787074801401868 and ctx.guild.id != 885113462378876948:
                 return await ctx.send("Please specify a location.")
             input = "tromsø"
-            await ctx.send(
-                "read this for more in depth info\n<https://www.yr.no/nb/v%C3%A6rvarsel/daglig-tabell/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8>"
+
+        if input == "tromsø":
+            response = requests.get(
+                'https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8'
             )
+            with open('images/processed/yr.pdf', 'wb') as f: f.write(response.content)
+            convert_from_path('images/processed/yr.pdf')[0].save("images/processed/yr.jpg", 'JPEG')
+            await ctx.send(file=discord.File("images/processed/yr.jpg"))
 
         r = requests.get(
             f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}"
