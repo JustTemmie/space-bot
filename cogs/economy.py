@@ -85,7 +85,7 @@ class economy(commands.Cog):
             )
             embed.add_field(
                 name=f"Page 3: How to earn money",
-                value="this page will tell you most of the ways you can earn some shiny <:beaverCoin:968588341291397151>",
+                value="this page will tell you most of the ways you can earn some shiny <:beavert:968588341291397151>",
                 inline=False,
             )
             # embed.add_field(name = f"Page 4: Upgrades", value = "Upgrades that permanently incrase your production is some sort of way", inline = False)
@@ -148,24 +148,25 @@ class economy(commands.Cog):
         coinsides = ["Heads", "Tails"]
 
         result = coinsides[random.randint(0, 1)]
-        msg = await ctx.reply("the coin landed and...")
+        msg = await ctx.reply("the the coin was tossed into the air and...")
         await asyncio.sleep(1.0)
 
         bal = await self.update_bank_data(ctx.author)
         if amount > bal[0]:
-            await ctx.send("nice try ||beaver||")
+            await msg.edit(
+                content=f"{msg.content} it... didn't land??!\n{ctx.author.display_name} won {amount} <:beaverCoin:968588341291397151>"
             return
 
         if result.lower() == side:
             await self.update_bank_data(ctx.author, amount, "wallet")
             await msg.edit(
-                content=f"{msg.content} it was {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>"
+                content=f"{msg.content} it landed on {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>"
             )
             return
 
         await self.update_bank_data(ctx.author, -amount, "wallet")
         await msg.edit(
-            content=f"{msg.content} it was {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>"
+            content=f"{msg.content} it landed on  {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>"
         )
 
     @commands.command(
