@@ -4,12 +4,12 @@
 import argparse
 import subprocess
 import string
-
+wqf
 from collections import defaultdict
 from PIL import Image, ImageDraw, ImageFont
 
 
-DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation + " "ar
+DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation + " "
 DEFAULT_FONT = "Inconsolata"
 
 
