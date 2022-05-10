@@ -3,3 +3,8 @@ wikipedia
 py-cord
 buttons
 gitpython
+python-dotenv
+psutil
+apscheduler
+pillow
+pdf2image

@@ -12,6 +12,8 @@ import json
 import requests
 
 from metno_locationforecast import Place, Forecast
+from pdf2image import convert_from_path
+from PIL import Image
 
 import os
 from dotenv import load_dotenv
@@ -34,9 +36,7 @@ class weather(Cog):
             if ctx.guild.id != 918787074801401868 and ctx.guild.id != 885113462378876948:
                 return await ctx.send("Please specify a location.")
             input = "tromsø"
-            await ctx.send(
-                "read this for more in depth info\n<https://www.yr.no/nb/v%C3%A6rvarsel/daglig-tabell/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8>"
-            )
+
 
         r = requests.get(
             f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}"
@@ -76,6 +76,21 @@ class weather(Cog):
                     embed.add_field(name=x[0].replace("_", " "), value=x[1], inline=False)
 
         await ctx.send(embed=embed)
+        
+        if input == "tromsø":
+            response = requests.get(
+                'https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8'
+            )
+            
+            with open('images/processed/yr.pdf', 'wb') as f:
+                f.write(response.content)
+            convert_from_path('images/processed/yr.pdf')[0].save("images/processed/yr.jpg", 'JPEG')
+            
+            #yr = Image.open("images/processed/yr.jpg")
+            #yr = yr.resize((1653*2, 2339*2))
+            #yr.save("images/processed/yr.jpg")
+            
+            await ctx.send("https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8", file=discord.File("images/processed/yr.jpg"))
 
 
 def setup(bot):

@@ -155,6 +155,7 @@ class economy(commands.Cog):
         if amount > bal[0]:
             await msg.edit(
                 content=f"{msg.content} it... didn't land??!\n{ctx.author.display_name} won {amount} <:beaverCoin:968588341291397151>"
+            )
             return
 
         if result.lower() == side:
