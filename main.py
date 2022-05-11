@@ -4,7 +4,7 @@ import logging
 from time import time
 
 import discord
-from discord import Intents
+#from discord import Intents
 from discord.ext import tasks, commands
 
 
@@ -115,7 +115,7 @@ def get_prefix(bot, message):
     return commands.when_mentioned_or("a!")(bot, message)
 
 
-bot = commands.Bot(command_prefix=(get_prefix), owner_ids=OWNER_IDS, intents=Intents.all())
+bot = commands.Bot(command_prefix=(get_prefix), owner_ids=OWNER_IDS, intents=discord.Intents.all())
 
 bot.remove_command("help")
 bot.ready = False

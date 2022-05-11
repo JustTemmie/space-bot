@@ -1,6 +1,6 @@
 metno_locationforecast
 wikipedia
-py-cord
+discord.py
 buttons
 gitpython
 python-dotenv
