@@ -239,15 +239,20 @@ class events(commands.Cog):
             await react_beaver(ctx)
 
         listies = [
-            "revaeb",
-            "beavy",
             "dam",
-            "beav",
+            "revaeb",
             "bippa",
             "biba",
             "bev",
         ]  # if message ==
-        listies2 = ["dam ", "bidoof", "beaver", "bæver"]  # if in the message
+        
+        listies2 = [
+            "dam ",
+            "bidoof",
+            "bæv",
+            "beav",
+        ]  # if in the message
+        
         if ctx.guild.id != 918787074801401868:
             listies.append("damn")
 
