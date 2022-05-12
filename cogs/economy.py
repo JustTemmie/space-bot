@@ -651,7 +651,7 @@ class economy(commands.Cog):
     #########################################
 
     # this code doesn't use any else statements btw 😎 i find it more clean :shrug:
-    @commands.command(name="marry")
+    @commands.command(name="marry", brief = "marry someone!, even though, they're probably not even going to be friends")
     @cooldown(20, 600, BucketType.user)
     async def marry_someone(self, ctx, member: discord.Member, ring=None):
         if member == None or member == ctx.author:
@@ -743,7 +743,7 @@ class economy(commands.Cog):
         with open("data/bank.json", "w") as f:
             json.dump(data, f)
 
-    @commands.command(name="divorce")
+    @commands.command(name="divorce", brief="divorce your current partner, you fu***** hoe")
     @cooldown(15, 600, BucketType.user)
     async def divorce_someone(self, ctx, member: discord.Member):
         if member == None or member == ctx.author or member.bot:
