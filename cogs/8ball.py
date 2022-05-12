@@ -46,9 +46,9 @@ class ball8(commands.Cog):
     @commands.command(name="8ball", aliases=["8"], brief="Ask the 8ball a question")
     async def ball8_command(self, ctx):
         msg = await ctx.send("connecting to the oracle...")
-        time.sleep(random.randrange(2, 3))
+        time.sleep(1.2)
         await msg.edit(content="considering...")
-        time.sleep(random.randrange(1, 2))
+        time.sleep(0.5)
         await msg.edit(content=random.choice(responses))
 
 
