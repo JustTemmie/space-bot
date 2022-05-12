@@ -257,16 +257,31 @@ class events(commands.Cog):
                 if random.randrange(0, 20) == 7:
                     await ctx.delete()
 
-            if ctx.author.id == 411536312961597440:
-                with open("data/hendex.json", "r") as f:
-                    file = json.load(f)
+            people = [
+                411536312961597440, #henwee
+                877322068499238912, #lapp
+                325325337615532054, #adino
+                457246804606451715, #crok
+                398181370725400577, #isak
+            ]
+            file_path = [
+                "data/hendex.json",
+                "data/messages/lapp.json",
+                "data/messages/adino.json",
+                "data/messages/crok.json",
+                "data/messages/isak.json",
+            ]
+            for i, person in enumerate(people):
+                if ctx.author.id == person:
+                    with open(file_path[i], "r") as f:
+                        file = json.load(f)
 
-                file[
-                    str(time.time())
-                ] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.content[0]}{ctx.content[1]}"
+                    file[
+                        str(time.time())
+                    ] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.content[1]}"
 
-                with open("data/hendex.json", "w") as f:
-                    json.dump(file, f)
+                    with open(file_path[i], "w") as f:
+                        json.dump(file, f)
 
             # just gonna mention, henwee did consent to this lmao
             log_ids = 411536312961597440
