@@ -134,6 +134,7 @@ class events(commands.Cog):
         self.fish_friday.start()
         self.henwee.start()
         self.random_beaver.start()
+        self.random_reddit.start()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
@@ -376,7 +377,7 @@ class events(commands.Cog):
             "fish friday!!!", file=discord.File("images/video/fish.mp4")
         )
     
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=20)
     async def random_reddit(self):
         req = requests.get(
             "http://reddit.com/r/all/hot.json?limit=500",
