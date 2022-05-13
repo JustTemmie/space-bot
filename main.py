@@ -4,7 +4,6 @@ import logging
 from time import time
 
 import discord
-#from discord import Intents
 from discord.ext import tasks, commands
 
 

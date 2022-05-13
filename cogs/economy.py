@@ -669,18 +669,20 @@ class economy(commands.Cog):
             return
 
         ring_emoji = "none"
-        match ring.lower():
-            case "common":
+        if ring.lower() == "common":
                 ring_emoji = "<:commoner_ring:970309052053733396>"
-            case "uncommon":
+        elif ring.lower() == "uncommon":
                 ring_emoji = "<:uncommon_ring:970309091249516555>"
-            case "rare":
+        elif ring.lower() == "rare":
                 ring_emoji = "<:rare_ring:970309099134803978>"
-            case "epic":
+        elif ring.lower() == "epic":
                 ring_emoji = "<:epic_ring:970309107489849435>"
-            case "mythical":
+        elif ring.lower() == "mythical":
                 ring_emoji = "<:mythical_ring:970309114955702372>"
-
+                
+        elif ring == "💍":
+            return await ctx.send("lmao nice try")
+        
         if ring_emoji == "none":
             return await ctx.send("that's not a valid ring")
 

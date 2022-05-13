@@ -315,7 +315,7 @@ class events(commands.Cog):
                 or "henw " in ctx.content.lower()
                 or "411536312961597440" in ctx.content
             ):  # and ctx.author.id != self.bot.user.id:
-                if random.randint(0, 30) == 2:
+                if random.randint(0, 20) == 2:
                     await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
                     await ctx.add_reaction("<a:henwee_fall_short:955878859197280306>")
                     if random.randrange(1, 4) == 2:  # 1/3 chance
