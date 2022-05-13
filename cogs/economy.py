@@ -651,7 +651,7 @@ class economy(commands.Cog):
     #########################################
 
     # this code doesn't use any else statements btw 😎 i find it more clean :shrug:
-    @commands.command(name="marry", brief = "marry someone!, even though, they're probably not even going to be friends")
+    @commands.command(name="marry", brief = "marry someone! even though, they're probably not even going to be friends")
     @cooldown(20, 600, BucketType.user)
     async def marry_someone(self, ctx, member: discord.Member, ring=None):
         if member == None or member == ctx.author:

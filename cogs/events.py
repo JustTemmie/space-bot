@@ -16,13 +16,7 @@ import time
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 import logging
-import requests
 import json
-import os
-from dotenv import load_dotenv
-
-load_dotenv("keys.env")
-tenor_api_key = os.getenv("TENOR")
 
 
 henwees = [
@@ -346,22 +340,6 @@ class events(commands.Cog):
             if "sus" in ctx.content:
                 await ctx.reply("amogus")
 
-            if "avengers assemble" in ctx.content:
-                try:
-                    r = requests.get(
-                        "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
-                        % ("avengers assemble", tenor_api_key, 10)
-                    )
-
-                    if r.status_code == 200:
-                        top_x_gifs = json.loads(r.content)
-                        realoutput = top_x_gifs["results"][random.randrange(0, 10)]["media"][0][
-                            "gif"
-                        ]["url"]
-
-                        await ctx.send(realoutput)
-                except Exception as e:
-                    await ctx.send(e)
 
             if "brain fuck" in ctx.content:
                 await ctx.add_reaction("🧠")

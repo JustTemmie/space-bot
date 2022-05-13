@@ -3,7 +3,7 @@ import random
 import logging
 from time import time
 
-import discord
+import discord  
 from discord.ext import tasks, commands
 
 

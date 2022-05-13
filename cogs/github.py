@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands, tasks
-import ast
 import sys
 import os
 import subprocess
