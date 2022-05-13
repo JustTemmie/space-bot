@@ -66,7 +66,7 @@ class admin(Cog):
     @kick_members.error
     async def kick_members_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Insufficient permissions to perform tat task")
+            await ctx.send("Insufficient permissions to perform that task")
 
     @command(name="warn", brief="Warns the specified users")
     @bot_has_permissions(manage_messages=True)
@@ -153,7 +153,7 @@ class admin(Cog):
     @ban_members.error
     async def ban_members_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Insufficient permissions to perform tat task")
+            await ctx.send("Insufficient permissions to perform that task")
 
     @commands.command(
         name="clear",
