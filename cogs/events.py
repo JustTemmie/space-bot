@@ -338,7 +338,16 @@ class events(commands.Cog):
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
             if "sus" in ctx.content:
-                await ctx.reply("amogus")
+                msg = await ctx.reply("amogus")
+                
+                for x in range(0, len(listies)):
+                    if ctx.content.lower() == listies[x]:
+                        await react_beaver(msg)
+
+                for x in range(0, len(listies2)):
+                    if listies2[x] in ctx.content.lower():
+                        await react_beaver(msg)
+                
 
 
             if "brain fuck" in ctx.content:
