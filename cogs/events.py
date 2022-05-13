@@ -376,10 +376,10 @@ class events(commands.Cog):
             "fish friday!!!", file=discord.File("images/video/fish.mp4")
         )
     
-    @tasks.loop(minutes=1)
+    @tasks.loop(minutes=5)
     async def random_reddit(self):
         req = requests.get(
-            "http://reddit.com/r/all/hot.json?limit=50",
+            "http://reddit.com/r/all/hot.json?limit=500",
             headers={"User-agent": "Chrome"},
         )
         json = req.json()
