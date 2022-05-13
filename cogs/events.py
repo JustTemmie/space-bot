@@ -16,6 +16,8 @@ import time
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 import logging
+import requests
+import re
 import json
 
 
@@ -373,6 +375,40 @@ class events(commands.Cog):
         await self.bot.get_channel(918830241135353907).send(
             "fish friday!!!", file=discord.File("images/video/fish.mp4")
         )
+    
+    @tasks.loop(minutes=1)
+    async def random_reddit(self):
+        req = requests.get(
+            "http://reddit.com/r/all/hot.json?limit=50",
+            headers={"User-agent": "Chrome"},
+        )
+        json = req.json()
+        if "error" in json or json["data"]["after"] is None:
+            return
+
+        req_len = len(json["data"]["children"])
+        rand = random.randint(0, req_len - 1)
+        post = json["data"]["children"][rand]
+
+        title = post["data"]["title"]
+        author = "u/" + post["data"]["author"]
+        subreddit = post["data"]["subreddit_name_prefixed"]
+        url = post["data"]["url"]  # can be image or post link
+        link = "https://reddit.com" + post["data"]["permalink"]
+        if "selftext" in post["data"]:
+            text = post["data"]["selftext"]  # may not exist
+            if len(text) >= 2000:
+                text = text[:2000].rsplit(" ", 1)[0] + " **-Snippet-**"
+            embed = discord.Embed(title=title, description=text, url=link)
+        else:
+            embed = discord.Embed(title=title, url=link)
+        
+        if re.match(r".*\.(jpg|png|gif)$", url):
+            embed.set_image(url=url)
+
+        embed.set_footer(text="By {} in {}".format(author, subreddit))
+        
+        await self.bot.get_channel(974642338150367252).send
 
     @tasks.loop(seconds=293)
     async def henwee(self):
