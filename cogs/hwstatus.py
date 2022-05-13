@@ -1,7 +1,5 @@
 from curses.ascii import EM
-import email
 import discord
-from discord import Member, Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 

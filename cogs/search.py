@@ -7,14 +7,6 @@ from discord.ext import tasks, commands
 from discord.ext.commands import (
     cooldown,
     BucketType,
-    CommandNotFound,
-    BadArgument,
-    MissingRequiredArgument,
-    CommandOnCooldown,
-    Greedy,
-    Converter,
-    CheckFailure,
-    Cog,
     MissingRequiredArgument,
 )
 
@@ -61,7 +53,7 @@ class search(commands.Cog):
         if search == "tra" or search == "traa":
             search = "traaaaaaannnnnnnnnns"
         req = requests.get(
-            "http://reddit.com/r/" + search + "/new/.json",
+            "http://reddit.com/r/" + search + "/hot/.json?limit=50",
             headers={"User-agent": "Chrome"},
         )
         json = req.json()

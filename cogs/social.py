@@ -6,14 +6,7 @@ from discord.ext import tasks, commands
 from discord.ext.commands import (
     cooldown,
     BucketType,
-    CommandNotFound,
-    BadArgument,
-    MissingRequiredArgument,
-    CommandOnCooldown,
     Greedy,
-    Converter,
-    CheckFailure,
-    Cog,
     MissingRequiredArgument,
 )
 
@@ -250,7 +243,7 @@ class social(commands.Cog):
         gif_count = 20
         r = requests.get(
             "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
-            % ("anime gif boop", tenor_api_key, gif_count)
+            % ("anime boop", tenor_api_key, gif_count)
         )
 
         actees = []

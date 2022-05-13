@@ -17,12 +17,8 @@ IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 import logging
 import requests
+import re
 import json
-import os
-from dotenv import load_dotenv
-
-load_dotenv("keys.env")
-tenor_api_key = os.getenv("TENOR")
 
 
 henwees = [
@@ -138,6 +134,7 @@ class events(commands.Cog):
         self.fish_friday.start()
         self.henwee.start()
         self.random_beaver.start()
+        self.random_reddit.start()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
@@ -315,7 +312,7 @@ class events(commands.Cog):
                 or "henw " in ctx.content.lower()
                 or "411536312961597440" in ctx.content
             ):  # and ctx.author.id != self.bot.user.id:
-                if random.randint(0, 30) == 2:
+                if random.randint(0, 20) == 2:
                     await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
                     await ctx.add_reaction("<a:henwee_fall_short:955878859197280306>")
                     if random.randrange(1, 4) == 2:  # 1/3 chance
@@ -344,24 +341,17 @@ class events(commands.Cog):
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
             if "sus" in ctx.content:
-                await ctx.reply("amogus")
+                msg = await ctx.reply("amogus")
+                
+                for x in range(0, len(listies)):
+                    if ctx.content.lower() == listies[x]:
+                        await react_beaver(msg)
 
-            if "avengers assemble" in ctx.content:
-                try:
-                    r = requests.get(
-                        "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
-                        % ("avengers assemble", tenor_api_key, 10)
-                    )
+                for x in range(0, len(listies2)):
+                    if listies2[x] in ctx.content.lower():
+                        await react_beaver(msg)
+                
 
-                    if r.status_code == 200:
-                        top_x_gifs = json.loads(r.content)
-                        realoutput = top_x_gifs["results"][random.randrange(0, 10)]["media"][0][
-                            "gif"
-                        ]["url"]
-
-                        await ctx.send(realoutput)
-                except Exception as e:
-                    await ctx.send(e)
 
             if "brain fuck" in ctx.content:
                 await ctx.add_reaction("🧠")
@@ -386,6 +376,40 @@ class events(commands.Cog):
         await self.bot.get_channel(918830241135353907).send(
             "fish friday!!!", file=discord.File("images/video/fish.mp4")
         )
+    
+    @tasks.loop(minutes=20)
+    async def random_reddit(self):
+        req = requests.get(
+            "http://reddit.com/r/all/hot.json?limit=500",
+            headers={"User-agent": "Chrome"},
+        )
+        json = req.json()
+        if "error" in json or json["data"]["after"] is None:
+            return
+
+        req_len = len(json["data"]["children"])
+        rand = random.randint(0, req_len - 1)
+        post = json["data"]["children"][rand]
+
+        title = post["data"]["title"]
+        author = "u/" + post["data"]["author"]
+        subreddit = post["data"]["subreddit_name_prefixed"]
+        url = post["data"]["url"]  # can be image or post link
+        link = "https://reddit.com" + post["data"]["permalink"]
+        if "selftext" in post["data"]:
+            text = post["data"]["selftext"]  # may not exist
+            if len(text) >= 2000:
+                text = text[:2000].rsplit(" ", 1)[0] + " **-Snippet-**"
+            embed = discord.Embed(title=title, description=text, url=link)
+        else:
+            embed = discord.Embed(title=title, url=link)
+        
+        if re.match(r".*\.(jpg|png|gif)$", url):
+            embed.set_image(url=url)
+
+        embed.set_footer(text="By {} in {}".format(author, subreddit))
+        
+        await self.bot.get_channel(974642338150367252).send
 
     @tasks.loop(seconds=293)
     async def henwee(self):

@@ -1,19 +1,16 @@
 import discord
-from discord import Embed, Member
+from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import (
     cooldown,
     BucketType,
     Cog,
-    Greedy,
-    CheckFailure,
 )
 import json
 import requests
 
 from metno_locationforecast import Place, Forecast
 from pdf2image import convert_from_path
-from PIL import Image
 
 import os
 from dotenv import load_dotenv
