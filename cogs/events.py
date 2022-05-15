@@ -224,6 +224,12 @@ class events(commands.Cog):
             await self.bot.get_channel(946146531805900811).send(
                 f"hello {member.mention}, have you wishlisted beaver clicker yet?\nhttps://store.steampowered.com/app/1718240"
             )
+        
+        elif member.guild.id == 885113462378876948:  # maid café
+            await self.bot.get_channel(885113515411669002).send(
+                f"hello {member.mention} just joined the server!\nwonder if they've wishlisted wishlisted beaver clicker yet?\nhttps://store.steampowered.com/app/1718240"
+            )
+
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
@@ -234,6 +240,11 @@ class events(commands.Cog):
 
         if random.randint(0, 75000) == 2:
             await react_beaver(ctx)
+        
+        
+        if ctx.author.id == 325325337615532054:  # adino
+            await ctx.add_reaction("<:Robpoint:885140068296196106>")
+
 
         listies = [
             "dam",
@@ -454,7 +465,6 @@ async def lucky_beaver(self):
     except:
         await lucky_beaver()
 
-
 async def react_beaver(ctx):
     await ctx.add_reaction("<a:beav:973130744190869575>")
     if random.randrange(0, 40) == 2 and "beaver" in ctx.content:
@@ -470,6 +480,7 @@ async def react_beaver(ctx):
         await ctx.channel.send(
             f"{message[index]}\nhttps://store.steampowered.com/app/1718240/Beaver_Clicker/"
         )
+
 
 
 def setup(bot):

@@ -745,7 +745,7 @@ class economy(commands.Cog):
         with open("data/bank.json", "w") as f:
             json.dump(data, f)
 
-    @commands.command(name="divorce", brief="divorce your current partner, you fu***** hoe")
+    @commands.command(name="divorce", brief="divorce your current partner, you fu\*\*\*\*\* hoe")
     @cooldown(15, 600, BucketType.user)
     async def divorce_someone(self, ctx, member: discord.Member):
         if member == None or member == ctx.author or member.bot:

@@ -215,6 +215,17 @@ class Owner(commands.Cog):
             return
         await ctx.send(f"{pip} has been {action}ed")
 
+    @commands.command(name ="repeat-embed")
+    @commands.is_owner()
+    async def repeatembed(self, ctx, title, desc = "None", footer = None, *fields):
+        embed = discord.Embed(title = title, description = desc, color = 0x00ff00)
+        if footer != "None":
+            embed.set_footer(text = footer)
+        if fields != ():
+            for i in range(len(fields)):
+                embed.add_field(name = fields[i][0], value = fields[i][1:], inline = False)
+        await ctx.send(embed=embed)
+
     @commands.command()
     @commands.is_owner()
     async def run(self, ctx, *, code: str):
