@@ -243,7 +243,8 @@ class events(commands.Cog):
         
         
         if ctx.author.id == 325325337615532054:  # adino
-            await ctx.add_reaction("<:Robpoint:885140068296196106>")
+            if random.randint(0, 10) == 2:
+                await ctx.add_reaction("<:Robpoint:885140068296196106>")
 
 
         listies = [
