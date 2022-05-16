@@ -363,7 +363,7 @@ class events(commands.Cog):
             #            + henwees[hendex],
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
-            if "sus" in ctx.conten.lower()-:
+            if "sus" in ctx.content.lower():
                 msg = await ctx.reply("amogus")
                 
                 for x in range(0, len(listies)):
@@ -413,24 +413,20 @@ class events(commands.Cog):
                 for x in member.activities:
                     try:
                         if "genshin" in str(x) or "Genshin" in str(x):
-                            if "genshining" in member.display_name:
-                                break
-                            
-                            try:
-                                await member.edit(nick="(genshining) " + member.display_name)
-                            except:
+                            if not "genshining" in member.display_name:
+
                                 try:
                                     await member.edit(nick="(genshining) " + member.display_name)
                                 except:
                                     await member.edit(nick="(genshining)")
 
                         if "genshining" in member.display_name:
-                            if "genshin" in str(x) or "Genshin" in str(x):
-                                break
-                            try:
-                                await member.edit(nick=member.display_name.replace("(genshining) ", ""))
-                            except:
-                                await member.edit(nick=member.name)
+                            if not ("genshin" in str(x) or "Genshin" in str(x)):
+                                
+                                try:
+                                    await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                                except:
+                                    await member.edit(nick=member.name)
 
 
                     except Exception as e:
