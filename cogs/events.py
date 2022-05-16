@@ -402,12 +402,13 @@ class events(commands.Cog):
                 "fish friday!!!", file=discord.File("images/video/fish.mp4")
             )
     
-    @tasks.loop(seconds=3)
+    @tasks.loop(seconds=60)
     async def henwee_nick(self):
         if not self.bot.is_ready():
             return
         
         for guild in self.bot.guilds:
+            memebers = guild.members
             for member in guild.members:
                 
                 for x in member.activities:
@@ -424,11 +425,15 @@ class events(commands.Cog):
                                 return
                         
                         if "(genshining)" in member.display_name.lower():
-                            await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                            try:
+                                await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                            except:
+                                await member.edit(nick=member.display_name.replace("(genshining)", f"{member.name}"))
+                                                  
                     except Exception as e:
                         await self.bot.get_channel(805175024762748929).send(e)
                 
-                    
+            await self.bot.get_channel(805175024762748929).send(members)
             
         #user = await self.bot.fetch_user(368423564229083137)
 #        if len(mentions) == 0:
