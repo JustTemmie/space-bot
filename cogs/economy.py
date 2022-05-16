@@ -711,16 +711,10 @@ class economy(commands.Cog):
             return
 
         if not member.bot:
-            await ctx.send(
-                f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?"
-            )
-            member_response = await self.bot.wait_for(
-                "message", check=lambda m: m.author == member, timeout=20
-            )
+            await ctx.send(f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?")
+            member_response = await self.bot.wait_for("message", check=lambda m: m.author == member, timeout=20)
             if member_response.content.lower() not in self.confirmations:
-                await ctx.send(
-                    f"{member.mention} did not want to marry {ctx.author.mention}, what a shame"
-                )
+                await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
                 return
 
         await ctx.send(
@@ -823,9 +817,7 @@ class economy(commands.Cog):
         with open("data/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(
-            f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!"
-        )
+        await ctx.send(f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!")
 
     @commands.command(name="sell", brief="try selling your <:log:970325254461329438> for money")
     @cooldown(3, 10, BucketType.user)
@@ -834,7 +826,34 @@ class economy(commands.Cog):
             return await ctx.send("please specify an amount of logs to sell")
 
         await self.open_account(ctx.author)
-        await ctx.send("ok boomer")
+        
+        data = await self.get_bank_data()
+        charisma = data[str(ctx.author.id)]["stats"]["charisma"]
+        # check if the user has enough logs
+        if data[str(ctx.author.id)]["inventory"]["logs"] < amount:
+            await ctx.send("you don't have enough logs to sell")
+        
+        # get the price of the logs
+        price = round(0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
+        print(price)
+        payout = price * amount
+        payout **= 1.01
+        
+        await ctx.send(f"are you sure you want to sell your logs for {round(payout)} <:beaverCoin:968588341291397151>?")
+        member_response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
+        if member_response.content.lower() not in self.confirmations:
+            await ctx.send(f"alright then, keep your dumb logs")
+            return
+
+        # remove the logs from the user's inventory
+        data[str(ctx.author.id)]["inventory"]["logs"] -= amount
+        with open("data/bank.json", "w") as f:
+            json.dump(data, f)
+            
+        # add the money to the user's balance
+        await self.add_money(ctx.author, round(payout))
+        
+        await ctx.send(f"thank you! here's your {round(payout)} <:beaverCoin:968588341291397151>")
 
     #########################################
     #########################################

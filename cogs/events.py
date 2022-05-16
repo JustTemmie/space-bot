@@ -364,17 +364,7 @@ class events(commands.Cog):
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
             if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
-                msg = await ctx.reply("amogus")
-                
-                for x in range(0, len(listies)):
-                    if ctx.content.lower() == listies[x]:
-                        await react_beaver(msg)
-
-                for x in range(0, len(listies2)):
-                    if listies2[x] in ctx.content.lower():
-                        await react_beaver(msg)
-                
-
+                msg = await ctx.reply("amogus")                
 
             if "brain fuck" in ctx.content:
                 await ctx.add_reaction("🧠")
@@ -385,22 +375,23 @@ class events(commands.Cog):
 
     @tasks.loop(seconds=3)
     async def fish_friday(self):
+        if datetime.today().weekday() != 4:
+            return
+        
         with open("images/video/date.json", "r") as f:
             jsoninfo = json.load(f)
 
         if jsoninfo == str(datetime.now().day):
             return
-        if datetime.today().weekday() != 4:
-            return
 
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
 
-        
         for ID in fish_IDs:
             await self.bot.get_channel(ID).send(
                 "fish friday!!!", file=discord.File("images/video/fish.mp4")
             )
+
     
     @tasks.loop(seconds=30)
     async def genshin_nick(self):
@@ -409,7 +400,6 @@ class events(commands.Cog):
         
         for guild in self.bot.guilds:
             for member in guild.members:
-                
                 for x in member.activities:
                     try:
                         if "genshin" in str(x) or "Genshin" in str(x):
