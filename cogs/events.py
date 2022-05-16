@@ -404,6 +404,7 @@ class events(commands.Cog):
     
     @tasks.loop(seconds=50)
     async def genshin_nick(self):
+        time.sleep(1)
         if not self.bot.is_ready():
             return print("a")
         
@@ -432,9 +433,9 @@ class events(commands.Cog):
                                 await member.edit(nick=member.display_name.replace("(genshining)", f"{member.name}"))
                                                   
                     except Exception as e:
-                        await self.bot.get_channel(805175024762748929).send(e)
+                        await self.bot.get_channel(805175024762748929).send(f"{e}, {member.display_name}, {guild.name}")
                 
-            await self.bot.get_channel(805175024762748929).send(f"{members}, {guild.id}")
+            #await self.bot.get_channel(805175024762748929).send(f"{members}, {guild.id}")
             
         #user = await self.bot.fetch_user(368423564229083137)
 #        if len(mentions) == 0:
