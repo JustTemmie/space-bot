@@ -425,7 +425,7 @@ class events(commands.Cog):
                                         await member.edit(nick="(genshining)")
 
                         
-                        elif "(genshining)" in member.display_name.lower():
+                        elif "(genshining)" in member.display_name.lower() and not ("genshin" in str(x) or "Genshin" in str(x)):
                             try:
                                 await member.edit(nick=member.display_name.replace("(genshining) ", ""))
                             except:
