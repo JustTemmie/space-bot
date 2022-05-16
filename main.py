@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 load_dotenv("keys.env")
 TOKEN = os.getenv("DISCORD")
 
+SHARDS = 1
+
 statuses = [
     "you",
     "the sky",
@@ -115,7 +117,7 @@ def get_prefix(bot, message):
 
 
 bot = commands.AutoShardedBot(
-    shard_count=5,
+    shard_count=SHARDS,
     command_prefix=(get_prefix),
     owner_ids=OWNER_IDS,
     intents=discord.Intents.all()
@@ -143,7 +145,7 @@ async def on_ready():
             print(f"- {guild.id} (name: {guild.name})")
             guild_count = guild_count + 1
 
-        print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count-1} shard(s)")
+        print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
 
         bot.ready = True
 
