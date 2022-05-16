@@ -421,8 +421,12 @@ class events(commands.Cog):
                                 await member.edit(nick="(genshining) " + member.display_name)
                                 return
                             except:
-                                await member.edit(nick="(genshining)")
-                                return
+                                try:
+                                    await member.edit(nick="(genshining) " + member.display_name)
+                                    return
+                                except:
+                                    await member.edit(nick="(genshining)")
+                                    return
                         
                         if "(genshining)" in member.display_name.lower():
                             try:
