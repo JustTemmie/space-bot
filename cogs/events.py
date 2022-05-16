@@ -412,7 +412,7 @@ class events(commands.Cog):
                 
                 for x in member.activities:
                     try:
-                        if "Genshin" in str(x) or "genshin" in str(x):
+                        if "genshin" in str(x) or "Genshin" in str(x):
                             if "(genshining)" in member.display_name.lower():
                                 return
                             
@@ -421,8 +421,8 @@ class events(commands.Cog):
                         
                         if "(genshining)" in member.display_name.lower():
                             await member.edit(nick=member.display_name.replace("(genshining) ", ""))
-                    except:
-                        pass
+                    except Exception as e:
+                        await self.bot.get_channel(805175024762748929).send(e)
                 
                     
             
