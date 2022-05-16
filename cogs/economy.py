@@ -834,12 +834,14 @@ class economy(commands.Cog):
             return await ctx.send("you don't have enough logs to sell")
         
         # get the price of the logs
+        lower_price = round(0.3 * charisma**0.85 + 1.2) 
         price = round(0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
         print(price)
+        lower_payout = lower_price * amount
         payout = price * amount
         payout **= 1.01
         
-        await ctx.send(f"are you sure you want to sell your logs for an {round(payout)} <:beaverCoin:968588341291397151>?")
+        await ctx.send(f"are you sure you want to sell your logs for {round(lower_payout)} <:beaverCoin:968588341291397151>?")
         member_response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         if member_response.content.lower() not in self.confirmations:
             await ctx.send(f"alright then, keep your dumb logs")
@@ -853,7 +855,7 @@ class economy(commands.Cog):
         # add the money to the user's balance
         await self.update_bank_data(ctx.author, round(payout))
         
-        await ctx.send(f"thank you! here's your {round(payout)} <:beaverCoin:968588341291397151>")
+        await ctx.send(f"thank you for your bussiness! here's your {round(lower_payout)} <:beaverCoin:968588341291397151> plus an extra {round(payout)-round(lower_payout)} <:beaverCoin:968588341291397151> i threw in for good measure :)")
 
     #########################################
     #########################################
