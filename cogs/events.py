@@ -404,9 +404,8 @@ class events(commands.Cog):
     
     @tasks.loop(seconds=30)
     async def genshin_nick(self):
-        time.sleep(1)
         if not self.bot.is_ready():
-            return print("a")
+            return
         
         for guild in self.bot.guilds:
             for member in guild.members:
@@ -434,7 +433,7 @@ class events(commands.Cog):
                                 await member.edit(nick=member.name)
                                                   
                     except Exception as e:
-                        pass
+                        print(e)
                         #await self.bot.get_channel(805175024762748929).send(f"{e}, {member.display_name}, {guild.name}")
                 
             #await self.bot.get_channel(805175024762748929).send(f"{members}, {guild.id}")
