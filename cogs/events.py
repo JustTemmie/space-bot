@@ -137,7 +137,7 @@ class events(commands.Cog):
         self.henwee.start()
         self.random_beaver.start()
         self.random_reddit.start()
-        self.henwee_nick.start()
+        self.genshin_nick.start()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
@@ -402,18 +402,19 @@ class events(commands.Cog):
                 "fish friday!!!", file=discord.File("images/video/fish.mp4")
             )
     
-    @tasks.loop(seconds=60)
-    async def henwee_nick(self):
+    @tasks.loop(seconds=50)
+    async def genshin_nick(self):
         if not self.bot.is_ready():
-            return
+            return print("a")
         
         for guild in self.bot.guilds:
-            members = guild.members
+            members = []
             for member in guild.members:
+                members.append(member.display_name)
                 
                 for x in member.activities:
                     try:
-                        if "genshin" in str(x) or "Genshin" in str(x):
+                        if "genshin" in str(x) or "4D" in str(x):
                             if "(genshining)" in member.display_name.lower():
                                 return
                             
@@ -433,7 +434,7 @@ class events(commands.Cog):
                     except Exception as e:
                         await self.bot.get_channel(805175024762748929).send(e)
                 
-            await self.bot.get_channel(805175024762748929).send(members, guild.id)
+            await self.bot.get_channel(805175024762748929).send(f"{members}, {guild.id}")
             
         #user = await self.bot.fetch_user(368423564229083137)
 #        if len(mentions) == 0:
