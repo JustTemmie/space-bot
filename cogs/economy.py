@@ -834,8 +834,8 @@ class economy(commands.Cog):
             return await ctx.send("you don't have enough logs to sell")
         
         # get the price of the logs
-        lower_price = round(0.3 * charisma**0.85 + 1.2) 
-        price = round(0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
+        lower_price = (0.3 * charisma**0.85 + 1.2) 
+        price = (0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
         print(price)
         lower_payout = lower_price * amount
         payout = price * amount
