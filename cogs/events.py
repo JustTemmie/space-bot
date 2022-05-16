@@ -412,14 +412,6 @@ class events(commands.Cog):
                 
                 for x in member.activities:
                     try:
-                        #if "(genshining)" in member.display_name:
-                        #    if not ("genshin" in str(x) or "Genshin" in str(x)):
-                        #        try:
-                        #            await member.edit(nick=member.display_name.replace("(genshining) ", ""))
-                        #        except:
-                        #            await member.edit(nick=member.name)
-
-
                         if "genshin" in str(x) or "Genshin" in str(x):
                             if "(genshining)" in member.display_name:
                                 break
@@ -432,6 +424,13 @@ class events(commands.Cog):
                                 except:
                                     await member.edit(nick="(genshining)")
 
+                        if "(genshining)" in member.display_name:
+                            if "genshin" in str(x) or "Genshin" in str(x):
+                                break
+                                try:
+                                    await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                                except:
+                                    await member.edit(nick=member.name)
 
 
                     except Exception as e:
