@@ -839,7 +839,7 @@ class economy(commands.Cog):
         payout = price * amount
         payout **= 1.01
         
-        await ctx.send(f"are you sure you want to sell your logs for {round(payout)} <:beaverCoin:968588341291397151>?")
+        await ctx.send(f"are you sure you want to sell your logs for an {round(payout)} <:beaverCoin:968588341291397151>?")
         member_response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         if member_response.content.lower() not in self.confirmations:
             await ctx.send(f"alright then, keep your dumb logs")
