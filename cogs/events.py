@@ -420,15 +420,15 @@ class events(commands.Cog):
                                 except:
                                     await member.edit(nick="(gensiner)")
 
-                        if "gensiner" in member.display_name:
-                            if "genshin" in str(x) or "Genshin" in str(x):
-                                pass
-                            
-                            else:
-                                try:
-                                    await member.edit(nick=member.display_name.replace("(gensiner)", ""))
-                                except:
-                                    await member.edit(nick=member.name)
+                        #if "gensiner" in member.display_name:
+                        #    if "genshin" in str(x) or "Genshin" in str(x):
+                        #        pass
+                        #    
+                        #    else:
+                        #        try:
+                        #            await member.edit(nick=member.display_name.replace("(gensiner)", ""))
+                        #        except:
+                        #            await member.edit(nick=member.name)
 
 
                     except Exception as e:
