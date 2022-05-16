@@ -73,7 +73,7 @@ statuses = [
     "what do i even put here?",
     "amogus",
     "you bein sus uwu",
-    "cookie clicker < coochie clicker",
+    "cookie clicker < coochie clicker < beaver clicker",
     "holy fuck beaver make me go :)))",
     "the co- i mean clock",
     "henwee ;)",

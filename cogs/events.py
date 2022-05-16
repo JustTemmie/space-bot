@@ -279,6 +279,7 @@ class events(commands.Cog):
                 325325337615532054, #adino
                 457246804606451715, #crok
                 398181370725400577, #isak
+                368423564229083137, #tem
             ]
             file_path = [
                 "data/hendex.json",
@@ -286,15 +287,14 @@ class events(commands.Cog):
                 "data/messages/adino.json",
                 "data/messages/crok.json",
                 "data/messages/isak.json",
+                "data/messages/temmie.json",
             ]
             for i, person in enumerate(people):
                 if ctx.author.id == person:
                     with open(file_path[i], "r") as f:
                         file = json.load(f)
 
-                    file[
-                        str(time.time())
-                    ] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.content[1]}"
+                    file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
 
                     with open(file_path[i], "w") as f:
                         json.dump(file, f)
