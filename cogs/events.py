@@ -402,20 +402,18 @@ class events(commands.Cog):
                 "fish friday!!!", file=discord.File("images/video/fish.mp4")
             )
     
-    @tasks.loop(seconds=50)
+    @tasks.loop(seconds=30)
     async def genshin_nick(self):
         time.sleep(1)
         if not self.bot.is_ready():
             return print("a")
         
         for guild in self.bot.guilds:
-            members = []
             for member in guild.members:
-                members.append(member.display_name)
                 
                 for x in member.activities:
                     try:
-                        if "genshin" in str(x) or "4D" in str(x):
+                        if "genshin" in str(x) or "Genshin" in str(x):
                             if "(genshining)" in member.display_name.lower():
                                 return
                             
