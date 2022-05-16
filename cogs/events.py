@@ -419,23 +419,23 @@ class events(commands.Cog):
                             
                             try:
                                 await member.edit(nick="(genshining) " + member.display_name)
-                                return
                             except:
                                 try:
                                     await member.edit(nick="(genshining) " + member.display_name)
-                                    return
                                 except:
                                     await member.edit(nick="(genshining)")
-                                    return
+                            
+                            return
                         
                         if "(genshining)" in member.display_name.lower():
                             try:
                                 await member.edit(nick=member.display_name.replace("(genshining) ", ""))
                             except:
-                                await member.edit(nick=member.display_name.replace("(genshining)", f"{member.name}"))
+                                await member.edit(nick=member.name)
                                                   
                     except Exception as e:
-                        await self.bot.get_channel(805175024762748929).send(f"{e}, {member.display_name}, {guild.name}")
+                        pass
+                        #await self.bot.get_channel(805175024762748929).send(f"{e}, {member.display_name}, {guild.name}")
                 
             #await self.bot.get_channel(805175024762748929).send(f"{members}, {guild.id}")
             
