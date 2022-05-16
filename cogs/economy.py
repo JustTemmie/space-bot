@@ -831,7 +831,7 @@ class economy(commands.Cog):
         charisma = data[str(ctx.author.id)]["stats"]["charisma"]
         # check if the user has enough logs
         if data[str(ctx.author.id)]["inventory"]["logs"] < amount:
-            await ctx.send("you don't have enough logs to sell")
+            return await ctx.send("you don't have enough logs to sell")
         
         # get the price of the logs
         price = round(0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
