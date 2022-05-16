@@ -412,7 +412,7 @@ class events(commands.Cog):
                 
                 for x in member.activities:
                     try:
-                        if "4D" in str(x) or "4d" in str(x):
+                        if "Genshin" in str(x) or "genshin" in str(x):
                             if "(genshining)" in member.display_name.lower():
                                 return
                             
