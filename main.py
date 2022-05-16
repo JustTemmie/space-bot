@@ -115,10 +115,9 @@ def get_prefix(bot, message):
 
 
 bot = commands.Bot(
-discord.AutoShardedClient(shard_count=4),
-command_prefix=(get_prefix),
-owner_ids=OWNER_IDS,
-intents=discord.Intents.all()
+	command_prefix=get_prefix,
+	owner_ids=OWNER_IDS,
+	intents=discord.Intents.all()
 )
 
 bot.remove_command("help")
