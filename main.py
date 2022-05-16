@@ -114,11 +114,11 @@ def get_prefix(bot, message):
     return commands.when_mentioned_or("a!")(bot, message)
 
 
-bot = commands.AutoShardedBot(
-    shard_count=5,
-    command_prefix=(get_prefix),
-    owner_ids=OWNER_IDS,
-    intents=discord.Intents.all()
+bot = commands.Bot(
+discord.AutoShardedClient(shard_count=4),
+command_prefix=(get_prefix),
+owner_ids=OWNER_IDS,
+intents=discord.Intents.all()
 )
 
 bot.remove_command("help")
@@ -128,7 +128,6 @@ bot.ready = False
 @bot.event
 async def on_ready():
     if not bot.ready:
-        
 
         change_status_task.start()
 
@@ -143,7 +142,7 @@ async def on_ready():
             print(f"- {guild.id} (name: {guild.name})")
             guild_count = guild_count + 1
 
-        print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count-1} shard(s)")
+        print(f"{bot.user} is in " + str(guild_count) + " guild(s).")
 
         bot.ready = True
 

@@ -385,11 +385,9 @@ class events(commands.Cog):
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
 
-        IDs = [918830241135353907, 885113515411669002]
-        for ID in IDs:
-            await self.bot.get_channel(ID).send(
-                "fish friday!!!", file=discord.File("images/video/fish.mp4")
-            )
+        await self.bot.get_channel(918830241135353907).send(
+            "fish friday!!!", file=discord.File("images/video/fish.mp4")
+        )
     
     @tasks.loop(minutes=20)
     async def random_reddit(self):
@@ -423,7 +421,7 @@ class events(commands.Cog):
 
         embed.set_footer(text="By {} in {}".format(author, subreddit))
         
-        await self.bot.get_channel(974642338150367252).send(embed=embed)
+        await self.bot.get_channel(974642338150367252).send
 
     @tasks.loop(seconds=293)
     async def henwee(self):
