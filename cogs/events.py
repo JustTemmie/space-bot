@@ -411,15 +411,18 @@ class events(commands.Cog):
             for member in guild.members:
                 
                 for x in member.activities:
-                    if "Genshin" in str(x) or "genshin" in str(x):
-                        if "(genshining)" in member.display_name.lower():
+                    try:
+                        if "4D" in str(x) or "4d" in str(x):
+                            if "(genshining)" in member.display_name.lower():
+                                return
+                            
+                            await member.edit(nick="(genshining) " + member.display_name)
                             return
                         
-                        await member.edit(nick="(genshining) " + member.display_name)
-                        return
-                    
-                    if "(genshining)" in member.display_name.lower():
-                        await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                        if "(genshining)" in member.display_name.lower():
+                            await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                    except:
+                        pass
                 
                     
             
