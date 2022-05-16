@@ -835,7 +835,7 @@ class economy(commands.Cog):
         
         # get the price of the logs
         lower_price = (0.3 * charisma**0.85 + 1.2) 
-        price = (0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
+        price =     (0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
         print(price)
         lower_payout = lower_price * amount
         payout = price * amount
