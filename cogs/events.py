@@ -432,7 +432,8 @@ class events(commands.Cog):
                                 await member.edit(nick=member.name)
                                                   
                     except Exception as e:
-                        print(e)
+                        pass
+                        #print(e)
                         #await self.bot.get_channel(805175024762748929).send(f"{e}, {member.display_name}, {guild.name}")
                 
             #await self.bot.get_channel(805175024762748929).send(f"{members}, {guild.id}")
