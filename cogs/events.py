@@ -416,8 +416,12 @@ class events(commands.Cog):
                             if "(genshining)" in member.display_name.lower():
                                 return
                             
-                            await member.edit(nick="(genshining) " + member.display_name)
-                            return
+                            try:
+                                await member.edit(nick="(genshining) " + member.display_name)
+                                return
+                            except:
+                                await member.edit(nick="(genshining)")
+                                return
                         
                         if "(genshining)" in member.display_name.lower():
                             await member.edit(nick=member.display_name.replace("(genshining) ", ""))
