@@ -363,7 +363,7 @@ class events(commands.Cog):
             #            + henwees[hendex],
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
-            if "sus" in ctx.content:
+            if "sus" in ctx.conten.lower()-:
                 msg = await ctx.reply("amogus")
                 
                 for x in range(0, len(listies)):
