@@ -430,7 +430,7 @@ class events(commands.Cog):
 
 
                     except Exception as e:
-                        pass
+                        pass    
                         #print(e)
                         #await self.bot.get_channel(805175024762748929).send(f"{e}, {member.display_name}, {guild.name}")
                 
