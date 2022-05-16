@@ -408,7 +408,7 @@ class events(commands.Cog):
             return
         
         for guild in self.bot.guilds:
-            memebers = guild.members
+            members = guild.members
             for member in guild.members:
                 
                 for x in member.activities:
@@ -433,7 +433,7 @@ class events(commands.Cog):
                     except Exception as e:
                         await self.bot.get_channel(805175024762748929).send(e)
                 
-            await self.bot.get_channel(805175024762748929).send(members)
+            await self.bot.get_channel(805175024762748929).send(members, guild.id)
             
         #user = await self.bot.fetch_user(368423564229083137)
 #        if len(mentions) == 0:
