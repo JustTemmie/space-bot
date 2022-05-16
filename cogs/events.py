@@ -412,25 +412,26 @@ class events(commands.Cog):
                 
                 for x in member.activities:
                     try:
-                        if "genshin" in str(x) or "Genshin" in str(x):
-                            if not "(genshining)" in member.display_name.lower():
-                                
-                                
+                        if "(genshining)" in member.display_name:
+                            if not ("genshin" in str(x) or "Genshin" in str(x)):
+                                try:
+                                    await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                                except:
+                                    await member.edit(nick=member.name)
+
+
+                        elif "genshin" in str(x) or "Genshin" in str(x):    
+                            
+                            try:
+                                await member.edit(nick="(genshining) " + member.display_name)
+                            except:
                                 try:
                                     await member.edit(nick="(genshining) " + member.display_name)
                                 except:
-                                    try:
-                                        await member.edit(nick="(genshining) " + member.display_name)
-                                    except:
-                                        await member.edit(nick="(genshining)")
+                                    await member.edit(nick="(genshining)")
 
-                        
-                        elif "(genshining)" in member.display_name.lower() and not ("genshin" in str(x) or "Genshin" in str(x)):
-                            try:
-                                await member.edit(nick=member.display_name.replace("(genshining) ", ""))
-                            except:
-                                await member.edit(nick=member.name)
-                                                  
+
+
                     except Exception as e:
                         pass
                         #print(e)
