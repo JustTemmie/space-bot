@@ -855,11 +855,23 @@ class economy(commands.Cog):
 
         if loaded_time < time.time():
             data[str(ctx.author.id)]["speak_cooldown"] = time.time() + 450 + random.randint(0, 150)
+            if data[str(ctx.author.id)]["spoke_day"] != (datetime.utcnow() - datetime(1970, 1, 1)).days - 1:
+                data[str(ctx.author.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
+                data[str(ctx.author.id)]["spoken_today"] = 0
+            
+            if data[str(ctx.author.id)]["spoken_today"] >= 28:
+                return
+            
+            data[str(ctx.author.id)]["spoken_today"] += 1
+            
             with open("data/bank.json", "w") as f:
                 json.dump(data, f)
 
             await self.update_bank_data(ctx.author, random.randint(2, 5))
             await self.update_bank_data(ctx.author, 1, "xp")
+            
+            #with open(f"data/anti-cheat/users/{ctx.author.id}.json", "a") as f:
+            #    json.dump(data, f)
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
@@ -967,6 +979,19 @@ class economy(commands.Cog):
                     json.dump(users, f)
 
             users = await self.get_bank_data()
+        
+        try:
+            users[str(user.id)]["spoke_day"]
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
+                users[str(user.id)]["spoken_today"] = 0
+                
+                with open("data/bank.json", "w") as f:
+                    json.dump(users, f)
+
+            users = await self.get_bank_data()
+        
 
         try:
             users[str(user.id)]["stats"]["scavenging"]
@@ -989,6 +1014,8 @@ class economy(commands.Cog):
 
         users[str(user.id)]["scavenge_cooldown"] = time.time()
         users[str(user.id)]["speak_cooldown"] = time.time() + 300
+        users[str(user.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
+        users[str(user.id)]["spoken_today"] = 0
 
         users[str(user.id)]["marriage"] = {}
 
