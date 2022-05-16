@@ -137,6 +137,7 @@ class events(commands.Cog):
         self.henwee.start()
         self.random_beaver.start()
         self.random_reddit.start()
+        self.henwee_nick.start()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
@@ -401,6 +402,39 @@ class events(commands.Cog):
                 "fish friday!!!", file=discord.File("images/video/fish.mp4")
             )
     
+    @tasks.loop(seconds=3)
+    async def henwee_nick(self):
+        if not self.bot.is_ready():
+            return
+        
+        for guild in self.bot.guilds:
+            for member in guild.members:
+                
+                for x in member.activities:
+                    if "Genshin" in str(x) or "genshin" in str(x):
+                        if "(genshining)" in member.display_name.lower():
+                            return
+                        
+                        await member.edit(nick="(genshining) " + member.display_name)
+                        return
+                    
+                    if "(genshining)" in member.display_name.lower():
+                        await member.edit(nick=member.display_name.replace("(genshining) ", ""))
+                
+                    
+            
+        #user = await self.bot.fetch_user(368423564229083137)
+#        if len(mentions) == 0:
+#            await message.reply("Remember to give someone to get status!")
+#        else:
+        #activ = user.activities
+        #try:
+        #    print(self.bot.users)
+        #    print(user.activities)
+        #except:
+        #    print("no activities")
+
+
     @tasks.loop(minutes=5)
     async def random_reddit(self):
         if self.bot.is_ready():

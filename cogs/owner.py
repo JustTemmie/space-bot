@@ -54,6 +54,11 @@ class Owner(commands.Cog):
             json.dump(file, f)
 
     @commands.is_owner()
+    @commands.command(name = "getstatus")
+    async def getstatus(self, ctx):
+        await ctx.send(ctx.author.activities)
+        
+    @commands.is_owner()
     @commands.command(name="nickname")
     async def change_nickname_admin(self, ctx, member: discord.Member, *, nickname=None):
         message = ctx.message

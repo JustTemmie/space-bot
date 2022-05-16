@@ -126,7 +126,6 @@ bot = commands.AutoShardedBot(
 bot.remove_command("help")
 bot.ready = False
 
-
 @bot.event
 async def on_ready():
     if not bot.ready:
