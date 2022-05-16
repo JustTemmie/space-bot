@@ -851,7 +851,7 @@ class economy(commands.Cog):
             json.dump(data, f)
             
         # add the money to the user's balance
-        await self.add_money(ctx.author, round(payout))
+        await self.update_bank_data(ctx.author, round(payout))
         
         await ctx.send(f"thank you! here's your {round(payout)} <:beaverCoin:968588341291397151>")
 
