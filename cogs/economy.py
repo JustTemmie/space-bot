@@ -822,8 +822,11 @@ class economy(commands.Cog):
     @commands.command(name="sell", brief="try selling your <:log:970325254461329438> for money")
     @cooldown(3, 10, BucketType.user)
     async def sell_command(self, ctx, amount=0):
-        if amount <= 0:
+        if amount == 0:
             return await ctx.send("please specify an amount of logs to sell")
+        
+        if amount < 10:
+            return await ctx.send("you can't sell less than 10 logs, it's not worth my time")
 
         await self.open_account(ctx.author)
         
@@ -835,7 +838,7 @@ class economy(commands.Cog):
         
         # get the price of the logs
         lower_price = (0.3 * charisma**0.85 + 1.2) 
-        price =     (0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
+        price = (0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
         print(price)
         lower_payout = lower_price * amount
         payout = price * amount
