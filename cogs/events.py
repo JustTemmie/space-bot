@@ -413,12 +413,12 @@ class events(commands.Cog):
                 for x in member.activities:
                     try:
                         if "genshin" in str(x) or "Genshin" in str(x):
-                            if not "genshining" in member.display_name:
+                            if not "player" in member.display_name:
 
                                 try:
-                                    await member.edit(nick="(genshining player) " + member.display_name)
+                                    await member.edit(nick="(genshin player) " + member.display_name)
                                 except:
-                                    await member.edit(nick="(genshining player)")
+                                    await member.edit(nick="(genshin player)")
 
                         #if "genshining" in member.display_name:
                         #    if not ("genshin" in str(x) or "Genshin" in str(x)):
