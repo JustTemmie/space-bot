@@ -413,7 +413,7 @@ class events(commands.Cog):
                 for x in member.activities:
                     try:
                         if "genshin" in str(x) or "Genshin" in str(x):
-                            if "(genshining)" in member.display_name:
+                            if "genshining" in member.display_name:
                                 break
                             
                             try:
@@ -424,7 +424,7 @@ class events(commands.Cog):
                                 except:
                                     await member.edit(nick="(genshining)")
 
-                        if "(genshining)" in member.display_name:
+                        if "genshining" in member.display_name:
                             if "genshin" in str(x) or "Genshin" in str(x):
                                 break
                             try:
