@@ -100,6 +100,8 @@ class hw(commands.Cog):
             page_info = "**Misc info**"
             Embed.add_field(name="Ping", value=f"{round(self.bot.latency * 1000)}ms", inline=False)
             Embed.add_field(name="Python", value=f"{platform.python_version()}", inline=False)
+            Embed.add_field(name="Shards", value=f"{self.bot.shard_count}", inline=False)
+            Embed.add_field(name="Current Shard", value=f"{ctx.guild.shard_id+1}", inline=False)
             Embed.add_field(name="Discord.py", value=f"{discord.__version__}", inline=False)
             Embed.add_field(name="Cogs", value=f"{len(self.bot.cogs)}", inline=False)
             Embed.add_field(name="Commands", value=f"{len(self.bot.commands)}", inline=False)
