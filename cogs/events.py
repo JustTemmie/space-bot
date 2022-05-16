@@ -298,6 +298,14 @@ class events(commands.Cog):
 
                     with open(file_path[i], "w") as f:
                         json.dump(file, f)
+            
+            with open("data/messages/everyone.json", "r") as f:
+                file = json.load(f)
+
+            file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.author.id}, {ctx.guild.id}"
+
+            with open("data/messages/everyone.json", "w") as f:
+                json.dump(file, f)
 
             # just gonna mention, henwee did consent to this lmao
             log_ids = 411536312961597440
