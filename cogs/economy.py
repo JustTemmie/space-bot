@@ -1184,6 +1184,17 @@ class economy(commands.Cog):
 
             users = await self.get_bank_data()
         
+        try:
+            users[str(user.id)]["inventory"]["insurance"]
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["inventory"]["insurance"] = 0
+                with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+
+            users = await self.get_bank_data()
+        
+        
         if str(user.id) in users:
             users[str(user.id)]["version"] = 1.00
             
@@ -1220,6 +1231,7 @@ class economy(commands.Cog):
 
         users[str(user.id)]["inventory"] = {}
         users[str(user.id)]["inventory"]["logs"] = 0
+        users[str(user.id)]["inventory"]["insurance"] = 0
 
         users[str(user.id)]["daily"] = {}
         users[str(user.id)]["daily"]["day"] = 0
