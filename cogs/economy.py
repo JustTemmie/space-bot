@@ -860,6 +860,73 @@ class economy(commands.Cog):
         
         await ctx.send(f"thank you for your bussiness! here's your {round(lower_payout)} <:beaverCoin:968588341291397151> plus an extra {round(payout)-round(lower_payout)} <:beaverCoin:968588341291397151> i threw in for good measure :)")
 
+    
+    
+    #####################################
+    #####################################
+    ########## B U I L D I N G ##########
+    #####################################
+    #####################################
+    
+    
+    @commands.command(
+        name = "build",
+        aliases = ["dam", "construct"],
+        brief = "work your way through the build process on your very own dam"
+    )
+    @cooldown(5, 15, BucketType.user)
+    async def build_command(self, ctx, build_type = "None", amount = 0):
+        if amount < 0:
+            return await ctx.send("you can't build a dam with anegative amount of logs")
+        
+        await self.open_account(ctx.author)
+        data = await self.get_bank_data()
+        logs = data[str(ctx.author.id)]["inventory"]["logs"]
+        
+        if build_type == "None":
+            embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
+            embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.avatar_url)
+            
+            embed.add_field(name="<:dam:975903060561887352> Dam", value=f"`{ctx.prefix}build dam`", inline=False)
+            embed.add_field(name="<:lodge:975903060608057404> Lodge", value=f"`{ctx.prefix}build lodge`", inline=False)
+            
+            await ctx.send(embed=embed)
+            return
+
+
+        if amount == 0:
+            bonus_string = "\nPlease specify how many logs you want to use in order to upgrade it"
+            
+            
+        if build_type.lower() == "dam":
+            dam_levels = [
+                50,
+                500,
+                3000,
+                8000,
+                15000,
+            ]
+            spent = data[str(ctx.author.id)]["dam"]["spent"]["logs"]
+            level = data[str(ctx.author.id)]["dam"]["level"]
+            next_level = dam_levels[level]
+            
+            bar = await self.progress_bar(spent, next_level, 30)
+            embed = discord.Embed(title="<:dam:975903060561887352> Dam", description=f"{bar} || {spent}/{next_level}", color=ctx.author.color)
+            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.avatar_url)
+            
+            
+            
+            await ctx.send(embed=embed)
+            return
+
+        if build_type.lower() == "lodge":
+            return
+        
+        await ctx.send("that's not a valid building")
+        return
+    
+    
+    
     #########################################
     #########################################
     #### E V E N T     F U N C T I O N S ####
@@ -924,6 +991,13 @@ class economy(commands.Cog):
     ###########################################
     ###########################################
 
+    @commands.Cog.listener()
+    async def progress_bar(self, current, total, witdh = 20):
+        percent = int(witdh * current / total)
+        bar = "█" * percent + "░" * (witdh - percent)
+
+        return bar
+    
     @commands.Cog.listener()
     async def get_items_data(self):
         with open("data/items.json", "r") as f:
@@ -1016,6 +1090,26 @@ class economy(commands.Cog):
 
             users = await self.get_bank_data()
         
+        try:
+            users[str(user.id)]["dam"]
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["dam"] = {}
+                users[str(user.id)]["dam"]["spent"] = {}
+                users[str(user.id)]["dam"]["spent"]["logs"] = 0
+                users[str(user.id)]["dam"]["level"] = 0
+                with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+
+            users = await self.get_bank_data()
+        
+        if str(user.id) in users:
+            users[str(user.id)]["version"] = "1.0.0"
+            
+            with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+
+            users = await self.get_bank_data()
 
         try:
             users[str(user.id)]["stats"]["scavenging"]
@@ -1049,6 +1143,11 @@ class economy(commands.Cog):
         users[str(user.id)]["daily"] = {}
         users[str(user.id)]["daily"]["day"] = 0
         users[str(user.id)]["daily"]["streak"] = 0
+        
+        users[str(user.id)]["dam"] = {}
+        users[str(user.id)]["dam"]["spent"] = {}
+        users[str(user.id)]["dam"]["spent"]["logs"] = 0
+        users[str(user.id)]["dam"]["level"] = 0
 
         users[str(user.id)]["stats"] = {}
         users[str(user.id)]["stats"]["strength"] = 0
