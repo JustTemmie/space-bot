@@ -547,11 +547,11 @@ class economy(commands.Cog):
                     bank[str(ctx.author.id)]["inventory"]["insurance"] -= 1
 
                 else:
-                    daily_info["streak"] = 0
                     streak += f"**you lost your streak of {daily_info['streak']} days :(**"
+                    daily_info["streak"] = 0
             else:
-                daily_info["streak"] = 0
                 streak += f"**you lost your streak of {daily_info['streak']} days :(**"
+                daily_info["streak"] = 0
 
         else:
             daily_info["streak"] += 1
@@ -561,6 +561,12 @@ class economy(commands.Cog):
         if payout >= 500:
             payout = 500
 
+        # skills
+        if bank[str(ctx.author.id)]["dam"]["level"] >= 3:
+            payout *= 2
+            streak += "\n**you got double coins for having a lvl 3+ dam**"
+        
+        
         bank[str(ctx.author.id)]["wallet"] += payout
         daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
         bank[str(ctx.author.id)]["daily"] = daily_info
@@ -588,8 +594,8 @@ class economy(commands.Cog):
 
         wallet_amount = bankdata[str(user.id)]["wallet"]
         logs = bankdata[str(user.id)]["inventory"]["logs"]
-        current_damlevel = bankdata[str(user.id)]["dam"]["level"] + 1
-        current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"] + 1
+        current_damlevel = bankdata[str(user.id)]["dam"]["level"]
+        current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"]
 
         embed = discord.Embed(title=f"", colour=ctx.author.colour, timestamp=datetime.utcnow())
         embed.add_field(
@@ -605,6 +611,19 @@ class economy(commands.Cog):
         embed.add_field(
             name="Buildings:",
             value=f"<:dam:975903060561887352> Dam: LV {current_damlevel}\n<:lodge:975903060608057404> Lodge: LV {current_lodgelevel}",
+            inline=False,
+        )
+        embed.add_field(
+            name="Stats:",
+            value= f"""
+            <:Strength:976244446595285032> Strength: **{bankdata[str(user.id)]["stats"]["strength"]}**
+            <:Dexterity:976244452014301224> Dexterity: **{bankdata[str(user.id)]["stats"]["dexterity"]}**
+            <:Intelligence:976244476710359171> Intelligence: **{bankdata[str(user.id)]["stats"]["intelligence"]}**
+            <:Wisdom:976244483190558761> Wisdom: **{bankdata[str(user.id)]["stats"]["wisdom"]}**
+            <:Charisma:976244498738855966> Charisma: **{bankdata[str(user.id)]["stats"]["charisma"]}**
+            <:Perception:976244488894816366> Perception: **{bankdata[str(user.id)]["stats"]["perception"]}**
+            <:Free:976244503713308742> Free Points: **{bankdata[str(user.id)]["stats"]["points"]}**
+                    """,
             inline=False,
         )
         
@@ -823,6 +842,10 @@ class economy(commands.Cog):
         if payout >= 20000:
             payout = 20000
 
+        # skills
+        if data[str(ctx.author.id)]["dam"]["level"] >= 2:
+            payout *= 1.2
+        
         data = await self.get_bank_data()
         data[str(ctx.author.id)]["inventory"]["logs"] += payout
         data[str(ctx.author.id)]["scavenge_cooldown"] = time.time()
@@ -898,7 +921,7 @@ class economy(commands.Cog):
         data = await self.get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
         current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
-        current_lodgelevel = 0
+        current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
 
         if build_type == "None":
             embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
@@ -921,11 +944,11 @@ class economy(commands.Cog):
                 return await ctx.send("you don't have that many logs")
 
             dam_levels = [
-                500,
-                3000,
-                8000,
-                15000,
-                40000,
+                1000,
+                5000,
+                10000,
+                18000,
+                35000,
             ]
 
             level = current_damlevel
@@ -945,24 +968,61 @@ class economy(commands.Cog):
                 bar = await self.progress_bar(25, 25, 25)
     
             if spent >= next_level:
-                embed = discord.Embed(title="Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color)
+                embed = discord.Embed(title=f"Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color)
                 embed.add_field(name="Logs needed for next level", value=f"╰ {dam_levels[level+1]} <:log:970325254461329438>", inline=False)
                 data[str(ctx.author.id)]["dam"]["level"] += 1
                 data[str(ctx.author.id)]["dam"]["spent"]["logs"] -= next_level
+                
+                newlvl = data[str(ctx.author.id)]["dam"]["level"]
+                
+                if newlvl == 1:
+                    data[str(ctx.author.id)]["stats"]["points"] += 3
+                if newlvl == 2:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 3:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 4:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 5:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                
 
             else:
-                embed = discord.Embed(title="<:dam:975903060561887352> Dam", description=f"{bar} || {next_level_str} LV {level+1}", color=ctx.author.color)
+                embed = discord.Embed(title=f"<:dam:975903060561887352> Dam LV {level}", description=f"{bar} || {next_level_str} to LV {level+1}", color=ctx.author.color)
 
 
             #if bonus_string == "":
-
-
-            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.avatar_url)
-
-
+            
+            level = data[str(ctx.author.id)]["dam"]["level"]
+            
             with open("data/bank.json", "w") as f:
                 json.dump(data, f)
+            
+            lvl1bold = ""
+            lvl2bold = ""
+            lvl3bold = ""
+            lvl4bold = ""
+            lvl5bold = ""
+            
+            if level >= 1: lvl1bold = "**"
+            if level >= 2: lvl2bold = "**"
+            if level >= 3: lvl3bold = "**"
+            if level >= 4: lvl4bold = "**"
+            if level >= 5: lvl5bold = "**"
 
+            lvl1 = f"╰ +3 skill points"
+            lvl2 = f"╰ +2 skill point and + 20% logs from {ctx.prefix}scavenge"
+            lvl3 = f"╰ +2 skill point and double coins from {ctx.prefix}daily"
+            lvl4 = f"╰ +2 skill point and something, wip"
+            lvl5 = f"╰ +2 skill point and something, wip"
+            
+            embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
+            embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
+            embed.add_field(name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False)
+            embed.add_field(name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False)
+            embed.add_field(name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False)
+            
+            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.avatar_url)
 
             await ctx.send(embed=embed)
             return
@@ -1084,63 +1144,37 @@ class economy(commands.Cog):
     @commands.Cog.listener()
     async def open_account(self, user):
         users = await self.get_bank_data()
+          
+        if str(user.id) in users:
+            users[str(user.id)]["version"] = 1.00
+            
+            with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+
+            users = await self.get_bank_data()
 
         try:
-            (users[str(user.id)]["inventory"])
+            (users[str(user.id)]["stats"])
 
         except:
             if str(user.id) in users:
                 users[str(user.id)]["inventory"] = {}
-                with open("data/bank.json", "w") as f:
-                    json.dump(users, f)
-
-            users = await self.get_bank_data()
-
-        try:
-            (users[str(user.id)]["daily"])
-
-        except:
-            if str(user.id) in users:
+                
+                users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
+                
+                users[str(user.id)]["scavenge_cooldown"] = time.time()
+                users[str(user.id)]["inventory"]["logs"] = 0
+                
                 users[str(user.id)]["daily"] = {}
                 users[str(user.id)]["daily"]["day"] = 0
                 users[str(user.id)]["daily"]["streak"] = 0
-                with open("data/bank.json", "w") as f:
-                    json.dump(users, f)
-
-            users = await self.get_bank_data()
-
-        try:
-            users[str(user.id)]["quote"]
-        except:
-            if str(user.id) in users:
-                users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
-                with open("data/bank.json", "w") as f:
-                    json.dump(users, f)
-
-            users = await self.get_bank_data()
-
-        try:
-            users[str(user.id)]["scavenge_cooldown"]
-        except:
-            if str(user.id) in users:
-                users[str(user.id)]["scavenge_cooldown"] = time.time()
-                users[str(user.id)]["inventory"]["logs"] = 0
-                with open("data/bank.json", "w") as f:
-                    json.dump(users, f)
-
-            users = await self.get_bank_data()
-
-        try:
-            users[str(user.id)]["stats"]
-        except:
-            if str(user.id) in users:
+                
                 users[str(user.id)]["stats"] = {}
                 users[str(user.id)]["stats"]["strength"] = 0
                 users[str(user.id)]["stats"]["dexterity"] = 0
                 users[str(user.id)]["stats"]["intelligence"] = 0
                 users[str(user.id)]["stats"]["wisdom"] = 0
                 users[str(user.id)]["stats"]["charisma"] = 0
-
                 with open("data/bank.json", "w") as f:
                     json.dump(users, f)
 
@@ -1159,22 +1193,14 @@ class economy(commands.Cog):
             users = await self.get_bank_data()
         
         try:
-            users[str(user.id)]["dam"]
+            users[str(user.id)]["lodge"]
         except:
             if str(user.id) in users:
                 users[str(user.id)]["dam"] = {}
                 users[str(user.id)]["dam"]["spent"] = {}
                 users[str(user.id)]["dam"]["spent"]["logs"] = 0
                 users[str(user.id)]["dam"]["level"] = 0
-                with open("data/bank.json", "w") as f:
-                        json.dump(users, f)
-
-            users = await self.get_bank_data()
-        
-        try:
-            users[str(user.id)]["lodge"]
-        except:
-            if str(user.id) in users:
+                
                 users[str(user.id)]["lodge"] = {}
                 users[str(user.id)]["lodge"]["spent"] = {}
                 users[str(user.id)]["lodge"]["spent"]["logs"] = 0
@@ -1184,35 +1210,33 @@ class economy(commands.Cog):
 
             users = await self.get_bank_data()
         
+                    
         try:
-            users[str(user.id)]["inventory"]["insurance"]
+            users[str(user.id)]["stats"]["points"]
         except:
             if str(user.id) in users:
                 users[str(user.id)]["inventory"]["insurance"] = 0
+                
+                a = random.randint(1, 5)
+                b = random.randint(1, 5)
+                c = random.randint(1, 5)
+                d = random.randint(1, 5)
+                e = random.randint(1, 5)
+                f = random.randint(1, 5)
+                
+                users[str(user.id)]["stats"]["strength"] = a
+                users[str(user.id)]["stats"]["dexterity"] = b
+                users[str(user.id)]["stats"]["intelligence"] = c
+                users[str(user.id)]["stats"]["wisdom"] = d
+                users[str(user.id)]["stats"]["charisma"] = e
+                users[str(user.id)]["stats"]["perception"] = f
+        
+                users[str(user.id)]["stats"]["points"] = 30 - (a + b + c + d + e + f)
+                
                 with open("data/bank.json", "w") as f:
                         json.dump(users, f)
 
-            users = await self.get_bank_data()
-        
-        
-        if str(user.id) in users:
-            users[str(user.id)]["version"] = 1.00
-            
-            with open("data/bank.json", "w") as f:
-                        json.dump(users, f)
-
-            users = await self.get_bank_data()
-
-        try:
-            users[str(user.id)]["stats"]["scavenging"]
-        except:
-            if str(user.id) in users:
-                users[str(user.id)]["stats"]["scavenging"] = 0
-
-                with open("data/bank.json", "w") as f:
-                    json.dump(users, f)
-
-            users = await self.get_bank_data()
+                users = await self.get_bank_data()
 
         if str(user.id) in users:
             return
@@ -1221,39 +1245,69 @@ class economy(commands.Cog):
         users[str(user.id)]["wallet"] = 10.0
         users[str(user.id)]["xp"] = 0
         users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
+        
+        ###############################################################################
 
         users[str(user.id)]["scavenge_cooldown"] = time.time()
         users[str(user.id)]["speak_cooldown"] = time.time() + 300
+        
+        ###############################################################################
+        
         users[str(user.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
         users[str(user.id)]["spoken_today"] = 0
 
+        ###############################################################################
+        
         users[str(user.id)]["marriage"] = {}
 
+        ###############################################################################
+        
         users[str(user.id)]["inventory"] = {}
         users[str(user.id)]["inventory"]["logs"] = 0
         users[str(user.id)]["inventory"]["insurance"] = 0
 
+        ###############################################################################
+        
         users[str(user.id)]["daily"] = {}
         users[str(user.id)]["daily"]["day"] = 0
         users[str(user.id)]["daily"]["streak"] = 0
+        
+        ###############################################################################
         
         users[str(user.id)]["dam"] = {}
         users[str(user.id)]["dam"]["spent"] = {}
         users[str(user.id)]["dam"]["spent"]["logs"] = 0
         users[str(user.id)]["dam"]["level"] = 0
         
+        ###############################################################################
+        
         users[str(user.id)]["lodge"] = {}
         users[str(user.id)]["lodge"]["spent"] = {}
         users[str(user.id)]["lodge"]["spent"]["logs"] = 0
         users[str(user.id)]["lodge"]["level"] = 0
 
+        ###############################################################################
+        
         users[str(user.id)]["stats"] = {}
-        users[str(user.id)]["stats"]["strength"] = 0
-        users[str(user.id)]["stats"]["dexterity"] = 0
-        users[str(user.id)]["stats"]["intelligence"] = 0
-        users[str(user.id)]["stats"]["wisdom"] = 0
-        users[str(user.id)]["stats"]["charisma"] = 0
-        users[str(user.id)]["stats"]["scavenging"] = 0
+        
+        a = random.randint(1, 5)
+        b = random.randint(1, 5)
+        c = random.randint(1, 5)
+        d = random.randint(1, 5)
+        e = random.randint(1, 5)
+        f = random.randint(1, 5)
+        
+        users[str(user.id)]["stats"]["strength"] = a
+        users[str(user.id)]["stats"]["dexterity"] = b
+        users[str(user.id)]["stats"]["intelligence"] = c
+        users[str(user.id)]["stats"]["wisdom"] = d
+        users[str(user.id)]["stats"]["charisma"] = e
+        users[str(user.id)]["stats"]["perception"] = f
+
+        users[str(user.id)]["stats"]["points"] = 30 - (a + b + c + d + e + f)
+        
+        ###############################################################################
+        
 
         with open("data/bank.json", "w") as f:
             json.dump(users, f)
