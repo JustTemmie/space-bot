@@ -587,6 +587,8 @@ class economy(commands.Cog):
         bankdata = await self.get_bank_data()
 
         wallet_amount = bankdata[str(user.id)]["wallet"]
+        current_damlevel = bankdata[str(user.id)]["dam"]["level"] + 1
+        current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"] + 1
 
         embed = discord.Embed(title=f"", colour=ctx.author.colour, timestamp=datetime.utcnow())
         embed.add_field(
@@ -599,7 +601,12 @@ class economy(commands.Cog):
             value=f"<:beaverCoin:968588341291397151> {int(wallet_amount)}",
             inline=False,
         )
-
+        embed.add_field(
+            name="Buildings:",
+            value=f"<:dam:975903060561887352> Dam: LV {current_damlevel}\n<:lodge:975903060608057404> Lodge: LV {current_lodgelevel}",
+            inline=False,
+        )
+        
         married_to_data = bankdata[str(user.id)]["marriage"]
         married_to = ""
         n = 0
@@ -879,50 +886,88 @@ class economy(commands.Cog):
         aliases = ["dam", "construct"],
         brief = "work your way through the build process on your very own dam"
     )
-    @cooldown(5, 15, BucketType.user)
+    @cooldown(8, 15, BucketType.user)
     async def build_command(self, ctx, build_type = "None", amount = 0):
         if amount < 0:
             return await ctx.send("you can't build a dam with anegative amount of logs")
-        
+
+        bonus_string = ""
+
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
-        
+        current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
+        current_lodgelevel = 0
+
         if build_type == "None":
             embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
             embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.avatar_url)
-            
-            embed.add_field(name="<:dam:975903060561887352> Dam", value=f"`{ctx.prefix}build dam`", inline=False)
-            embed.add_field(name="<:lodge:975903060608057404> Lodge", value=f"`{ctx.prefix}build lodge`", inline=False)
-            
+
+            embed.add_field(name=f"<:dam:975903060561887352> Dam: LV {current_damlevel}", value=f"`{ctx.prefix}build dam`", inline=False)
+            embed.add_field(name=f"<:lodge:975903060608057404> Lodge: LV {current_lodgelevel}", value=f"`{ctx.prefix}build lodge`", inline=False)
+
             await ctx.send(embed=embed)
             return
 
 
         if amount == 0:
             bonus_string = "\nPlease specify how many logs you want to use in order to upgrade it"
-            
-            
+
+        return await ctx.send(f"no.")
+
         if build_type.lower() == "dam":
+            if logs < amount:
+                return await ctx.send("you don't have that many logs")
+
             dam_levels = [
-                50,
                 500,
                 3000,
                 8000,
                 15000,
+                40000,
             ]
+
+            level = current_damlevel
+
+            data[str(ctx.author.id)]["inventory"]["logs"] -= amount
+            data[str(ctx.author.id)]["dam"]["spent"]["logs"] += amount
             spent = data[str(ctx.author.id)]["dam"]["spent"]["logs"]
-            level = data[str(ctx.author.id)]["dam"]["level"]
-            next_level = dam_levels[level]
-            
-            bar = await self.progress_bar(spent, next_level, 30)
-            embed = discord.Embed(title="<:dam:975903060561887352> Dam", description=f"{bar} || {spent}/{next_level}", color=ctx.author.color)
+
+            if level != len(dam_levels):
+                next_level = dam_levels[level] # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
+                next_level_str = f"{spent}/{next_level}"
+                bar = await self.progress_bar(spent, next_level, 25)
+
+            else:
+                next_level_str = "MAX"
+                next_level = spent + 1
+                bar = await self.progress_bar(25, 25, 25)
+    
+            if spent >= next_level:
+                embed = discord.Embed(title="Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color)
+                embed.add_field(name="Logs needed for next level", value=f"╰ {dam_levels[level+1]} <:log:970325254461329438>", inline=False)
+                data[str(ctx.author.id)]["dam"]["level"] += 1
+                data[str(ctx.author.id)]["dam"]["spent"]["logs"] -= next_level
+
+            else:
+                embed = discord.Embed(title="<:dam:975903060561887352> Dam", description=f"{bar} || {next_level_str} LV {level+1}", color=ctx.author.color)
+
+
+            #if bonus_string == "":
+
+
             embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.avatar_url)
-            
-            
-            
+
+
+            with open("data/bank.json", "w") as f:
+                json.dump(data, f)
+
+
             await ctx.send(embed=embed)
             return
+
+
+
 
         if build_type.lower() == "lodge":
             return
@@ -1125,8 +1170,21 @@ class economy(commands.Cog):
 
             users = await self.get_bank_data()
         
+        try:
+            users[str(user.id)]["lodge"]
+        except:
+            if str(user.id) in users:
+                users[str(user.id)]["lodge"] = {}
+                users[str(user.id)]["lodge"]["spent"] = {}
+                users[str(user.id)]["lodge"]["spent"]["logs"] = 0
+                users[str(user.id)]["lodge"]["level"] = 0
+                with open("data/bank.json", "w") as f:
+                        json.dump(users, f)
+
+            users = await self.get_bank_data()
+        
         if str(user.id) in users:
-            users[str(user.id)]["version"] = "1.0.0"
+            users[str(user.id)]["version"] = 1.00
             
             with open("data/bank.json", "w") as f:
                         json.dump(users, f)
@@ -1170,6 +1228,11 @@ class economy(commands.Cog):
         users[str(user.id)]["dam"]["spent"] = {}
         users[str(user.id)]["dam"]["spent"]["logs"] = 0
         users[str(user.id)]["dam"]["level"] = 0
+        
+        users[str(user.id)]["lodge"] = {}
+        users[str(user.id)]["lodge"]["spent"] = {}
+        users[str(user.id)]["lodge"]["spent"]["logs"] = 0
+        users[str(user.id)]["lodge"]["level"] = 0
 
         users[str(user.id)]["stats"] = {}
         users[str(user.id)]["stats"]["strength"] = 0
