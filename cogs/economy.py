@@ -927,7 +927,7 @@ class economy(commands.Cog):
             embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
             embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.avatar_url)
 
-            embed.add_field(name=f"<:dam:975903060561887352> `Dam`: LV {current_damlevel}", value=f"`{ctx.prefix}build dam`", inline=False)
+            embed.add_field(name=f"<:dam:975903060561887352> `Beaver Dam`: LV {current_damlevel}", value=f"`{ctx.prefix}build dam`", inline=False)
             embed.add_field(name=f"<:lodge:975903060608057404> `Beaver Lodge`: LV {current_lodgelevel}", value=f"`{ctx.prefix}build lodge`", inline=False)
 
             await ctx.send(embed=embed)
