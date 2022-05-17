@@ -927,8 +927,8 @@ class economy(commands.Cog):
             embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
             embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.avatar_url)
 
-            embed.add_field(name=f"<:dam:975903060561887352> Dam: LV {current_damlevel}", value=f"`{ctx.prefix}build dam`", inline=False)
-            embed.add_field(name=f"<:lodge:975903060608057404> Lodge: LV {current_lodgelevel}", value=f"`{ctx.prefix}build lodge`", inline=False)
+            embed.add_field(name=f"<:dam:975903060561887352> `Dam`: LV {current_damlevel}", value=f"`{ctx.prefix}build dam`", inline=False)
+            embed.add_field(name=f"<:lodge:975903060608057404> `Beaver Lodge`: LV {current_lodgelevel}", value=f"`{ctx.prefix}build lodge`", inline=False)
 
             await ctx.send(embed=embed)
             return
@@ -1013,10 +1013,10 @@ class economy(commands.Cog):
             if level >= 5: lvl5bold = "**"
 
             lvl1 = f"╰ +3 skill points"
-            lvl2 = f"╰ +2 skill point and + 20% logs from {ctx.prefix}scavenge"
-            lvl3 = f"╰ +2 skill point and double coins from {ctx.prefix}daily"
-            lvl4 = f"╰ +2 skill point and something, wip"
-            lvl5 = f"╰ +2 skill point and something, wip"
+            lvl2 = f"╰ +2 skill points and + 20% logs from {ctx.prefix}scavenge"
+            lvl3 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
+            lvl4 = f"╰ +2 skill points and something, wip"
+            lvl5 = f"╰ +2 skill points and something, wip"
             
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
             embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
