@@ -934,10 +934,12 @@ class economy(commands.Cog):
             return
 
 
+        amount = 0
+        
         if amount == 0:
             bonus_string = "\nPlease specify how many logs you want to use in order to upgrade it"
 
-        return await ctx.send(f"no.")
+        #await ctx.send(f"no.")
 
         if build_type.lower() == "dam":
             if logs < amount:
