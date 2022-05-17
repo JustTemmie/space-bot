@@ -587,6 +587,7 @@ class economy(commands.Cog):
         bankdata = await self.get_bank_data()
 
         wallet_amount = bankdata[str(user.id)]["wallet"]
+        logs = bankdata[str(user.id)]["inventory"]["logs"]
         current_damlevel = bankdata[str(user.id)]["dam"]["level"] + 1
         current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"] + 1
 
@@ -598,7 +599,7 @@ class economy(commands.Cog):
         )
         embed.add_field(
             name="Balance:",
-            value=f"<:beaverCoin:968588341291397151> {int(wallet_amount)}",
+            value=f"<:beaverCoin:968588341291397151> {int(wallet_amount)}\n<:log:970325254461329438> {logs}",
             inline=False,
         )
         embed.add_field(
@@ -883,7 +884,7 @@ class economy(commands.Cog):
     
     @commands.command(
         name = "build",
-        aliases = ["dam", "construct"],
+        aliases = ["construct", "buildings", "upgrade"],
         brief = "work your way through the build process on your very own dam"
     )
     @cooldown(8, 15, BucketType.user)
