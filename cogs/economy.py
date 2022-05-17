@@ -610,7 +610,10 @@ class economy(commands.Cog):
             if n < 5:
                 if i["married"]:
                     x = await self.bot.fetch_user(i["married_to"])
-                    married_to += f"{x.display_name} - {datetime.utcfromtimestamp(i['time']).strftime('%Y-%m-%d %H:%M')} UTC\n"
+                    ring = (i["ring"])
+                    ring_emoji = await self.get_ring_emoji(ring)
+                    
+                    married_to += f"{ring_emoji}{x.display_name} - {datetime.utcfromtimestamp(i['time']).strftime('%Y-%m-%d %H:%M')} UTC\n"
                     n += 1
 
             else:
@@ -664,30 +667,27 @@ class economy(commands.Cog):
 
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
-        if member.id in data[str(ctx.author.id)]["marriage"]:
-            await ctx.send(f"you're already married to {member.display_name}")
-            return
+        
+        try:
+            if data[str(ctx.author.id)]["marriage"][str(member.id)]["ring"] == ring.lower():
+                await ctx.send(f"you're already married to {member.display_name}")
+                return
+        except:
+            pass
 
-        ring_emoji = "none"
-        if ring.lower() == "common":
-                ring_emoji = "<:commoner_ring:970309052053733396>"
-        elif ring.lower() == "uncommon":
-                ring_emoji = "<:uncommon_ring:970309091249516555>"
-        elif ring.lower() == "rare":
-                ring_emoji = "<:rare_ring:970309099134803978>"
-        elif ring.lower() == "epic":
-                ring_emoji = "<:epic_ring:970309107489849435>"
-        elif ring.lower() == "mythical":
-                ring_emoji = "<:mythical_ring:970309114955702372>"
-                
-        elif ring == "💍":
+        if ring == "💍":
             return await ctx.send("lmao nice try")
         
+        ring_emoji = await self.get_ring_emoji(ring)
+                    
         if ring_emoji == "none":
             return await ctx.send("that's not a valid ring")
 
-        ring_object = data[str(ctx.author.id)]["inventory"][ring.lower()]
-
+        try:
+            ring_object = data[str(ctx.author.id)]["inventory"][ring.lower()]
+        except:
+            return await ctx.send("you don't own that ring")
+        
         await self.open_account(member)
 
         try:
@@ -721,18 +721,23 @@ class economy(commands.Cog):
             f"it's a match! {ctx.author.mention} and {member.mention} are now married!! 🥳🥳\nyour marriage will now appear on both of your profiles"
         )
 
+        try:
+            timer = data[str(ctx.author.id)]["marriage"][str(member.id)]["time"]
+        except:
+            timer = time.time()
+        
         data = await self.get_bank_data()
         data[str(ctx.author.id)]["inventory"][ring.lower()] -= 1
         data[str(ctx.author.id)]["marriage"][str(member.id)] = {
             "married": True,
             "married_to": member.id,
-            "time": time.time(),
+            "time": timer,
             "ring": ring.lower(),
         }
         data[str(member.id)]["marriage"][str(ctx.author.id)] = {
             "married": True,
             "married_to": ctx.author.id,
-            "time": time.time(),
+            "time": timer,
             "ring": ring.lower(),
         }
 
@@ -997,6 +1002,23 @@ class economy(commands.Cog):
         bar = "█" * percent + "░" * (witdh - percent)
 
         return bar
+    
+    
+    @commands.Cog.listener()
+    async def get_ring_emoji(self, ring):
+        ring = ring.lower()
+        if ring == "common":
+                return "<:commoner_ring:970309052053733396>"
+        elif ring == "uncommon":
+                return "<:uncommon_ring:970309091249516555>"
+        elif ring == "rare":
+                return "<:rare_ring:970309099134803978>"
+        elif ring == "epic":
+                return "<:epic_ring:970309107489849435>"
+        elif ring == "mythical":
+                return "<:mythical_ring:970309114955702372>"
+        else:
+                return "none"
     
     @commands.Cog.listener()
     async def get_items_data(self):
