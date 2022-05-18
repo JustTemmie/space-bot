@@ -550,7 +550,7 @@ class economy(commands.Cog):
                     streak += f"**you lost your streak of {daily_info['streak']} days :(**"
                     daily_info["streak"] = 0
             else:
-                streak += f"**you lost your streak of {daily_info['streak']} days :(**"
+                streak += f"**you lost your streak of {daily_info['streRak']} days :(**"
                 daily_info["streak"] = 0
 
         else:
