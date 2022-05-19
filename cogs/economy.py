@@ -550,7 +550,7 @@ class economy(commands.Cog):
                     streak += f"**you lost your streak of {daily_info['streak']} days :(**"
                     daily_info["streak"] = 0
             else:
-                streak += f"**you lost your streak of {daily_info['streRak']} days :(**"
+                streak += f"**you lost your streak of {daily_info['streak']} days :(**"
                 daily_info["streak"] = 0
 
         else:
@@ -834,10 +834,10 @@ class economy(commands.Cog):
 
         try:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round(0.008 * temporal**0.85 + random.randrange(10, 15))
+            payout = round(0.008 * temporal**0.85 + random.randrange(5, 10))
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
-            payout = round((0.008 * temporal**0.85 + random.randrange(10, 15)) / 300 * temporal)
+            payout = round((0.008 * temporal**0.85 + random.randrange(5, 10)) / 300 * temporal)
 
         if payout >= 20000:
             payout = 20000

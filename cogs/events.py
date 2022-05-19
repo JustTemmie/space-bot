@@ -295,7 +295,7 @@ class events(commands.Cog):
                     with open(file_path[i], "r") as f:
                         file = json.load(f)
 
-                    file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
+                    file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.content[0]}"
 
                     with open(file_path[i], "w") as f:
                         json.dump(file, f)
