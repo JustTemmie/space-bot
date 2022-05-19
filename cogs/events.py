@@ -270,8 +270,9 @@ class events(commands.Cog):
         if ctx.guild.id != 918787074801401868:
             listies.append("damn")
         
-        if ctx.content.lower() == listies[x]:
-            await react_beaver(ctx)
+        for x in range(0, len(listies)):
+            if ctx.content.lower() == listies[x]:
+                await react_beaver(ctx)
 
         for x in range(0, len(listies2)):
             if listies2[x] in ctx.content.lower():

@@ -687,10 +687,6 @@ class economy(commands.Cog):
         if member == None or member == ctx.author:
             return await ctx.send("please tell me who you want to marry")
 
-        if ring == None:
-            return await ctx.send(
-                f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2"
-            )
 
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
@@ -698,9 +694,14 @@ class economy(commands.Cog):
         if data[str(ctx.author.id)]["dam"]["level"] < 1:
             return await ctx.send(f"you need to have a dam to marry someone\nbuild one using {ctx.prefix}!build dam")
         
+        if ring == None:
+            return await ctx.send(
+                f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2"
+            )
+            
         try:
             if data[str(ctx.author.id)]["marriage"][str(member.id)]["ring"] == ring.lower():
-                await ctx.send(f"you're already married to {member.display_name}")
+                await ctx.send(f"you're already married to {member.display_name} with a {ring} ring")
                 return
         except:
             pass
@@ -900,6 +901,36 @@ class economy(commands.Cog):
         await ctx.send(f"thank you for your bussiness! here's your {round(lower_payout)} <:beaverCoin:968588341291397151> plus an extra {round(payout)-round(lower_payout)} <:beaverCoin:968588341291397151> i threw in for good measure :)")
 
     
+    #####################################
+    #####################################
+    ############# S T A T S #############
+    #####################################
+    #####################################
+    
+    @commands.command(name="stats", brief="check or upgrade your stats")
+    @cooldown(4, 20, BucketType.user)
+    async def stats_command(self, ctx, stat = None, amount = 0):
+        data = await self.get_bank_data()
+        
+        if amount == 0:
+            embed = discord.Embed(name = "stats", description = "", color = 0x00ff00)
+            embed.add_field(
+            name="Stats:",
+            value= f"""
+            <:Strength:976244446595285032> Strength: **{data[str(ctx.author.id)]["stats"]["strength"]}**
+            <:Dexterity:976244452014301224> Dexterity: **{data[str(ctx.author.id)]["stats"]["dexterity"]}**
+            <:Intelligence:976244476710359171> Intelligence: **{data[str(ctx.author.id)]["stats"]["intelligence"]}**
+            <:Wisdom:976244483190558761> Wisdom: **{data[str(ctx.author.id)]["stats"]["wisdom"]}**
+            <:Charisma:976244498738855966> Charisma: **{data[str(ctx.author.id)]["stats"]["charisma"]}**
+            <:Perception:976244488894816366> Perception: **{data[str(ctx.author.id)]["stats"]["perception"]}**
+            <:Free:976244503713308742> Free Points: **{data[str(ctx.author.id)]["stats"]["points"]}**
+                    """,
+            inline=False,
+            )
+            embed.set_footer(text=f"use {ctx.prefix}stats <stat> <amount> to upgrade your stats")
+            await ctx.send(embed=embed)
+            return
+            
     
     #####################################
     #####################################
@@ -950,10 +981,10 @@ class economy(commands.Cog):
 
             dam_levels = [
                 1000,
-                5000,
+                4000,
                 10000,
-                18000,
-                35000,
+                15000,
+                25000,
             ]
 
             level = current_damlevel

@@ -23,7 +23,7 @@ class hw(commands.Cog):
     # https://www.thepythoncode.com/article/get-hardware-system-information-python
     @commands.command(
         name="info",
-        aliases=["information", "stats", "status"],
+        aliases=["information", "status"],
         brief="Get info about the bot",
     )
     @cooldown(8, 120, BucketType.user)
