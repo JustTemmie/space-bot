@@ -838,7 +838,7 @@ class economy(commands.Cog):
 
         try: #(data["stats"]["strength"] * 0.0003 +  + ((random.randrange(5, 8)/10) * data["stats"]["strength"]
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round(0.008) * temporal**0.85 + random.randrange(8, 11)
+            payout = round((0.008) * temporal**0.85 + random.randrange(8, 11))
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             payout = round((0.008 * temporal**0.85 + random.randrange(8, 11)) / 300 * temporal)
@@ -857,7 +857,7 @@ class economy(commands.Cog):
         data[str(ctx.author.id)]["inventory"]["logs"] += payout
         data[str(ctx.author.id)]["scavenge_cooldown"] = time.time()
 
-        with open("data/bank.json", "w") as f:
+        with open("datoha/bank.json", "w") as f:
             json.dump(data, f)
 
         await ctx.send(f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!")
