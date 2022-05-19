@@ -837,9 +837,8 @@ class economy(commands.Cog):
         data = await self.get_bank_data()
 
         try:
-            #data["stats"]["strength"] * 0.0005 + 
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round(0.008 * temporal**0.85 + random.randrange(8, 11)) + (random.uniform(0.5, 0.8) * data["stats"]["strength"])
+            payout = round((data["stats"]["strength"] * 0.0003 + 0.008) * temporal**0.85) + random.randrange(8, 11) + ((random.randrange(5, 8)/10) * data["stats"]["strength"])
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             payout = round((0.008 * temporal**0.85 + random.randrange(8, 11)) / 300 * temporal)
