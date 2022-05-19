@@ -836,9 +836,9 @@ class economy(commands.Cog):
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
 
-        try:
+        try: #(data["stats"]["strength"] * 0.0003 +  + ((random.randrange(5, 8)/10) * data["stats"]["strength"]
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round((data["stats"]["strength"] * 0.0003 + 0.008) * temporal**0.85) + random.randrange(8, 11) + ((random.randrange(5, 8)/10) * data["stats"]["strength"])
+            payout = round(0.008) * temporal**0.85 + random.randrange(8, 11)
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             payout = round((0.008 * temporal**0.85 + random.randrange(8, 11)) / 300 * temporal)
