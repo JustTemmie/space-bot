@@ -158,7 +158,7 @@ class economy(commands.Cog):
             )
             return
 
-        if result.lower() == side:
+        if result.lower() == side.lower():
             await self.update_bank_data(ctx.author, amount, "wallet")
             await msg.edit(
                 content=f"{msg.content} it landed on {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>"
@@ -695,6 +695,9 @@ class economy(commands.Cog):
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
         
+        if data[str(ctx.author.id)]["dam"]["level"] < 1:
+            return await ctx.send(f"you need to have a dam to marry someone\nbuild one using {ctx.prefix}!build dam")
+        
         try:
             if data[str(ctx.author.id)]["marriage"][str(member.id)]["ring"] == ring.lower():
                 await ctx.send(f"you're already married to {member.display_name}")
@@ -856,7 +859,7 @@ class economy(commands.Cog):
         await ctx.send(f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!")
 
     @commands.command(name="sell", brief="try selling your <:log:970325254461329438> for money")
-    @cooldown(3, 10, BucketType.user)
+    @cooldown(8, 60, BucketType.user)
     async def sell_command(self, ctx, amount=0):
         if amount == 0:
             return await ctx.send("please specify an amount of logs to sell")
@@ -874,7 +877,7 @@ class economy(commands.Cog):
         
         # get the price of the logs
         lower_price = (0.3 * charisma**0.85 + 1.2) 
-        price = (0.3 * charisma**0.85) + (random.uniform(1.2, 1.5)) 
+        price = (0.2 * charisma**0.8) + (random.uniform(1.2, 1.5)) 
         print(price)
         lower_payout = lower_price * amount
         payout = price * amount
@@ -978,7 +981,7 @@ class economy(commands.Cog):
                 newlvl = data[str(ctx.author.id)]["dam"]["level"]
                 
                 if newlvl == 1:
-                    data[str(ctx.author.id)]["stats"]["points"] += 3
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
                 if newlvl == 2:
                     data[str(ctx.author.id)]["stats"]["points"] += 2
                 if newlvl == 3:
@@ -986,7 +989,7 @@ class economy(commands.Cog):
                 if newlvl == 4:
                     data[str(ctx.author.id)]["stats"]["points"] += 2
                 if newlvl == 5:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                    data[str(ctx.author.id)]["stats"]["points"] += 5
                 
 
             else:
@@ -1012,11 +1015,11 @@ class economy(commands.Cog):
             if level >= 4: lvl4bold = "**"
             if level >= 5: lvl5bold = "**"
 
-            lvl1 = f"╰ +3 skill points"
+            lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marriage command"
             lvl2 = f"╰ +2 skill points and + 20% logs from {ctx.prefix}scavenge"
             lvl3 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
-            lvl4 = f"╰ +2 skill points and something, wip"
-            lvl5 = f"╰ +2 skill points and something, wip"
+            lvl4 = f"╰ +2 skill points and a secret ability, totally not a wip"
+            lvl5 = f"╰ +5 skill points and unlock the **Beaver Lodge**" 
             
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
             embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
@@ -1033,7 +1036,9 @@ class economy(commands.Cog):
 
 
         if build_type.lower() == "lodge":
-            return
+            if current_damlevel < 5:
+                return await ctx.send("You need to upgrade your dam to lvl 5 first")
+            
         
         await ctx.send("that's not a valid building")
         return
