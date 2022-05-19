@@ -236,6 +236,7 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
+        hendex = random.randrange(0, len(henwees))
         if "!" in ctx.content:
             return
         if ctx.author.bot:
@@ -263,86 +264,98 @@ class events(commands.Cog):
             "bidoof",
             "bæv",
             "beav",
+            "bever",
         ]  # if in the message
         
         if ctx.guild.id != 918787074801401868:
             listies.append("damn")
+        
+        for x in range(0, len(listies)):
+            if ctx.content.lower() == listies[x]:
+                await react_beaver(ctx)
 
-        try:
-            hendex = random.randrange(0, len(henwees))
-            if ctx.author.id == 192326730948542464:
-                if random.randrange(0, 20) == 7:
-                    await ctx.delete()
+        for x in range(0, len(listies2)):
+            if listies2[x] in ctx.content.lower():
+                await react_beaver(ctx)
+                
 
-            people = [
-                411536312961597440, #henwee
-                877322068499238912, #lapp
-                325325337615532054, #adino
-                457246804606451715, #crok
-                398181370725400577, #isak
-                368423564229083137, #tem
-            ]
-            file_path = [
-                "data/hendex.json",
-                "data/messages/lapp.json",
-                "data/messages/adino.json",
-                "data/messages/crok.json",
-                "data/messages/isak.json",
-                "data/messages/temmie.json",
-            ]
-            for i, person in enumerate(people):
-                if ctx.author.id == person:
-                    with open(file_path[i], "r") as f:
-                        file = json.load(f)
+        if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
+            msg = await ctx.reply("amogus")                
 
-                    file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
-
-                    with open(file_path[i], "w") as f:
-                        json.dump(file, f)
+        if "brain fuck" in ctx.content:
+            await ctx.add_reaction("🧠")
+            await ctx.add_reaction("🔫")
             
-            with open("data/messages/everyone.json", "r") as f:
-                file = json.load(f)
-
-            file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.author.id}, {ctx.guild.id}"
-
-            with open("data/messages/everyone.json", "w") as f:
-                json.dump(file, f)
-
-            # just gonna mention, henwee did consent to this lmao
-            log_ids = 411536312961597440
-            if ctx.author.id == log_ids:
-                with open("data/all_message_ids.json", "r") as f:
+        if "bee" in ctx.content.lower():
+            await ctx.add_reaction("<a:B_:976827254799740938>")
+        
+        
+        people = [
+            411536312961597440, #henwee
+            877322068499238912, #lapp
+            325325337615532054, #adino
+            457246804606451715, #crok
+            398181370725400577, #isak
+            368423564229083137, #tem
+        ]
+        file_path = [
+            "data/hendex.json",
+            "data/messages/lapp.json",
+            "data/messages/adino.json",
+            "data/messages/crok.json",
+            "data/messages/isak.json",
+            "data/messages/temmie.json",
+        ]
+        
+        for i, person in enumerate(people):
+            if ctx.author.id == person:
+                with open(file_path[i], "r") as f:
                     file = json.load(f)
 
-                file[str(log_ids)]["messages"].append(ctx.id)
+                file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
 
-                with open("data/all_message_ids.json", "w") as f:
+                with open(file_path[i], "w") as f:
                     json.dump(file, f)
+        
+        with open("data/messages/everyone.json", "r") as f:
+            file = json.load(f)
 
-            for x in range(0, len(listies)):
-                if ctx.content.lower() == listies[x]:
-                    await react_beaver(ctx)
+        file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.author.id}, {ctx.guild.id}"
 
-            for x in range(0, len(listies2)):
-                if listies2[x] in ctx.content.lower():
-                    await react_beaver(ctx)
+        with open("data/messages/everyone.json", "w") as f:
+            json.dump(file, f)
+
+        # just gonna mention, henwee did consent to this lmao
+        log_ids = 411536312961597440
+        if ctx.author.id == log_ids:
+            with open("data/all_message_ids.json", "r") as f:
+                file = json.load(f)
+
+            file[str(log_ids)]["messages"].append(ctx.id)
+
+            with open("data/all_message_ids.json", "w") as f:
+                json.dump(file, f)
+        
+
+            #for x in range(0, len(listies)):
 
             # if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
             #    await ctx.add_reaction("<a:beav:973130744190869575>")
 
-            if (
-                "henwee" in ctx.content.lower()
-                or "henw " in ctx.content.lower()
-                or "411536312961597440" in ctx.content
-            ):  # and ctx.author.id != self.bot.user.id:
-                if random.randint(0, 20) == 2:
-                    await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
-                    await ctx.add_reaction("<a:henwee_fall_short:955878859197280306>")
-                    if random.randrange(1, 4) == 2:  # 1/3 chance
-                        await ctx.channel.send(
-                            henwees[hendex],
-                            file=discord.File("images/processed/henwee_fall.gif"),
-                        )
+        if (
+            "henwee" in ctx.content.lower()
+            or "henw " in ctx.content.lower()
+
+            or "411536312961597440" in ctx.content
+        ):  # and ctx.author.id != self.bot.user.id:
+            if random.randint(0, 20) == 2:
+                await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
+                await ctx.add_reaction("<a:henwee_fall_short:955878859197280306>")
+                if random.randrange(1, 4) == 2:  # 1/3 chance
+                    await ctx.channel.send(
+                        henwees[hendex],
+                        file=discord.File("images/processed/henwee_fall.gif"),
+                    )
 
             # elif "wee" in ctx.content and ctx.author != self.bot.user and (
             #        ctx.guild.id == 926467601540993064
@@ -363,15 +376,6 @@ class events(commands.Cog):
             #            + henwees[hendex],
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
-            if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
-                msg = await ctx.reply("amogus")                
-
-            if "brain fuck" in ctx.content:
-                await ctx.add_reaction("🧠")
-                await ctx.add_reaction("🔫")
-
-        except:
-            pass
 
     @tasks.loop(seconds=3)
     async def fish_friday(self):
