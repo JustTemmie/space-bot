@@ -838,7 +838,8 @@ class economy(commands.Cog):
 
         try:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round((data["stats"]["strength"] * 0.0005 + 0.008) * temporal**0.85 + random.randrange(8, 11) + random.uniform(0.5, 1) * data["stats"]["strength"])
+            payout = round((data["stats"]["strength"] * 0.0005 + 0.008) * temporal**0.85 + random.randrange(8, 11) + (random.uniform(0.5, 0.8) * data["stats"]["strength"]))
+            print(data["stats"]["strength"])
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             payout = round((0.008 * temporal**0.85 + random.randrange(5, 10)) / 300 * temporal)
