@@ -81,10 +81,11 @@ class ecogeneration(commands.Cog):
     async def scavenge_logs(self, ctx):
         await open_account(ctx.author)
         data = await get_bank_data()
-
-        try: #(data["stats"]["strength"] * 0.0003 +  + ((random.randrange(5, 8)/10) * data["stats"]["strength"]
+        strength = 5#data[str(ctx.author.id)]["stats"]["strength"]
+        
+        try:            
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round(0.008 * temporal**0.8 + random.randrange(8, 11))
+            payout = round((strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength)
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             payout = round((0.008 * temporal**0.8 + random.randrange(8, 11)) / 300 * temporal)
