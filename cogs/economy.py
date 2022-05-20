@@ -836,19 +836,22 @@ class economy(commands.Cog):
         await self.open_account(ctx.author)
         data = await self.get_bank_data()
 
-        try:
+        try: #(data["stats"]["strength"] * 0.0003 +  + ((random.randrange(5, 8)/10) * data["stats"]["strength"]
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round(0.008 * temporal**0.85 + random.randrange(5, 10))
+            payout = round(0.008 * temporal**0.85 + random.randrange(8, 11))
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
-            payout = round((0.008 * temporal**0.85 + random.randrange(5, 10)) / 300 * temporal)
+            payout = round((0.008 * temporal**0.85 + random.randrange(8, 11)) / 300 * temporal)
 
         if payout >= 20000:
             payout = 20000
 
         # skills
         if data[str(ctx.author.id)]["dam"]["level"] >= 2:
-            payout *= 1.2
+            payout *= 1.25
+        
+        if data[str(ctx.author.id)]["dam"]["level"] >= 3:
+            payout *= 1.25
         
         data = await self.get_bank_data()
         data[str(ctx.author.id)]["inventory"]["logs"] += payout
@@ -930,6 +933,8 @@ class economy(commands.Cog):
             embed.set_footer(text=f"use {ctx.prefix}stats <stat> <amount> to upgrade your stats")
             await ctx.send(embed=embed)
             return
+        
+        await ctx.send("lmaono")
             
     
     #####################################
@@ -1047,9 +1052,9 @@ class economy(commands.Cog):
             if level >= 5: lvl5bold = "**"
 
             lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marriage command"
-            lvl2 = f"╰ +2 skill points and + 20% logs from {ctx.prefix}scavenge"
-            lvl3 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
-            lvl4 = f"╰ +2 skill points and a secret ability, totally not a wip"
+            lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
+            lvl3 = f"╰ +2 skill points and another + 25% logs from {ctx.prefix}scavenge"
+            lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
             lvl5 = f"╰ +5 skill points and unlock the **Beaver Lodge**" 
             
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
