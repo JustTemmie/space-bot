@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 
-class funky(commands.Cog):
+class beavr(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -63,4 +63,4 @@ class funky(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(funky(bot))
+    bot.add_cog(beavr(bot))

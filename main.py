@@ -104,5 +104,10 @@ for filename in os.listdir('./cogs/economy'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.economy.{filename[:-3]}')
 
+# minis cogs
+for filename in os.listdir('./cogs/minis'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.minis.{filename[:-3]}')
+
 
 bot.run((TOKEN), bot=True, reconnect=True)
