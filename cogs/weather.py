@@ -79,15 +79,15 @@ class weather(Cog):
                 'https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8'
             )
             
-            with open('images/processed/yr.pdf', 'wb') as f:
+            with open('temp/yr.pdf', 'wb') as f:
                 f.write(response.content)
-            convert_from_path('images/processed/yr.pdf')[0].save("images/processed/yr.jpg", 'JPEG')
+            convert_from_path('temp/yr.pdf')[0].save("temp/yr.jpg", 'JPEG')
             
             #yr = Image.open("images/processed/yr.jpg")
             #yr = yr.resize((1653*2, 2339*2))
             #yr.save("images/processed/yr.jpg")
             
-            await ctx.send("https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8", file=discord.File("images/processed/yr.jpg"))
+            await ctx.send("https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8", file=discord.File("temp/yr.jpg"))
 
 
 def setup(bot):

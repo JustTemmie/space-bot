@@ -165,9 +165,14 @@ async def change_status_task():
 
 
 # loads cogs
-for filename in os.listdir("./cogs"):
-    if filename.endswith(".py"):
-        bot.load_extension(f"cogs.{filename[:-3]}")
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.{filename[:-3]}')
+
+# economy cogs
+for filename in os.listdir('./cogs/economy'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.economy.{filename[:-3]}')
 
 
 bot.run((TOKEN), bot=True, reconnect=True)

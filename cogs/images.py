@@ -5,7 +5,7 @@ from discord.ext.commands import (
     BucketType,
 )
 
-import ascii
+import libraries.ascii as ascii
 import functools
 from typing import Optional
 import subprocess
