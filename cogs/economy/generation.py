@@ -85,11 +85,12 @@ class ecogeneration(commands.Cog):
         
         try:            
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = round((strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength)
+            payout = (strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
-            payout = round((0.008 * temporal**0.8 + random.randrange(8, 11)) / 300 * temporal)
+            payout = (0.008 * temporal**0.8 + random.randrange(8, 11)) / 300 * temporal
 
+        payout = round(payout)
         if payout >= 20000:
             payout = 20000
 
