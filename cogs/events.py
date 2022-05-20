@@ -286,7 +286,7 @@ class events(commands.Cog):
             await ctx.add_reaction("🧠")
             await ctx.add_reaction("🔫")
             
-        if "bee" in ctx.content.lower():
+        if "bee " in ctx.content.lower() or "bee" == ctx.content.lower():
             await ctx.add_reaction("<a:B_:976827254799740938>")
         
         
