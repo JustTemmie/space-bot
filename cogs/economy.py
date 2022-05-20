@@ -871,13 +871,13 @@ class economy(commands.Cog):
         await self.open_account(ctx.author)
         
         data = await self.get_bank_data()
-        charisma = data[str(ctx.author.id)]["stats"]["charisma"]
+        charisma = 5#data[str(ctx.author.id)]["stats"]["charisma"]
         # check if the user has enough logs
         if data[str(ctx.author.id)]["inventory"]["logs"] < amount:
             return await ctx.send("you don't have enough logs to sell")
         
         # get the price of the logs
-        lower_price = (0.3 * charisma**0.85 + 1.2) 
+        lower_price = (0.2 * charisma**0.8 + 1.2) 
         price = (0.2 * charisma**0.8) + (random.uniform(1.2, 1.5)) 
         print(price)
         lower_payout = lower_price * amount
