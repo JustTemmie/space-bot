@@ -152,7 +152,7 @@ d) {answers[3]}
                 "message", check=lambda m: m.author == ctx.author, timeout=20
             )
         except asyncio.TimeoutError:
-            return await ctx.send("**Timed out** You took too long to answer the question.")
+            return await ctx.send("**Timed out** You took too long to answer the question.\nthe answer was {correct}, {questions['correct_answer']}")
         
         if response.content.lower() == questions["correct_answer"].lower() or response.content.lower() == correct:
             await ctx.send(f"{ctx.author.mention} you are correct! it was {correct}, {questions['correct_answer']}")
