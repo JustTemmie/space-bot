@@ -58,6 +58,8 @@ Comics - ID = 21
 Gadgets - ID = 22
 Japanese Anime & Manga - ID = 23
 Cartoon & Animations - ID = 24
+
+if you want to add more questions, go to <https://opentdb.com/>, create a new account, and add your questions there
             """
             )
             return
