@@ -14,11 +14,11 @@ from dotenv import load_dotenv
 load_dotenv("keys.env")
 TOKEN = os.getenv("DISCORD")
 
-with open("config.json", "r") as conf:
-    config = json.load(conf)
+with open("config.json", "r") as f:
+    config = json.load(f)
 
-with open("statuses.json", "r") as status:
-    statusjson = json.load(status)
+with open("statuses.json", "r") as f:
+    statusjson = json.load(f)
 
 
 statuses = statusjson["statuses"]
@@ -64,6 +64,22 @@ bot.ready = False
 @bot.event
 async def on_ready():
     if not bot.ready:
+        
+        # loads cogs
+        for filename in os.listdir('./cogs'):
+            if filename.endswith('.py'):
+                bot.load_extension(f'cogs.{filename[:-3]}')
+
+        # economy cogs
+        for filename in os.listdir('./cogs/economy'):
+            if filename.endswith('.py'):
+                bot.load_extension(f'cogs.economy.{filename[:-3]}')
+
+        # minis cogs
+        for filename in os.listdir('./cogs/minis'):
+            if filename.endswith('.py'):
+                bot.load_extension(f'cogs.minis.{filename[:-3]}')
+
 
 
         change_status_task.start()
@@ -93,24 +109,6 @@ async def randomize_status():
 @tasks.loop(hours=5, minutes=random.randint(0, 120))
 async def change_status_task():
     await randomize_status()
-
-
-# loads cogs
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
-
-# economy cogs
-for filename in os.listdir('./cogs/economy'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cogs.economy.{filename[:-3]}')
-
-# minis cogs
-for filename in os.listdir('./cogs/minis'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cogs.minis.{filename[:-3]}')
-
-
 
 
 bot.run((TOKEN), bot=True, reconnect=True)
