@@ -60,10 +60,11 @@ bot = commands.AutoShardedBot(
 bot.remove_command("help")
 bot.ready = False
 
+
 @bot.event
 async def on_ready():
     if not bot.ready:
-        
+
 
         change_status_task.start()
 
@@ -108,6 +109,8 @@ for filename in os.listdir('./cogs/economy'):
 for filename in os.listdir('./cogs/minis'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.minis.{filename[:-3]}')
+
+
 
 
 bot.run((TOKEN), bot=True, reconnect=True)

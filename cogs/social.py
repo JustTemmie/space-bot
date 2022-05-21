@@ -74,7 +74,7 @@ class social(commands.Cog):
 
     @commands.command(
         name="cuddle",
-        aliases=["hug^2"],
+        aliases=["hug²"],
         brief="it's like hugs, but ever more wholesome",
     )
     @cooldown(8, 25, BucketType.guild)

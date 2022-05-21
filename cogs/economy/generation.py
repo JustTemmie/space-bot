@@ -90,7 +90,7 @@ class ecogeneration(commands.Cog):
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             payout = (0.008 * temporal**0.8 + random.randrange(8, 11)) / 300 * temporal
 
-        payout = round(payout)
+
         if payout >= 20000:
             payout = 20000
 
@@ -101,6 +101,7 @@ class ecogeneration(commands.Cog):
         if data[str(ctx.author.id)]["dam"]["level"] >= 3:
             payout *= 1.25
         
+        payout = round(payout)
         data = await get_bank_data()
         data[str(ctx.author.id)]["inventory"]["logs"] += payout
         data[str(ctx.author.id)]["scavenge_cooldown"] = time.time()

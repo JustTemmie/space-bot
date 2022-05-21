@@ -444,41 +444,45 @@ class events(commands.Cog):
         #    print("no activities")
 
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=10)
     async def random_reddit(self):
         if self.bot.is_ready():
-            req = requests.get(
-                "http://reddit.com/r/all/hot.json?limit=500",
-                headers={"User-agent": "Chrome"},
-            )
-            json = req.json()
-            if "error" in json or json["data"]["after"] is None:
-                return
+            try:
+                req = requests.get(
+                    "http://reddit.com/r/all/hot.json?limit=500",
+                    headers={"User-agent": "Chrome"},
+                )
+                json = req.json()
+                if "error" in json or json["data"]["after"] is None:
+                    return
 
-            req_len = len(json["data"]["children"])
-            rand = random.randint(0, req_len - 1)
-            post = json["data"]["children"][rand]
+                req_len = len(json["data"]["children"])
+                rand = random.randint(0, req_len - 1)
+                post = json["data"]["children"][rand]
 
-            title = post["data"]["title"]
-            author = "u/" + post["data"]["author"]
-            subreddit = post["data"]["subreddit_name_prefixed"]
-            url = post["data"]["url"]  # can be image or post link
-            link = "https://reddit.com" + post["data"]["permalink"]
-            if "selftext" in post["data"]:
-                text = post["data"]["selftext"]  # may not exist
-                if len(text) >= 2000:
-                    text = text[:2000].rsplit(" ", 1)[0] + " **-Snippet-**"
-                embed = discord.Embed(title=title, description=text, url=link)
-            else:
-                embed = discord.Embed(title=title, url=link)
+                title = post["data"]["title"]
+                author = "u/" + post["data"]["author"]
+                subreddit = post["data"]["subreddit_name_prefixed"]
+                url = post["data"]["url"]  # can be image or post link
+                link = "https://reddit.com" + post["data"]["permalink"]
+                if "selftext" in post["data"]:
+                    text = post["data"]["selftext"]  # may not exist
+                    if len(text) >= 2000:
+                        text = text[:2000].rsplit(" ", 1)[0] + " **-Snippet-**"
+                    embed = discord.Embed(title=title, description=text, url=link)
+                else:
+                    embed = discord.Embed(title=title, url=link)
+                
+                if re.match(r".*\.(jpg|png|gif)$", url):
+                    embed.set_image(url=url)
+
+                embed.set_footer(text="By {} in {}".format(author, subreddit))
+                
+                for ID in auto_reddit_IDs:
+                    await self.bot.get_channel(ID).send(embed=embed)
             
-            if re.match(r".*\.(jpg|png|gif)$", url):
-                embed.set_image(url=url)
-
-            embed.set_footer(text="By {} in {}".format(author, subreddit))
-            
-            for ID in auto_reddit_IDs:
-                await self.bot.get_channel(ID).send(embed=embed)
+            except Exception as e:
+                print(e)
 
     @tasks.loop(seconds=293)
     async def henwee(self):

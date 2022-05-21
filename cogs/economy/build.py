@@ -67,21 +67,28 @@ class ecobuild(commands.Cog):
             data[str(ctx.author.id)]["dam"]["spent"]["logs"] += amount
             spent = data[str(ctx.author.id)]["dam"]["spent"]["logs"]
 
-            if level != len(dam_levels):
+            if level == len(dam_levels):
+                next_level = spent + 1
+                next_level_str = "MAX"
+                bar = await progress_bar(25, 25, 25)
+
+            else:
                 next_level = dam_levels[level] # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
                 next_level_str = f"{spent}/{next_level}"
                 bar = await progress_bar(spent, next_level, 25)
-
-            else:
-                next_level_str = "MAX"
-                next_level = spent + 1
-                bar = await progress_bar(25, 25, 25)
     
             if spent >= next_level:
                 embed = discord.Embed(title=f"Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color)
-                embed.add_field(name="Logs needed for next level", value=f"╰ {dam_levels[level+1]} <:log:970325254461329438>", inline=False)
+                if level != len(dam_levels)-1:
+                    embed.add_field(name="Logs needed for next level", value=f"╰ {dam_levels[level+1]} <:log:970325254461329438>", inline=False)
+                    
                 data[str(ctx.author.id)]["dam"]["level"] += 1
-                data[str(ctx.author.id)]["dam"]["spent"]["logs"] -= next_level
+                leftOverLogs = data[str(ctx.author.id)]["dam"]["spent"]["logs"] - next_level
+                
+                data[str(ctx.author.id)]["dam"]["spent"]["logs"] = 0
+                data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
+                
+                
                 
                 newlvl = data[str(ctx.author.id)]["dam"]["level"]
                 
@@ -124,7 +131,7 @@ class ecobuild(commands.Cog):
             lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
             lvl3 = f"╰ +2 skill points and another + 25% logs from {ctx.prefix}scavenge"
             lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
-            lvl5 = f"╰ +5 skill points and unlock the **Beaver Lodge**" 
+            lvl5 = f"╰ +5 skill points and unlock the Beaver Lodge"
             
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
             embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
