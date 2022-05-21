@@ -69,7 +69,7 @@ Cartoon & Animations - ID = 24
 
         for x, y in zip(difs, short_difs):
             if category.lower() == x.lower() or category.lower() == y.lower():
-                req_str += f"&difficulty={dif}"
+                req_str += f"&difficulty={x}"
                 category = "random"
                 break
         
@@ -98,15 +98,14 @@ Cartoon & Animations - ID = 24
         if questions["response_code"] != 0:
             if questions["response_code"] == 1:
                 return await ctx.send("**Code 1: No Results** Could not return results. The API doesn't have enough questions for your query.")
-            elif questions["response_code"] == 2:
+            if questions["response_code"] == 2:
                 return await ctx.send("**Code 2: Invalid Parameter** Contains an invalid parameter. Arguements passed in aren't valid.")
-            elif questions["response_code"] == 3:
+            if questions["response_code"] == 3:
                 return await ctx.send("**Code 3: Token Not Found** Session Token does not exist.")
-            elif questions["response_code"] == 4:
+            if questions["response_code"] == 4:
                 return await ctx.send("**Code 4: Token Empty** Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.")
             
-            else:
-                return await ctx.send(f"error code {questions['response_code']}, please try again later")
+            return await ctx.send(f"error code {questions['response_code']}, please try again later")
             
         questions = questions["results"][0]
         answers = [
