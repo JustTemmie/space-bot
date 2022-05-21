@@ -138,10 +138,10 @@ Cartoon & Animations - ID = 24
         embed.add_field(name="Question:", value=f"{html.unescape(questions['question'])}", inline=False)
         embed.add_field(name="is it?",
                         value=f"""
-                        a) {answers[0]}
-                        b) {answers[1]}
-                        c) {answers[2]}
-                        d) {answers[3]}
+a) {answers[0]}
+b) {answers[1]}
+c) {answers[2]}
+d) {answers[3]}
                         """,
                         inline=False)
         
