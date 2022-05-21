@@ -8,6 +8,7 @@ import json
 import html
 import random
 import requests
+import asyncio
 
 from libraries.economyLib import *
 
@@ -146,9 +147,12 @@ Cartoon & Animations - ID = 24
         
         await ctx.send(embed=embed)
         
-        response = await self.bot.wait_for(
-            "message", check=lambda m: m.author == ctx.author, timeout=20
-        )
+        try:
+            response = await self.bot.wait_for(
+                "message", check=lambda m: m.author == ctx.author, timeout=20
+            )
+        except asyncio.TimeoutError:
+            return await ctx.send("**Timed out** You took too long to answer the question.")
         
         if response.content.lower() == questions["correct_answer"].lower() or response.content.lower() == correct:
             await ctx.send(f"{ctx.author.mention} you are correct! it was {correct}, {questions['correct_answer']}")
@@ -156,6 +160,7 @@ Cartoon & Animations - ID = 24
         
         await ctx.send(f"sorry, the answer was {correct}, {questions['correct_answer']}")
 
-
+    
+            
 def setup(bot):
     bot.add_cog(ecotrivia(bot))
