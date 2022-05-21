@@ -88,6 +88,7 @@ class ecogeneration(commands.Cog):
             payout = (strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
+            await ctx.send("you have to wait 5 minutes before you can do this again")
             payout = (0.008 * temporal**0.8 + random.randrange(8, 11)) / 300 * temporal
 
 
