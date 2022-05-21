@@ -101,7 +101,7 @@ class ecoprofile(commands.Cog):
 
         data = await get_bank_data()
         data[str(ctx.author.id)]["quote"] = quote
-        with open("data/bank.json", "w") as f:
+        with open("storage/bank.json", "w") as f:
             json.dump(data, f)
 
         await ctx.send(f'quote set to "{quote}"!')

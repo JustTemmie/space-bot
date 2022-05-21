@@ -14,15 +14,15 @@ class role_menu(commands.Cog):
         if payload.member.bot:
             return
         if payload.channel_id == (919714824915648562):  # frog
-            with open("./data/reactions/frog_reactions.json") as react_file:
+            with open("./storage/reactions/frog_reactions.json") as react_file:
                 data = json.load(react_file)
 
         elif payload.channel_id == (849692162907176990):  # space
-            with open("./data/reactions/space_reactions.json") as react_file:
+            with open("./storage/reactions/space_reactions.json") as react_file:
                 data = json.load(react_file)
 
         elif payload.channel_id == (956467944991358997):  # crawford castle
-            with open("./data/reactions/castle_reactions.json") as react_file:
+            with open("./storage/reactions/castle_reactions.json") as react_file:
                 data = json.load(react_file)
 
         else:
@@ -37,15 +37,15 @@ class role_menu(commands.Cog):
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
         if payload.channel_id == (919714824915648562):  # frog
-            with open("./data/reactions/frog_reactions.json") as react_file:
+            with open("./storage/reactions/frog_reactions.json") as react_file:
                 data = json.load(react_file)
 
         elif payload.channel_id == (849692162907176990):  # space
-            with open("./data/reactions/space_reactions.json") as react_file:
+            with open("./storage/reactions/space_reactions.json") as react_file:
                 data = json.load(react_file)
 
         elif payload.channel_id == (956467944991358997):  # crawford castle
-            with open("./data/reactions/castle_reactions.json") as react_file:
+            with open("./storage/reactions/castle_reactions.json") as react_file:
                 data = json.load(react_file)
 
         else:

@@ -118,7 +118,7 @@ class fun(commands.Cog):
     )
     @cooldown(5, 20, BucketType.guild)
     async def shitpost_video(self, ctx, *, funny=None):
-        with open("data/shitpost.json", "r") as f:
+        with open("storage/shitpost.json", "r") as f:
             shitposts = json.load(f)
 
         await ctx.send(random.choice(shitposts["list"]))

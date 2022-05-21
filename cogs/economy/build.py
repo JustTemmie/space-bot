@@ -112,7 +112,7 @@ class ecobuild(commands.Cog):
             
             level = data[str(ctx.author.id)]["dam"]["level"]
             
-            with open("data/bank.json", "w") as f:
+            with open("storage/bank.json", "w") as f:
                 json.dump(data, f)
             
             lvl1bold = ""

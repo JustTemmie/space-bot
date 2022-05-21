@@ -299,12 +299,12 @@ class events(commands.Cog):
             368423564229083137, #tem
         ]
         file_path = [
-            "data/hendex.json",
-            "data/messages/lapp.json",
-            "data/messages/adino.json",
-            "data/messages/crok.json",
-            "data/messages/isak.json",
-            "data/messages/temmie.json",
+            "storage/hendex.json",
+            "storage/messages/lapp.json",
+            "storage/messages/adino.json",
+            "storage/messages/crok.json",
+            "storage/messages/isak.json",
+            "storage/messages/temmie.json",
         ]
         
         for i, person in enumerate(people):
@@ -317,23 +317,23 @@ class events(commands.Cog):
                 with open(file_path[i], "w") as f:
                     json.dump(file, f)
         
-        with open("data/messages/everyone.json", "r") as f:
+        with open("storage/messages/everyone.json", "r") as f:
             file = json.load(f)
 
         file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.author.id}, {ctx.guild.id}"
 
-        with open("data/messages/everyone.json", "w") as f:
+        with open("storage/messages/everyone.json", "w") as f:
             json.dump(file, f)
 
         # just gonna mention, henwee did consent to this lmao
         log_ids = 411536312961597440
         if ctx.author.id == log_ids:
-            with open("data/all_message_ids.json", "r") as f:
+            with open("storage/all_message_ids.json", "r") as f:
                 file = json.load(f)
 
             file[str(log_ids)]["messages"].append(ctx.id)
 
-            with open("data/all_message_ids.json", "w") as f:
+            with open("storage/all_message_ids.json", "w") as f:
                 json.dump(file, f)
         
 

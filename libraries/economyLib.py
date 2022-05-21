@@ -43,7 +43,7 @@ async def get_ring_emoji(ring):
 
 
 async def get_items_data():
-    with open("data/items.json", "r") as f:
+    with open("storage/items.json", "r") as f:
         items = json.load(f)
 
     return items
@@ -51,7 +51,7 @@ async def get_items_data():
 
 async def get_shop_data():
 
-    with open("data/shop.json", "r") as f:
+    with open("storage/shop.json", "r") as f:
         shop = json.load(f)
 
     return shop
@@ -63,7 +63,7 @@ async def open_account(user):
     if str(user.id) in users:
         users[str(user.id)]["version"] = 1.00
         
-        with open("data/bank.json", "w") as f:
+        with open("storage/bank.json", "w") as f:
                     json.dump(users, f)
 
         users = await get_bank_data()
@@ -90,7 +90,7 @@ async def open_account(user):
             users[str(user.id)]["stats"]["intelligence"] = 0
             users[str(user.id)]["stats"]["wisdom"] = 0
             users[str(user.id)]["stats"]["charisma"] = 0
-            with open("data/bank.json", "w") as f:
+            with open("storage/bank.json", "w") as f:
                 json.dump(users, f)
 
         users = await get_bank_data()
@@ -102,7 +102,7 @@ async def open_account(user):
             users[str(user.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
             users[str(user.id)]["spoken_today"] = 0
             
-            with open("data/bank.json", "w") as f:
+            with open("storage/bank.json", "w") as f:
                 json.dump(users, f)
 
         users = await get_bank_data()
@@ -120,7 +120,7 @@ async def open_account(user):
             users[str(user.id)]["lodge"]["spent"] = {}
             users[str(user.id)]["lodge"]["spent"]["logs"] = 0
             users[str(user.id)]["lodge"]["level"] = 0
-            with open("data/bank.json", "w") as f:
+            with open("storage/bank.json", "w") as f:
                     json.dump(users, f)
 
         users = await get_bank_data()
@@ -148,7 +148,7 @@ async def open_account(user):
     
             users[str(user.id)]["stats"]["points"] = 30 - (a + b + c + d + e + f)
             
-            with open("data/bank.json", "w") as f:
+            with open("storage/bank.json", "w") as f:
                     json.dump(users, f)
 
             users = await get_bank_data()
@@ -224,14 +224,14 @@ async def open_account(user):
     ###############################################################################
     
 
-    with open("data/bank.json", "w") as f:
+    with open("storage/bank.json", "w") as f:
         json.dump(users, f)
 
     return True
 
 
 async def get_bank_data():
-    with open("data/bank.json", "r") as f:
+    with open("storage/bank.json", "r") as f:
         users = json.load(f)
 
     return users
@@ -242,7 +242,7 @@ async def update_bank_data(user, change=0, mode="wallet"):
 
     users[str(user.id)][mode] += change
 
-    with open("data/bank.json", "w") as f:
+    with open("storage/bank.json", "w") as f:
         json.dump(users, f)
 
     bal = [users[str(user.id)][mode]]
