@@ -75,7 +75,7 @@ Cartoon & Animations - ID = 24
         
         for x, y in zip(difs, short_difs):
             if dif.lower() == x.lower() or dif.lower() == y.lower():
-                req_str += f"&difficulty={dif}"
+                req_str += f"&difficulty={x}"
                 break
         
         human_readable_categories = ["General", "Books", "Film", "Music", "Musicals & Theatres", "Television", "Video Games", "Board Games", "Science & Nature", "Computers", "Mathematics", "Mythology", "Sports", "Geography", "History", "Politics", "Art", "Celebrities", "Animals", "Vehicles", "Comics", "Gadgets", "Japanese Anime & Manga", "Cartoon & Animations"]
