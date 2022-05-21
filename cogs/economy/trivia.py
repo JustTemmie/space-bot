@@ -31,7 +31,7 @@ class ecotrivia(commands.Cog):
         if category.lower() in help_strs:
             await ctx.send(
             f"""
-List of valid categories, to play a specific category, use the category name or ID {ctx.prefix}trivia <category>
+List of valid categories, to play a specific category, use the category name or ID {ctx.prefix}trivia <category> <difficulty>
 
 General - ID = 1
 Books - ID = 2
@@ -62,15 +62,19 @@ Cartoon & Animations - ID = 24
             return
 
         req_str = "https://opentdb.com/api.php?amount=1"
-        cat = ""
         
         difs = ["easy", "medium", "hard"]
         short_difs = ["e", "m", "h"]
 
         for x, y in zip(difs, short_difs):
             if category.lower() == x.lower() or category.lower() == y.lower():
-                dif = x
+                req_str += f"&difficulty={dif}"
                 category = "random"
+                break
+        
+        for x, y in zip(difs, short_difs):
+            if dif.lower() == x.lower() or dif.lower() == y.lower():
+                req_str += f"&difficulty={dif}"
                 break
         
         human_readable_categories = ["General", "Books", "Film", "Music", "Musicals & Theatres", "Television", "Video Games", "Board Games", "Science & Nature", "Computers", "Mathematics", "Mythology", "Sports", "Geography", "History", "Politics", "Art", "Celebrities", "Animals", "Vehicles", "Comics", "Gadgets", "Japanese Anime & Manga", "Cartoon & Animations"]
@@ -84,19 +88,25 @@ Cartoon & Animations - ID = 24
                     req_str += f"&category={y+8}"
                     break
             
-        if dif.lower() in short_difs:
-            for x, y in zip(difs, short_difs):
-                if dif.lower() == y.lower():
-                    req_str += f"&difficulty={x}"
-
-        if dif.lower() in difs:
-            req_str += f"&difficulty={dif}"
 
         r = requests.get(
             f"{req_str}&type=multiple"
         )
 
         questions = json.loads(r.content)
+        if questions["response_code"] != 0:
+            if questions["response_code"] == 1:
+                return await ctx.send("**Code 1: No Results** Could not return results. The API doesn't have enough questions for your query.")
+            elif questions["response_code"] == 2:
+                return await ctx.send("**Code 2: Invalid Parameter** Contains an invalid parameter. Arguements passed in aren't valid.")
+            elif questions["response_code"] == 3:
+                return await ctx.send("**Code 3: Token Not Found** Session Token does not exist.")
+            elif questions["response_code"] == 4:
+                return await ctx.send("**Code 4: Token Empty** Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.")
+            
+            else:
+                return await ctx.send(f"error code {questions['response_code']}, please try again later")
+            
         questions = questions["results"][0]
         answers = [
             html.unescape(questions["correct_answer"]),
