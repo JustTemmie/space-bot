@@ -65,9 +65,44 @@ beavers - ID = 25 (does not have difficulties)
             )
             return
         
-        if ["beaver", "25"] in str(category).lower():
-            correct_answer = "Beav"
-            correct_answer_ID = "A"
+        # THIS IS LITTERALLY JUST A COPY OF THE CODE BUT SLIGHTLY MODIFIED AS IT USES A COMPLETELY DIFFERENT API, aka a fucking json file lmao
+        if str(category).lower() in ["beav", "25"]:
+            with open("storage/beaver_quiz.json", "r") as f:
+                quiz_data = json.load(f)
+            
+            question = quiz_data[f"question{random.randrange(0, len(quiz_data))}"]
+            
+            answers = [
+                question["correct"],
+                question["ans0"],
+                question["ans1"],
+                question["ans2"]
+            ]
+            
+            random.shuffle(answers)
+            
+            abcd = ["a", "b", "c", "d"]
+        
+            for abc, answer in zip(abcd, answers):
+                if answer == question["correct"]:
+                    correct_answer_ID = abc
+                    correct_answer = answer
+                    break
+            
+
+            embed = discord.Embed(title="Trivia", description = f"**Beavers || ID: 25**", color=ctx.author.color)
+            embed.add_field(name="Question", value=question["title"], inline=False)
+            embed.add_field(name="is it?",
+                        value=f"""
+a) {answers[0]}
+b) {answers[1]}
+c) {answers[2]}
+d) {answers[3]}
+                            """,
+                            inline=False)
+            
+            await ctx.send(embed=embed)
+
             try:
                 response = await self.bot.wait_for(
                     "message", check=lambda m: m.author == ctx.author, timeout=25
@@ -79,8 +114,11 @@ beavers - ID = 25 (does not have difficulties)
                 await ctx.send(f"{ctx.author.mention} you are correct! it was {correct_answer_ID}, {correct_answer}")
                 return
             
-            await ctx.send(f"sorry, the answer was {correct}, {html.unescape(questions['correct_answer'])}")
-            
+            await ctx.send(f"sorry, the answer was {correct_answer_ID}, {correct_answer}")
+            return
+
+
+        # if category is not beaver, continue as normal
 
         req_str = "https://opentdb.com/api.php?amount=1"
         
