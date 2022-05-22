@@ -59,14 +59,14 @@ Comics - ID = 21
 Gadgets - ID = 22
 Japanese Anime & Manga - ID = 23
 Cartoon & Animations - ID = 24
-beavers - ID = 25 (does not have difficulties)
+Beavers - ID = 25 (does not have difficulties)
 
             """
             )
             return
         
         # THIS IS LITTERALLY JUST A COPY OF THE CODE BUT SLIGHTLY MODIFIED AS IT USES A COMPLETELY DIFFERENT API, aka a fucking json file lmao
-        if str(category).lower() in ["beav", "25"]:
+        if str(category).lower() in ["beav", "beaver", "beavers", "25"]:
             with open("storage/beaver_quiz.json", "r") as f:
                 quiz_data = json.load(f)
             
