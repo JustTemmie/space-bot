@@ -65,7 +65,7 @@ class ecogeneration(commands.Cog):
         bank[str(ctx.author.id)]["wallet"] += payout
         daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
         bank[str(ctx.author.id)]["daily"] = daily_info
-        with open("data/bank.json", "w") as f:
+        with open("storage/bank.json", "w") as f:
             json.dump(bank, f)
 
         await ctx.send(f"you got +{payout} <:beaverCoin:968588341291397151>!\n{streak}")
@@ -109,7 +109,7 @@ class ecogeneration(commands.Cog):
         data[str(ctx.author.id)]["inventory"]["logs"] += payout
         data[str(ctx.author.id)]["scavenge_cooldown"] = time.time()
 
-        with open("data/bank.json", "w") as f:
+        with open("storage/bank.json", "w") as f:
             json.dump(data, f)
 
         await ctx.send(f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!")

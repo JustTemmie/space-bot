@@ -35,13 +35,13 @@ class ecoevents(commands.Cog):
             
             data[str(ctx.author.id)]["spoken_today"] += 1
             
-            with open("data/bank.json", "w") as f:
+            with open("storage/bank.json", "w") as f:
                 json.dump(data, f)
 
             await update_bank_data(ctx.author, random.randint(2, 5))
             await update_bank_data(ctx.author, 1, "xp")
             
-            #with open(f"data/anti-cheat/users/{ctx.author.id}.json", "a") as f:
+            #with open(f"storage/anti-cheat/users/{ctx.author.id}.json", "a") as f:
             #    json.dump(data, f)
 
     @commands.Cog.listener()
@@ -59,7 +59,7 @@ class ecoevents(commands.Cog):
 
         if loaded_time < time.time():
             data[str(user.id)]["speak_cooldown"] = time.time() + 450 + random.randint(0, 150)
-            with open("data/bank.json", "w") as f:
+            with open("storage/bank.json", "w") as f:
                 json.dump(data, f)
 
             await update_bank_data(user, random.randint(2, 5))

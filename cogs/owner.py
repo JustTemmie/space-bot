@@ -38,7 +38,7 @@ class Owner(commands.Cog):
     @commands.is_owner()
     @commands.command()
     async def react_henwee(self, ctx, user=411536312961597440):
-        with open("data/all_message_ids.json", "r") as f:
+        with open("storage/all_message_ids.json", "r") as f:
             file = json.load(f)
 
         for x in file[str(user)]["messages"]:
@@ -50,7 +50,7 @@ class Owner(commands.Cog):
             "411536312961597440": {"messages": []},
         }
 
-        with open("data/all_message_ids.json", "w") as f:
+        with open("storage/all_message_ids.json", "w") as f:
             json.dump(file, f)
 
     @commands.is_owner()
@@ -192,7 +192,7 @@ class Owner(commands.Cog):
         brief="adds the specified thing to shitpost.json",
     )
     async def addtofunnylist(ctx, *, funny=None):
-        with open("./data/shitpost.json", "r") as f:
+        with open("./storage/shitpost.json", "r") as f:
             shitposts = json.load(f)
 
         if funny is None:
@@ -203,7 +203,7 @@ class Owner(commands.Cog):
         await ctx.send(f"added {funny} to list")
         print(f"added {funny} to shitpost index")
 
-        with open("./data/shitpost.json", "w") as f:
+        with open("./storage/shitpost.json", "w") as f:
             json.dump(shitposts, f)
 
     @commands.is_owner()

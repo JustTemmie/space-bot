@@ -199,7 +199,7 @@ class admin(Cog):
 
 
 async def open_warnings():
-    with open("./data/reports.json", encoding="utf-8") as f:
+    with open("./storage/reports.json", encoding="utf-8") as f:
         try:
             report = json.load(f)
         except ValueError:
