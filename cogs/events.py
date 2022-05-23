@@ -396,22 +396,22 @@ class events(commands.Cog):
             )
 
     
-    @tasks.loop(seconds=30)
-    async def genshin_nick(self):
-        if not self.bot.is_ready():
-            return
-        
-        for guild in self.bot.guilds:
-            for member in guild.members:
-                for x in member.activities:
-                    try:
-                        if "genshin" in str(x) or "Genshin" in str(x):
-                            if not "gensiner" in member.display_name:
-
-                                try:
-                                    await member.edit(nick="(gensiner) " + member.display_name)
-                                except:
-                                    await member.edit(nick="(gensiner)")
+    #@tasks.loop(seconds=30)
+    #async def genshin_nick(self):
+    #    if not self.bot.is_ready():
+    #        return
+    #    
+    #    for guild in self.bot.guilds:
+    #        for member in guild.members:
+    #            for x in member.activities:
+    #                try:
+    #                    if "genshin" in str(x) or "Genshin" in str(x):
+    #                        if not "gensiner" in member.display_name:
+    #
+    #                            try:
+    #                                await member.edit(nick="(gensiner) " + member.display_name)
+    #                            except:
+    #                                await member.edit(nick="(gensiner)")
 
                         #if "gensiner" in member.display_name:
                         #    if "genshin" in str(x) or "Genshin" in str(x):
@@ -424,8 +424,8 @@ class events(commands.Cog):
                         #            await member.edit(nick=member.name)
 
 
-                    except Exception as e:
-                        pass    
+    #                except Exception as e:
+    #                    pass    
                         #print(e)
                         #await self.bot.get_channel(805175024762748929).send(f"{e}, {member.display_name}, {guild.name}")
                 
@@ -493,6 +493,7 @@ class events(commands.Cog):
 
     @tasks.loop(hours=1)
     async def random_beaver(self):
+        return
         if random.randrange(1, 400) == 2:
             members = []
             for guild in self.bot.guilds:
