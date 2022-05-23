@@ -239,6 +239,7 @@ class events(commands.Cog):
         hendex = random.randrange(0, len(henwees))
         if "!" in ctx.content:
             return
+        
         if ctx.author.bot:
             return
 
@@ -485,12 +486,12 @@ class events(commands.Cog):
 
     @tasks.loop(seconds=293)
     async def henwee(self):
-        if random.randrange(1, 7000) == 2:
+        if random.randrange(1, 3000) == 2:
             await self.bot.get_channel(919666600955760702).send(
                 "reminder to keep on henweeing :)",
                 file=discord.File("images/processed/henwee_fall.gif"),
             )
-
+    
     @tasks.loop(hours=1)
     async def random_beaver(self):
         return
@@ -514,6 +515,7 @@ class events(commands.Cog):
 
 
 async def lucky_beaver(self):
+    return
     members = []
     for guild in self.bot.guilds:
         for member in guild.members:
