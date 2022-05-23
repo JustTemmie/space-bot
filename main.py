@@ -1,9 +1,9 @@
 import os
+import glob
 import random
 import logging
 from time import time
 import json
-from unittest.mock import DEFAULT
 
 import discord  
 from discord.ext import tasks, commands
@@ -65,23 +65,6 @@ bot.ready = False
 async def on_ready():
     if not bot.ready:
         
-        # loads cogs
-        for filename in os.listdir('./cogs'):
-            if filename.endswith('.py'):
-                bot.load_extension(f'cogs.{filename[:-3]}')
-
-        # economy cogs
-        for filename in os.listdir('./cogs/economy'):
-            if filename.endswith('.py'):
-                bot.load_extension(f'cogs.economy.{filename[:-3]}')
-
-        # minis cogs
-        for filename in os.listdir('./cogs/minis'):
-            if filename.endswith('.py'):
-                bot.load_extension(f'cogs.minis.{filename[:-3]}')
-
-
-
         change_status_task.start()
 
         bot.status_out = bot.get_channel(848925880360632350)
@@ -110,5 +93,11 @@ async def randomize_status():
 async def change_status_task():
     await randomize_status()
 
+
+# loads cogs
+for filename in glob.iglob("./cogs/**", recursive=True):
+    if filename.endswith('.py'):
+        filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
+        bot.load_extension(f'{filename[:-3]}') # removes the ".py" from the end of the filename, to make it into cogs.economy
 
 bot.run((TOKEN), bot=True, reconnect=True)
