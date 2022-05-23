@@ -307,34 +307,35 @@ class events(commands.Cog):
             "storage/messages/temmie.json",
         ]
         
-        for i, person in enumerate(people):
-            if ctx.author.id == person:
-                with open(file_path[i], "r") as f:
-                    file = json.load(f)
+        if ctx.guid.id in [918787074801401868, 946136828916944987, 876859496444596234, 885113462378876948]:
+            for i, person in enumerate(people):
+                if ctx.author.id == person:
+                    with open(file_path[i], "r") as f:
+                        file = json.load(f)
 
-                file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
+                    file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
 
-                with open(file_path[i], "w") as f:
-                    json.dump(file, f)
-        
-        with open("storage/messages/everyone.json", "r") as f:
-            file = json.load(f)
-
-        file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.author.id}, {ctx.guild.id}"
-
-        with open("storage/messages/everyone.json", "w") as f:
-            json.dump(file, f)
-
-        # just gonna mention, henwee did consent to this lmao
-        log_ids = 411536312961597440
-        if ctx.author.id == log_ids:
-            with open("storage/all_message_ids.json", "r") as f:
+                    with open(file_path[i], "w") as f:
+                        json.dump(file, f)
+            
+            with open("storage/messages/everyone.json", "r") as f:
                 file = json.load(f)
 
-            file[str(log_ids)]["messages"].append(ctx.id)
+            file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.author.id}, {ctx.guild.id}"
 
-            with open("storage/all_message_ids.json", "w") as f:
+            with open("storage/messages/everyone.json", "w") as f:
                 json.dump(file, f)
+
+            # just gonna mention, henwee did consent to this lmao
+            log_ids = 411536312961597440
+            if ctx.author.id == log_ids:
+                with open("storage/all_message_ids.json", "r") as f:
+                    file = json.load(f)
+
+                file[str(log_ids)]["messages"].append(ctx.id)
+
+                with open("storage/all_message_ids.json", "w") as f:
+                    json.dump(file, f)
         
 
             #for x in range(0, len(listies)):
@@ -344,8 +345,6 @@ class events(commands.Cog):
 
         if (
             "henwee" in ctx.content.lower()
-            or "henw " in ctx.content.lower()
-
             or "411536312961597440" in ctx.content
         ):  # and ctx.author.id != self.bot.user.id:
             if random.randint(0, 20) == 2:
