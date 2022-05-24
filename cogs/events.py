@@ -302,7 +302,7 @@ class events(commands.Cog):
             "storage/messages/temmie.json",
         ]
         
-        if ctx.guid.id in [918787074801401868, 946136828916944987, 876859496444596234, 885113462378876948]:
+        if ctx.guild.id in [918787074801401868, 946136828916944987, 876859496444596234, 885113462378876948]:
             for i, person in enumerate(people):
                 if ctx.author.id == person:
                     with open(file_path[i], "r") as f:
