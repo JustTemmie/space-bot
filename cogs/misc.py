@@ -64,7 +64,7 @@ class misc(commands.Cog):
     @cooldown(5, 300, BucketType.user)
     async def report_command(self, ctx, *, input):
         embed = Embed(name="Report", colour=0xAF62EB, timestamp=datetime.utcnow())
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        embed.set_author(name=f"{ctx.author.username} : {ctx.author.id}", icon_url=ctx.author.avatar_url)
         
         
         embed.add_field(name="Report:", value=input, inline=False)        
