@@ -487,7 +487,7 @@ class events(commands.Cog):
                 file=discord.File("images/processed/henwee_fall.gif"),
             )
     
-    @tasks.loop(seconds=15)
+    @tasks.loop(seconds=10)
     async def update_timer(self):
         if self.bot.is_ready():
             with open("storage/time.json", "w") as f:
