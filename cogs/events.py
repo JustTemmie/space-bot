@@ -137,7 +137,7 @@ class events(commands.Cog):
         self.henwee.start()
         self.random_beaver.start()
         self.random_reddit.start()
-        self.genshin_nick.start()
+        #self.genshin_nick.start()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
