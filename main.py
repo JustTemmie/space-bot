@@ -8,7 +8,7 @@ import json
 import discord
 from discord.ext import tasks, commands
 
-from dotenv import load_dotenv#
+from dotenv import load_dotenv
 
 load_dotenv("keys.env")
 TOKEN = os.getenv("DISCORD")
