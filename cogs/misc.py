@@ -62,7 +62,7 @@ class misc(commands.Cog):
         
     @commands.command(name="report", brief="report bugs so they can be fixed :D (hopefully)")
     @cooldown(5, 300, BucketType.user)
-    async def report_command(self, ctx, input):
+    async def report_command(self, ctx, *, input):
         embed = Embed(name="Report", colour=0xAF62EB, timestamp=datetime.utcnow())
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         
