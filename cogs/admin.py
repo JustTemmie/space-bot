@@ -1,3 +1,4 @@
+from ast import alias
 import discord
 from datetime import datetime
 from typing import Optional
@@ -13,7 +14,9 @@ from discord.ext.commands import (
     bot_has_permissions,
 )
 import json
+import asyncio
 
+from libraries.miscLib import get_input
 
 class admin(Cog):
     def __init__(self, bot):
@@ -91,19 +94,6 @@ class admin(Cog):
 
         await ctx.send(embed=embed)
 
-    @command(name="warns", brief="Shows the warns of the specified user")
-    @bot_has_permissions(kick_members=True)
-    @has_permissions(kick_members=True)
-    async def warnings(ctx, user: discord.User):
-        report = await open_warnings()
-        for current_user in report["users"]:
-            if user.name == current_user["name"]:
-                await ctx.send(
-                    f"{user.name} has been reported {len(current_user['reasons'])} times : {','.join(current_user['reasons'])}"
-                )
-                break
-            else:
-                await ctx.send(f"{user.name} has never been reported")
 
     @command(name="ban", brief="Bans the specified users")
     @bot_has_permissions(ban_members=True)
@@ -155,6 +145,70 @@ class admin(Cog):
         if isinstance(exc, CheckFailure):
             await ctx.send("Insufficient permissions to perform that task")
 
+    
+    @commands.command(
+        name="rolemenu",
+        aliases=["role", "rolelist", "role-menu"],
+        brief="Setup a role menu to give users roles by reacting to emojis",
+    )
+    @bot_has_permissions(manage_roles=True)
+    @has_permissions(manage_roles=True)
+    async def rolemenu(self, ctx):
+        await ctx.send("This command is currently under development")
+        guild = ctx.guild
+
+        roles = 0
+        max_roles = 30
+        
+        await ctx.send("What should the name of the role menu/embed be?")
+        response = await get_input(self, ctx)
+        embed = discord.Embed(title = response.content, color = 0x00FF00)
+        msg = await ctx.send(embed = embed)
+        
+        await ctx.send("What should the description of the role menu/embed be? if you don't want one, just type 'none'")
+        response = await get_input(self, ctx)
+        if not response.content.lower() in ["none", "n", "no"]:
+            embed.description = response.content
+        await msg.edit(embed = embed)
+        
+        try:
+            with open(f"storage/reactions/roles/{ctx.channel.id}.json", "r") as f:
+                data = json.load(f)
+        except:
+            with open(f"storage/reactions/roles/{ctx.channel.id}.json", "w") as f:
+                data = []
+        
+        for i in range(max_roles):
+            await ctx.send("What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'")
+            response = await get_input(self, ctx)
+            if response.content.lower() in ["none", "n", "no"]:
+                return
+            try:
+                role = await guild.create_role(name=response.content)  
+                roleid = role.id
+            except discord.Forbidden as e:
+                return await ctx.send(f"sorry that name triggered an error, please run the command again\nError: {e}")
+            
+            await ctx.send("and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis")
+            response = await get_input(self, ctx)
+            embed.add_field(name = response.content, value = role.mention, inline = False)
+            try:
+                await msg.add_reaction(response.content)
+            except Exception as e:
+                return await ctx.send(f"sorry that emoji triggered an error, please run the command again\nError: {e}")
+            try:
+                await msg.edit(embed = embed)
+            except Exception as e:
+                return await ctx.send(f"sorry there was an error editing the message, please run the command again\nError: {e}")
+            
+            data.append({"role_id": roleid, "emoji": response.content, "message_id": msg.id})
+
+            with open(f"storage/reactions/roles/{ctx.channel.id}.json", "w") as f:
+                json.dump(data, f)
+        
+        
+    
+    
     @commands.command(
         name="clear",
         aliases=["purge"],
@@ -188,12 +242,11 @@ class admin(Cog):
 
     @commands.command(name="react")
     @has_permissions(manage_messages=True)
-    async def react(self, ctx, msgid, reaction):
-        if msgid == None or reaction == None:
-            await ctx.send("Give me both a message and a reaction to react with")
+    async def react(self, ctx, msgid = None, emoji = None):
+        if msgid == None or emoji == None:
+            await ctx.send("Give me a message and a reaction to react with")
 
         else:
-            emoji = reaction
             message = await ctx.fetch_message(msgid)
             await message.add_reaction(emoji)
 
