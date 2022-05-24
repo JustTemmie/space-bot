@@ -191,7 +191,12 @@ class events(commands.Cog):
         print(f"{member} joined {member.guild} - ({member.id} joined {member.guild.id})")
         if member.bot:
             return
-
+        
+        guilds = [978695335088095282, 694107776015663146, 918787074801401868, 946136828916944987, 885113462378876948]
+        
+        if not member.guild.id in guilds:
+            return
+        
         if member.guild.id == 694107776015663146:  # space
             await self.bot.get_channel(694197942000680980).send(
                 f"Welcome, {member.mention}! Read through the <#694112817611276348>, assign yourself roles in <#925393973755908136>. And if you wish, introduce yourself in <#694192946387353680>"
@@ -226,6 +231,12 @@ class events(commands.Cog):
         elif member.guild.id == 978695335088095282: # support server
             await self.bot.get_channel(978695335801147432).send(
                 f"hello {member.mention}"
+            )
+            
+            await member.add_roles(
+                member.guild.get_role(
+                    978695335088095285
+                )
             )
 
 
