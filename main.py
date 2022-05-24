@@ -74,9 +74,8 @@ async def on_ready():
             guild_count = guild_count + 1
 
         print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
-
+        
         bot.ready = True
-
 
 
 async def randomize_status():
