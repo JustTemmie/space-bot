@@ -5,9 +5,8 @@ import logging
 from time import time
 import json
 
-import discord  
+import discord
 from discord.ext import tasks, commands
-
 
 from dotenv import load_dotenv
 
@@ -77,6 +76,7 @@ async def on_ready():
         print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
 
         bot.ready = True
+
 
 
 async def randomize_status():

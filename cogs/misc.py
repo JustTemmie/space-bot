@@ -58,12 +58,16 @@ class misc(commands.Cog):
             )
 
         await ctx.send(embed=cog_embed)
-
+        
+        
     @commands.command(name="report", brief="report bugs so they can be fixed :D (hopefully)")
     @cooldown(5, 300, BucketType.user)
     async def report_commands(self, ctx, input):
         await self.bot.report_out.send(f"`{input}`\n\nsubmitted by {ctx.author} - {ctx.author.id}")
+        ctx.add_reaction("✅")
+        await ctx.send(f"`{input}`\n\nsubmitted by {ctx.author} - {ctx.author.id}")
         print(f"{input}\n\nsubmitted by {ctx.author} - {ctx.author.id}")
+        
 
     @commands.command(name="pound", brief="pound to kg")
     async def poundtokg(self, ctx, *, input):

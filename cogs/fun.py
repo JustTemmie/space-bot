@@ -8,31 +8,20 @@ from discord.ext import commands
 from discord.ext.commands import (
     cooldown,
     BucketType,
-    CommandNotFound,
-    BadArgument,
     MissingRequiredArgument,
-    CommandOnCooldown,
     Greedy,
-    Converter,
-    CheckFailure,
-    Cog,
     MissingRequiredArgument,
 )
 
-from datetime import datetime, timedelta
 from aiohttp import request
 import requests
 import urllib
-import re
-from asyncio import sleep
 from typing import Optional
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import json
 
 import random
 import os
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv("keys.env")
