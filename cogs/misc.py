@@ -12,7 +12,7 @@ class misc(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.report_out = self.bot.get_channel(916087513372844052)
+        self.bot.report_out_public = self.bot.get_channel(978695335801147435)
         pass
         # print("hi there")
 
@@ -62,11 +62,15 @@ class misc(commands.Cog):
         
     @commands.command(name="report", brief="report bugs so they can be fixed :D (hopefully)")
     @cooldown(5, 300, BucketType.user)
-    async def report_commands(self, ctx, input):
-        await self.bot.report_out.send(f"`{input}`\n\nsubmitted by {ctx.author} - {ctx.author.id}")
+    async def report_command(self, ctx, input):
+        embed = Embed(name="Report", colour=0xAF62EB, timestamp=datetime.utcnow())
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        
+        
+        embed.add_field(name="Report:", value=input, inline=False)        
+        await self.bot.report_out_public.send(embed = embed)
+        await ctx.send(embed = embed)
         ctx.add_reaction("✅")
-        await ctx.send(f"`{input}`\n\nsubmitted by {ctx.author} - {ctx.author.id}")
-        print(f"{input}\n\nsubmitted by {ctx.author} - {ctx.author.id}")
         
 
     @commands.command(name="pound", brief="pound to kg")

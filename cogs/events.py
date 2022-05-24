@@ -184,17 +184,6 @@ class events(commands.Cog):
             f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}"
         )
 
-    @commands.command(
-        name="henwee",
-        aliases=["henw"],
-        brief=henwees[random.randrange(0, len(henwees))],
-    )
-    @cooldown(20, 30, BucketType.guild)
-    async def henw(self, ctx):
-        await ctx.send(
-            henwees[random.randrange(0, len(henwees))],
-            file=discord.File("images/processed/henwee_fall.gif"),
-        )
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -231,6 +220,11 @@ class events(commands.Cog):
         elif member.guild.id == 885113462378876948:  # maid café
             await self.bot.get_channel(885113515411669002).send(
                 f"hello {member.mention} just joined the server!\nwonder if they've wishlisted wishlisted beaver clicker yet?\nhttps://store.steampowered.com/app/1718240"
+            )
+        
+        elif member.guild.id == 978695335088095282: # support server
+            await self.bot.get_channel(978695335801147432).send(
+                f"hello {member.mention}"
             )
 
 
