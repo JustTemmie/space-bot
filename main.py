@@ -5,6 +5,8 @@ import logging
 from time import time
 import json
 
+from datetime import datetime, timedelta
+
 import discord
 from discord.ext import tasks, commands
 
@@ -63,10 +65,15 @@ bot.ready = False
 @bot.event
 async def on_ready():
     if not bot.ready:
+    
         
         change_status_task.start()
 
         bot.status_out = bot.get_channel(848925880360632350)
+        
+        with open("storage/time.json", "r") as f:
+            last_time = json.load(f)
+        await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
 
         guild_count = 0
         for guild in bot.guilds:

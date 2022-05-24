@@ -155,17 +155,15 @@ class admin(Cog):
     @has_permissions(manage_roles=True)
     async def rolemenu(self, ctx):
         await ctx.send("This command is currently under development")
-        guild = ctx.guild
 
-        roles = 0
         max_roles = 30
         
-        await ctx.send("What should the name of the role menu/embed be?")
+        await ctx.send("What should the name of the role menu/embed be?", delete_after = 45)
         response = await get_input(self, ctx)
         embed = discord.Embed(title = response.content, color = 0x00FF00)
         msg = await ctx.send(embed = embed)
         
-        await ctx.send("What should the description of the role menu/embed be? if you don't want one, just type 'none'")
+        await ctx.send("What should the description of the role menu/embed be? if you don't want one, just type 'none'", delete_after = 45)
         response = await get_input(self, ctx)
         if not response.content.lower() in ["none", "n", "no"]:
             embed.description = response.content
@@ -179,17 +177,17 @@ class admin(Cog):
                 data = []
         
         for i in range(max_roles):
-            await ctx.send("What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'")
+            await ctx.send("What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'", delete_after = 30)
             response = await get_input(self, ctx)
             if response.content.lower() in ["none", "n", "no"]:
-                return
+                return await ctx.send("Role menu creation completed, users can now react to the message to get roles", delete_after = 20)
             try:
-                role = await guild.create_role(name=response.content)  
+                role = await ctx.guild.create_role(name=response.content)  
                 roleid = role.id
             except discord.Forbidden as e:
                 return await ctx.send(f"sorry that name triggered an error, please run the command again\nError: {e}")
             
-            await ctx.send("and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis")
+            await ctx.send("and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis", delete_after = 30)
             response = await get_input(self, ctx)
             embed.add_field(name = response.content, value = role.mention, inline = False)
             try:

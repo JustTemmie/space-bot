@@ -137,6 +137,7 @@ class events(commands.Cog):
         self.henwee.start()
         self.random_beaver.start()
         self.random_reddit.start()
+        self.update_timer.start()
         #self.genshin_nick.start()
 
     @commands.Cog.listener()
@@ -486,6 +487,13 @@ class events(commands.Cog):
                 file=discord.File("images/processed/henwee_fall.gif"),
             )
     
+    @tasks.loop(seconds=15)
+    async def update_timer(self):
+        if self.bot.is_ready():
+            with open("storage/time.json", "w") as f:
+                json.dump((datetime.utcnow() - datetime(1970, 1, 1)).seconds, f)
+            
+            
     @tasks.loop(hours=1)
     async def random_beaver(self):
         return
