@@ -175,6 +175,15 @@ class admin(Cog):
             with open(f"storage/reactions/roles/{ctx.channel.id}.json", "w") as f:
                 data = []
         
+        with open(f"storage/reactions/channels.json", "r") as f:
+            channels = json.load(f)
+        
+        if not ctx.channel.id in data:
+            channels["channels"].append(ctx.channel.id)
+            with open(f"storage/reactions/channels.json", "w") as f:
+                json.dump(channels, f)
+
+        
         for i in range(max_roles):
             await ctx.send("What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'", delete_after = 30)
             response = await get_input(self, ctx)
