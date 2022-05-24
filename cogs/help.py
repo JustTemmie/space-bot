@@ -78,8 +78,8 @@ class help(commands.Cog, name="Help command"):
                     else f"{ctx.prefix} **__{cmd.name}__**\n{desc}\n {subcommand}\n"
                 )
             pages.append(commands_entry)
-
-        await Page(title=title, colour=ctx.author.colour, entries=pages, length=1).start(ctx)
+        
+        await Page(title=title, suffix="can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help", colour=ctx.author.colour, entries=pages, length=1).start(ctx)
 
     @commands.command(name="help", aliases=["commands"], description="The help command, woah")
     @cooldown(5, 35, BucketType.user)

@@ -71,10 +71,13 @@ async def on_ready():
 
         bot.status_out = bot.get_channel(848925880360632350)
         
-        with open("storage/time.json", "r") as f:
-            last_time = json.load(f)
-        await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
-
+        try:
+            with open("storage/time.json", "r") as f:
+                last_time = json.load(f)
+            await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: ~{timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
+        except:
+            print("i hope this is running on alpha")
+            
         guild_count = 0
         for guild in bot.guilds:
             print(f"- {guild.id} (name: {guild.name})")
