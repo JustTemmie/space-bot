@@ -154,7 +154,6 @@ class admin(Cog):
     @bot_has_permissions(manage_roles=True)
     @has_permissions(manage_roles=True)
     async def rolemenu(self, ctx):
-        await ctx.send("This command is currently under development")
 
         max_roles = 30
         
