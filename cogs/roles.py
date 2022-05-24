@@ -17,13 +17,15 @@ class role_menu(commands.Cog):
         channel_IDS = [
             919714824915648562,
             849692162907176990,
-            956467944991358997
+            956467944991358997,
+            978585272570761288
         ]
         
         role_directories = [
             "frog_reactions",
             "space_reactions",
-            "castle_reactions"
+            "castle_reactions",
+            "jysaoku_reactions" #geek place
         ]
         
         if payload.channel_id not in channel_IDS:

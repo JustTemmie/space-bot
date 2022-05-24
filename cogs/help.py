@@ -4,10 +4,6 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 from discord.ext.buttons import Paginator
 
-# from utilities import Page
-
-# i honestly have no idea how this code works, if you have problems with it, i can't help you
-
 
 class Page(Paginator):
     async def teardown(self):
@@ -85,53 +81,10 @@ class help(commands.Cog, name="Help command"):
 
         await Page(title=title, colour=ctx.author.colour, entries=pages, length=1).start(ctx)
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("cogs online")
-
     @commands.command(name="help", aliases=["commands"], description="The help command, woah")
     @cooldown(5, 35, BucketType.user)
     async def help_command(self, ctx, *, entity=None):
         if not entity:
-            cog_embed = Embed(
-                title="Cogs to call upon",
-                description='these are the categories you can use with the help command, for example "!help economy" would bring back all commands related to money',
-                colour=0xAF62EB,
-            )
-
-            fields = [  # ("Name", "Value", True),
-                ("admin", "commands for admins", True),
-                ("economy", "all commands related to money", False),
-                (
-                    "fun",
-                    "just random commands i've added, like wikipedia and fact",
-                    True,
-                ),
-                ("images", "lets you do stuff with images", False),
-                (
-                    "info",
-                    "commands that give you information about something - currently broken",
-                    True,
-                ),
-                ("utility", "utility commands like setting a reminder", False),
-                ("misc", "mostly empty, for now", False),
-                (
-                    "search",
-                    "commands that let you search stuff like youtube or wikipedia",
-                    False,
-                ),
-                ("other cogs", "polls, prefix, reactions, events, and help", False),
-            ]
-
-            for name, value, inline in fields:
-                cog_embed.add_field(name=name, value=value, inline=inline),
-                cog_embed.set_author(name=(ctx.author)),
-                cog_embed.set_footer(text="Sent from my iPhone"),
-                cog_embed.set_thumbnail(
-                    url="https://cdn.discordapp.com/avatars/765222621779853312/07d33473a5a8b5fa6adf600967f7692e.png?size=2048"
-                )
-
-            await ctx.send(embed=cog_embed)
             await self.setup_help_pag(ctx)
 
         else:
@@ -145,7 +98,7 @@ class help(commands.Cog, name="Help command"):
                     await self.setup_help_pag(ctx, command, command.name)
 
                 else:
-                    await ctx.send("entity not found")
+                    await ctx.send("cog not found")
 
 
 def setup(bot):
