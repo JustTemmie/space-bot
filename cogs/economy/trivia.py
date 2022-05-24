@@ -10,7 +10,10 @@ import random
 import requests
 import asyncio
 
+
 from libraries.economyLib import *
+from libraries.settings import *
+
 
 
 class ecotrivia(commands.Cog):
