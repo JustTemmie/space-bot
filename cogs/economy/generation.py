@@ -55,12 +55,14 @@ class ecogeneration(commands.Cog):
         payout = random.randint(25, 75) + round(random.randrange(5, 10) * daily_info["streak"])
         if payout >= 500:
             payout = 500
-
+            
         # skills
-        if bank[str(ctx.author.id)]["dam"]["level"] >= 3:
+        if bank[str(ctx.author.id)]["dam"]["level"] >= 4:
             payout *= 2
             streak += "\n**you got double coins for having a lvl 3+ dam**"
         
+        if ctx.author.id == 411536312961597440:
+            payout -= 1
         
         bank[str(ctx.author.id)]["wallet"] += payout
         daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
