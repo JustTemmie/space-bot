@@ -8,13 +8,6 @@ class beavr(commands.Cog):
         self.bot = bot
 
     @commands.command(
-        name="ai", brief="give an ai a input string and it will return... something :)"
-    )
-    @cooldown(5, 10, BucketType.user)
-    async def ai_command(self, ctx):
-        await ctx.send("lmao no")
-
-    @commands.command(
         name="beaver",
         brief="reacts with beaver to the message corresponding with the ID you send\nALTERNATIVELY the bot will reac to the message you to using discord's built in reply feature",
     )
