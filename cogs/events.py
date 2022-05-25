@@ -249,6 +249,21 @@ class events(commands.Cog):
         if ctx.author.bot:
             return
 
+        special_guilds = [
+            694107776015663146,
+            956464081697648640,
+            876859496444596234,
+            946136828916944987,
+            918787074801401868
+        ]
+        if ctx.guild.id in special_guilds:
+            if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
+                msg = await ctx.reply("amogus") 
+            
+            if "bee " in ctx.content.lower() or "bee" == ctx.content.lower():   
+                await ctx.add_reaction("<a:B_:976827254799740938>")
+        
+        
         if random.randint(0, 75000) == 2:
             await react_beaver(ctx)
         
@@ -286,15 +301,9 @@ class events(commands.Cog):
                 await react_beaver(ctx)
                 
 
-        if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
-            msg = await ctx.reply("amogus")                
-
         if "brain fuck" in ctx.content:
             await ctx.add_reaction("🧠")
             await ctx.add_reaction("🔫")
-            
-        if "bee " in ctx.content.lower() or "bee" == ctx.content.lower():   
-            await ctx.add_reaction("<a:B_:976827254799740938>")
         
         
         people = [
@@ -354,7 +363,7 @@ class events(commands.Cog):
             "henwee" in ctx.content.lower()
             or "411536312961597440" in ctx.content
         ):  # and ctx.author.id != self.bot.user.id:
-            if random.randint(0, 20) == 2:
+            if random.randint(0, 15) == 2:
                 await ctx.add_reaction("<a:henwee_fall:955830194902544415>")
                 await ctx.add_reaction("<a:henwee_fall_short:955878859197280306>")
                 if random.randrange(1, 4) == 2:  # 1/3 chance
