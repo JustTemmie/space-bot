@@ -1,1 +1,1 @@
-add reminders.json into /storage
+add reminders.json into /storage and fill it with "{}"
