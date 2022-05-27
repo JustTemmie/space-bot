@@ -127,7 +127,7 @@ class ecobuild(commands.Cog):
             if level >= 4: lvl4bold = "**"
             if level >= 5: lvl5bold = "**"
 
-            lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marriage command"
+            lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marry command"
             lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
             lvl3 = f"╰ +2 skill points and another + 25% logs from {ctx.prefix}scavenge"
             lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
