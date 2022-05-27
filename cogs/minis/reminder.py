@@ -14,7 +14,11 @@ class reminder(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command(name="remindme", aliases = ["remind", "reminder"], brief="reminds you of something")
+    @commands.command(
+        name="remindme",
+        aliases = ["remind", "reminder"],
+        brief="reminds you of something\na!remindme god damn it tell her i like beavers in 1 day 2 hours 30 min\nyou can use \"day(s), d\", \"hour(s), h(r)\", \"minute(s), m(in)\", \"second(s), s(ec)\"",
+        )
     @cooldown(5, 10, BucketType.user)
     async def reminder_command(self, ctx, *, reminder):
         seconds = 0
@@ -50,6 +54,9 @@ class reminder(commands.Cog):
                     seconds += int(i.split(" ")[0]) * 60
                 elif single_letters == "s" or single_letters == "sec":
                     seconds += int(i.split(" ")[0])
+                
+                else:
+                    return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
 
 
         sendtime = round(time.time() + seconds)
