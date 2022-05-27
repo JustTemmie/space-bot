@@ -563,7 +563,7 @@ async def react_beaver(ctx):
             "have you wishlisted beaver clicker yet?",
             "go ahead, wishlist beaver clicker already",
         ]
-        index = random.randrange(0, 6)
+        index = random.randrange(0, len(message))
         await ctx.channel.send(
             f"{message[index]}\nhttps://store.steampowered.com/app/1718240/Beaver_Clicker/"
         )

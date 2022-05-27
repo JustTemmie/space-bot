@@ -44,7 +44,9 @@ class ball8(commands.Cog):
         self.bot = bot
 
     @commands.command(name="8ball", aliases=["8"], brief="Ask the 8ball a question")
-    async def ball8_command(self, ctx):
+    async def ball8_command(self, ctx, input = None):
+        if input == None:
+            return await ctx.send("Please ask a question")
         msg = await ctx.send("connecting to the oracle...")
         time.sleep(1.2)
         await msg.edit(content="considering...")
