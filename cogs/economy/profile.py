@@ -29,7 +29,7 @@ class ecoprofile(commands.Cog):
         current_damlevel = bankdata[str(user.id)]["dam"]["level"]
         current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"]
 
-        embed = discord.Embed(title=f"", colour=ctx.author.colour, timestamp=datetime.utcnow())
+        embed = discord.Embed(title=f"", colour=user.colour, timestamp=datetime.utcnow())
         embed.add_field(
             name=f"{user.display_name}",
             value=f"\"{bankdata[str(user.id)]['quote']}\"",

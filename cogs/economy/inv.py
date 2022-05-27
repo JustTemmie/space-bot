@@ -70,7 +70,7 @@ class ecoinv(commands.Cog):
         except:
             inv = []
 
-        embed = discord.Embed(title=f"{user.display_name}'s Inventory", color=ctx.author.color)
+        embed = discord.Embed(title=f"{user.display_name}'s Inventory", color=user.color)
 
         for item in inv:
             for i in items:
@@ -108,7 +108,7 @@ class ecoinv(commands.Cog):
 
         wallet_amount = users[str(user.id)]["wallet"]
 
-        embed = discord.Embed(title=f"{user.display_name}'s balance", colour=ctx.author.colour)
+        embed = discord.Embed(title=f"{user.display_name}'s balance", colour=user.colour)
         embed.add_field(
             name="wallet balance",
             value=f"{wallet_amount} <:beaverCoin:968588341291397151>",
