@@ -8,8 +8,13 @@ from math import ceil
 from datetime import datetime
 import time
 
-#from libraries.LinRSmiscLib import str_replacer
-from libraries.miscLib import str_replacer
+
+from libraries.RSmiscLib import str_replacer
+# this might be highlighted as a bug, but it's just a library written in rust lmao
+# it should be fine if you've ran the setup file
+
+
+#from libraries.miscLib import str_replacer
 
 class reminder(commands.Cog):
     def __init__(self, bot):
@@ -30,10 +35,9 @@ class reminder(commands.Cog):
         replacing_character = ','
         
 
-        for i in range(ceil((timing.count(ch)))):
-            timing = await str_replacer(timing, ch,
-            replacing_character, occurrence+i)
-
+        #for i in range(ceil((timing.count(ch)))):
+        timing = str_replacer(timing, ch,
+            replacing_character, occurrence)
         
         timing = timing.split(",")
         for i in timing:
