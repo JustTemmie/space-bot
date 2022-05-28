@@ -511,7 +511,7 @@ class events(commands.Cog):
     @tasks.loop(seconds=10)
     async def update_timer(self):
         if self.bot.is_ready():
-            with open("storage/time.json", "w") as f:
+            with open("storage/misc/time.json", "w") as f:
                 json.dump((datetime.utcnow() - datetime(1970, 1, 1)).seconds, f)
             
             
