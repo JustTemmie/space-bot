@@ -8,7 +8,7 @@ async def get_input(self, ctx, time = 30):
     except asyncio.TimeoutError:
         return await ctx.send(f"**Timed out** You took too long to answer the question, Please try again")
 
-
+""" this was old code that has been rewritten in rust by https://github.com/Radiicall
 async def str_replacer(initial_string, ch,
         replacing_character, occurrence):
     
@@ -41,3 +41,4 @@ async def str_replacer(initial_string, ch,
     val = (''.join(lst1))
     
     return val
+"""
