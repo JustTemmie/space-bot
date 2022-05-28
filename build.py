@@ -1,13 +1,16 @@
-from sys import platform
+# Import necessary libraries
+from sys import platform, stdout
 import shutil
 import os
 from time import sleep
 
+# Set filename and dfilename to make them global vars
 filename = ""
 dfilename = ""
 
 print("Checking platform...")
 
+# Check platform and set filenames appropriately
 if platform == "linux":
     filename = "libRSmiscLib.so"
     dfilename = "RSmiscLib.so"
@@ -18,13 +21,19 @@ elif platform == "win32":
     filename = "RSmiscLib.dll"
     dfilename = "RSmiscLib.pyd"
 else:
+    # If platform is not supported, exit with error code 1
     print(f"Create a bug report for your platform in the github repo\nPlatform: {platform}");
     exit(1)
 
-print(f"found platform! {platform} \nStarting build in 5 seconds...")
-sleep(5)
+print(f"found platform! {platform}")
+for i in range(5):
+    if i != 4:
+        print(f"Starting build in {5-i} seconds...", end="\r")
+    else:
+        print("Starting build in 1 second... ", end="\r")
+    sleep(1)
 
-print("Starting Build!")
+print("Starting Build!                 ")
 try:
     os.system("cd submodules/miscLib && cargo build -r && cd ../../")
     print("Build Successful!")
