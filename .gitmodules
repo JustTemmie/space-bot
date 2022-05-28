@@ -1,0 +1,3 @@
+[submodule "submodules/miscLib"]
+	path = submodules/miscLib
+	url = https://github.com/Radiicall/miscLib.git
