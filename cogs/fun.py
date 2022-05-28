@@ -60,15 +60,6 @@ class fun(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(
-        name="pot",
-        aliases=["potter", "otterpog"],
-        brief="a referance to the best meme ever made",
-    )
-    @cooldown(5, 10, BucketType.guild)
-    async def pot_command(self, ctx):
-        await ctx.send("POTTERRRRR!!!!!!!")
-        await ctx.send(file=File("./images/potter.png"))
 
     @commands.command(name="rick", aliases=["rickroll"], brief="never gonna give you up")
     @cooldown(5, 10, BucketType.guild)
@@ -131,7 +122,7 @@ class fun(commands.Cog):
     @commands.command(
         name="mock",
         aliases=["taunt", "tease", "scoff", "makefunof"],
-        brief="bully a user, anyone, not me though, please - also jovi, fuck you <3 (platonically)",
+        brief="bully a user, anyone, not me though, please",
     )
     @cooldown(50, 600, BucketType.user)
     async def mocksomeoneidk(self, ctx, mockee=None, *, makefunof_input=None):
@@ -298,11 +289,6 @@ class fun(commands.Cog):
         text = requests.get("https://uselessfacts.jsph.pl/random.json?language=en").json()["text"]
         await ctx.send(text)
 
-    @commands.command(name="bill", aliases=["belikebill"], brief="be like bill")
-    @cooldown(4, 10, BucketType.guild)
-    async def be_like_bill(self, ctx, *, name="Bill"):
-        link = "https://belikebill.ga/billgen-API.php?default=1&name=" + urllib.parse.quote(name)
-        await ctx.send(embed=discord.Embed().set_image(url=link))
 
     @commands.command(
         name="dice",
