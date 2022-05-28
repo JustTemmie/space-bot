@@ -69,7 +69,7 @@ async def on_ready():
         
         change_status_task.start()
 
-        bot.status_out = bot.get_channel(848925880360632350)
+        bot.status_out = bot.get_channel(STATUS_OUT)
         
         try:
             with open("storage/misc/time.json", "r") as f:
