@@ -270,7 +270,7 @@ class events(commands.Cog):
         
         
         if ctx.author.id == 325325337615532054:  # adino
-            if random.randint(0, 10) == 2:
+            if random.randint(0, 500) == 2:
                 await ctx.add_reaction("<:Robpoint:885140068296196106>")
 
 
