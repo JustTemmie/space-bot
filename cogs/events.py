@@ -343,18 +343,6 @@ class events(commands.Cog):
             with open("storage/messages/everyone.json", "w") as f:
                 json.dump(file, f)
 
-            # just gonna mention, henwee did consent to this lmao
-            log_ids = 411536312961597440
-            if ctx.author.id == log_ids:
-                with open("storage/all_message_ids.json", "r") as f:
-                    file = json.load(f)
-
-                file[str(log_ids)]["messages"].append(ctx.id)
-
-                with open("storage/all_message_ids.json", "w") as f:
-                    json.dump(file, f)
-        
-
             #for x in range(0, len(listies)):
 
             # if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
