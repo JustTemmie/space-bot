@@ -8,7 +8,10 @@ from math import ceil
 from datetime import datetime
 import time
 
+#from libraries.miscLib import str_replacer
 from libraries.RSmiscLib import str_replacer
+# this might be highlighted as a bug, but it's just a library written in rust lmao
+# it should be fine if you've ran the setup file
 
 class reminder(commands.Cog):
     def __init__(self, bot):
@@ -27,11 +30,12 @@ class reminder(commands.Cog):
         ch = " "
         occurrence = 2
         replacing_character = ','
+        
 
-        for i in range(ceil((timing.count(ch))/2+1)):
-            timing = await str_replacer(timing, ch,
-            replacing_character, occurrence+i)
-
+        #for i in range(ceil((timing.count(ch)))):
+        timing = str_replacer(timing, ch,
+            replacing_character, occurrence)
+        
         timing = timing.split(",")
         for i in timing:
             if "day" in i:
@@ -58,6 +62,13 @@ class reminder(commands.Cog):
                 else:
                     return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
 
+        
+        if seconds < 30:
+            return await ctx.send(f"please set a time greater than 30 seconds")
+        
+        if seconds > 31536000:
+            return await ctx.send(f"please set a time less than 1 year")
+        
 
         sendtime = round(time.time() + seconds)
         embed = Embed(title=reminder, description = f"i will remind you <t:{sendtime}:R>", color=ctx.author.colour)

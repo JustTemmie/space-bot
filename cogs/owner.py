@@ -36,24 +36,6 @@ class Owner(commands.Cog):
         self.bot = bot
 
     @commands.is_owner()
-    @commands.command()
-    async def react_henwee(self, ctx, user=411536312961597440):
-        with open("storage/all_message_ids.json", "r") as f:
-            file = json.load(f)
-
-        for x in file[str(user)]["messages"]:
-            message = await ctx.channel.fetch_message(x)
-            await message.add_reaction("<a:beav:973130744190869575>")
-
-        file = {
-            "368423564229083137": {"messages": []},
-            "411536312961597440": {"messages": []},
-        }
-
-        with open("storage/all_message_ids.json", "w") as f:
-            json.dump(file, f)
-
-    @commands.is_owner()
     @commands.command(name = "getstatus")
     async def getstatus(self, ctx):
         await ctx.send(ctx.author.activities)

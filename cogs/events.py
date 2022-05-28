@@ -270,7 +270,7 @@ class events(commands.Cog):
         
         
         if ctx.author.id == 325325337615532054:  # adino
-            if random.randint(0, 10) == 2:
+            if random.randint(0, 500) == 2:
                 await ctx.add_reaction("<:Robpoint:885140068296196106>")
 
 
@@ -342,18 +342,6 @@ class events(commands.Cog):
 
             with open("storage/messages/everyone.json", "w") as f:
                 json.dump(file, f)
-
-            # just gonna mention, henwee did consent to this lmao
-            log_ids = 411536312961597440
-            if ctx.author.id == log_ids:
-                with open("storage/all_message_ids.json", "r") as f:
-                    file = json.load(f)
-
-                file[str(log_ids)]["messages"].append(ctx.id)
-
-                with open("storage/all_message_ids.json", "w") as f:
-                    json.dump(file, f)
-        
 
             #for x in range(0, len(listies)):
 
@@ -511,7 +499,7 @@ class events(commands.Cog):
     @tasks.loop(seconds=10)
     async def update_timer(self):
         if self.bot.is_ready():
-            with open("storage/time.json", "w") as f:
+            with open("storage/misc/time.json", "w") as f:
                 json.dump((datetime.utcnow() - datetime(1970, 1, 1)).seconds, f)
             
             
