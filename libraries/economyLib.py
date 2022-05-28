@@ -15,6 +15,8 @@ confirmations = [
         "sure",
         "i do",
         "i am",
+        "beaver",
+        "🦫",
 ]
 
 
