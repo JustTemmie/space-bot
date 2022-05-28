@@ -8,13 +8,10 @@ from math import ceil
 from datetime import datetime
 import time
 
-
+#from libraries.miscLib import str_replacer
 from libraries.RSmiscLib import str_replacer
 # this might be highlighted as a bug, but it's just a library written in rust lmao
 # it should be fine if you've ran the setup file
-
-
-#from libraries.miscLib import str_replacer
 
 class reminder(commands.Cog):
     def __init__(self, bot):
