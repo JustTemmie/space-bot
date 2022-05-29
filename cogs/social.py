@@ -135,7 +135,7 @@ class social(commands.Cog):
         title_string = f"{ctx.author.display_name} took "
 
         if len(actees) == 1 and actees[0] == ctx.author.id:
-            title_string = f"{ctx.author.display_name} is hugging themselves, low key cute ngl+"
+            title_string = f"{ctx.author.display_name} is hugging themselves, low key cute ngl 😊"
 
         else:
             for i in range(0, len(actees)):
