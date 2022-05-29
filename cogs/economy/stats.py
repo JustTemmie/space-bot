@@ -23,13 +23,13 @@ class ecostats(commands.Cog):
             embed.add_field(
             name="Stats:",
             value= f"""
-            <:Strength:976244446595285032> Strength: **{data[str(ctx.author.id)]["stats"]["strength"]}**
-            <:Dexterity:976244452014301224> Dexterity: **{data[str(ctx.author.id)]["stats"]["dexterity"]}**
-            <:Intelligence:976244476710359171> Intelligence: **{data[str(ctx.author.id)]["stats"]["intelligence"]}**
-            <:Wisdom:976244483190558761> Wisdom: **{data[str(ctx.author.id)]["stats"]["wisdom"]}**
-            <:Charisma:976244498738855966> Charisma: **{data[str(ctx.author.id)]["stats"]["charisma"]}**
-            <:Perception:976244488894816366> Perception: **{data[str(ctx.author.id)]["stats"]["perception"]}**
-            <:Free:976244503713308742> Free Points: **{data[str(ctx.author.id)]["stats"]["points"]}**
+<:Strength:976244446595285032> Strength: **{data[str(ctx.author.id)]["stats"]["strength"]}**
+<:Dexterity:976244452014301224> Dexterity: **{data[str(ctx.author.id)]["stats"]["dexterity"]}**
+<:Intelligence:976244476710359171> Intelligence: **{data[str(ctx.author.id)]["stats"]["intelligence"]}**
+<:Wisdom:976244483190558761> Wisdom: **{data[str(ctx.author.id)]["stats"]["wisdom"]}**
+<:Charisma:976244498738855966> Charisma: **{data[str(ctx.author.id)]["stats"]["charisma"]}**
+<:Perception:976244488894816366> Perception: **{data[str(ctx.author.id)]["stats"]["perception"]}**
+<:Free:976244503713308742> Free Points: **{data[str(ctx.author.id)]["stats"]["points"]}**
                     """,
             inline=False,
             )
