@@ -70,7 +70,7 @@ Beavers - ID = 25 (does not have difficulties)
         
         # THIS IS LITTERALLY JUST A COPY OF THE CODE BUT SLIGHTLY MODIFIED AS IT USES A COMPLETELY DIFFERENT API, aka a fucking json file lmao
         if str(category).lower() in ["beav", "beaver", "beavers", "25"]:
-            with open("storage/beaver_quiz.json", "r") as f:
+            with open("storage/misc/beaver_quiz.json", "r") as f:
                 quiz_data = json.load(f)
             
             question = quiz_data[f"question{random.randrange(0, len(quiz_data))}"]

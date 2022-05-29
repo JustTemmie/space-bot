@@ -71,6 +71,48 @@ class social(commands.Cog):
                 embed.set_image(url=realoutput)
 
             await ctx.send(embed=embed)
+    
+    
+    @commands.command(name="tickle", brief="god you poor little thing")
+    @cooldown(8, 25, BucketType.guild)
+    async def ticklecommand(self, ctx, targets: Greedy[Member]):
+        gif_count = 30
+        r = requests.get(
+            "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
+            % ("anime gif tickle", tenor_api_key, gif_count)
+        )
+
+        actees = []
+        for member in targets:
+            if member.id not in actees:
+                actees.append(member.id)
+
+        title_string = f"{ctx.author.display_name} just tickled "
+
+        if len(actees) == 1 and actees[0] == ctx.author.id:
+            title_string = f"{ctx.author.display_name} just tickled themselves... pretty impressive"
+
+        else:
+            for i in range(0, len(actees)):
+                if i >= len(actees) - 1 and i != 0:
+                    title_string += f"and "
+                person = self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name
+                title_string += f"{person}, "
+
+            title_string = title_string[:-2]
+
+        if r.status_code == 200:
+            top_x_gifs = json.loads(r.content)
+            realoutput = top_x_gifs["results"][random.randrange(0, gif_count)]["media"][0]["gif"][
+                "url"
+            ]
+            print(realoutput)
+            embed = Embed(title=title_string, description="teeheee", colour=ctx.author.colour)
+            if realoutput is not None:
+                embed.set_image(url=realoutput)
+
+            await ctx.send(embed=embed)
+            
 
     @commands.command(
         name="cuddle",

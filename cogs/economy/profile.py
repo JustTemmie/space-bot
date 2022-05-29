@@ -48,13 +48,13 @@ class ecoprofile(commands.Cog):
         embed.add_field(
             name="Stats:",
             value= f"""
-            <:Strength:976244446595285032> Strength: **{bankdata[str(user.id)]["stats"]["strength"]}**
-            <:Dexterity:976244452014301224> Dexterity: **{bankdata[str(user.id)]["stats"]["dexterity"]}**
-            <:Intelligence:976244476710359171> Intelligence: **{bankdata[str(user.id)]["stats"]["intelligence"]}**
-            <:Wisdom:976244483190558761> Wisdom: **{bankdata[str(user.id)]["stats"]["wisdom"]}**
-            <:Charisma:976244498738855966> Charisma: **{bankdata[str(user.id)]["stats"]["charisma"]}**
-            <:Perception:976244488894816366> Perception: **{bankdata[str(user.id)]["stats"]["perception"]}**
-            <:Free:976244503713308742> Free Points: **{bankdata[str(user.id)]["stats"]["points"]}**
+<:Strength:976244446595285032> Strength: **{bankdata[str(user.id)]["stats"]["strength"]}**
+<:Dexterity:976244452014301224> Dexterity: **{bankdata[str(user.id)]["stats"]["dexterity"]}**
+<:Intelligence:976244476710359171> Intelligence: **{bankdata[str(user.id)]["stats"]["intelligence"]}**
+<:Wisdom:976244483190558761> Wisdom: **{bankdata[str(user.id)]["stats"]["wisdom"]}**
+<:Charisma:976244498738855966> Charisma: **{bankdata[str(user.id)]["stats"]["charisma"]}**
+<:Perception:976244488894816366> Perception: **{bankdata[str(user.id)]["stats"]["perception"]}**
+<:Free:976244503713308742> Free Points: **{bankdata[str(user.id)]["stats"]["points"]}**
                     """,
             inline=False,
         )

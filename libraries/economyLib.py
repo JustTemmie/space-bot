@@ -15,6 +15,8 @@ confirmations = [
         "sure",
         "i do",
         "i am",
+        "beaver",
+        "🦫",
 ]
 
 
@@ -83,13 +85,7 @@ async def open_account(user):
             users[str(user.id)]["daily"] = {}
             users[str(user.id)]["daily"]["day"] = 0
             users[str(user.id)]["daily"]["streak"] = 0
-            
-            users[str(user.id)]["stats"] = {}
-            users[str(user.id)]["stats"]["strength"] = 0
-            users[str(user.id)]["stats"]["dexterity"] = 0
-            users[str(user.id)]["stats"]["intelligence"] = 0
-            users[str(user.id)]["stats"]["wisdom"] = 0
-            users[str(user.id)]["stats"]["charisma"] = 0
+
             with open("storage/bank.json", "w") as f:
                 json.dump(users, f)
 

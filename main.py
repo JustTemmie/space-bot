@@ -69,10 +69,10 @@ async def on_ready():
         
         change_status_task.start()
 
-        bot.status_out = bot.get_channel(848925880360632350)
+        bot.status_out = bot.get_channel(STATUS_OUT)
         
         try:
-            with open("storage/time.json", "r") as f:
+            with open("storage/misc/time.json", "r") as f:
                 last_time = json.load(f)
             await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
         except:
