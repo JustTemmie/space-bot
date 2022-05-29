@@ -1,54 +1,72 @@
 {
     "1st": {
-        "name": "<:beaverCoin:968588341291397151> economy",
+        "icon": "<:beaverCoin:968588341291397151>",
+        "name": "Economy",
         "description": "`daily` `scavenge` `balance` `build` `inventory` `send` `tutorial`"
     },
     "2nd": {
-        "name": "👤 user",
+        "icon": "👤",
+        "name": "User",
         "description": "`stats` `stats` `profile` `quote`"
     },
     "3rd": {
-        "name": "🛍 trade",
+        "icon": "🛍",
+        "name": "Trade",
         "description": "`buy` `sell` `market`"
     },
     "4th": {
-        "name": "🖼️ images",
+        "icon": "🖼️",
+        "name": "Images",
         "description": "`squish` `squishy` `ascii` `avatar`"
     },
     "5th": {
-        "name": "🎱 fun",
+        "icon": "🎱",
+        "name": "Fun",
         "description": "`8ball` `fact` `funfact` `joke` `shitpost` `trivia`"
     },
     "6th": {
-        "name": "🛠️ utility",
+        "icon": "🛠️",
+        "name": "Utility",
         "description": "`help` `info` `minecraftchampionship` `ping` `poll` `serverinfo` `userinfo` `weather`"
     },
     "7th": {
-        "name": "⚖️ units",
+        "icon": "⚖️",
+        "name": "Units",
         "description": "`celcius` `fahrenheit` `kg` `pound`"
     },
     "8th": {
-        "name": "🔍 search",
+        "icon": "🔍",
+        "name": "Search",
         "description": "`reddit` `tenor` `urban` `wikipedia` `youtube`"
     },
     "9th": {
-        "name": "🫂 Social",
+        "icon": "🫂",
+        "name": "Social",
         "description": "`marry` `divorce`"
     },
     "10th": {
-        "name": "🤗 Actions",
-        "description": "`bite` `boop` `cuddle` `hug` `grouphug` `kill` `kiss` `mock` `pat` `punch` `push` `steal`"
+        "icon": "🤗",
+        "name": "Actions",
+        "description": "`bite` `boop` `cuddle` `hug` `grouphug` `kill` `kiss` `mock` `pat` `punch` `steal`"
     },
     "11th": {
-        "name": "🏅 Rankings",
+        "icon": "🏅",
+        "name": "Rankings",
         "description": "`leaderboard`"
     },
     "12th": {
-        "name": "🎲 Gambling",
+        "icon": "🎲",
+        "name": "Gambling",
         "description": "`coinflip` `slot`"
     },
     "13th": {
-        "name": "❓ misc",
+        "icon": "❓",
+        "name": "Misc",
         "description": "`alientohuman` `humantoalien` `texttoimage` `morse`"
+    },
+    "14th": {
+        "icon": "😕",
+        "name": "???",
+        "description": "`dice` `report` `rick` `settings` `remindme` `beaver` `unbeaver`"
     }
 }
