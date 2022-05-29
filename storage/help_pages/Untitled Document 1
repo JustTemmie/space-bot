@@ -31,7 +31,7 @@
 admin
 
 owner
-addtofunny change_status getstatus load unload mepurge nickname pip reload repeat-embed restart run shutdown update
+addtofunny change_status getstatus load unload mepurge nickname pip reload repeat-embed restart run shutdown update push
 
 ???
 dice report rick settings remindme beaver unbeaver
