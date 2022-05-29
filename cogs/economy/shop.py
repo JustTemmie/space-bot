@@ -110,7 +110,7 @@ class ecoshop(commands.Cog):
         # add the money to the user's balance
         await update_bank_data(ctx.author, round(payout))
         
-        await ctx.send(f"thank you for your bussiness! here's your {round(lower_payout)} <:beaverCoin:968588341291397151> plus an extra {round(payout)-round(lower_payout)} <:beaverCoin:968588341291397151> i threw in for good measure :)")
+        await ctx.send(f"thank you for your business! here's your {round(lower_payout)} <:beaverCoin:968588341291397151> plus an extra {round(payout)-round(lower_payout)} <:beaverCoin:968588341291397151> i threw in for good measure :)")
 
 
 def setup(bot):
