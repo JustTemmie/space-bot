@@ -1,0 +1,54 @@
+{
+    "1st": {
+        "name": "<:beaverCoin:968588341291397151> economy",
+        "description": "`daily` `scavenge` `balance` `build` `inventory` `send` `tutorial`"
+    },
+    "2nd": {
+        "name": "👤 user",
+        "description": "`stats` `stats` `profile` `quote`"
+    },
+    "3rd": {
+        "name": "🛍 trade",
+        "description": "`buy` `sell` `market`"
+    },
+    "4th": {
+        "name": "🖼️ images",
+        "description": "`squish` `squishy` `ascii` `avatar`"
+    },
+    "5th": {
+        "name": "🎱 fun",
+        "description": "`8ball` `fact` `funfact` `joke` `shitpost` `trivia`"
+    },
+    "6th": {
+        "name": "🛠️ utility",
+        "description": "`help` `info` `minecraftchampionship` `ping` `poll` `serverinfo` `userinfo` `weather`"
+    },
+    "7th": {
+        "name": "⚖️ units",
+        "description": "`celcius` `fahrenheit` `kg` `pound`"
+    },
+    "8th": {
+        "name": "🔍 search",
+        "description": "`reddit` `tenor` `urban` `wikipedia` `youtube`"
+    },
+    "9th": {
+        "name": "🫂 Social",
+        "description": "`marry` `divorce`"
+    },
+    "10th": {
+        "name": "🤗 Actions",
+        "description": "`bite` `boop` `cuddle` `hug` `grouphug` `kill` `kiss` `mock` `pat` `punch` `push` `steal`"
+    },
+    "11th": {
+        "name": "🏅 Rankings",
+        "description": "`leaderboard`"
+    },
+    "12th": {
+        "name": "🎲 Gambling",
+        "description": "`coinflip` `slot`"
+    },
+    "13th": {
+        "name": "❓ misc",
+        "description": "`alientohuman` `humantoalien` `texttoimage` `morse`"
+    }
+}

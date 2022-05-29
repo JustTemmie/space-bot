@@ -4,6 +4,9 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 from discord.ext.buttons import Paginator
 
+import json
+import os
+
 
 class Page(Paginator):
     async def teardown(self):
@@ -81,24 +84,44 @@ class help(commands.Cog, name="Help command"):
         
         await Page(title=title, suffix="can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help", colour=ctx.author.colour, entries=pages, length=1).start(ctx)
 
+
+    async def help_no_entity(self, ctx):
+        embed = discord.Embed()
+        embed.title="Commands"
+        embed.color = ctx.author.colour
+        embed.description = "Can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
+        embed.set_footer(text = f"{ctx.prefix}help <command/category> for more info on that command or category")
+        
+        with open(f"storage/help_pages/everyone.json", "r") as f:
+            data = json.load(f)
+
+            for entry in data:
+                embed.add_field(name=data[entry]["name"], value=data[entry]["description"], inline=False)
+
+
+        await ctx.send(embed=embed)
+            
+        
+        
     @commands.command(name="help", aliases=["commands"], description="The help command, woah")
     @cooldown(5, 35, BucketType.user)
     async def help_command(self, ctx, *, entity=None):
         if not entity:
-            await self.setup_help_pag(ctx)
+            await self.help_no_entity(ctx)
+            return
 
-        else:
-            cog = self.bot.get_cog(entity)
-            if cog:
-                await self.setup_help_pag(ctx, cog, f"{cog.qualified_name}'s commands")
 
-            else:
-                command = self.bot.get_command(entity)
-                if command:
-                    await self.setup_help_pag(ctx, command, command.name)
+        cog = self.bot.get_cog(entity)
+        if cog:
+            await self.setup_help_pag(ctx, cog, f"{cog.qualified_name}'s commands")
+            return
 
-                else:
-                    await ctx.send("cog not found")
+        command = self.bot.get_command(entity)
+        if command:
+            await self.setup_help_pag(ctx, command, command.name)
+            return
+
+        await ctx.send("cog not found")
 
 
 def setup(bot):
