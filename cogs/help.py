@@ -115,13 +115,17 @@ class help(commands.Cog, name="Help command"):
         commands = commands.split(" ")
 
         
+        cmds = self.bot.commands
+        cmdnames = []
+        for cmd in cmds:
+            cmdnames.append(cmd.name.lower())
         for entry in commands:
-            desc = "no desc"
-            cmds = self.bot.commands
-            for cmd in cmds:
-                if cmd.name.lower() == entry[1:-1].lower():
-                    desc = cmd.brief + "\n" + cmd.description
-            embed.add_field(name=entry, value=desc, inline=False)
+            if entry in cmdnames:
+                desc = "no desc"
+                for cmd in cmds:
+                    if cmd.name.lower() == entry[1:-1].lower():
+                        desc = cmd.brief + "\n" + cmd.description
+                embed.add_field(name=entry, value=desc, inline=False)
     
         await ctx.send(embed=embed)
         
