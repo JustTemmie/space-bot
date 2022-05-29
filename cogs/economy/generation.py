@@ -59,7 +59,7 @@ class ecogeneration(commands.Cog):
         # skills
         if bank[str(ctx.author.id)]["dam"]["level"] >= 4:
             payout *= 2
-            streak += "\n**you got double coins for having a lvl 3+ dam**"
+            streak += "\n**you got double coins for having a lvl 4+ dam**"
         
         if ctx.author.id == 411536312961597440:
             payout -= 1
