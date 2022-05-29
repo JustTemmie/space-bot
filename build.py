@@ -23,7 +23,7 @@ elif platform == "win32":
 else:
     # If platform is not supported, exit with error code 1
     print(f"Create a bug report for your platform in the github repo\nPlatform: {platform}");
-    exit(1)
+    exit(101)
 
 print(f"found platform! {platform}")
 for i in range(5):
@@ -39,7 +39,7 @@ try:
     print("Build Successful!")
 except Exception as e:
     print(f"Failed to build package: {e}")
-    exit(2)
+    exit(102)
 
 print("Moving file...")
 shutil.move(f"submodules/miscLib/target/release/{filename}", f"libraries/{dfilename}")
