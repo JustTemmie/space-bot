@@ -280,6 +280,7 @@ class events(commands.Cog):
             "bippa",
             "biba",
             "bev",
+            "castor",
         ]  # if message ==
         
         listies2 = [
