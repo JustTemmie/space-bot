@@ -22,12 +22,15 @@ class search(commands.Cog):
         self.bot = bot
 
     @commands.command(
-        name="urban_dictionary",
-        aliases=["urban", "what", "meaning"],
+        name="urban",
+        aliases=["what", "meaning"],
         brief="search up something using urban dictionary",
     )
     @cooldown(5, 20, BucketType.user)
     async def urbandictionary(self, ctx, *, search):
+        if not ctx.channel.is_nsfw():
+            return await ctx.send("this command is sadly for NSFW channels only")
+        
         await ctx.trigger_typing()
         req = requests.get(
             "http://api.urbandictionary.com/v0/define?term=" + urllib.parse.quote(search)
@@ -36,12 +39,17 @@ class search(commands.Cog):
             await ctx.send("No urban dictionary entry found for " + (search))
             return
 
+        entry = 0
         embed = discord.Embed(
             title=search.title(),
-            description=req.json()["list"][0]["definition"],
-            colour=0x1D2439,
+            description=req.json()["list"][entry]["definition"],
+            colour=ctx.author.colour,            
         )
-        await ctx.send(embed=embed)
+        #embed.set_footer(text=f"page {entry+1} of {len(req.json()['list'])}")
+        embed.add_field(name="Example", value=req.json()["list"][entry]["example"])
+        msg = await ctx.send(embed=embed)
+        
+        
 
     
     async def check_nsfw(self, ctx, json, loops = 0):
