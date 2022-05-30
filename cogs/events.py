@@ -154,7 +154,7 @@ class events(commands.Cog):
 
         elif isinstance(exc, MissingRequiredArgument):
             await ctx.send(
-                f"One or more of the required arguments are missing, perhaps the help command could help you out? {ctx.prefix}help (command)"
+                f"One or more of the required arguments are missing, perhaps the help command could help you out? `{ctx.prefix}help {ctx.command}`"
             )
 
         elif isinstance(exc, CommandOnCooldown):
