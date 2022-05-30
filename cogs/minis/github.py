@@ -22,6 +22,13 @@ class github(commands.Cog):
         await ctx.send(var.decode("utf-8"))
         if var.decode("utf-8") != "Already up to date.\n" and restart != False:
             await ctx.send("Restarting...")
+            await self.bot.change_presence(
+                status=discord.Status.idle,
+                activity=discord.Activity(
+                    type=discord.ActivityType.watching,
+                    name="restarting - won't respond",
+                ),
+            )
             os.execv(sys.executable, ["python3"] + sys.argv)
 
     @commands.command(name="push", brief="Updates the bot by pushing to github")
