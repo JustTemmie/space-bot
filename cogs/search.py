@@ -43,15 +43,30 @@ class search(commands.Cog):
         )
         await ctx.send(embed=embed)
 
+    
+    async def check_nsfw(self, ctx, json, loops = 0):
+        if loops > 5:
+            return False
+        
+        req_len = len(json["data"]["children"])
+        rand = random.randrange(0, req_len)
+        post = json["data"]["children"][rand]
+        
+        if post["data"]["over_18"] and not ctx.channel.is_nsfw():
+            return await self.check_nsfw(ctx, json, loops + 1)
+        
+        return post
+        
     @commands.command(
         name="reddit",
-        aliases=["red", "r/", "rslash"],
+        aliases=["red", "r/", "rslash", "r"],
         brief="get a random reddit post from the specified subreddit",
     )
     @cooldown(1, 2, BucketType.guild)
     async def reddit_search(self, ctx, *, search):
         if search == "tra" or search == "traa":
             search = "traaaaaaannnnnnnnnns"
+        
         req = requests.get(
             "http://reddit.com/r/" + search + "/hot/.json?limit=50",
             headers={"User-agent": "Chrome"},
@@ -60,10 +75,11 @@ class search(commands.Cog):
         if "error" in json or json["data"]["after"] is None:
             await ctx.send('Subreddit "{}" not found'.format(search), delete_after=(15))
             return
-
-        req_len = len(json["data"]["children"])
-        rand = random.randint(0, req_len - 1)
-        post = json["data"]["children"][rand]
+        
+        post = await self.check_nsfw(ctx, json)
+        if not post:
+            return await ctx.send(f"Could not find a post in {search} that wasn't NSFW", delete_after=(15))
+        
 
         title = post["data"]["title"]
         author = "u/" + post["data"]["author"]
