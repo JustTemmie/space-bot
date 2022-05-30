@@ -297,8 +297,11 @@ class fun(commands.Cog):
     )
     @cooldown(1, 3, BucketType.user)
     async def roll_dice(self, ctx, die_string: str):
-        dice, value = (int(value) for value in die_string.split("d"))
-
+        try:
+            dice, value = (int(value) for value in die_string.split("d"))
+        except ValueError as e:
+            return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`")
+        
         if dice <= 25:
             rolls = [random.randrange(1, value) for i in range(dice)]
 
