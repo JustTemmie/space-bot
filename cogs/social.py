@@ -43,7 +43,6 @@ class social(commands.Cog):
             if member.id not in actees:
                 actees.append(member.id)
 
-        title_string = f"{ctx.author.display_name} just bit "
         title_string = f"{ctx.author.display_name} {string} "
 
         if len(actees) == 1 and actees[0] == ctx.author.id:
