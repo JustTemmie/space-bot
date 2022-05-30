@@ -251,12 +251,14 @@ class admin(Cog):
     async def react(self, ctx, msgid = None, emoji = None):
         if msgid == None or emoji == None:
             await ctx.send("Give me a message and a reaction to react with")
-
-        else:
+            return
+        
+        try:    
             message = await ctx.fetch_message(msgid)
             await message.add_reaction(emoji)
-
-
+        except Exception as e:
+            await ctx.send(f"Error: {e}", delete_after=20)
+        
 async def open_warnings():
     with open("./storage/reports.json", encoding="utf-8") as f:
         try:
