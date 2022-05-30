@@ -27,7 +27,7 @@
     "6th": {
         "icon": "🛠️",
         "name": "Utility",
-        "description": "`help` `info` `minecraftchampionship` `ping` `poll` `serverinfo` `userinfo` `weather`"
+        "description": "`help` `info` `ping` `poll` `serverinfo` `userinfo` `weather`"
     },
     "7th": {
         "icon": "⚖️",
