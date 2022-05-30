@@ -2,7 +2,7 @@
     "admn1st": {
         "icon": "🛡️",
         "name": "Moderation",
-        "description": "`ban` `kick` `purge`"
+        "description": "`ban` `kick` `clear`"
     },
     "admn2nd":{
         "icon": "🛡️",

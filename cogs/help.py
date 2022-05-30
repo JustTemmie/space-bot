@@ -98,9 +98,16 @@ class help(commands.Cog, name="Help command"):
         
         with open(f"storage/help_pages/everyone.json", "r") as f:
             data = json.load(f)
+        
+        if ctx.author.permissions_in(ctx.channel).manage_messages:
+            with open(f"storage/help_pages/admin.json", "r") as f:
+                admin_data = json.load(f)
+            
+            for i in admin_data:
+                data[i] = admin_data[i]
 
-            for entry in data:
-                embed.add_field(name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False)
+        for entry in data:
+            embed.add_field(name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False)
 
 
         await ctx.send(embed=embed)
@@ -120,12 +127,14 @@ class help(commands.Cog, name="Help command"):
         for cmd in cmds:
             cmdnames.append(cmd.name.lower())
         for entry in commands:
-            if entry in cmdnames:
-                desc = "no desc"
+            #print(entry)
+            #if entry in cmdnames:
+                #print("a")
                 for cmd in cmds:
                     if cmd.name.lower() == entry[1:-1].lower():
-                        desc = cmd.brief + "\n" + cmd.description
-                embed.add_field(name=entry, value=desc, inline=False)
+                        desc = cmd.brief# + "\n" + cmd.description
+                        
+                        embed.add_field(name=entry, value=desc, inline=False)
     
         await ctx.send(embed=embed)
         
@@ -140,12 +149,18 @@ class help(commands.Cog, name="Help command"):
 
         with open(f"storage/help_pages/everyone.json", "r") as f:
             data = json.load(f)
+        
+        if ctx.author.permissions_in(ctx.channel).manage_messages:
+            with open(f"storage/help_pages/admin.json", "r") as f:
+                admin_data = json.load(f)
+                for i in admin_data:
+                    data[i] = admin_data[i]
 
-            for nr in data:
-                if data[nr]["name"].lower() == entity.lower():
-                    data = data[nr]
-                    await self.help_category(ctx, data, entity)
-                    return
+        for nr in data:
+            if data[nr]["name"].lower() == entity.lower():
+                data = data[nr]
+                await self.help_category(ctx, data, entity)
+                return
 
 
         command = self.bot.get_command(entity)
