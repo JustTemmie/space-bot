@@ -22,7 +22,6 @@ class info(commands.Cog):
 
         embed = Embed(
             title="User info",
-            description="description",
             colour=target.colour,
             timestamp=datetime.utcnow(),
         )
@@ -58,7 +57,6 @@ class info(commands.Cog):
     async def server_info(self, ctx):
         embed = Embed(
             title="Server info",
-            description="description",
             colour=ctx.author.colour,
             timestamp=datetime.utcnow(),
         )
