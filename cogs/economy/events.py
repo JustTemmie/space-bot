@@ -35,7 +35,7 @@ class ecoevents(commands.Cog):
             
             data[str(ctx.author.id)]["spoken_today"] += 1
             
-            with open("storage/bank.json", "w") as f:
+            with open("storage/playerInfo/bank.json", "w") as f:
                 json.dump(data, f)
 
             await update_bank_data(ctx.author, random.randint(2, 5))
@@ -59,7 +59,7 @@ class ecoevents(commands.Cog):
 
         if loaded_time < time.time():
             data[str(user.id)]["speak_cooldown"] = time.time() + 450 + random.randint(0, 150)
-            with open("storage/bank.json", "w") as f:
+            with open("storage/playerInfo/bank.json", "w") as f:
                 json.dump(data, f)
 
             await update_bank_data(user, random.randint(2, 5))

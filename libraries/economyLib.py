@@ -65,7 +65,7 @@ async def open_account(user):
     if str(user.id) in users:
         users[str(user.id)]["version"] = 1.00
         
-        with open("storage/bank.json", "w") as f:
+        with open("storage/playerInfo/bank.json", "w") as f:
                     json.dump(users, f)
 
         users = await get_bank_data()
@@ -86,7 +86,7 @@ async def open_account(user):
             users[str(user.id)]["daily"]["day"] = 0
             users[str(user.id)]["daily"]["streak"] = 0
 
-            with open("storage/bank.json", "w") as f:
+            with open("storage/playerInfo/bank.json", "w") as f:
                 json.dump(users, f)
 
         users = await get_bank_data()
@@ -98,7 +98,7 @@ async def open_account(user):
             users[str(user.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
             users[str(user.id)]["spoken_today"] = 0
             
-            with open("storage/bank.json", "w") as f:
+            with open("storage/playerInfo/bank.json", "w") as f:
                 json.dump(users, f)
 
         users = await get_bank_data()
@@ -116,7 +116,7 @@ async def open_account(user):
             users[str(user.id)]["lodge"]["spent"] = {}
             users[str(user.id)]["lodge"]["spent"]["logs"] = 0
             users[str(user.id)]["lodge"]["level"] = 0
-            with open("storage/bank.json", "w") as f:
+            with open("storage/playerInfo/bank.json", "w") as f:
                     json.dump(users, f)
 
         users = await get_bank_data()
@@ -144,7 +144,7 @@ async def open_account(user):
     
             users[str(user.id)]["stats"]["points"] = 30 - (a + b + c + d + e + f)
             
-            with open("storage/bank.json", "w") as f:
+            with open("storage/playerInfo/bank.json", "w") as f:
                     json.dump(users, f)
 
             users = await get_bank_data()
@@ -220,14 +220,14 @@ async def open_account(user):
     ###############################################################################
     
 
-    with open("storage/bank.json", "w") as f:
+    with open("storage/playerInfo/bank.json", "w") as f:
         json.dump(users, f)
 
     return True
 
 
 async def get_bank_data():
-    with open("storage/bank.json", "r") as f:
+    with open("storage/playerInfo/bank.json", "r") as f:
         users = json.load(f)
 
     return users
@@ -238,7 +238,7 @@ async def update_bank_data(user, change=0, mode="wallet"):
 
     users[str(user.id)][mode] += change
 
-    with open("storage/bank.json", "w") as f:
+    with open("storage/playerInfo/bank.json", "w") as f:
         json.dump(users, f)
 
     bal = [users[str(user.id)][mode]]
