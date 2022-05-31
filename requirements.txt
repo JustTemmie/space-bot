@@ -8,3 +8,4 @@ psutil
 apscheduler
 pillow
 pdf2image
+youtube-dl

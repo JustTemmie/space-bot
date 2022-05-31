@@ -1,1 +1,4 @@
 add reminders.json into /storage and fill it with "{}"
+
+install ffmpeg
+debian: sudo apt-get install ffmpeg

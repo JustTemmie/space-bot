@@ -487,9 +487,12 @@ https://rg3.github.io/youtube-dl/supportedsites.html""")
 
         async with ctx.typing():
             try:
-                source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
-            except YTDLError as e:
-                await ctx.send('An error occurred while processing this request: {}'.format(str(e)))
+                try:
+                    source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
+                except YTDLError as e:
+                    await ctx.send('An error occurred while processing this request: {}'.format(str(e)))
+            except:
+                return await ctx.send('Could not find anything related to your search.\nit is most likely because the video is age restricted')
             else:
                 song = Song(source)
 
