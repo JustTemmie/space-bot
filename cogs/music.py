@@ -225,11 +225,13 @@ class VoiceState:
         while True:
             self.next.clear()
 
+            #print(self.ctx.author)
             if not self.loop:
                 # Try to get the next song within 3 minutes.
                 # If no song will be added to the queue in time,
                 # the player will disconnect due to performance
                 # reasons.
+
                 try:
                     async with timeout(180):  # 3 minutes
                         self.current = await self.songs.get()
@@ -237,6 +239,7 @@ class VoiceState:
                     self.bot.loop.create_task(self.stop())
                     return
 
+            
             self.current.source.volume = self._volume
             self.voice.play(self.current.source, after=self.play_next_song)
             await self.current.source.channel.send(embed=self.current.create_embed())
@@ -295,18 +298,19 @@ class Music(commands.Cog):
         aliases=["summon", "connect"],
         brief="Summons the bot to a voice channel, If no channel was specified, it joins your channel."
         )
-    @commands.has_permissions(manage_guild=True)
     async def _join(self, ctx: commands.Context, *, channel: discord.VoiceChannel = None):
 
         if not channel and not ctx.author.voice:
             raise VoiceError('You are neither connected to a voice channel nor specified a channel to join.')
 
+        
         destination = channel or ctx.author.voice.channel
         if ctx.voice_state.voice:
             await ctx.voice_state.voice.move_to(destination)
             return
 
         ctx.voice_state.voice = await destination.connect()
+        await ctx.me.edit(deafen=True)
 
     @commands.command(
         name='leave',
@@ -360,7 +364,6 @@ class Music(commands.Cog):
         name='resume',
         brief="Resumes a currently paused song"
         )
-    @commands.has_permissions(manage_guild=True)
     async def _resume(self, ctx: commands.Context):
 
         if not ctx.voice_state.is_playing and ctx.voice_state.voice.is_paused():
@@ -486,6 +489,8 @@ https://rg3.github.io/youtube-dl/supportedsites.html""")
 
         if not ctx.voice_state.voice:
             await ctx.invoke(self._join)
+        
+        await ctx.me.edit(deafen=True)
 
         async with ctx.typing():
             try:
