@@ -3,7 +3,6 @@
 # but i asked the owner of the repo if i could use it, they said yes but they just took it from a different github gist
 # and they have no idea where it came from, soooo... i didn't make this but 🤷
 
-from ast import alias
 import asyncio
 import functools
 import itertools
@@ -14,8 +13,6 @@ import discord
 import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
-import datetime as dt
-import typing as t
 
 
 # Silence useless bug reports messages
