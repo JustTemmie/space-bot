@@ -462,6 +462,8 @@ class Music(commands.Cog):
         description="Invoke this command again to unloop the song."
         )
     async def _loop(self, ctx: commands.Context):
+        return await ctx.send('This command has been temporarily disabled due to an issue with the YouTube API.')
+    
         if not ctx.voice_state.is_playing:
             return await ctx.send('Nothing being played at the moment.')
 
