@@ -60,7 +60,7 @@ class ecoshop(commands.Cog):
 
                 bank[str(ctx.author.id)]["wallet"] -= shop[i][0] * amount
 
-                with open("storage/bank.json", "w") as f:
+                with open("storage/playerInfo/bank.json", "w") as f:
                     json.dump(bank, f)
 
                 await ctx.send(
@@ -104,7 +104,7 @@ class ecoshop(commands.Cog):
 
         # remove the logs from the user's inventory
         data[str(ctx.author.id)]["inventory"]["logs"] -= amount
-        with open("storage/bank.json", "w") as f:
+        with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
             
         # add the money to the user's balance

@@ -37,7 +37,7 @@ class ecostats(commands.Cog):
             await ctx.send(embed=embed)
             return
         
-        await ctx.send("lmaono")
+        await ctx.send("command not implemented yet")
         
 def setup(bot):
     bot.add_cog(ecostats(bot))

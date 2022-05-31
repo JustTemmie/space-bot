@@ -1,0 +1,124 @@
+{
+    "tier1": {
+        "icon": "<:commoner_ring:970309052053733396>",
+        "name": "common",
+        "animals": {
+            "1": {
+                "icon": "🐌",
+                "name": ["snail", "or bug"]
+            },
+            "2": {
+                "icon": "🦋",
+                "name": ["butterfly"]
+            },
+            "3": {
+                "icon": "🦗",
+                "name": ["cricket"]
+            },
+            "4": {
+                "icon": "🐝",
+                "name": ["bee"]
+            },
+            "5": {
+                "icon": "🪱",
+                "name": ["worm"]
+            },
+            "6": {
+                "icon": "🪲",
+                "name": ["beetle"]
+            }
+        }
+    },
+
+    "tier2": {
+        "icon": "<:uncommon_ring:970309091249516555>",
+        "name": "uncommon",
+        "animals": {
+            "1": {
+                "icon": "🐶",
+                "name": ["dog"]
+            },
+            "2": {
+                "icon": "🐱",
+                "name": ["cat"]
+            },
+            "3": {
+                "icon": "🐭",
+                "name": ["mouse"]
+            },
+            "4": {
+                "icon": "🐷",
+                "name": ["pig"]
+            },
+            "5": {
+                "icon": "🐦",
+                "name": ["bird"]
+            },
+            "6": {
+                "icon": "🦇",
+                "name": ["bat"]
+            }
+        }
+    },
+    
+    "tier3": {
+        "icon": "<:rare_ring:970309099134803978>",
+        "name": "rare",
+        "animals": {
+            "1": {
+                "icon": "🦆",
+                "name": ["duck"]
+            },
+            "2": {
+                "icon": "🦉",
+                "name": ["owl", "hooter"]
+            },
+            "3": {
+                "icon": "🐗",
+                "name": ["boar"]
+            },
+            "4": {
+                "icon": "🦊",
+                "name": ["fox"]
+            },
+            "5": {
+                "icon": "🐐",
+                "name": ["goat"]
+            },
+            "6": {
+                "icon": "🐻",
+                "name": ["bear"]
+            }
+        }
+    },
+    "tier4": {
+        "icon": "<:epic_ring:970309107489849435>",
+        "name": "epic",
+        "animals": {
+            "1": {
+                "icon": "🐳",
+                "name": ["whale"]
+            },
+            "2": {
+                "icon": "🐬",
+                "name": ["dolphin"]
+            },
+            "3": {
+                "icon": "🦭",
+                "name": ["seal"]
+            },
+            "4": {
+                "icon": "🦦",
+                "name": ["otter"]
+            },
+            "5": {
+                "icon": "🐡",
+                "name": ["blowfish"]
+            },
+            "6": {
+                "icon": "🦑",
+                "name": ["squid"]
+            }
+        }
+    }
+}

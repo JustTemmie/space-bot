@@ -105,7 +105,7 @@ class ecomarry(commands.Cog):
             "ring": ring.lower(),
         }
 
-        with open("storage/bank.json", "w") as f:
+        with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
     @commands.command(name="divorce", brief="divorce your current partner, you fu\*\*\*\*\* hoe")
@@ -148,7 +148,7 @@ class ecomarry(commands.Cog):
             "married_to": None,
             "time": 0,
         }
-        with open("storage/bank.json", "w") as f:
+        with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
         await ctx.send(f"{ctx.author.mention} divorced {member.mention} 💔")

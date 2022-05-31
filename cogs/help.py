@@ -31,7 +31,7 @@ class help(commands.Cog, name="Help command"):
 
         full_invoke = command.qualified_name.replace(command.name, "")
 
-        signature = f"{ctx.prefix}{full_invoke}{cmd_invoke} {command.signature}"
+        signature = f"{ctx.prefix}{full_invoke}{cmd_invoke} {command.signature}\n{command.description}"
         return signature
 
     async def return_filtered_commands(self, walkable, ctx):
@@ -133,6 +133,7 @@ class help(commands.Cog, name="Help command"):
                 for cmd in cmds:
                     if cmd.name.lower() == entry[1:-1].lower():
                         desc = cmd.brief# + "\n" + cmd.description
+                        
                         
                         embed.add_field(name=entry, value=desc, inline=False)
     
