@@ -35,7 +35,7 @@ for i in range(5):
 
 print("Starting Build!                 ")
 try:
-    os.system("cd submodules/miscLib && cargo build -r && cd ../../")
+    os.system("cd submodules/miscLib && cargo build --release && cd ../../")
     print("Build Successful!")
 except Exception as e:
     print(f"Failed to build package: {e}")
