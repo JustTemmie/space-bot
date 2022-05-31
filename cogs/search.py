@@ -29,7 +29,7 @@ class search(commands.Cog):
     @cooldown(5, 20, BucketType.user)
     async def urbandictionary(self, ctx, *, search):
         if not ctx.channel.is_nsfw():
-            return await ctx.send("this command is sadly for NSFW channels only")
+            return await ctx.send("this command is sadly for NSFW channels only for now, sorry")
         
         await ctx.trigger_typing()
         req = requests.get(
@@ -144,6 +144,9 @@ class search(commands.Cog):
     )
     @cooldown(3, 10, BucketType.guild)
     async def wikipedia_search(self, ctx, *, search):
+        if not ctx.channel.is_nsfw():
+            return await ctx.send("this command is sadly for NSFW channels only for now, sorry")
+                                  
         await ctx.channel.trigger_typing()
         search = wikipedia.search(search)
 
