@@ -63,13 +63,15 @@ class miscZoo(commands.Cog):
         #embed.description = f"{animalTier}"
         #embed.description = "   Can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
         
+        aliasesString = ""
+        if len(names[(len(animalName)+2):-2]) >= 1:
+            aliasesString = f"\n**AKA:** {names[(len(animalName)+2):-2]}"
         
         embed.add_field(
             inline=False,
             name="||\n||",
             value=f"""
-**Tier:** {zoo[animalTier]["icon"]} {animalTier}
-**AKA:** {names[(len(animalName)+2):-2]}
+**Tier:** {zoo[animalTier]["icon"]} {animalTier}{aliasesString}
 **Caught:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["caught"]}
 **Total Caught:** W.I.P
 **Count:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["count"]}
