@@ -307,34 +307,6 @@ class events(commands.Cog):
             await ctx.add_reaction("🧠")
             await ctx.add_reaction("🔫")
         
-        
-        people = [
-            411536312961597440, #henwee
-            368423564229083137, #tem
-        ]
-        file_path = [
-            "storage/hendex.json",
-            "storage/temdex.json",
-        ]
-        
-        if ctx.guild.id in [918787074801401868, 946136828916944987, 876859496444596234, 885113462378876948]:
-            for i, (person, path) in enumerate(zip(people, file_path)):
-                if ctx.author.id == person:
-                    with open(path, "r") as f:
-                        file = json.load(f)
-
-                    file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
-
-                    with open(path, "w") as f:
-                        json.dump(file, f)
-            
-            with open("storage/messages/everyone.json", "r") as f:
-                file = json.load(f)
-
-            file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}, {ctx.author.id}, {ctx.guild.id}"
-
-            with open("storage/messages/everyone.json", "w") as f:
-                json.dump(file, f)
 
 
         if (
