@@ -22,18 +22,15 @@ async def open_zoo(user):
         "uncommon": ["dog", "cat", "mouse", "pig", "bird", "bat"],
         "rare": ["duck", "owl", "boar", "fox", "goat", "bear"],
         "epic": ["whale", "dolphin", "seal", "otter", "blowfish", "squid"],
-        "mythical": [],
+        "mythical": ["scorpion", "monkey", "giraffe", "sheep", "lizard", "snake"],
     }
 
     users[str(user.id)]["animals"] = {}
     
     for i in animals:
         users[str(user.id)]["animals"][i] = {}
-        print(i)
-        print(users)
         
         for nr, x in enumerate(animals[i]):
-            print(animals[i][nr])
             
             users[str(user.id)]["animals"][i][x] = {}
             users[str(user.id)]["animals"][i][x]["caught"] = 0
@@ -41,12 +38,11 @@ async def open_zoo(user):
             users[str(user.id)]["animals"][i][x]["sold"] = 0
             users[str(user.id)]["animals"][i][x]["sacrificed"] = 0
             users[str(user.id)]["animals"][i][x]["xp"] = 0
-        
-  
+
     #users[str(user.id)]["animals"]["uncommon"] = {}
     
 
-    with open("storage/playerInfo/animals.n", "w") as f:
+    with open("storage/playerInfo/animals.json", "w") as f:
         json.dump(users, f)
 
     return True

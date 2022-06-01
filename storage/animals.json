@@ -120,5 +120,35 @@
                 "name": ["squid"]
             }
         }
+    },
+    "tier5": {
+        "icon": "<:mythical_ring:970309114955702372>",
+        "name": "mythical",
+        "animals": {
+            "1": {
+                "icon": "🦂",
+                "name": ["scorpion"]
+            },
+            "2": {
+                "icon": "🐒",
+                "name": ["monkey"]
+            },
+            "3": {
+                "icon": "🦒",
+                "name": ["giraffe"]
+            },
+            "4": {
+                "icon": "🐑",
+                "name": ["sheep"]
+            },
+            "5": {
+                "icon": "🦎",
+                "name": ["lizard"]
+            },
+            "6": {
+                "icon": "🐍",
+                "name": ["snake"]
+            }
+        }
     }
 }
