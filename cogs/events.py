@@ -310,30 +310,22 @@ class events(commands.Cog):
         
         people = [
             411536312961597440, #henwee
-            877322068499238912, #lapp
-            325325337615532054, #adino
-            457246804606451715, #crok
-            398181370725400577, #isak
             368423564229083137, #tem
         ]
         file_path = [
             "storage/hendex.json",
-            "storage/messages/lapp.json",
-            "storage/messages/adino.json",
-            "storage/messages/crok.json",
-            "storage/messages/isak.json",
-            "storage/messages/temmie.json",
+            "storage/temdex.json",
         ]
         
         if ctx.guild.id in [918787074801401868, 946136828916944987, 876859496444596234, 885113462378876948]:
-            for i, person in enumerate(people):
+            for i, (person, path) in enumerate(zip(people, file_path)):
                 if ctx.author.id == person:
-                    with open(file_path[i], "r") as f:
+                    with open(path, "r") as f:
                         file = json.load(f)
 
                     file[ str(time.time())] = f"{len(ctx.content)}, {ctx.channel.id}"
 
-                    with open(file_path[i], "w") as f:
+                    with open(path, "w") as f:
                         json.dump(file, f)
             
             with open("storage/messages/everyone.json", "r") as f:
@@ -344,10 +336,6 @@ class events(commands.Cog):
             with open("storage/messages/everyone.json", "w") as f:
                 json.dump(file, f)
 
-            #for x in range(0, len(listies)):
-
-            # if "b" in ctx.content and "e" in ctx.content and "a" in ctx.content and "v" in ctx.content and "r" in ctx.content and "c" in ctx.content and "l" in ctx.content and "i" in ctx.content and "c" in ctx.content and "k" in ctx.content and "o" in ctx.content and "n" in ctx.content and "s" in ctx.content and "t" in ctx.content and "m" in ctx.content:
-            #    await ctx.add_reaction("<a:beav:973130744190869575>")
 
         if (
             "henwee" in ctx.content.lower()
