@@ -21,10 +21,11 @@ class miscZoo(commands.Cog):
             zoo = json.load(f)
         
         await aniLib.open_zoo(ctx.author)
+        
+        data = await aniLib.get_animal_data()
 
         if input == None:
             message_str = ""
-            
             for tier in zoo:
                 message_str += str(zoo[tier]["icon"])
                 for i in zoo[tier]["animals"]:
@@ -37,6 +38,7 @@ class miscZoo(commands.Cog):
             await ctx.send(message_str)
             return
         
+        
         input = input.lower()
         animalName = "none"
         for tier in zoo:
@@ -46,6 +48,10 @@ class miscZoo(commands.Cog):
                     if input == animal["name"][nick]:
                         icon = animal["icon"]
                         animalName = animal["name"][0]
+                        names = ""
+                        for name in animal["name"]:
+                            names += f"{name}, "
+                        animalTier = tier
                         break
         
         if animalName == "none":
@@ -54,15 +60,21 @@ class miscZoo(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{icon} {animalName}"
         embed.color = ctx.author.colour
-        embed.description = "   Can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
+        #embed.description = f"{animalTier}"
+        #embed.description = "   Can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
+        
         
         embed.add_field(
             inline=False,
             name="||\n||",
             value=f"""
-**Tier:** {zoo[tier]["icon"]} {zoo[tier]["name"]}
-**Caught:** 2
-another test
+**Tier:** {zoo[animalTier]["icon"]} {animalTier}
+**AKA:** {names[(len(animalName)+2):-2]}
+**Caught:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["caught"]}
+**Total Caught:** W.I.P
+**Count:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["count"]}
+**Sold:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["sold"]}
+**Sacrificed:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["sacrificed"]}
             """)
         
         await ctx.send(embed=embed)

@@ -74,6 +74,8 @@ class ecoshop(commands.Cog):
     @commands.command(name="sell", brief="try selling your <:log:970325254461329438> for money")
     @cooldown(8, 60, BucketType.user)
     async def sell_command(self, ctx, amount=0):
+        return await ctx.send("this command is currently disabled and is going to be reworked into selling animals rather than logs, logs will *stay* unsellable.")
+    
         if amount == 0:
             return await ctx.send("please specify an amount of logs to sell")
         
