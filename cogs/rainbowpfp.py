@@ -6,6 +6,8 @@ from discord.ext.commands import cooldown, BucketType
 import io
 from PIL import Image, ImageDraw
 import glob
+import os
+import time
 
 colours = [
     0xFF0018, # red
@@ -39,12 +41,12 @@ class rainbowPFP(commands.Cog):
         self.bot = bot
 
     @commands.command(name="rainbowpfp", aliases=["rpfp"])
-    @cooldown(1, 15, BucketType.default)
-    async def rainpfp(self, ctx, user: discord.Member = None, opacity = 0.5, inputDuration = 5.0):
+    @cooldown(1, 30, BucketType.default)
+    async def rainpfp(self, ctx, user: discord.Member = None, opacity = 0.5, FrameDuration = 100):
         if user == None:
             user = ctx.author
 
-        asset = user.avatar_url_as(size=512)
+        asset = user.avatar_url_as(size=256)
         data = io.BytesIO(await asset.read())
         pfp = Image.open(data)
 
@@ -54,7 +56,7 @@ class rainbowPFP(commands.Cog):
         
         ars, ars, ars, a = pfp.split()
         loopCounter = 0
-        devision = 25
+        devision = 10
         for x, colour in enumerate(colourStr):
             for i in range(0, devision):
                 thestr = ""
@@ -73,6 +75,7 @@ class rainbowPFP(commands.Cog):
                         blue = round(coloursDict[colour][rgb] + (differnceStep * i))
 
                 loopCounter += 1
+                #time.sleep(0.1)
 
                 #create a mask using RGBA to define an alpha channel to make the overlay transparent
 
@@ -80,24 +83,28 @@ class rainbowPFP(commands.Cog):
                 r, g, b = image.split()
                 overlay = Image.merge("RGBA", (r, g, b, a))
                 output = Image.blend(pfp, overlay, opacity)
-                output.save(f"temp/rainbow{loopCounter}.png")
 
-        await make_gif("temp/rainbow", inputDuration)
-        await ctx.send("done!")#file=discord.File(f"temp/rainbow{loopCounter}.png"))
+                output.save(f"temp/rainbowPFP/rainbow{loopCounter}.png")
+
+        await make_gif("temp/rainbowPFP/rainbow", FrameDuration)
+        await ctx.send("done!\nmight look compressed but that's just 8 bit colour :p", file=discord.File("temp/rainbowPFP/output.gif"))
+        time.sleep(3)
+        for file in glob.glob("temp/rainbowPFP/*"):
+            os.remove(file)
                 
                 
-                
+def sortFunc(file):
+    return int(file[23:-4])
 
 async def make_gif(frame_folder, inputDuration):
     frames = []
-    for image in glob.glob(f'{frame_folder}*.png'):
-        frames.append(image)
-    
-    frames.sort
-    print(frames)
-    frame_one = frames[0]
-    frame_one.save("temp/rainbow.gif", format="GIF", append_images=frames,
-               save_all=True, duration=inputDuration*1000, loop=0)
+    for file in glob.glob(f"{frame_folder}*.png"):
+        frames.append(file)
+    frames.sort(key = sortFunc)
+    framesObj = [Image.open(frame) for frame in frames]
+    frame_one = framesObj[0]
+    frame_one.save("temp/rainbowPFP/output.gif", format="GIF", append_images=framesObj,
+               save_all=True, duration=inputDuration, loop=0, transparency=0, optimize=True)
     
 def setup(bot):
     bot.add_cog(rainbowPFP(bot))
