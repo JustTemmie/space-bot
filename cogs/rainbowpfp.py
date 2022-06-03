@@ -50,13 +50,13 @@ class rainbowPFP(commands.Cog):
         data = io.BytesIO(await asset.read())
         pfp = Image.open(data)
 
-        pfp = pfp.resize((256, 256), 0)
+        pfp = pfp.resize((128, 128), 0)
 
         #pfp.save("temp/rainbowpfp.png")
         
         ars, ars, ars, a = pfp.split()
         loopCounter = 0
-        devision = 10
+        devision = 20
         for x, colour in enumerate(colourStr):
             for i in range(0, devision):
                 thestr = ""
