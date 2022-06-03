@@ -1,4 +1,7 @@
-# Import necessary libraries
+
+# Code by github user @Radiicall
+ 
+# # Import necessary libraries
 from sys import platform, stdout
 import shutil
 import os
