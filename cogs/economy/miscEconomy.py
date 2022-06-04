@@ -16,6 +16,14 @@ class ecoeconomy(commands.Cog):
         self.bot = bot
 
     @commands.command(
+        name="vote",
+        brief="vote for the bot and get some rewards",
+    )
+    async def vote_command(self, ctx):
+        await ctx.send("vote for the bot on top.gg to earn some rewards!\nhttps://top.gg/bot/765222621779853312/vote")
+        
+    
+    @commands.command(
         name="tutorial",
         aliases=["start", "tut", "economy"],
         brief="tells you the basics of the economy system",
