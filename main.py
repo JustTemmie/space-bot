@@ -14,7 +14,7 @@ from discord.ext import tasks, commands
 from dotenv import load_dotenv
 
 load_dotenv("keys.env")
-TOKEN = os.getenv("DISCORD_STABLE")
+TOKEN = os.getenv("DISCORD")#_STABLE")
 TOP_GG_TOKEN = os.getenv("TOP_GG_TOKEN")
 TOP_GG_PORT = os.getenv("TOP_GG_PORT")
 TOP_GG_ENCRYPTION_KEY = os.getenv("TOP_GG_ENCRYPTION_KEY")
