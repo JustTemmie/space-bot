@@ -14,8 +14,10 @@ from discord.ext import tasks, commands
 from dotenv import load_dotenv
 
 load_dotenv("keys.env")
-TOKEN = os.getenv("DISCORD")
+TOKEN = os.getenv("DISCORD_STABLE")
 TOP_GG_TOKEN = os.getenv("TOP_GG_TOKEN")
+TOP_GG_PORT = os.getenv("TOP_GG_PORT")
+TOP_GG_ENCRYPTION_KEY = os.getenv("TOP_GG_ENCRYPTION_KEY")
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -69,6 +71,24 @@ async def on_autopost_success():
 
 
 @bot.event
+async def on_dbl_vote(data):
+    """An event that is called whenever someone votes for the bot on Top.gg."""
+    if data["type"] == "test":
+        # this is roughly equivalent to
+        # `return await on_dbl_test(data)` in this case
+        #return bot.dispatch("dbl_test", data)
+        on_dbl_test(data)
+
+    print(f"Received a vote:\n{data}")
+
+
+@bot.event
+async def on_dbl_test(data):
+    """An event that is called whenever someone tests the webhook system for your bot on Top.gg."""
+    print(f"Received a test vote:\n{data}")
+
+
+@bot.event
 async def on_ready():
     if not bot.ready:
 
@@ -80,13 +100,14 @@ async def on_ready():
         try:
             with open("storage/misc/time.json", "r") as f:
                 last_time = json.load(f)
-            await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
+            #await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
         except:
             print("i hope this is running on alpha")
         
 
         if bot.user.id == 765222621779853312:
-            bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)    
+            bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)
+               
             
         guild_count = 0
         for guild in bot.guilds:
