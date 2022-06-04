@@ -100,7 +100,7 @@ async def on_ready():
         try:
             with open("storage/misc/time.json", "r") as f:
                 last_time = json.load(f)
-            #await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
+            await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
         except:
             print("i hope this is running on alpha")
         
