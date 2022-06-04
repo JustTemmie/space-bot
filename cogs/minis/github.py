@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import sys
 import os
 import subprocess
+import glob
 
 from git import Repo
 
@@ -17,19 +18,44 @@ class github(commands.Cog):
 
     @commands.command(name="update", brief="Updates the bot by pulling from github")
     @commands.is_owner()
-    async def update_git_pull(self, ctx, restart=False):
-        var = subprocess.check_output(["git", "pull"])
+    async def update_git_pull(self, ctx, restart="False"):
+        try:
+            var = subprocess.check_output(["git", "pull"])
+        except Exception as error:
+            await ctx.send(f"```py\n{error}```")
+            return
+        
         await ctx.send(var.decode("utf-8"))
-        if var.decode("utf-8") != "Already up to date.\n" and restart != False:
-            await ctx.send("Restarting...")
-            await self.bot.change_presence(
-                status=discord.Status.idle,
-                activity=discord.Activity(
-                    type=discord.ActivityType.watching,
-                    name="restarting - won't respond",
-                ),
-            )
-            os.execv(sys.executable, ["python3"] + sys.argv)
+        if var.decode("utf-8") != "Already up to date.\n":
+            if restart.lower() == "true":
+                await ctx.send("Restarting...")
+                await self.bot.change_presence(
+                    status=discord.Status.idle,
+                    activity=discord.Activity(
+                        type=discord.ActivityType.watching,
+                        name="restarting - won't respond",
+                    ),
+                )
+                os.execv(sys.executable, ["python3"] + sys.argv)
+                return
+            
+            if restart.lower() == "all":
+                errstr = ""
+                for filename in glob.iglob("./cogs/**", recursive=True):
+                    if filename.endswith('.py') and "owner" not in filename:
+                        try:
+                            filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
+                            print(filename[5:-3] + " was reloaded")
+                            self.bot.reload_extension(filename[:-3])
+                            self.bot.dispatch("load", filename[:-3])
+                        except Exception as e:
+                            errstr += f"{e}\n"
+                if errstr == "":
+                    await ctx.send("All cogs were reloaded")
+                    return
+                
+                await ctx.send("All cogs were reloaded")
+                return
 
     @commands.command(name="push", brief="Updates the bot by pushing to github")
     @commands.is_owner()
