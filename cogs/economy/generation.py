@@ -52,7 +52,7 @@ class ecogeneration(commands.Cog):
             daily_info["streak"] += 1
             streak += f"**{daily_info['streak']} day streak!**"
 
-        payout = random.randint(25, 75) + round(random.randrange(5, 10) * daily_info["streak"])
+        payout = random.randint(35, 85) + round(random.randrange(5, 10) * daily_info["streak"])
         if payout >= 500:
             payout = 500
             
