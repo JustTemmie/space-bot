@@ -4,6 +4,7 @@ from discord.ext.commands import bot_has_permissions
 import ast
 import sys
 import os
+import glob
 
 # These imports are just for the run command, for convenience
 import subprocess
@@ -102,9 +103,23 @@ class Owner(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def reload(self, ctx: commands.Context, cog: str):
-        """
-        Reloads a cog and updates changes to it
-        """
+        if cog == "all":
+            errstr = ""
+            for filename in glob.iglob("./cogs/**", recursive=True):
+                if filename.endswith('.py'):# and "owner" not in filename:
+                    try:
+                        filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
+                        self.bot.reload_extension(filename[:-3])
+                        self.bot.dispatch("load", filename[:-3])
+                    except Exception as e:
+                        errstr += f"{e}\n"
+            if errstr == "":
+                await ctx.send("All cogs were reloaded")
+                return
+            
+            await ctx.send("All cogs were reloaded")
+            return
+        
         try:
             self.bot.reload_extension("cogs." + cog)
             self.bot.dispatch("load", cog)
