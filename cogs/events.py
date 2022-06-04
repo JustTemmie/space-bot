@@ -448,8 +448,8 @@ class events(commands.Cog):
                 for ID in auto_reddit_IDs:
                     await self.bot.get_channel(ID).send(embed=embed)
             
-            except Exception as e:
-                print(e)
+            except:
+                pass
 
     @tasks.loop(seconds=293)
     async def henwee(self):
