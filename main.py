@@ -6,6 +6,7 @@ from time import time
 import json
 
 from datetime import datetime, timedelta
+import topgg
 
 import discord
 from discord.ext import tasks, commands
@@ -14,6 +15,7 @@ from dotenv import load_dotenv
 
 load_dotenv("keys.env")
 TOKEN = os.getenv("DISCORD")
+TOP_GG_TOKEN = os.getenv("TOP_GG_TOKEN")
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -28,7 +30,6 @@ DEFAULT_PREFIX = config["DEFAULT_PREFIX"]
 SHARDS = config["SHARDS"]
 OWNER_IDS = config["OWNER_IDS"]
 STATUS_OUT = config["STATUS_OUT"]
-
 
 logging.basicConfig(
     level=logging.INFO,
@@ -58,15 +59,20 @@ bot = commands.AutoShardedBot(
     intents=discord.Intents.all()
 )
 
+
 bot.remove_command("help")
 bot.ready = False
+                        
+@bot.event
+async def on_autopost_success():
+    print(f"Posted server count ({bot.topggobj.guild_count}), shard count ({bot.shard_count})")
 
 
 @bot.event
 async def on_ready():
     if not bot.ready:
-    
-        
+
+
         change_status_task.start()
 
         bot.status_out = bot.get_channel(STATUS_OUT)
@@ -77,6 +83,10 @@ async def on_ready():
             await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
         except:
             print("i hope this is running on alpha")
+        
+
+        if bot.user.id == 765222621779853312:
+            bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)    
             
         guild_count = 0
         for guild in bot.guilds:
