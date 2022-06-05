@@ -79,14 +79,19 @@ class TopGG(commands.Cog):
         logs = int(round(logs, 0))
 
 
-        await userObj.send(f"You have received **{money}** <:beaverCoin:968588341291397151> and **{logs}** <:log:970325254461329438> for voting!{streakstr}{weekendstr}")
-
+        try:
+            await userObj.send(f"You have received **{money}** <:beaverCoin:968588341291397151> and **{logs}** <:log:970325254461329438> for voting!{streakstr}{weekendstr}")
+            sucessstr = f"Successfully sent a vote confirmation to {userObj.name}!"
+        except Exception as e:
+            sucessstr = f"Failed to send a vote confirmation to {userObj.name}!\n{e}"
 
         data[str(user)]["wallet"] += money
         data[str(user)]["inventory"]["logs"] += logs
 
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
+        
+        await self.bot.get_channel(982955577007292427).send(sucessstr)
 
 
 
