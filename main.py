@@ -122,6 +122,17 @@ async def on_ready():
 async def randomize_status():
     # status = "changed the host, should be more stable now :)"
     status = random.choice(statuses)
+    if "extra-" in status:
+        advanced_statuses = {
+            "extra-total_users": f"{len(bot.users)} users",
+            "extra-total_guilds": f"over {len(bot.guilds)} guilds",
+            "extra-total_shards": f"over {bot.shard_count} shards",
+        }
+        
+        for key, value in advanced_statuses.items():
+            status = status.replace(key, value)
+
+
     await bot.change_presence(
         status=discord.Status.idle,
         activity=discord.Activity(type=discord.ActivityType.watching, name=(status)),
