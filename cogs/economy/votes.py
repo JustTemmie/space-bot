@@ -58,7 +58,7 @@ class TopGG(commands.Cog):
             if not str(user) in reminderData:
                 reminderData[str(user)] = {}
             
-            reminderData[str(user)][int(round(time.time())) + 43230] = "you can now vote again!"
+            reminderData[str(user)][int(round(time.time())) + 43230] = "you can now vote again!\nhttps://top.gg/bot/765222621779853312/vote\nif you want to disable reminders do `a!set vote reminder false`"
             
             with open("storage/reminders.json", "w") as f:
                 json.dump(reminderData, f)
@@ -84,8 +84,8 @@ class TopGG(commands.Cog):
         streak = data[str(user)]["dailyvote"]["streak"]
         total_votes = data[str(user)]["dailyvote"]["total_votes"]
         
-        money = random.randrange(25, 75) + (streak * random.uniform(2, 5)) + (total_votes * 2)
-        logs = random.randrange(25, 75) + (streak * random.uniform(2, 5)) + (total_votes * 2)
+        money = random.randrange(25, 75) + (streak * random.uniform(2, 4)) + (total_votes * 1.5)
+        logs = random.randrange(25, 75) + (streak * random.uniform(2, 4)) + (total_votes * 1.5)
         
         logs *= 0.6
         
