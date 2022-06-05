@@ -53,15 +53,15 @@ class TopGG(commands.Cog):
         
         if settings[str(user)]["vote"]["reminder"]:
             with open("storage/reminders.json", "r") as f:
-                data = json.load(f)
+                reminderData = json.load(f)
             
-            if not str(user) in data:
-                data[str(user)] = {}
+            if not str(user) in reminderData:
+                reminderData[str(user)] = {}
             
-            data[str(user)][int(round(time.time())) + 43230] = "you can now vote again!"
+            reminderData[str(user)][int(round(time.time())) + 43230] = "you can now vote again!"
             
             with open("storage/reminders.json", "w") as f:
-                json.dump(data, f)
+                json.dump(reminderData, f)
         
         
         # if data["type"] != "upvote":
