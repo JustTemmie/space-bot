@@ -6,6 +6,7 @@ import time
 from main import TOP_GG_ENCRYPTION_KEY, TOP_GG_PORT
 
 from libraries.economyLib import *
+from libraries.settings import *
 
 class TopGG(commands.Cog):
     """
@@ -23,7 +24,7 @@ class TopGG(commands.Cog):
     @commands.Cog.listener()
     async def on_dbl_vote(self, data):
         """An event that is called whenever someone votes for the bot on top.gg."""
-        print("Received an upvote:", "\n", data, sep="")
+        #print("Received an upvote:", "\n", data, sep="")
         
         
         weekendstr = ""
@@ -43,9 +44,25 @@ class TopGG(commands.Cog):
         user = int(data['user'])
         
         userObj = self.bot.get_user(user)
+        
         await open_account(userObj)
+        await store_settings(userObj)
         
         data = await get_bank_data()
+        settings = await get_user_settings()
+        
+        if settings[str(user)]["vote"]["reminder"]:
+            with open("storage/reminders.json", "r") as f:
+                data = json.load(f)
+            
+            if not str(user) in data:
+                data[str(user)] = {}
+            
+            data[str(user)][int(round(time.time())) + 43230] = "you can now vote again!"
+            
+            with open("storage/reminders.json", "w") as f:
+                json.dump(data, f)
+        
         
         # if data["type"] != "upvote":
         #     money = logs = 0
