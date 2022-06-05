@@ -1,4 +1,9 @@
 {
+    "recent": {
+        "icon": "✨",
+        "name": "New Commands",
+        "description": "`vote` `settings`"
+    },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
         "name": "Economy",
@@ -67,11 +72,11 @@
     "13th": {
         "icon": "❓",
         "name": "Misc",
-        "description": "`alientohuman` `humantoalien` `texttoimage` `morse`"
+        "description": "`settings` `alientohuman` `humantoalien` `texttoimage` `morse` "
     },
     "14th": {
         "icon": "😕",
         "name": "???",
-        "description": "`dice` `report` `rick` `settings` `remindme` `beaver` `unbeaver`"
+        "description": "`dice` `report` `rick` `remindme` `beaver` `unbeaver`"
     }
 }
