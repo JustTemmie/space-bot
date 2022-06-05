@@ -45,7 +45,6 @@ class github(commands.Cog):
                     if filename.endswith('.py') and "owner" not in filename:
                         try:
                             filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
-                            print(filename[5:-3] + " was reloaded")
                             self.bot.reload_extension(filename[:-3])
                             self.bot.dispatch("load", filename[:-3])
                         except Exception as e:
