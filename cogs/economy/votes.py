@@ -25,8 +25,6 @@ class TopGG(commands.Cog):
         """An event that is called whenever someone votes for the bot on top.gg."""
         print("Received an upvote:", "\n", data, sep="")
         
-        #if data["type"] != "upvote":
-        #    return
         
         weekendstr = ""
         streakstr = ""
@@ -49,35 +47,38 @@ class TopGG(commands.Cog):
         
         data = await get_bank_data()
         
-        if time.time() - data[str(user)]["dailyvote"]["last_vote"] >= 172800: # 48 hours
-            if data[str(user)]["dailyvote"]["streak"] != 0:
-                streakstr = f"\nYou lost your streak of **{data[str(user)]['dailyvote']['streak']}** votes :("
-            
-            data[str(user)]["dailyvote"]["streak"] = 0
+        if data["type"] != "upvote":
+            money = logs = 0
         
         else:
-            data[str(user)]["dailyvote"]["streak"] += 1
-            streakstr = f"\nYou have a streak of **{data[str(user)]['dailyvote']['streak']}** votes!"
-        
-        data[str(user)]["dailyvote"]["last_vote"] = time.time()
-        data[str(user)]["dailyvote"]["total_votes"] += 1
-        
-        streak = data[str(user)]["dailyvote"]["streak"]
-        total_votes = data[str(user)]["dailyvote"]["total_votes"]
-        
-        money = random.randrange(25, 75) + (streak * random.uniform(2, 5)) + (total_votes * 2)
-        logs = random.randrange(25, 75) + (streak * random.uniform(2, 5)) + (total_votes * 2)
-        
-        logs *= 0.6
-        
-        if is_weekend:
-            money *= 2
-            logs *= 2
+            if time.time() - data[str(user)]["dailyvote"]["last_vote"] >= 172800: # 48 hours
+                if data[str(user)]["dailyvote"]["streak"] != 0:
+                    streakstr = f"\nYou lost your streak of **{data[str(user)]['dailyvote']['streak']}** votes :("
+                
+                data[str(user)]["dailyvote"]["streak"] = 0
+            
+            else:
+                data[str(user)]["dailyvote"]["streak"] += 1
+                streakstr = f"\nYou have a streak of **{data[str(user)]['dailyvote']['streak']}** votes!"
+            
+            data[str(user)]["dailyvote"]["last_vote"] = time.time()
+            data[str(user)]["dailyvote"]["total_votes"] += 1
+            
+            streak = data[str(user)]["dailyvote"]["streak"]
+            total_votes = data[str(user)]["dailyvote"]["total_votes"]
+            
+            money = random.randrange(25, 75) + (streak * random.uniform(2, 5)) + (total_votes * 2)
+            logs = random.randrange(25, 75) + (streak * random.uniform(2, 5)) + (total_votes * 2)
+            
+            logs *= 0.6
+            
+            if is_weekend:
+                money *= 2
+                logs *= 2
 
 
-        money = int(round(money, 0))
-        logs = int(round(logs, 0))
-
+            money = int(round(money, 0))
+            logs = int(round(logs, 0))
 
         try:
             await userObj.send(f"You have received **{money}** <:beaverCoin:968588341291397151> and **{logs}** <:log:970325254461329438> for voting!{streakstr}{weekendstr}")
