@@ -25,11 +25,11 @@ class polls(commands.Cog):
             msg = await ctx.send("**📊 " + question.title() + "**")
             await msg.add_reaction("👍")
             await msg.add_reaction("👎")
-        elif len(answers) < 20:
+        elif len(answers) < 21:
             header = "**📊 " + question.title() + "**"
             inner = ""
             for i in range(len(answers)):
-                inner += "\\{} {}\n".format(letter_emote[i], answers[i].title())
+                inner += f"\\{letter_emote[i]} {answers[i].title()}\n"
             embed = discord.Embed(description=inner, colour=0x02389E)
             msg = await ctx.send(header, embed=embed)
             for i in range(len(answers)):
