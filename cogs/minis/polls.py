@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 
-letter_emote = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "🇮", "🇯"]
+letter_emote = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "🇮", "🇯", "🇰", "🇱", "🇲", "🇳", "🇴", "🇵", "🇶", "🇷", "🇸", "🇹", "🇺", "🇻", "🇼", "🇽", "🇾", "🇿"]
 
 
 class polls(commands.Cog):
@@ -25,7 +25,7 @@ class polls(commands.Cog):
             msg = await ctx.send("**📊 " + question.title() + "**")
             await msg.add_reaction("👍")
             await msg.add_reaction("👎")
-        elif len(answers) < 10:
+        elif len(answers) < 26:
             header = "**📊 " + question.title() + "**"
             inner = ""
             for i in range(len(answers)):
