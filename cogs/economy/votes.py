@@ -3,7 +3,7 @@ from discord.ext import commands
 import topgg
 import time
 
-from main import TOP_GG_ENCRYPTION_KEY, TOP_GG_PORT
+from main import TOP_GG_ENCRYPTION_KEY, TOP_GG_PORT, TOP_GG_TOKEN
 
 from libraries.economyLib import *
 from libraries.settings import *
@@ -16,7 +16,7 @@ class TopGG(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc2NTIyMjYyMTc3OTg1MzMxMiIsImJvdCI6dHJ1ZSwiaWF0IjoxNjU0MzY0MjY2fQ.tw8DM04-2TZ2EKg8DlfHDE9DvJntMKkrgRGf9NJxX00'  # set this to your DBL token
+        self.token = TOP_GG_TOKEN # set this to your DBL token
         #self.dblpy = dbl.DBLClient(self.bot, self.token, webhook_path='/dblwebhook', webhook_auth='password', webhook_port=31852)
         self.bot.topgg_webhook = topgg.WebhookManager(bot).dbl_webhook("/dblwebhook", TOP_GG_ENCRYPTION_KEY)
         self.bot.topgg_webhook.run(TOP_GG_PORT)  # this method can be awaited as well
