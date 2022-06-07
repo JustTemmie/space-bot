@@ -4,8 +4,28 @@ read thru setup.txt and to everything in there
 and run build.py in order to get a library
   -> build.py requries rust to be installed
   -> "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
-  
-lastly fill in the missing entries for keys.env
+
+
+lastly fill in the these entries in a file named keys.env
+
+DISCORD=
+
+DEEP_AI=
+
+IMGUR_CLIENT_ID=
+
+IMGUR_CLIENT_SECRET=
+
+TENOR=
+
+OPENWEATHER=
+
+TOP_GG_TOKEN=
+
+TOP_GG_PORT= you need to port forward your sever with a port i don't remember the exact ports but keep it between 5000 and 45000 and you should be good
+
+TOP_GG_ENCRYPTION_KEY= the "Authorization" field
+
 
 discord key from https://discord.com/developers/applications
 
