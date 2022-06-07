@@ -13,6 +13,7 @@ and run build.py in order to get a library
   -> "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 
 
+
 lastly fill in the these entries in a file named keys.env
 
 DISCORD=
