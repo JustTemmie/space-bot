@@ -47,11 +47,18 @@ logging.critical("critical")
 
 
 def get_prefix(bot, message):
-    # try:
-    # prefix = db[f"prefix_{message.guild.id}"]
-    # return commands.when_mentioned_or(prefix)(bot, message)
-    # except:
-    return commands.when_mentioned_or(DEFAULT_PREFIX)(bot, message)
+    try:
+        with open("storage/guild_data/prefixes.json", "r") as f:
+            rawprefixes = json.load(f)
+        
+        prefixes = []
+        for i in rawprefixes[str(message.guild.id)]:
+            if rawprefixes[str(message.guild.id)][i.lower()] != 'none':
+                prefixes.append(rawprefixes[str(message.guild.id)][i])
+
+        return commands.when_mentioned_or(*prefixes)(bot, message)
+    except:
+        return commands.when_mentioned_or(DEFAULT_PREFIX)(bot, message)
 
 
 bot = commands.AutoShardedBot(

@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`vote` `settings`"
+        "description": "`vote` `settings` `prefix`"
     },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",

@@ -8,6 +8,8 @@ from discord.ext import commands
 from discord.ext.commands import (
     Cog,
     Greedy,
+    cooldown,
+    BucketType,
     CheckFailure,
     command,
     has_permissions,
@@ -21,6 +23,76 @@ from libraries.miscLib import get_input
 class admin(Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.command(
+        name="prefix",
+        aliases=["prefixes", "setprefix", "andro_prefix"],
+        brief="Sets the prefix for the bot in this server",
+    )
+    @cooldown(1, 1.5, BucketType.user)
+    @has_permissions(manage_guild=True)
+    async def prefix(self, ctx, *, prefix: str = None):
+        with open("storage/guild_data/prefixes.json", "r") as f:
+            prefixes = json.load(f)
+        
+        try:
+            prefixes[str(ctx.guild.id)]
+        except:
+            prefixes[str(ctx.guild.id)] = {}
+            prefixes[str(ctx.guild.id)]["prefix1"] = "a!"
+            prefixes[str(ctx.guild.id)]["prefix2"] = "none"
+            prefixes[str(ctx.guild.id)]["prefix3"] = "none"
+            prefixes[str(ctx.guild.id)]["prefix4"] = "none"
+            prefixes[str(ctx.guild.id)]["prefix5"] = "none"
+
+            with open("storage/guild_data/prefixes.json", "w") as f:
+                json.dump(prefixes, f)
+        
+        if prefix is not None:
+            try:
+                index = int(prefix[0])
+                if prefix[1] == " ":
+                    prefix = prefix[2:]
+                else:
+                    prefix = prefix[1:]
+            except:
+                index = 0
+                for prx in prefixes[str(ctx.guild.id)]:
+                    index += 1
+                    if prefixes[str(ctx.guild.id)][prx] == "none":
+                        break
+            
+            if index > 5:
+                await ctx.send(f"There are only 5 prefixes available\nPlease use a prefix that is not already in use, or overwrite an existing one {ctx.prefix}{ctx.invoked_with} 2 {prefix}")
+
+            elif prefix == "clear":
+                prefixes[str(ctx.guild.id)]["prefix1"] = "a!"
+                prefixes[str(ctx.guild.id)]["prefix2"] = "none"
+                prefixes[str(ctx.guild.id)]["prefix3"] = "none"
+                prefixes[str(ctx.guild.id)]["prefix4"] = "none"
+                prefixes[str(ctx.guild.id)]["prefix5"] = "none"
+            
+            else:
+                prefixes[str(ctx.guild.id)][f"prefix{index}"] = prefix
+
+        embed = Embed(
+            title="Prefixes",
+            #description=f"Prefixes for this server: ",
+            color=ctx.author.color,
+        )
+        embed.description = f"To clear the prefixes, use {ctx.prefix}{ctx.invoked_with} clear, this will still leave \"a!\" as the a prefix\nTo overwrite a prefix, use {ctx.prefix}{ctx.invoked_with} index <prefix>, this can also be set to \"none\" in order to clear it\nExample {ctx.prefix}{ctx.invoked_with} 2 none"
+        
+        for i, prefix in enumerate(prefixes[str(ctx.guild.id)]):
+            if prefix.lower() == "none":
+                prefix = prefix.lower()
+            embed.add_field(name=f"prefix {i+1}", value=f"`{prefixes[str(ctx.guild.id)][prefix]}`", inline=False)
+        
+        
+        await ctx.send(embed=embed)
+        
+        with open("storage/guild_data/prefixes.json", "w") as f:
+            json.dump(prefixes, f)
+            
 
     @command(name="kick", brief="Kicks the specified users")
     @bot_has_permissions(manage_messages=True)
