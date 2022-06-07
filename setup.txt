@@ -1,5 +1,4 @@
 add reminders.json into /storage and fill it with "{}"
-run build.py
 
 install ffmpeg
 debian: sudo apt-get install ffmpeg
