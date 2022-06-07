@@ -58,7 +58,7 @@ def get_prefix(bot, message):
 
         return commands.when_mentioned_or(*prefixes)(bot, message)
     except:
-        return commands.when_mentioned_or(DEFAULT_PREFIX)(bot, message)
+        return commands.when_mentioned_or(DEFAULT_PREFIX, "beav")(bot, message)
 
 
 bot = commands.AutoShardedBot(
