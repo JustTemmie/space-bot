@@ -8,8 +8,13 @@ and run build.py in order to get a library
 lastly fill in the missing entries for keys.env
 
 discord key from https://discord.com/developers/applications
+
 deep ai from https://deepai.org/dashboard/profile
+
 imgur from https://api.imgur.com/oauth2/addclient?
+
 tenor key from https://tenor.com/developer/keyregistration
+
 open weather from https://home.openweathermap.org/api_keys
+
 top.gg from https://top.gg/bot/YOUR BOT ID HERE/webhooks
