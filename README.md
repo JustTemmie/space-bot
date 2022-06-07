@@ -1,8 +1,15 @@
 This is the code for the discord bot andromeda, it needs a couple things done to be able to run, but i warn you, this bot might be hard to get running
+
+you need to have a verified top.gg bot or else this will throw an error :p
+
 first, install the requirements.txt file with pip
+
 read thru setup.txt and to everything in there
+
 and run build.py in order to get a library
+
   -> build.py requries rust to be installed
+  
   -> "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 
 
