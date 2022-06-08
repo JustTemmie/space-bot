@@ -1,2 +1,4 @@
-async def removeat (name):
-    return name.replace("@", "")
+async def removeat(name):
+    name = name.replace("@", "")
+    print(name)
+    return name

@@ -44,16 +44,16 @@ class social(commands.Cog):
             if member.id not in actees:
                 actees.append(member.id)
 
-        title_string = f"{SL.removeat(ctx.author.display_name)} {string} "
+        title_string = f"{await SL.removeat(ctx.author.display_name)} {string} "
 
         if len(actees) == 1 and actees[0] == ctx.author.id:
-            title_string = f"{SL.removeat(ctx.author.display_name)} {self_string}"
+            title_string = f"{await SL.removeat(ctx.author.display_name)} {self_string}"
 
         else:
             for i in range(0, len(actees)):
                 if i >= len(actees) - 1 and i != 0:
                     title_string += f"and "
-                person = SL.removeat(self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name)
+                person = await SL.removeat(self.bot.get_guild(ctx.guild.id).get_member(actees[i]).display_name)
                 title_string += f"{person}, "
 
             title_string = title_string[:-2] + binder
@@ -146,7 +146,7 @@ class social(commands.Cog):
                 data = await response.json()
 
                 embed = Embed(
-                    title=f"{SL.removeat(ctx.author.display_name)} just murderified {SL.removeat(member.display_name)}",
+                    title=f"{await SL.removeat(ctx.author.display_name)} just murderified {await SL.removeat(member.display_name)}",
                     description="woah there",
                     colour=member.colour,
                 )

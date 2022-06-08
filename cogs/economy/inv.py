@@ -44,8 +44,10 @@ class ecoinv(commands.Cog):
         await update_bank_data(ctx.author, -1 * amount)
         await update_bank_data(member, amount)
 
+        auth = ctx.author.display_name
+
         await ctx.send(
-            f"{SL.removeat(ctx.author.display_name)} gave {amount} <:beaverCoin:968588341291397151> to {SL.removeat(member.display_name)}"
+            f"{await SL.removeat(auth)} gave {amount} <:beaverCoin:968588341291397151> to {await SL.removeat(member.display_name)}"
         )
     
     

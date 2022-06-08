@@ -98,6 +98,8 @@ async def open_account(user):
             
             users[str(user.id)]["inventory"]["insurance"] = 0
             
+            users[str(user.id)]["stats"] = {}
+            
             a = random.randint(1, 5)
             b = random.randint(1, 5)
             c = random.randint(1, 5)
