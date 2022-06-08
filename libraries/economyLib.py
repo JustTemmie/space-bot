@@ -3,6 +3,8 @@ import json
 import random
 import time
 
+from captcha.image import ImageCaptcha
+
 confirmations = [
         "yes",
         "yep",
@@ -250,3 +252,28 @@ async def update_bank_data(user, change=0, mode="wallet"):
 
     bal = [users[str(user.id)][mode]]
     return bal
+
+
+async def generate_user_capcha(user):
+    # Create an image instance of the given size
+    sizes = []
+    for i in range(1, 10):
+        sizes.append(random.randint(110, 170))
+
+    image = ImageCaptcha(fonts = ["./font.ttf"], font_sizes = sizes, width = 500, height = 300)
+    
+    possibleLetters = "ABCEFGHJKLMNOPRSTUVWXYZ"
+
+    captchaStr = " "
+    for i in range(0, 5):
+        captchaStr += random.choice(possibleLetters)
+        captchaStr += " " * random.randint(1, 4)
+
+    
+    # generate the image of the given text
+    data = image.generate(captchaStr)
+    #image.create_noise_dots(image, color = (0, 0, 0), width = 1, number = 100)
+    print(captchaStr)
+    
+    # write the image on the given file and save it
+    image.write(captchaStr, f"./temp/captcha{user.id}.png")
