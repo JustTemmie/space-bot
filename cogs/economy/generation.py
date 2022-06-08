@@ -83,7 +83,8 @@ class ecogeneration(commands.Cog):
     async def scavenge_logs(self, ctx):
         await open_account(ctx.author)
         data = await get_bank_data()
-        strength = 5#data[str(ctx.author.id)]["stats"]["strength"]
+        strength = 3#data[str(ctx.author.id)]["stats"]["strength"]
+        perception = 3#data[str(ctx.author.id)]["stats"]["perception"]
         
         try:            
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
@@ -93,7 +94,7 @@ class ecogeneration(commands.Cog):
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             #await ctx.send("you have to wait 5 minutes before you can do this again")
-            payout = ((strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength) / 300 * temporal*0.8
+            payout = (((perception / 4)  *strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength) / 300 * temporal*0.8
 
 
         # skills
