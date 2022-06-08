@@ -7,6 +7,7 @@ import json
 
 
 from libraries.economyLib import *
+import libraries.standardLib as SL 
 
 
 class ecomarry(commands.Cog):
@@ -34,7 +35,7 @@ class ecomarry(commands.Cog):
             
         try:
             if data[str(ctx.author.id)]["marriage"][str(member.id)]["ring"] == ring.lower():
-                await ctx.send(f"you're already married to {member.display_name} with a {ring} ring")
+                await ctx.send(f"you're already married to {SL.removeat(member.display_name)} with a {ring} ring")
                 return
         except:
             pass
@@ -122,7 +123,7 @@ class ecomarry(commands.Cog):
         try:
             data[str(ctx.author.id)]["marriage"][str(member.id)]["married"]
         except:
-            await ctx.send(f"you're not married to {member.display_name}")
+            await ctx.send(f"you're not married to {SL.removeat(member.display_name)}")
             return
 
         await ctx.send(

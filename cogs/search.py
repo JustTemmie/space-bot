@@ -16,6 +16,7 @@ import urllib
 import re
 import random
 
+import libraries.standardLib as SL
 
 class search(commands.Cog):
     def __init__(self, bot):
@@ -36,7 +37,7 @@ class search(commands.Cog):
             "http://api.urbandictionary.com/v0/define?term=" + urllib.parse.quote(search)
         )
         if req.status_code == 404:
-            await ctx.send("No urban dictionary entry found for " + (search))
+            await ctx.send("No urban dictionary entry found for " + (SL.removeat(search)))
             return
 
         entry = 0

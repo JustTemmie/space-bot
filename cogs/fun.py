@@ -29,6 +29,7 @@ tenor_api_key = os.getenv("TENOR")
 deepai_key = os.getenv("DEEP_AI")
 
 
+
 class fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

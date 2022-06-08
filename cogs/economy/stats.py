@@ -8,7 +8,6 @@ import json
 
 from libraries.economyLib import *
 
-
 class ecostats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

@@ -13,6 +13,8 @@ from libraries.RSmiscLib import str_replacer
 # this might be highlighted as a bug, but it's just a library written in rust lmao
 # it should be fine if you've ran the setup file
 
+import libraries.standardLib as SL 
+
 class reminder(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

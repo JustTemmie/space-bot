@@ -15,7 +15,6 @@ from libraries.economyLib import *
 from libraries.settings import *
 
 
-
 class ecotrivia(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

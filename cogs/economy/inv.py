@@ -7,6 +7,7 @@ import json
 
 
 from libraries.economyLib import *
+import libraries.standardLib as SL 
 
 
 class ecoinv(commands.Cog):
@@ -44,7 +45,7 @@ class ecoinv(commands.Cog):
         await update_bank_data(member, amount)
 
         await ctx.send(
-            f"{ctx.author.display_name} gave {amount} <:beaverCoin:968588341291397151> to {member.display_name}"
+            f"{SL.removeat(ctx.author.display_name)} gave {amount} <:beaverCoin:968588341291397151> to {SL.removeat(member.display_name)}"
         )
     
     
