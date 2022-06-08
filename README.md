@@ -34,6 +34,9 @@ TOP_GG_PORT= you need to port forward your sever with a port i don't remember th
 
 TOP_GG_ENCRYPTION_KEY= the "Authorization" field
 
+then on top.gg add "http://yourIPAddress:port/dblwebhook" to the wekbook field
+
+
 
 discord key from https://discord.com/developers/applications
 
@@ -45,4 +48,4 @@ tenor key from https://tenor.com/developer/keyregistration
 
 open weather from https://home.openweathermap.org/api_keys
 
-top.gg from https://top.gg/bot/YOUR BOT ID HERE/webhooks
+top.gg from https://top.gg/bot/YOURBOTIDHERE/webhooks
