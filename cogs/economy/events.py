@@ -18,7 +18,8 @@ class ecoevents(commands.Cog):
         if ctx.author.bot:
             return
 
-        await open_account(ctx.author)
+        if await check_if_not_exist(ctx.author):
+            return
 
         data = await get_bank_data()
 
@@ -49,9 +50,8 @@ class ecoevents(commands.Cog):
         if user.bot:
             return
 
-        print(user)
-
-        await open_account(user)
+        if await check_if_not_exist(user):
+            return
 
         data = await get_bank_data()
 

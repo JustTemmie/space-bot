@@ -27,7 +27,7 @@ class role_menu(commands.Cog):
 
         try:
             for x in data:
-                print(x["emoji"], payload.emoji.name)
+                #print(x["emoji"], payload.emoji.name)
                 if x["emoji"] == payload.emoji.name:
                     role = payload.member.guild.get_role(x["role_id"])
                     await payload.member.add_roles(role)

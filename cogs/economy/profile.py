@@ -18,9 +18,11 @@ class ecoprofile(commands.Cog):
     async def generateprofile(self, ctx, user: discord.Member = None):
 
         if user is None:
+            await open_account(self, ctx)
             user = ctx.author
 
-        await open_account(user)
+        if await check_if_not_exist(user):
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         bankdata = await get_bank_data()
 
@@ -97,8 +99,11 @@ class ecoprofile(commands.Cog):
             await ctx.send("your quote is too long, please shorten it to a max of 128 characters")
             return
 
-        await open_account(ctx.author)
+        await open_account(self, ctx)
 
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
         data = await get_bank_data()
         data[str(ctx.author.id)]["quote"] = quote
         with open("storage/playerInfo/bank.json", "w") as f:

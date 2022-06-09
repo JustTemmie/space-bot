@@ -13,6 +13,3 @@ Our Services may contain links to third-party websites or applications (“Third
 ## 4. Privacy
 
 Please read our [Privacy Policy](https://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md).
-
-## 5. License
-

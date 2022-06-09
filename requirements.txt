@@ -10,3 +10,4 @@ pillow
 pdf2image
 youtube-dl
 topggpy
+captcha

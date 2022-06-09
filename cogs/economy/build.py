@@ -25,7 +25,11 @@ class ecobuild(commands.Cog):
 
         bonus_string = ""
 
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
         data = await get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
         current_damlevel = data[str(ctx.author.id)]["dam"]["level"]

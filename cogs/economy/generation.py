@@ -7,6 +7,7 @@ import json
 
 
 from libraries.economyLib import *
+from libraries.captchaLib import *
 
 
 class ecogeneration(commands.Cog):
@@ -16,7 +17,10 @@ class ecogeneration(commands.Cog):
     @commands.command(name="daily", brief="get your daily beaver coins here!")
     @cooldown(3, 15, BucketType.user)
     async def daily_command(self, ctx):
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
 
         bank = await get_bank_data()
         daily_info = bank[str(ctx.author.id)]["daily"]
@@ -81,7 +85,14 @@ class ecogeneration(commands.Cog):
     )
     @cooldown(1, 300, BucketType.user)
     async def scavenge_logs(self, ctx):
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
+        if await check_captcha(self, ctx, 4):
+            return
+        
         data = await get_bank_data()
         strength = 3#data[str(ctx.author.id)]["stats"]["strength"]
         perception = 3#data[str(ctx.author.id)]["stats"]["perception"]

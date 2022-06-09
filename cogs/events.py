@@ -188,7 +188,7 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        print(f"{member} joined {member.guild} - ({member.id} joined {member.guild.id})")
+        #print(f"{member} joined {member.guild} - ({member.id} joined {member.guild.id})")
         if member.bot:
             return
         

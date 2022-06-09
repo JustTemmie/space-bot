@@ -34,7 +34,11 @@ class ecogambling(commands.Cog):
             await ctx.send("please bet at leaaaast 5 <:beaverCoin:968588341291397151>")
             return
 
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
         bal = await update_bank_data(ctx.author)
 
         if amount > bal[0]:
@@ -73,7 +77,10 @@ class ecogambling(commands.Cog):
     )
     @cooldown(1, 5, BucketType.user)
     async def slot_machine_command(self, ctx, amount=None):
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
 
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")

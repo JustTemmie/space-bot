@@ -23,7 +23,11 @@ class ecoshop(commands.Cog):
             await ctx.send("that page doesn't exist, sorry")
             return
 
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
         shop = await get_shop_data()
 
         page_bonus_string = {1: "", 2: "**Rings:**\nUse them to marry someone\n"}[page]
@@ -41,8 +45,11 @@ class ecoshop(commands.Cog):
     @commands.command(name="buy", aliases=["transact"], brief="pay for something, wouldya?")
     @cooldown(5, 15, BucketType.user)
     async def buy_command(self, ctx, item, amount: Optional[int] = 1):
-        await open_account(ctx.author)
+        await open_account(self, ctx)
 
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
         shop = await get_shop_data()
         bank = await get_bank_data()
         wallet = bank[str(ctx.author.id)]["wallet"]
@@ -82,7 +89,10 @@ class ecoshop(commands.Cog):
         if amount < 10:
             return await ctx.send("you can't sell less than 10 logs, it's not worth my time")
 
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
         
         data = await get_bank_data()
         charisma = 5#data[str(ctx.author.id)]["stats"]["charisma"]
