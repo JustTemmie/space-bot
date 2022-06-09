@@ -79,7 +79,7 @@ async def check_captcha(self, ctx):
 
         
 async def check_captcha_valid(self, ctx, captchaStr, loop = 1):
-    if loop >= 5:
+    if loop > 5:
         await ctx.send(f"you failed the captcha!\nthe next time you fail you will be banned from the economy system for 48 hours")
         return False
     
