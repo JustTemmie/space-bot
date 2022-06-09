@@ -1,12 +1,12 @@
 import asyncio
 
-async def get_input(self, ctx, time = 30):
+async def get_input(self, ctx, time = 30, bonus = ""):
     try:
         return await self.bot.wait_for(
             "message", check=lambda m: m.author == ctx.author, timeout=time
         )
     except asyncio.TimeoutError:
-        return await ctx.send(f"**Timed out** You took too long to answer the question, Please try again")
+        return await ctx.send(f"**Timed out** You took too long to answer the question {bonus}")
 
 # this was old code that has been rewritten in rust by https://github.com/Radiicall
 # async def str_replacer(initial_string, ch,

@@ -45,7 +45,9 @@ class TopGG(commands.Cog):
         
         userObj = self.bot.get_user(user)
         
-        await open_account(userObj)
+        if await check_if_not_exist(userObj):
+            return await userObj.send("sorry, you need to create an account before getting vote rewards :/")
+        
         await store_settings(userObj)
         
         data = await get_bank_data()

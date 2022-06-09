@@ -21,8 +21,13 @@ class ecoinv(commands.Cog):
     )
     @cooldown(2, 10, BucketType.user)
     async def send_command(self, ctx, member: discord.Member, amount=None):
-        await open_account(ctx.author)
-        await open_account(member)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
+        if await check_if_not_exist(member):
+            return await ctx.send(f"{SL.removeat(member.display_name)} doesn't have an account, they need to create one first")
 
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to give <:shy:848650912636600320>")
@@ -60,11 +65,14 @@ class ecoinv(commands.Cog):
     async def inv_command(self, ctx, user: discord.Member = None):
 
         if user is None:
+            await open_account(self, ctx)
             user = ctx.author
 
         n = 0
-
-        await open_account(ctx.author)
+        
+        if await check_if_not_exist(user):
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
+        
         users = await get_bank_data()
         items = await get_items_data()
 
@@ -103,9 +111,11 @@ class ecoinv(commands.Cog):
     @cooldown(2, 10, BucketType.user)
     async def check_balance(self, ctx, user: discord.Member = None):
         if user is None:
+            await open_account(self, ctx)
             user = ctx.author
 
-        await open_account(user)
+        if await check_if_not_exist(user):
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         users = await get_bank_data()
 

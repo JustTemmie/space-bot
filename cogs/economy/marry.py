@@ -22,7 +22,14 @@ class ecomarry(commands.Cog):
             return await ctx.send("please tell me who you want to marry")
 
 
-        await open_account(ctx.author)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
+        if await check_if_not_exist(member):
+            return await ctx.send(f"{SL.removeat(member.display_name)} does not have an account, they need to create an account first")
+        
         data = await get_bank_data()
         
         if data[str(ctx.author.id)]["dam"]["level"] < 1:
@@ -52,8 +59,6 @@ class ecomarry(commands.Cog):
             ring_object = data[str(ctx.author.id)]["inventory"][ring.lower()]
         except:
             return await ctx.send("you don't own that ring")
-        
-        await open_account(member)
 
         try:
             if ring_object <= 0:
@@ -116,8 +121,14 @@ class ecomarry(commands.Cog):
             await ctx.send("please tell me who you wish to divorce")
             return
 
-        await open_account(ctx.author)
-        await open_account(member)
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+
+        if await check_if_not_exist(member):
+            return await ctx.send(f"{SL.removeat(member.display_name)} does not have an account, they need to create an account first")
+        
         data = await get_bank_data()
 
         try:

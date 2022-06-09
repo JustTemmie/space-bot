@@ -12,6 +12,7 @@ import asyncio
 
 
 from libraries.economyLib import *
+from libraries.miscLib import get_input
 from libraries.settings import *
 
 
@@ -105,12 +106,7 @@ d) {answers[3]}
             
             await ctx.send(embed=embed)
 
-            try:
-                response = await self.bot.wait_for(
-                    "message", check=lambda m: m.author == ctx.author, timeout=25
-                )
-            except asyncio.TimeoutError:
-                return await ctx.send(f"**Timed out** You took too long to answer the question.\nthe answer was {correct_answer_ID}, {correct_answer}")
+            response = await get_input(self, ctx, 25)
             
             if response.content.lower() == correct_answer.lower() or response.content.lower() == correct_answer_ID:
                 await ctx.send(f"{ctx.author.mention} you are correct! it was {correct_answer_ID}, {correct_answer}")
@@ -206,13 +202,8 @@ d) {answers[3]}
         
         await ctx.send(embed=embed)
         
-        try:
-            response = await self.bot.wait_for(
-                "message", check=lambda m: m.author == ctx.author, timeout=25
-            )
-        except asyncio.TimeoutError:
-            return await ctx.send(f"**Timed out** You took too long to answer the question.\nthe answer was {correct}, {html.unescape(questions['correct_answer'])}")
-        
+        response = await get_input(self, ctx, 25)
+
         if response.content.lower() == questions["correct_answer"].lower() or response.content.lower() == correct:
             await ctx.send(f"{ctx.author.mention} you are correct! it was {correct}, {html.unescape(questions['correct_answer'])}")
             return
