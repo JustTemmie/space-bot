@@ -3,7 +3,7 @@ import random
 
 import captcha
  
- if __name__ == '__main__':
+if __name__ == '__main__':
     # Create an image instance of the given size
     sizes = []
     for i in range(1, 10):
