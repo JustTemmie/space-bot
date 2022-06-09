@@ -4,22 +4,25 @@ with open ('./storage/playerInfo/bank.json', 'r') as f:
     data = json.load(f)
     
 print(len(data))
-print(data)
 
-def remove_fake_accounts(data):
-    for user in data:
-        #print(data[user])
+removes = []
+what = []
+for user in data:
+    try:
+       if round(data[user]["wallet"]) <= 100 and round(data[user]["inventory"]["logs"]) < 1 and round(data[user]["dam"]["spent"]["logs"]) < 1 and round(data[user]["dam"]["level"]) == 0:
+            removes.append(user)
+    except:
         try:
-            wal = data[user]['wallet']
+            if round(data[user]["wallet"]) <= 20:
+                removes.append(user)
         except:
-            wal = 25
-        if round(wal) <= 20:
-            print("a")
-            data = data.pop(user)
-            break
-    
+            what.append(user)
 
-for i in range(0, 100):
-    data = remove_fake_accounts(data)
+for user in removes:
+    data.pop(user)
 
-print(data)
+for user in what:
+    print(data[user])
+    print("---------------------")
+
+print(len(data))
