@@ -36,7 +36,7 @@ async def generate_user_capcha(user):
     return captchaStr
 
 
-async def check_captcha(self, ctx):
+async def check_captcha(self, ctx, increase_by = 1):
     with open("./storage/playerInfo/bank.json", "r") as f:
         data = json.load(f)
 
@@ -48,13 +48,13 @@ async def check_captcha(self, ctx):
 
     decrease_by = floor(timer**0.65)
 
-    data[str(ctx.author.id)]["anti-cheat"]["counter"] += 1 - decrease_by
+    data[str(ctx.author.id)]["anti-cheat"]["counter"] += increase_by - decrease_by
     data[str(ctx.author.id)]["anti-cheat"]["last_command"] = time.time()
 
     with open("./storage/playerInfo/bank.json", "w") as f:
         json.dump(data, f)
 
-    if counter < 40:
+    if counter < 100:
         return False
 
     captchaStr = await generate_user_capcha(ctx.author)
