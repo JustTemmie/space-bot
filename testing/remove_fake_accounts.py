@@ -1,28 +1,30 @@
 import json
 
-with open ('./storage/playerInfo/bank.json', 'r') as f:
-    data = json.load(f)
+if __name__ == '__main__':
     
-print(len(data))
+    with open ('./storage/playerInfo/bank.json', 'r') as f:
+        data = json.load(f)
+        
+    print(len(data))
 
-removes = []
-what = []
-for user in data:
-    try:
-       if round(data[user]["wallet"]) <= 100 and round(data[user]["inventory"]["logs"]) < 1 and round(data[user]["dam"]["spent"]["logs"]) < 1 and round(data[user]["dam"]["level"]) == 0:
-            removes.append(user)
-    except:
+    removes = []
+    what = []
+    for user in data:
         try:
-            if round(data[user]["wallet"]) <= 20:
-                removes.append(user)
+            if round(data[user]["wallet"]) <= 100 and round(data[user]["inventory"]["logs"]) < 1 and round(data[user]["dam"]["spent"]["logs"]) < 1 and round(data[user]["dam"]["level"]) == 0:
+                    removes.append(user)
         except:
-            what.append(user)
+            try:
+                if round(data[user]["wallet"]) <= 20:
+                    removes.append(user)
+            except:
+                what.append(user)
 
-for user in removes:
-    data.pop(user)
+    for user in removes:
+        data.pop(user)
 
-for user in what:
-    print(data[user])
-    print("---------------------")
+    for user in what:
+        print(data[user])
+        print("---------------------")
 
-print(len(data))
+    print(len(data))
