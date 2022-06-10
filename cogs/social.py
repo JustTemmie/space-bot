@@ -84,8 +84,7 @@ class social(commands.Cog):
         await self.social_commands(ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets)         
 
 
-    @commands.command(name="cuddle", aliases=["hug²"], brief="it's like hugs, but ever more wholesome",
-    )
+    @commands.command(name="cuddle", aliases=["hug²"], brief="it's like hugs, but ever more wholesome",    )
     @cooldown(8, 25, BucketType.guild)
     async def cuddlecommand(self, ctx, targets: Greedy[Member]):
         await self.social_commands(ctx, "cuddle", 25, "took", ", forcing them to go <a:cuddle:888504653938044999>", "is hugging themselves, low key cute ngl 😊", "awwwweeee", targets)         
@@ -97,8 +96,7 @@ class social(commands.Cog):
         await self.social_commands(ctx, "kiss", 50, "just kissed", ", and they're so cute!", "is somehow cute enough to kiss themselves?????+", "i ship it", targets)   
         
 
-    @commands.command(name="pat", aliases=["headpat", "pet"], brief="what if we pat eachother in public :fleeshed:",
-    )
+    @commands.command(name="pat", aliases=["headpat", "pet"], brief="what if we pat eachother in public :fleeshed:",    )
     @cooldown(8, 25, BucketType.guild)
     async def patpat(self, ctx, targets: Greedy[Member]):
         await self.social_commands(ctx, "headpat", 50, "gave", " a big ol' headpat", "got a big pat from themselves, impressive", "pat pat", targets)   
