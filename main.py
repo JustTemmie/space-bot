@@ -78,24 +78,6 @@ async def on_autopost_success():
 
 
 @bot.event
-async def on_dbl_vote(data):
-    """An event that is called whenever someone votes for the bot on Top.gg."""
-    if data["type"] == "test":
-        # this is roughly equivalent to
-        # `return await on_dbl_test(data)` in this case
-        #return bot.dispatch("dbl_test", data)
-        on_dbl_test(data)
-
-    print(f"Received a vote:\n{data}")
-
-
-@bot.event
-async def on_dbl_test(data):
-    """An event that is called whenever someone tests the webhook system for your bot on Top.gg."""
-    print(f"Received a test vote:\n{data}")
-
-
-@bot.event
 async def on_ready():
     if not bot.ready:
 
@@ -126,7 +108,8 @@ async def on_ready():
         bot.ready = True
 
 
-async def randomize_status():
+@tasks.loop(hours=5, minutes=random.randint(0, 120))
+async def change_status_task():
     # status = "changed the host, should be more stable now :)"
     status = random.choice(statuses)
     if "extra-" in status:
@@ -145,11 +128,7 @@ async def randomize_status():
         activity=discord.Activity(type=discord.ActivityType.watching, name=(status)),
     )
     await bot.status_out.send(f'status changed to "{status}"')
-    
-    
-@tasks.loop(hours=5, minutes=random.randint(0, 120))
-async def change_status_task():
-    await randomize_status()
+
 
 
 # loads cogs
