@@ -28,7 +28,7 @@ class ecomarry(commands.Cog):
             return await ctx.send("you need to create an account first")
         
         if await check_if_not_exist(member):
-            return await ctx.send(f"{SL.removeat(member.display_name)} does not have an account, they need to create an account first")
+            return await ctx.send(f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first")
         
         data = await get_bank_data()
         
@@ -127,7 +127,7 @@ class ecomarry(commands.Cog):
             return await ctx.send("you need to create an account first")
 
         if await check_if_not_exist(member):
-            return await ctx.send(f"{SL.removeat(member.display_name)} does not have an account, they need to create an account first")
+            return await ctx.send(f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first")
         
         data = await get_bank_data()
 
