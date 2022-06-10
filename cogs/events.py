@@ -142,6 +142,8 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
+        await self.bot.get_channel(984577196616216616).send(f"{err}")
+        
         if err == "on_command_error":
             await args[0].send("Sorry, something unexpected went wrong.")
             # raise
