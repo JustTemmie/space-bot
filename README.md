@@ -1,6 +1,15 @@
 # Andromeda
 
-## fuck you
+<a href="https://github.com/JustTemmie/space-bot/blob/main/LICENSE"><img src="https://img.shields.io:/github/license/JustTemmie/space-bot?color=informational"></img></a>
+<a href="https://github.com/JustTemmie/space-bot/issues"><img src="https://img.shields.io:/github/issues/JustTemmie/space-bot?color=important"></img></a>
+<a href="https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FJustTemmie%2Fspace-bot"><img src="https://img.shields.io:/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FJustTemmie%2Fspace-bot"></img></a>
+
+## Useful links
+- [Invite](#invite)
+- [Terms of Service](service.md)
+- [Privacy Policy](privacy-policy.md)
+- [Setup](#setup)
+
 
 ## Invite
 
@@ -10,7 +19,9 @@
 <br/>
 Take a look at the <a href="https://top.gg/bot/765222621779853312">top.gg page</a>.
 
-## Setup
+##  Setup
+`NOTE: This is only for self hosting`
+
 you need to have a verified top.gg bot or else this will throw an error :p
 
 First, install the requirements.txt file with pip.
