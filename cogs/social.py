@@ -34,6 +34,10 @@ class social(commands.Cog):
     #    await member.kick(reason="tried to rape someone")
 
     async def social_commands(self, ctx, search, top_x_gifs, string, binder, self_string, description, targets):
+        if targets == []:
+            await ctx.send(f"please specify who you want to {ctx.command.name}")
+            return
+
         gif_count = top_x_gifs
         r = requests.get(
             "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
@@ -60,9 +64,7 @@ class social(commands.Cog):
 
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs["results"][random.randrange(0, gif_count)]["media"][0]["gif"][
-                "url"
-            ]
+            realoutput = top_x_gifs["results"][random.randrange(0, gif_count)]["media"][0]["gif"]["url"]
             #print(realoutput)
             embed = Embed(title=title_string, description=description, colour=ctx.author.colour)
             if realoutput is not None:
@@ -130,7 +132,7 @@ class social(commands.Cog):
     @commands.command(name="kill", aliases=["murder"], brief="that's an official oisann moment")
     @cooldown(8, 25, BucketType.guild)
     async def killcommand(self, ctx, *, member: discord.Member):
-        # not tenor
+        # not tenor, less graphical API
         api_url = "https://api.satou-chan.xyz/api/endpoint/kill"
 
         async with request("GET", api_url, headers={}) as response:
