@@ -77,6 +77,12 @@ async def on_autopost_success():
     print(f"Posted server count ({bot.topggobj.guild_count}), shard count ({bot.shard_count})")
 
 
+
+@bot.event
+async def on_shard_ready(shard_id):
+    print(f"Shard {shard_id} Ready!")
+
+
 @bot.event
 async def on_ready():
     if not bot.ready:
