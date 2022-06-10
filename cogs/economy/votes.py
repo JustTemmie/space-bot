@@ -30,16 +30,10 @@ class TopGG(commands.Cog):
         weekendstr = ""
         streakstr = ""
         is_weekend = False
-        
-        if time.time() < 1654497044: # placeholder
-            weekendstr = "\nit's the weekend, you got double rewards!"
+
+        if data["is_weekend"]:
             is_weekend = True
-        
-        try:  # needs testing when it's not a weekend lmao
-            if data["is_weekend"]:
-                print("weekend vote!")
-        except:
-            pass
+            weekendstr = "\nit's the weekend, you got double rewards!"
 
         user = int(data['user'])
         
