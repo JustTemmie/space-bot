@@ -29,11 +29,6 @@
         "name": "Fun",
         "description": "`8ball` `fact` `funfact` `joke` `shitpost` `trivia`"
     },
-    "music": {
-        "icon": "🎧",
-        "name": "Music",
-        "description": "`play` `lyrics` `loop` `remove` `shuffle` `queue` `skip` `stop` `leave` `pause` `resume` `now` `volume`"
-    },
     "6th": {
         "icon": "🛠️",
         "name": "Utility",
