@@ -44,9 +44,9 @@ async def check_captcha(self, ctx, increase_by = 1):
     last_message = data[str(ctx.author.id)]["anti-cheat"]["last_command"]
 
     time_since_last_message = time.time() - last_message
-    timer = time_since_last_message / 1200
+    timer = time_since_last_message / 600
 
-    decrease_by = floor(timer**0.65)
+    decrease_by = floor(timer**0.75)
 
     data[str(ctx.author.id)]["anti-cheat"]["counter"] += increase_by - decrease_by
     data[str(ctx.author.id)]["anti-cheat"]["last_command"] = time.time()
@@ -64,7 +64,7 @@ async def check_captcha(self, ctx, increase_by = 1):
     captchaStr = await generate_user_capcha(ctx.author)
     captchaStr = captchaStr.replace(" ", "").lower()
     print(f"generated captcha for {ctx.author.id}")
-    await ctx.send("you have to solve this captcha first, if you need help join our support server <https://discord.gg/8MdVe6NgVy>", file = discord.File(f"./temp/{ctx.author.id}captcha.png"))
+    await ctx.send("you have to solve this captcha first\nexample aderl, case does not matter, no spaces\nif you need help join our support server <https://discord.gg/8MdVe6NgVy>", file = discord.File(f"./temp/{ctx.author.id}captcha.png"))
 
 
     check = await check_captcha_valid(self, ctx, captchaStr)
