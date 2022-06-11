@@ -22,7 +22,7 @@ Take a look at the <a href="https://top.gg/bot/765222621779853312">top.gg page</
 ##  Setup
 `NOTE: This is only for self hosting`
 
-you need to have a verified top.gg bot or else this will throw an error :p
+you can skip the top.gg steps but it will likely throw an error :p
 
 First, install the requirements.txt file with pip.
 
