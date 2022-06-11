@@ -64,7 +64,7 @@ class TopGG(commands.Cog):
         #     money = logs = 0
         
         # else:
-        if time.time() - data[str(user)]["dailyvote"]["last_vote"] >= 172800: # 48 hours
+        if time.time() - data[str(user)]["dailyvote"]["last_vote"] >= 259200: # 72 hours
             if data[str(user)]["dailyvote"]["streak"] != 0:
                 streakstr = f"\nYou lost your streak of **{data[str(user)]['dailyvote']['streak']}** votes :("
             
