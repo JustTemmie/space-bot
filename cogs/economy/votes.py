@@ -80,8 +80,8 @@ class TopGG(commands.Cog):
         streak = data[str(user)]["dailyvote"]["streak"]
         total_votes = data[str(user)]["dailyvote"]["total_votes"]
         
-        money = random.randrange(25, 75) + (streak * random.uniform(1, 2.5)) + (total_votes * 1.5)
-        logs = random.randrange(25, 75) + (streak * random.uniform(1, 2.5)) + (total_votes * 1.5)
+        money = random.randrange(25, 75) + (streak * random.uniform(0.7, 1.5)) + (total_votes * 0.4)
+        logs = random.randrange(25, 75) + (streak * random.uniform(0.7, 1.5)) + (total_votes * 0.4)
         
         logs *= 0.6
         
