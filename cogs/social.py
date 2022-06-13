@@ -34,6 +34,10 @@ class social(commands.Cog):
     #    await member.kick(reason="tried to rape someone")
 
     async def social_commands(self, ctx, search, top_x_gifs, string, binder, self_string, description, targets):
+        if targets == []:
+            await ctx.send(f"please specify who you want to {ctx.command.name}")
+            return
+
         gif_count = top_x_gifs
         r = requests.get(
             "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
@@ -60,9 +64,7 @@ class social(commands.Cog):
 
         if r.status_code == 200:
             top_x_gifs = json.loads(r.content)
-            realoutput = top_x_gifs["results"][random.randrange(0, gif_count)]["media"][0]["gif"][
-                "url"
-            ]
+            realoutput = top_x_gifs["results"][random.randrange(0, gif_count)]["media"][0]["gif"]["url"]
             #print(realoutput)
             embed = Embed(title=title_string, description=description, colour=ctx.author.colour)
             if realoutput is not None:
@@ -82,8 +84,7 @@ class social(commands.Cog):
         await self.social_commands(ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets)         
 
 
-    @commands.command(name="cuddle", aliases=["hug²"], brief="it's like hugs, but ever more wholesome",
-    )
+    @commands.command(name="cuddle", aliases=["hug²"], brief="it's like hugs, but ever more wholesome")
     @cooldown(8, 25, BucketType.guild)
     async def cuddlecommand(self, ctx, targets: Greedy[Member]):
         await self.social_commands(ctx, "cuddle", 25, "took", ", forcing them to go <a:cuddle:888504653938044999>", "is hugging themselves, low key cute ngl 😊", "awwwweeee", targets)         
@@ -95,8 +96,7 @@ class social(commands.Cog):
         await self.social_commands(ctx, "kiss", 50, "just kissed", ", and they're so cute!", "is somehow cute enough to kiss themselves?????+", "i ship it", targets)   
         
 
-    @commands.command(name="pat", aliases=["headpat", "pet"], brief="what if we pat eachother in public :fleeshed:",
-    )
+    @commands.command(name="pat", aliases=["headpat", "pet"], brief="what if we pat eachother in public :fleeshed:")
     @cooldown(8, 25, BucketType.guild)
     async def patpat(self, ctx, targets: Greedy[Member]):
         await self.social_commands(ctx, "headpat", 50, "gave", " a big ol' headpat", "got a big pat from themselves, impressive", "pat pat", targets)   
@@ -130,7 +130,7 @@ class social(commands.Cog):
     @commands.command(name="kill", aliases=["murder"], brief="that's an official oisann moment")
     @cooldown(8, 25, BucketType.guild)
     async def killcommand(self, ctx, *, member: discord.Member):
-        # not tenor
+        # not tenor, less graphical API
         api_url = "https://api.satou-chan.xyz/api/endpoint/kill"
 
         async with request("GET", api_url, headers={}) as response:

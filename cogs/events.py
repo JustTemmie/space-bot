@@ -142,6 +142,8 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
+        await self.bot.get_channel(984577196616216616).send(f"{err}")
+        
         if err == "on_command_error":
             await args[0].send("Sorry, something unexpected went wrong.")
             # raise
@@ -192,10 +194,15 @@ class events(commands.Cog):
         if member.bot:
             return
         
-        guilds = [978695335088095282, 694107776015663146, 918787074801401868, 946136828916944987, 885113462378876948]
+        guilds = [978695335088095282, 694107776015663146, 918787074801401868, 946136828916944987, 885113462378876948, 628212961218920477]
         
         if not member.guild.id in guilds:
             return
+
+        if member.guild.id == 628212961218920477:  # test server
+            print("hi")
+            role = member.guild.get_role(717084015454060680)
+            await member.add_roles(role)
         
         if member.guild.id == 694107776015663146:  # space
             await self.bot.get_channel(694197942000680980).send(
@@ -233,11 +240,8 @@ class events(commands.Cog):
                 f"hello {member.mention}"
             )
             
-            await member.add_roles(
-                member.guild.get_role(
-                    978695335088095285
-                )
-            )
+            role = member.guild.get_role(978695335088095285)
+            await member.add_roles(role)
 
 
     @commands.Cog.listener()

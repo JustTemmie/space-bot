@@ -30,16 +30,10 @@ class TopGG(commands.Cog):
         weekendstr = ""
         streakstr = ""
         is_weekend = False
-        
-        if time.time() < 1654497044: # placeholder
-            weekendstr = "\nit's the weekend, you got double rewards!"
+
+        if data["is_weekend"]:
             is_weekend = True
-        
-        try:  # needs testing when it's not a weekend lmao
-            if data["is_weekend"]:
-                print("weekend vote!")
-        except:
-            pass
+            weekendstr = "\nit's the weekend, you got double rewards!"
 
         user = int(data['user'])
         
@@ -70,7 +64,7 @@ class TopGG(commands.Cog):
         #     money = logs = 0
         
         # else:
-        if time.time() - data[str(user)]["dailyvote"]["last_vote"] >= 172800: # 48 hours
+        if time.time() - data[str(user)]["dailyvote"]["last_vote"] >= 259200: # 72 hours
             if data[str(user)]["dailyvote"]["streak"] != 0:
                 streakstr = f"\nYou lost your streak of **{data[str(user)]['dailyvote']['streak']}** votes :("
             
@@ -86,8 +80,8 @@ class TopGG(commands.Cog):
         streak = data[str(user)]["dailyvote"]["streak"]
         total_votes = data[str(user)]["dailyvote"]["total_votes"]
         
-        money = random.randrange(25, 75) + (streak * random.uniform(2, 4)) + (total_votes * 1.5)
-        logs = random.randrange(25, 75) + (streak * random.uniform(2, 4)) + (total_votes * 1.5)
+        money = random.randrange(25, 75) + (streak * random.uniform(1, 2.5)) + (total_votes * 1.5)
+        logs = random.randrange(25, 75) + (streak * random.uniform(1, 2.5)) + (total_votes * 1.5)
         
         logs *= 0.6
         
