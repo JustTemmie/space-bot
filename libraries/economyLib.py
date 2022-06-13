@@ -11,6 +11,9 @@ inv_version = 1.03
 
 confirmations = [
         "yes",
+        "yess",
+        "yesss"
+        "yes.",
         "yep",
         "yup",
         "y",
@@ -28,6 +31,7 @@ confirmations = [
         "ja",
         "beaver",
         "wouldn't mind",
+        "aye aye"
         "🦫",
         "🥺",
         "😊",
