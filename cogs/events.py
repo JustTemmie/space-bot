@@ -353,18 +353,33 @@ class events(commands.Cog):
         if datetime.today().weekday() != 4:
             return
         
-        with open("images/video/date.json", "r") as f:
+        with open("images/video/funnies/date.json", "r") as f:
             jsoninfo = json.load(f)
 
         if jsoninfo == str(datetime.now().day):
             return
 
-        with open("images/video/date.json", "w") as f:
+        with open("images/video/funnies/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
 
+        quotes = [
+            "fr- waiit what?"
+            "frog friday!!!"
+        ]
+        videos = [
+            "images/video/funnies/fish.mp4"
+            "images/video/funnies/funnyfrogfriday.mp4"
+        ]
+        
+        x = 0
+        
+        if 2 in random.sample(range(0, 10), 9):
+            x = 1
+        
+        
         for ID in fish_IDs:
             await self.bot.get_channel(ID).send(
-                "fish friday!!!", file=discord.File("images/video/fish.mp4")
+                quotes[x], file=discord.File(videos[x])
             )
 
     
