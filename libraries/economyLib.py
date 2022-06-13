@@ -18,11 +18,19 @@ confirmations = [
         "ys",
         "ye",
         "oui",
+        "si",
         "sure",
+        "sure?",
+        "okay",
+        "okay?",
         "i do",
         "i am",
+        "ja",
         "beaver",
+        "wouldn't mind",
         "🦫",
+        "🥺",
+        "😊",
 ]
 
 
