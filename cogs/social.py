@@ -81,7 +81,19 @@ class social(commands.Cog):
     @commands.command(name="tickle", brief="god you poor little thing")
     @cooldown(8, 25, BucketType.guild)
     async def ticklecommand(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets)         
+        await self.social_commands(ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets)       
+    
+    
+    @commands.command(name="stare", aliases=["look"], brief="okay, creep")
+    @cooldown(8, 25, BucketType.guild)
+    async def arsarsars(self, ctx, targets: Greedy[Member]):
+        await self.social_commands(ctx, "stare", 30, "is looking at", "", "is looking at themselves, how do you even do that? a mirror?", "peekaboo", targets) 
+
+
+    @commands.command(name="hold", aliases=["holdhands"], brief="aweeee :)")
+    @cooldown(8, 25, BucketType.guild)
+    async def arsarsars(self, ctx, targets: Greedy[Member]):
+        await self.social_commands(ctx, "hold hands", 20, "is holding the hand belonging to", ", how cute", "is really just clapping when you think about it", "omggg so lewd", targets) 
 
 
     @commands.command(name="cuddle", aliases=["hug²"], brief="it's like hugs, but ever more wholesome")
