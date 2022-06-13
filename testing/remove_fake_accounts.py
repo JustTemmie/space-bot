@@ -29,5 +29,8 @@ if __name__ == '__main__':
 
     print(len(data))
     
-    for user in data:
-        print(data[user]["wallet"])
+    #for user in data:
+    #    print(data[user]["wallet"])
+    
+    with open ('./storage/playerInfo/bank.json', 'w') as f:
+        json.dump(data, f)
