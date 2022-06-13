@@ -19,31 +19,31 @@ class images(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    """
-    @commands.command(
-        name="wanted",
-        aliases=["dead or alive"],
-        brief="do **YOU** want to get someone killed???? well boi do i have the solution",
-    )
-    @cooldown(2, 5, BucketType.user)
-    async def wanted_command(self, ctx, user: discord.Member = None):
-        if user == None:
-            user = ctx.author
 
-        wanted = Image.open("images/presets/wanted.png")
+    # @commands.command(
+    #     name="wanted",
+    #     aliases=["dead or alive"],
+    #     brief="do **YOU** want to get someone killed???? well boi do i have the solution",
+    # )
+    # @cooldown(2, 5, BucketType.user)
+    # async def wanted_command(self, ctx, user: discord.Member = None):
+    #     if user == None:
+    #         user = ctx.author
 
-        asset = user.avatar_url_as(size=256)
-        data = io.BytesIO(await asset.read())
-        pfp = Image.open(data)
+    #     wanted = Image.open("images/presets/wanted.png")
 
-        pfp = pfp.resize((227, 227))
+    #     asset = user.avatar_url_as(size=256)
+    #     data = io.BytesIO(await asset.read())
+    #     pfp = Image.open(data)
 
-        wanted.paste(pfp, (150, 260))
+    #     pfp = pfp.resize((227, 227))
 
-        wanted.save("images/processed/wanted.png")
+    #     wanted.paste(pfp, (150, 260))
 
-        await ctx.send(file=discord.File("images/processed/wanted.png"))
-    """
+    #     wanted.save("images/processed/wanted.png")
+
+    #     await ctx.send(file=discord.File("images/processed/wanted.png"))
+
     
     @commands.command(name="squish", brief="haha person go *squish*")
     @cooldown(2, 5, BucketType.user)
