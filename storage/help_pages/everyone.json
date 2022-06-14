@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`vote` `settings` `prefix`"
+        "description": "`prefix` `imdb`"
     },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
@@ -42,7 +42,7 @@
     "8th": {
         "icon": "🔍",
         "name": "Search",
-        "description": "`reddit` `tenor` `urban` `wikipedia` `youtube`"
+        "description": "`reddit` `imdb` `tenor` `urban` `wikipedia` `youtube`"
     },
     "9th": {
         "icon": "🫂",

@@ -15,6 +15,7 @@ import wikipedia
 import urllib
 import re
 import random
+import imdb
 
 import libraries.standardLib as SL
 
@@ -65,7 +66,47 @@ class search(commands.Cog):
             return await self.check_nsfw(ctx, json, loops + 1)
         
         return post
-        
+    
+    @commands.command(
+        name="imdb",
+        brief="search up a movie using imdb",
+    )
+    @cooldown(5, 20, BucketType.user)
+    async def imdb_command(self, ctx, *, movie):
+
+        try:
+            movie = imdb.IMDb().search_movie(movie)
+            title = movie[0]["title"]
+            movieObj = imdb.IMDb().get_movie(movie[0].getID())
+
+            rateStr = "★" * round(movieObj["rating"])
+            while len(rateStr) < 10:
+                rateStr += "☆"
+            rateStr += f" ({movieObj['rating']}/10)"
+
+            dict = {
+                "Plot": movieObj["plot"][0],
+                "Genres": ", ".join(movieObj["genres"]),
+                "Rating": rateStr,
+                "Cast" : ", ".join([str(x) for x in movieObj["cast"]][:5]),
+                "Writer": ", ".join([str(x) for x in movieObj["writer"]]),
+                "Year" : movieObj["year"]
+            }
+
+            embed = Embed(
+                title=movieObj["title"],
+                color=ctx.author.colour
+            )
+
+            for i in dict:
+                embed.add_field(name=i, value=dict[i], inline=False)
+  
+            await ctx.send(embed=embed)
+        except Exception as e:
+            print(e)
+            await ctx.send(f"Error: {e}")
+
+    
     @commands.command(
         name="reddit",
         aliases=["red", "r/", "rslash", "r"],
