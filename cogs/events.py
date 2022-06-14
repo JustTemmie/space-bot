@@ -246,9 +246,10 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
-        hendex = random.randrange(0, len(henwees))
-        if "!" in ctx.content:
+        if ctx.content.startswith("!"):
             return
+
+        hendex = random.randrange(0, len(henwees))
         
         if ctx.author.bot:
             return
