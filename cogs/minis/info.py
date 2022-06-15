@@ -54,6 +54,7 @@ class info(commands.Cog):
         aliases=["guildinfo", "si", "gi"],
         brief="Tells you a bunch of random info about the server",
     )
+    @commands.guild_only()
     async def server_info(self, ctx):
         embed = Embed(
             title="Server info",

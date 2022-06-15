@@ -11,6 +11,7 @@ class polls(commands.Cog):
         name="poll",
         brief=f'Start a poll, If no answers are provided, it will default to yes/no, Max of 10 answers\nIf answers/questions contain spaces put it in quotes\nexample: poll "Do you like bacon" yes',
     )
+    @commands.guild_only()
     async def poll_command(self, ctx, question, *answers):
         """
         Start a poll.
