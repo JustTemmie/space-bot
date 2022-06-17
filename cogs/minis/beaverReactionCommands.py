@@ -11,6 +11,7 @@ class beavr(commands.Cog):
         name="beaver",
         brief="reacts with beaver to the message corresponding with the ID you send\nALTERNATIVELY the bot will react to then same message you replied to sing discord's built in feature",
     )
+    @commands.guild_only()
     @cooldown(5, 10, BucketType.user)
     async def react_beaver_command(self, ctx, id=None):
 
