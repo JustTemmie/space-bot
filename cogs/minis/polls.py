@@ -29,7 +29,7 @@ class polls(commands.Cog):
             header = "**📊 " + question.title() + "**"
             inner = ""
             for i in range(len(answers)):
-                inner += f"\\{letter_emote[i]} {answers[i].title()}\n"
+                inner += f"\\{letter_emote[i]} {answers[i]}\n"
             embed = discord.Embed(description=inner, colour=0x02389E)
             msg = await ctx.send(header, embed=embed)
             for i in range(len(answers)):
