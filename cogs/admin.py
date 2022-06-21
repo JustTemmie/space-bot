@@ -227,18 +227,23 @@ class admin(Cog):
     @has_permissions(manage_roles=True)
     async def rolemenu(self, ctx):
 
-        max_roles = 30
+        max_roles = 20
+        funnystr = ""
         
-        await ctx.send("What should the name of the role menu/embed be?", delete_after = 45)
+        deled = await ctx.send("What should the name of the role menu/embed be?", delete_after = 45)
         response = await get_input(self, ctx)
         embed = discord.Embed(title = response.content, color = 0x00FF00)
         msg = await ctx.send(embed = embed)
+        await deled.delete()
+        await response.delete()
         
-        await ctx.send("What should the description of the role menu/embed be? if you don't want one, just type 'none'", delete_after = 45)
+        deled = await ctx.send("What should the description of the role menu/embed be? if you don't want one, just type 'none'", delete_after = 45)
         response = await get_input(self, ctx)
+        await deled.delete()
         if not response.content.lower() in ["none", "n", "no"]:
             embed.description = response.content
         await msg.edit(embed = embed)
+        await response.delete()
         
         try:
             with open(f"storage/reactions/roles/{ctx.channel.id}.json", "r") as f:
@@ -257,8 +262,10 @@ class admin(Cog):
 
         
         for i in range(max_roles):
-            await ctx.send("What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'", delete_after = 30)
+            deled = await ctx.send("What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'", delete_after = 30)
             response = await get_input(self, ctx)
+            await deled.delete()
+            await response.delete()
             if response.content.lower() in ["none", "n", "no"]:
                 return await ctx.send("Role menu creation completed, users can now react to the message to get roles", delete_after = 20)
             try:
@@ -267,9 +274,14 @@ class admin(Cog):
             except discord.Forbidden as e:
                 return await ctx.send(f"sorry that name triggered an error, please run the command again\nError: {e}")
             
-            await ctx.send("and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis", delete_after = 30)
+            deled = await ctx.send("and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis", delete_after = 30)
             response = await get_input(self, ctx)
-            embed.add_field(name = response.content, value = role.mention, inline = False)
+            await deled.delete()
+            await response.delete()
+            
+            funnystr += f"{response.content} {role.mention}\n"
+            embed.clear_fields()
+            embed.add_field(name = "||\n||", value = funnystr, inline = False)
             try:
                 await msg.add_reaction(response.content)
             except Exception as e:
