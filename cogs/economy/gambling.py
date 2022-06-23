@@ -25,6 +25,16 @@ class ecogambling(commands.Cog):
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")
             return
+        
+        await open_account(self, ctx)
+        
+        if await check_if_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
+        bal = await update_bank_data(ctx.author)
+        
+        if amount == "all":
+            amount = bal[0]
 
         amount = int(amount)
         if amount > 50000:
@@ -33,13 +43,6 @@ class ecogambling(commands.Cog):
         if amount < 5:
             await ctx.send("please bet at leaaaast 5 <:beaverCoin:968588341291397151>")
             return
-
-        await open_account(self, ctx)
-        
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
-        
-        bal = await update_bank_data(ctx.author)
 
         if amount > bal[0]:
             await ctx.send("you don't have THAT much money")
@@ -85,8 +88,11 @@ class ecogambling(commands.Cog):
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")
             return
-
+    
         bal = await update_bank_data(ctx.author)
+    
+        if amount == "all":
+            amount = bal[0]
 
         amount = int(amount)
         if amount > 50000:
@@ -98,10 +104,6 @@ class ecogambling(commands.Cog):
 
         if amount < 3:
             await ctx.send("please bet at leaaaast 3 <:beaverCoin:968588341291397151>")
-            return
-
-        if amount < 0:
-            await ctx.send("sorry, you have to gamble a positive amount of money")
             return
 
         final = []
