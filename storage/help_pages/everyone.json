@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`prefix` `imdb`"
+        "description": "`prefix` `imdb` `ship`"
     },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
@@ -47,7 +47,7 @@
     "9th": {
         "icon": "🫂",
         "name": "Social",
-        "description": "`marry` `divorce`"
+        "description": "`marry` `divorce` `ship`"
     },
     "10th": {
         "icon": "🤗",
