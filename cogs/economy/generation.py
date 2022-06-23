@@ -7,7 +7,7 @@ import json
 
 
 from libraries.economyLib import *
-
+from libraries.captchaLib import *
 
 class ecogeneration(commands.Cog):
     def __init__(self, bot):
