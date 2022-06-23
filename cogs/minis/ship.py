@@ -21,7 +21,7 @@ class shipcog(commands.Cog):
             await ctx.send("Please don't give me two of the same user")
             return
         
-        random.seed(person1.id + person2.id)
+        random.seed(person1.id + person2.id + 2)
         await ctx.send(f"i give a ship between {await SL.removeat(person1.display_name)} and {await SL.removeat(person2.display_name)} a solid {random.randint(0, 100)} / 100")
         random.seed()
         
