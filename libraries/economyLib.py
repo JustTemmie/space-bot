@@ -98,7 +98,7 @@ async def update_account(user):
         
         users[str(user.id)]["quote"] = "I'm not a bot, I'm a human"
         
-        users[str(user.id)]["scavenge_cooldown"] = time.time() - 450
+        users[str(user.id)]["scavenge_cooldown"] = time.time() - 900
         users[str(user.id)]["inventory"]["logs"] = 0
         
         users[str(user.id)]["daily"] = {}
@@ -208,7 +208,7 @@ async def open_account(self, ctx):
     
     ###############################################################################
 
-    users[str(user.id)]["scavenge_cooldown"] = time.time()
+    users[str(user.id)]["scavenge_cooldown"] = time.time() - 900
     users[str(user.id)]["speak_cooldown"] = time.time() + 300
     
     ###############################################################################
