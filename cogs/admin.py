@@ -230,15 +230,21 @@ class admin(Cog):
         max_roles = 20
         funnystr = ""
         
-        deled = await ctx.send("What should the name of the role menu/embed be?", delete_after = 45)
-        response = await get_input(self, ctx)
+        deled = await ctx.send(
+            "What should the name of the role menu/embed be?",
+            delete_after = 45
+        )
+        response = await get_input(self, ctx, 45)
         embed = discord.Embed(title = response.content, color = 0x00FF00)
         msg = await ctx.send(embed = embed)
         await deled.delete()
         await response.delete()
         
-        deled = await ctx.send("What should the description of the role menu/embed be? if you don't want one, just type 'none'", delete_after = 45)
-        response = await get_input(self, ctx)
+        deled = await ctx.send(
+            "What should the description of the role menu/embed be? if you don't want one, just type 'none'",
+            delete_after = 45
+        )
+        response = await get_input(self, ctx, 45)
         await deled.delete()
         if not response.content.lower() in ["none", "n", "no"]:
             embed.description = response.content
@@ -262,8 +268,11 @@ class admin(Cog):
 
         
         for i in range(max_roles):
-            deled = await ctx.send("What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'", delete_after = 30)
-            response = await get_input(self, ctx)
+            deled = await ctx.send(
+                "What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'",
+                delete_after = 150
+            )
+            response = await get_input(self, ctx, 150)
             await deled.delete()
             await response.delete()
             if response.content.lower() in ["none", "n", "no"]:
@@ -274,8 +283,11 @@ class admin(Cog):
             except discord.Forbidden as e:
                 return await ctx.send(f"sorry that name triggered an error, please run the command again\nError: {e}")
             
-            deled = await ctx.send("and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis", delete_after = 30)
-            response = await get_input(self, ctx)
+            deled = await ctx.send(
+                "and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis",
+                delete_after = 150
+            )
+            response = await get_input(self, ctx, 150)
             await deled.delete()
             await response.delete()
             
