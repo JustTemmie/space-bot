@@ -381,8 +381,8 @@ class events(commands.Cog):
         if random.randrange(0, 10) == 2:
              x = 1
  
-        #for ID in fish_IDs:\
-        await self.bot.get_channel(965075480652967976).send(
+        for ID in fish_IDs:\
+            await self.bot.get_channel(ID).send(
                 quotes[x], file=discord.File(videos[x])
             )
 
