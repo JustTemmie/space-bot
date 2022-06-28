@@ -10,6 +10,7 @@ class role_menu(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
+    @commands.guild_only()
     async def on_raw_reaction_add(self, payload):
         if payload.member.bot:
             return
@@ -36,6 +37,7 @@ class role_menu(commands.Cog):
             print(f"no role found, line 40ish roles.py {e}")
 
     @commands.Cog.listener()
+    @commands.guild_only()
     async def on_raw_reaction_remove(self, payload):
         
         with open("storage/reactions/channels.json", "r") as f:
