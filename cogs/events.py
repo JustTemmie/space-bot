@@ -469,7 +469,7 @@ class events(commands.Cog):
                 embed.set_footer(text="By {} in {}".format(author, subreddit))
                 
                 for ID in auto_reddit_IDs:
-                    await self.bot.get_channel(ID).send(embed=embed)
+                    await self.bot.get_channel(ID).send("beaver", embed=embed)
             
             except:
                 pass

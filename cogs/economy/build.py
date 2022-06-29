@@ -155,6 +155,8 @@ class ecobuild(commands.Cog):
             if current_damlevel < 5:
                 return await ctx.send("You need to upgrade your dam to lvl 5 first")
             
+            return await ctx.send("not implemented yet, sorry")
+            
         
         await ctx.send("that's not a valid building")
         return

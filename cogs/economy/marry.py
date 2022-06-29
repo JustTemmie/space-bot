@@ -17,6 +17,7 @@ class ecomarry(commands.Cog):
     # this code doesn't use any else statements btw 😎 i find it more clean :shrug:
     @commands.command(name="marry", brief = "marry someone! even though, they're probably not even going to be friends")
     @cooldown(20, 600, BucketType.user)
+    @commands.guild_only()
     async def marry_someone(self, ctx, member: discord.Member, ring=None):
         if member == None or member == ctx.author:
             return await ctx.send("please tell me who you want to marry")
@@ -116,6 +117,7 @@ class ecomarry(commands.Cog):
 
     @commands.command(name="divorce", brief="divorce your current partner, you fu\*\*\*\*\* hoe")
     @cooldown(15, 600, BucketType.user)
+    @commands.guild_only()
     async def divorce_someone(self, ctx, member: discord.Member):
         if member == None or member == ctx.author or member.bot:
             await ctx.send("please tell me who you wish to divorce")
