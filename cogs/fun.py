@@ -303,13 +303,13 @@ class fun(commands.Cog):
         except ValueError as e:
             return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`")
         
-        if dice <= 25:
+        if dice <= 100:
             rolls = [random.randrange(1, value) for i in range(dice)]
 
             await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
+            return
 
-        else:
-            await ctx.send("I can't roll that many dice. Please roll less than 25 of them")
+        await ctx.send("I can't roll that many dice. Please roll less than 100 of them")
 
     @roll_dice.error
     async def roll_dice_error(self, ctx, exc):
