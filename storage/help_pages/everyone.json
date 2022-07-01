@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`prefix` `imdb` `ship`"
+        "description": "`prefix` `imdb` `ship` `pride/flag`"
     },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
@@ -22,7 +22,7 @@
     "4th": {
         "icon": "🖼️",
         "name": "Images",
-        "description": "`squish` `squishy` `ascii` `avatar`"
+        "description": "`flag` `squish` `squishy` `ascii` `avatar`"
     },
     "5th": {
         "icon": "🎱",
