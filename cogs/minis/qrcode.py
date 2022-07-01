@@ -19,10 +19,11 @@ class qrcodegenerator(commands.Cog):
     async def qrcode(self, ctx, *, input):
         qr = qrcode.QRCode(
             version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_H,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
             border=4,
         )
+            
         qr.add_data(str(input))
         try:
             qr.make(fit=True)
