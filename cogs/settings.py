@@ -113,7 +113,7 @@ Description: `{settings[category][child]['description']}`
         
         await ctx.send(f"`{category}` `{setting}` has been set to `{value}`")
 
-        with open ("storage/user/settings.json", "w") as f:
+        with open ("storage/playerinfo/settings.json", "w") as f:
             json.dump(settings, f)
         
 

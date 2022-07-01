@@ -1,7 +1,7 @@
 import json
 
 async def get_user_settings():
-    with open("storage/user/settings.json", "r") as f:
+    with open("storage/playerinfo/settings.json", "r") as f:
         settings = json.load(f)
     return settings
 
@@ -15,7 +15,7 @@ async def store_settings(user):
     
     if str(user.id) in data:
         data[str(user.id)]["version"] = 1.00
-        with open("storage/user/settings.json", "w") as f:
+        with open("storage/playerinfo/settings.json", "w") as f:
             json.dump(data, f)
         
         data = await get_user_settings()
@@ -30,7 +30,7 @@ async def store_settings(user):
     data[str(user.id)]["vote"]["reminder"] = False
     
     
-    with open("storage/user/settings.json", "w") as f:
+    with open("storage/playerinfo/settings.json", "w") as f:
         json.dump(data, f)
 
     return True
