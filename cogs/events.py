@@ -312,7 +312,9 @@ class events(commands.Cog):
             await ctx.add_reaction("🧠")
             await ctx.add_reaction("🔫")
         
-        
+        if "french" in ctx.content.lower():
+            await ctx.add_reaction("🇫🇷")
+            await ctx.reply("heyo what the fuck do you think you're saying?? seriously? speaking of the french???") 
             
 
 
