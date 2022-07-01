@@ -266,7 +266,7 @@ class events(commands.Cog):
             if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
                 msg = await ctx.reply("amogus") 
             
-            if "amog" in ctx.content.lower():
+            if "amog" in ctx.content.lower() or "amongu" in ctx.content.lower() or "among us" in ctx.content.lower():
                 msg = await ctx.reply("sus")
             
             if "bee " in ctx.content.lower() or "bee" == ctx.content.lower():   
