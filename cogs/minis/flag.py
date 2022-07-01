@@ -57,7 +57,7 @@ class Images(commands.Cog):
     @commands.command(
         name = "flag",
         aliases = ["pride"],
-        brief = "do you want a slighly more pridey pfp?",
+        brief = "do you want a slighly more pridey pfp?\nfor more info initiate the command without any parameters",
     )
     @cooldown(2, 5, BucketType.user)
     async def pride(self, ctx, flag = None, seperator = None, flag_2 = None, blur = "false", user: discord.Member = None):
