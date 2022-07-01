@@ -62,10 +62,11 @@ class Images(commands.Cog):
         brief = "do you want a slighly more pridey pfp?",
     )
     @cooldown(2, 5, BucketType.user)
-    async def pride(self, ctx, flag = None, seperator = None, flag_2 = None, blur = "false"):
-        """
-        Generate a pride pfp
-        """
+    async def pride(self, ctx, flag = None, seperator = None, flag_2 = None, blur = "false", user: discord.Member = None):
+        
+        if user == None:
+            user = ctx.author
+        
         if flag == None:
             embed = discord.Embed()
             embed.title = f"{ctx.prefix}{ctx.command}" + " [flag] {divider} {flag_2} {blur}"
@@ -109,7 +110,7 @@ Divider can be `-`, `|`, `/`, and `\`
         
         
         # Load profile picture as a gif
-        asset = ctx.author.avatar_url_as(size=512)
+        asset = user.avatar_url_as(size=512)
         data = BytesIO(await asset.read())
         # Load the pfp into PIL
         pfp = Image.open(data)
