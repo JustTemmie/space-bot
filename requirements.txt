@@ -12,3 +12,7 @@ youtube-dl
 topggpy
 captcha
 IMDbPY
+qrcode
+opencv-python
+numpy
+Image

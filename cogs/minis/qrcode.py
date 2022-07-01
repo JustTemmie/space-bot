@@ -5,7 +5,7 @@ from discord.ext.commands import cooldown, BucketType
 import libraries.standardLib as SL 
 
 import qrcode
-from PIL import Image
+import cv2
 
 class qrcodegenerator(commands.Cog):
     def __init__(self, bot):
@@ -13,10 +13,38 @@ class qrcodegenerator(commands.Cog):
 
     @commands.command(
         name = "qr",
-        brief = "Give it a string and it'll return you a qr code"
+        brief = "Give it a string and it'll return you a qr code]\nIt can also decode a qr code and return it as a message",
     )
     @cooldown(1, 3, BucketType.user)
-    async def qrcode(self, ctx, *, input):
+    async def qrcode(self, ctx, *, input = None):
+        if ctx.message.attachments != []:
+            image = ctx.message.attachments[0]
+            
+            if image.size > 1048576:
+                await ctx.send("Sorry, that image is too big")
+                return
+
+            await image.save(f"temp/qrinput{ctx.author.id}.png")
+            
+            filename = f"temp/qrinput{ctx.author.id}.png"
+            # read the QRCODE image
+            image = cv2.imread(filename)
+            # initialize the cv2 QRCode detector
+            detector = cv2.QRCodeDetector()
+            # detect and decode
+            data, vertices_array, binary_qrcode = detector.detectAndDecode(image)
+            # if there is a QR code
+            # print the data
+            if vertices_array is not None:
+                await ctx.send(await SL.removeat(data))
+            else:
+                await ctx.send("sorry, no QR code found")
+
+            return
+
+        if input == None:
+            await ctx.send("Please give me a string to generate a qr code for\nOr attach a qr code in your message and i'll decode it for you")
+
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
