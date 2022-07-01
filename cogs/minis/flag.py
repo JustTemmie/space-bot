@@ -2,8 +2,6 @@
 # THIS CODE WAS ORIGINALLY WRITTEN BY THE GITHUB USER @Quantum-Cucumber (found in this repo: https://github.com/Quantum-Cucumber/2magers/blob/master/cogs/images.py)
 # it's been slightly modified to fit this bot's library
 
-from ast import alias
-from turtle import title
 import discord
 from discord.ext import commands
 from discord.ext.commands import BucketType, cooldown
