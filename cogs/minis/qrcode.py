@@ -33,8 +33,7 @@ class qrcodegenerator(commands.Cog):
             detector = cv2.QRCodeDetector()
             # detect and decode
             data, vertices_array, binary_qrcode = detector.detectAndDecode(image)
-            # if there is a QR code
-            # print the data
+
             if vertices_array is not None:
                 await ctx.send(await SL.removeat(data))
             else:
