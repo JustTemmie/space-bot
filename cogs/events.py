@@ -266,6 +266,9 @@ class events(commands.Cog):
             if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
                 msg = await ctx.reply("amogus") 
             
+            if "amog" in ctx.content.lower():
+                msg = await ctx.reply("sus")
+            
             if "bee " in ctx.content.lower() or "bee" == ctx.content.lower():   
                 await ctx.add_reaction("<a:B_:976827254799740938>")
         
