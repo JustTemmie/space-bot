@@ -205,7 +205,7 @@ class Owner(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="pip")
-    async def pipe(self, ctx, action, pip):
+    async def pipe(self, ctx, action, *, pip):
         if action == "install":
             await ctx.send(
                 subprocess.check_call([sys.executable, "-m", "pip", f"{action}", f"{pip}"])
