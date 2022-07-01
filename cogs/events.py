@@ -246,7 +246,7 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
-        if ctx.content.startswith("!"):
+        if "!" in ctx.content:
             return
 
         hendex = random.randrange(0, len(henwees))
@@ -312,7 +312,7 @@ class events(commands.Cog):
             await ctx.add_reaction("🧠")
             await ctx.add_reaction("🔫")
         
-        if "french" in ctx.content.lower():
+        if "french" in ctx.content.lower() and "pride" not in ctx.content.lower() and "flag" not in ctx.content.lower():
             await ctx.add_reaction("🇫🇷")
             await ctx.reply("heyo what the fuck do you think you're saying?? seriously? speaking of the french???") 
             
