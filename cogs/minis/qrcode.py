@@ -35,9 +35,9 @@ class qrcodegenerator(commands.Cog):
             data, vertices_array, binary_qrcode = detector.detectAndDecode(image)
 
             if vertices_array is not None:
-                await ctx.send(await SL.removeat(data))
+                await ctx.reply(await SL.removeat(data))
             else:
-                await ctx.send("sorry, no QR code found")
+                await ctx.reply("sorry, no QR code found")
 
             return
 
