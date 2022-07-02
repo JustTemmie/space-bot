@@ -1,6 +1,8 @@
 # Andromeda
 
-[![Discord Bots](https://discordbots.org/api/widget/status/765222621779853312.svg)](https://discordbots.org/bot/765222621779853312)  [![Discord Bots](https://discordbots.org/api/widget/servers/765222621779853312.svg)](https://discordbots.org/bot/765222621779853312)  [![Discord Bots](https://discordbots.org/api/widget/lib/765222621779853312.svg)](https://discordbots.org/bot/765222621779853312)
+[![Discord Bots](https://discordbots.org/api/widget/status/765222621779853312.svg)](https://discordbots.org/bot/765222621779853312)
+[![Discord Bots](https://discordbots.org/api/widget/servers/765222621779853312.svg)](https://discordbots.org/bot/765222621779853312)
+[![Discord Bots](https://discordbots.org/api/widget/lib/765222621779853312.svg)](https://discordbots.org/bot/765222621779853312)
 
 <a href="https://github.com/JustTemmie/space-bot/blob/main/LICENSE"><img src="https://img.shields.io:/github/license/JustTemmie/space-bot?color=informational"></img></a>
 <a href="https://github.com/JustTemmie/space-bot/issues"><img src="https://img.shields.io:/github/issues/JustTemmie/space-bot?color=important"></img></a>
