@@ -29,7 +29,8 @@ class ecobuild(commands.Cog):
     @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
         await aniLib.open_zoo(self, ctx)
-        
+        #await aniLib.open_bot()
+               
         if await aniLib.check_if_zoo_not_exist(ctx.author):
             return await ctx.send("you need to create an account first")
         
@@ -39,6 +40,7 @@ class ecobuild(commands.Cog):
         with open("storage/animals.json", "r") as f:
             animals = json.load(f)
 
+        
 
         roll = random.random()
         for tier in tiers:
