@@ -80,42 +80,42 @@ class social(commands.Cog):
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def ticklecommand(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets)       
+        await self.social_commands(ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets)
     
     
     @commands.command(name="stare", aliases=["look"], brief="okay, creep")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def arsarsars(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "stare", 30, "is looking at", "", "is looking at themselves, how do you even do that? a mirror?", "peekaboo", targets) 
+        await self.social_commands(ctx, "stare", 30, "is looking at", "", "is looking at themselves, how do you even do that? a mirror?", "peekaboo", targets)
 
 
     @commands.command(name="hold", aliases=["holdhands", "sex"], brief="aweeee :)")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def arsarsars(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "hold hands", 20, "is holding the hand belonging to", ", how cute", "is really just clapping when you think about it", "omggg so lewd", targets) 
+        await self.social_commands(ctx, "hold hands", 20, "is holding the hand belonging to", ", how cute", "is really just clapping when you think about it", "omggg so lewd", targets)
 
 
     @commands.command(name="cuddle", aliases=["hug²"], brief="it's like hugs, but ever more wholesome")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def cuddlecommand(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "cuddle", 25, "took", ", forcing them to go <a:cuddle:888504653938044999>", "is hugging themselves, low key cute ngl 😊", "awwwweeee", targets)         
-        
+        await self.social_commands(ctx, "cuddle", 25, "took", ", forcing them to go <a:cuddle:888504653938044999>", "is hugging themselves, low key cute ngl 😊", "awwwweeee", targets)
+
 
     @commands.command(name="kiss", aliases=["smooch"], brief="awwweee :D")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def smooches(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "kiss", 50, "just kissed", ", and they're so cute!", "is somehow cute enough to kiss themselves?????+", "i ship it", targets)   
+        await self.social_commands(ctx, "kiss", 50, "just kissed", ", and they're so cute!", "is somehow cute enough to kiss themselves?????+", "i ship it", targets)
         
 
     @commands.command(name="pat", aliases=["headpat", "pet"], brief="what if we pat eachother in public :fleeshed:")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def patpat(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "headpat", 50, "gave", " a big ol' headpat", "got a big pat from themselves, impressive", "pat pat", targets)   
+        await self.social_commands(ctx, "headpat", 50, "gave", " a big ol' headpat", "got a big pat from themselves, impressive", "pat pat", targets)
        #await self.social_commands(ctx, "headpat", 50, "gave", " gave2", "selfgive", "description", targets)   
         
 
@@ -130,21 +130,21 @@ class social(commands.Cog):
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def punchcommand(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "punch", 50, "hit", " ", "is punching, wait, why?", "at least it's not murder", targets)   
+        await self.social_commands(ctx, "punch", 50, "hit", " ", "is punching, wait, why?", "at least it's not murder", targets)
         
 
     @commands.command(name="steal", aliases=["joink"], brief="mine now")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def stealcommand(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "steal", 50, "just stole something from ", "", "is trying to cheat the system", "don't steal my beavers >:(", targets)   
+        await self.social_commands(ctx, "steal", 50, "just stole something from ", "", "is trying to cheat the system", "don't steal my beavers >:(", targets)
 
 
     @commands.command(name="hug", aliases=["hugs"], brief="hugs :)")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def hugss(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "hug", 50, "hugged ", "", "do you need a hug? :(", "hugs :)", targets)   
+        await self.social_commands(ctx, "hug", 50, "hugged ", "", "do you need a hug? :(", "hugs :)", targets)
 
 
     @commands.command(name="kill", aliases=["murder"], brief="that's an official oisann moment")
