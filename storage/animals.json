@@ -1,6 +1,7 @@
 {
     "common": {
         "icon": "<:commoner_ring:970309052053733396>",
+        "aoran": "a",
         "name": "common",
         "animals": {
             "1": {
@@ -31,6 +32,7 @@
     },
     "uncommon": {
         "icon": "<:uncommon_ring:970309091249516555>",
+        "aoran": "an",
         "name": "uncommon",
         "animals": {
             "1": {
@@ -61,6 +63,7 @@
     },
     "rare": {
         "icon": "<:rare_ring:970309099134803978>",
+        "aoran": "a",
         "name": "rare",
         "animals": {
             "1": {
@@ -91,6 +94,7 @@
     },
     "epic": {
         "icon": "<:epic_ring:970309107489849435>",
+        "aoran": "an",
         "name": "epic",
         "animals": {
             "1": {
@@ -121,6 +125,7 @@
     },
     "mythical": {
         "icon": "<:mythical_ring:970309114955702372>",
+        "aoran": "a",
         "name": "mythical",
         "animals": {
             "1": {

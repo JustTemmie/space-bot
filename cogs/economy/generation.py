@@ -89,7 +89,7 @@ class ecogeneration(commands.Cog):
         if await check_if_not_exist(ctx.author):
             return await ctx.send("you need to create an account first")
         
-        if await check_captcha(self, ctx, 4):
+        if await check_captcha(self, ctx, 0.5):
             return
         
         data = await get_bank_data()
