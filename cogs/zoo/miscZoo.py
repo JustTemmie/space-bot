@@ -4,9 +4,7 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 import json
 
-
-import  libraries.economyLib as ecoLib
-import  libraries.animalLib as aniLib
+import libraries.animalLib as aniLib
 
 
 class miscZoo(commands.Cog):
@@ -17,24 +15,45 @@ class miscZoo(commands.Cog):
     @commands.command(name="zoo", brief="zoo")
     @cooldown(2, 10, BucketType.user)
     async def checkZoo(self, ctx, input = None):
+        await aniLib.open_zoo(self, ctx)
+        
+        if await aniLib.check_if_zoo_not_exist(ctx.author):
+            return await ctx.send("you need to create an account first")
+        
         with open("storage/animals.json", "r") as f:
             zoo = json.load(f)
         
-        await aniLib.open_zoo(ctx.author)
-        
         data = await aniLib.get_animal_data()
+        
+        user = ctx.author
 
         if input == None:
-            message_str = ""
+            message_str = f"||\n||                 🌲  **{user.display_name}'"
+            if message_str[-2:-1] != "s":
+                message_str += "s"
+            message_str += " zoo:**  🌲\n\n"
+            
+            animalsInTiers = {
+                "common": [],
+                "uncommon": [],
+                "rare": [],
+                "epic": [],
+                "mythical": [],
+            }
+    
             for tier in zoo:
-                message_str += str(zoo[tier]["icon"])
                 for i in zoo[tier]["animals"]:
                     animal = zoo[tier]["animals"][i]
                     icon = animal["icon"]
                     name = animal["name"][0]
-                    message_str += f"{icon} "
-                message_str += f"\n"
-            
+                    caught = data[str(user.id)]['animals'][tier][name]["caught"]
+                    if caught != 0 or tier == "common":
+                        animalsInTiers[tier].append(f"{icon}`{data[str(user.id)]['animals'][tier][name]['count']}` ")
+
+            for tier in animalsInTiers:
+                if len(animalsInTiers[tier]) != 0:
+                    message_str += f"{zoo[tier]['icon']}    {' '.join(animalsInTiers[tier])}\n"
+                            
             await ctx.send(message_str)
             return
         
@@ -77,6 +96,7 @@ class miscZoo(commands.Cog):
 **Count:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["count"]}
 **Sold:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["sold"]}
 **Sacrificed:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["sacrificed"]}
+**XP:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["xp"]}
             """)
         
         await ctx.send(embed=embed)

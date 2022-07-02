@@ -5,7 +5,7 @@
         "animals": {
             "1": {
                 "icon": "🐌",
-                "name": ["snail", "or bug"]
+                "name": ["snail", "bug"]
             },
             "2": {
                 "icon": "🦋",
