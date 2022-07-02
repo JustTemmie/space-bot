@@ -1,5 +1,6 @@
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
+from interruptingcow import timeout
 
 from math import *
 
@@ -16,11 +17,13 @@ class mathCommands(commands.Cog):
         name="math",
         brief="i can do math too!"
     )
+    @cooldown(120, 1800, BucketType.user)
     async def math_command(self, ctx, *, equation):
         try:
-            for symbol in replacement_table:
-                equation = equation.replace(symbol, replacement_table[symbol])
-            await ctx.send(f"= {eval(equation)}")
+            with timeout(5, exception=RuntimeError):
+                for symbol in replacement_table:
+                    equation = equation.replace(symbol, replacement_table[symbol])
+                await ctx.send(f"= {eval(equation)}")
         except Exception as e:
             await ctx.send(f"Error: {e}")
 
