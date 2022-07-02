@@ -13,8 +13,8 @@ tiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
     "legendary": 0.001,
     "epic": 0.01,
-    "rare": 0.08,
-    "uncommon": 0.25,
+    "rare": 0.05,
+    "uncommon": 0.15,
     "common": 1,
 }
 
