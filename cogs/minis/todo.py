@@ -55,7 +55,7 @@ class todo(commands.Cog):
         try:
             await ctx.send(embed = embed)
         except Exception as e:
-            await ctx.send(f"{ctx.author.mention} your todo list is too long to be displayed in a embed, please use {ctx.prefix} delete todo <index> to delete a todo")
+            await ctx.send(f"{ctx.author.mention} your todo list is too long to be displayed in a embed, please use {ctx.prefix}delete todo <index> to delete a todo")
             
         
     @commands.command(
@@ -65,7 +65,7 @@ class todo(commands.Cog):
     @cooldown(5, 10, BucketType.user)
     async def deleteTodo(self, ctx, todo, index):
         if todo != "todo":
-            await ctx.send(f"as of now, you need to use `todo` as the first argument\n`{ctx.prefix} delete todo <index>`")
+            await ctx.send(f"as of now, you need to use `todo` as the first argument\n`{ctx.prefix}delete todo <index>`")
             return
 
         if await check_if_not_exist(ctx.author):

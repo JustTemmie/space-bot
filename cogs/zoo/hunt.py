@@ -9,7 +9,7 @@ from libraries.captchaLib import *
 
 tiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
-    "legendary": 0.001,
+    "mythical": 0.001,
     "epic": 0.01,
     "rare": 0.05,
     "uncommon": 0.2,
