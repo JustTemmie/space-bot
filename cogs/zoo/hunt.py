@@ -29,7 +29,7 @@ class ecobuild(commands.Cog):
         data = await aniLib.get_animal_data()
         
         for i in animals:
-            await ctx.send(animals(i)["name"])
+            #await ctx.send(animals(i)["name"])
             for y in range(1, 7):
                 await ctx.send(animals[i]["animals"][str(y)]["icon"])
                 await ctx.send(animals[i]["animals"][str(y)]["name"][0])
