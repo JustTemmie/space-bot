@@ -30,7 +30,7 @@ class miscZoo(commands.Cog):
             end = "s"
             if user.display_name[-1:] == "s":
                 end = ""
-            message_str = f"||\n||                 🌲  **{user.display_name}'{end} zoo:**  🌲\n\n"
+            message_str = f"||\n||                  🌲  **{user.display_name}'{end} zoo:**  🌲\n\n"
             
             animalsInTiers = {
                 "common": [],
