@@ -74,7 +74,7 @@ class social(commands.Cog):
     @commands.guild_only()
     async def bitecommand(self, ctx, targets: Greedy[Member]):
         await self.social_commands(ctx, "bite", 50, "just bit", "", "just bit themselves... weirdo", "rawr", targets)
- 
+    
  
     @commands.command(name="tickle", brief="god you poor little thing")
     @cooldown(8, 25, BucketType.guild)
@@ -90,7 +90,7 @@ class social(commands.Cog):
         await self.social_commands(ctx, "stare", 30, "is looking at", "", "is looking at themselves, how do you even do that? a mirror?", "peekaboo", targets) 
 
 
-    @commands.command(name="hold", aliases=["holdhands"], brief="aweeee :)")
+    @commands.command(name="hold", aliases=["holdhands", "sex"], brief="aweeee :)")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def arsarsars(self, ctx, targets: Greedy[Member]):
