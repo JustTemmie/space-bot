@@ -65,7 +65,7 @@ class miscZoo(commands.Cog):
         name="dex",
         brief="check a specific animal"
     )
-    @cooldown(2, 10, BucketType.user)
+    @cooldown(3, 10, BucketType.user)
     async def dexCommand(self, ctx, input, user: discord.Member = None):
         input = input.lower()
         await aniLib.open_zoo(self, ctx)
@@ -99,6 +99,10 @@ class miscZoo(commands.Cog):
         if animalName == "none":
             return await ctx.send(f"{input} was not found")
         
+        if data[str(user.id)]["animals"][animalTier][animalName]["caught"] == 0:
+            return await ctx.send(f"{input} was not found")
+
+ 
         embed = discord.Embed()
         embed.title = f"{icon} {animalName}"
         embed.color = user.colour
