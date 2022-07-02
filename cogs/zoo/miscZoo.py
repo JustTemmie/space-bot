@@ -92,7 +92,7 @@ class miscZoo(commands.Cog):
             value=f"""
 **Tier:** {zoo[animalTier]["icon"]} {animalTier}{aliasesString}
 **Caught:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["caught"]}
-**Total Caught:** W.I.P
+**Total Caught:** {data["global"]["animals"][animalTier][animalName]["caught"]}
 **Count:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["count"]}
 **Sold:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["sold"]}
 **Sacrificed:** {data[str(ctx.author.id)]["animals"][animalTier][animalName]["sacrificed"]}
