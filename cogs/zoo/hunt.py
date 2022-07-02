@@ -12,7 +12,7 @@ tiers = {
     "legendary": 0.001,
     "epic": 0.01,
     "rare": 0.05,
-    "uncommon": 0.15,
+    "uncommon": 0.2,
     "common": 1,
 }
 
@@ -38,7 +38,6 @@ class ecobuild(commands.Cog):
         with open("storage/animals.json", "r") as f:
             animals = json.load(f)
 
-        
 
         roll = random.random()
         for tier in tiers:
