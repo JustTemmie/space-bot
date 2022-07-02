@@ -1,6 +1,4 @@
-from urllib import response
 import discord
-from discord import Member, Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 import json
@@ -8,7 +6,6 @@ import json
 import html
 import random
 import requests
-import asyncio
 
 
 from libraries.economyLib import *

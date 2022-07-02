@@ -1,4 +1,3 @@
-from ast import alias
 import discord
 from datetime import datetime
 from typing import Optional
@@ -16,7 +15,6 @@ from discord.ext.commands import (
     bot_has_permissions,
 )
 import json
-import asyncio
 
 from libraries.miscLib import get_input
 

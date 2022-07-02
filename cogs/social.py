@@ -1,13 +1,10 @@
 import discord
-from discord import Member, File, Embed, Intents, Object, NotFound
-from discord.errors import HTTPException, Forbidden
-from discord.utils import find
-from discord.ext import tasks, commands
+from discord import Member, Embed
+from discord.ext import commands
 from discord.ext.commands import (
     cooldown,
     BucketType,
     Greedy,
-    MissingRequiredArgument,
 )
 
 import json

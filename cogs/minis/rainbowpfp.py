@@ -1,10 +1,9 @@
 import discord
-from discord import Member, Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 import io
-from PIL import Image, ImageDraw
+from PIL import Image
 import glob
 import os
 import time

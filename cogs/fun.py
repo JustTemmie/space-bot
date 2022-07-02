@@ -1,22 +1,17 @@
 import discord
-from discord import Member, File, Embed
+from discord import Embed
 from discord.errors import HTTPException
-from discord.utils import find
 from discord.ext import commands
 
-# from discord.ext.menus import MenuPages, ListPageSource
 from discord.ext.commands import (
     cooldown,
     BucketType,
     MissingRequiredArgument,
-    Greedy,
     MissingRequiredArgument,
 )
 
 from aiohttp import request
 import requests
-import urllib
-from typing import Optional
 import json
 
 import random

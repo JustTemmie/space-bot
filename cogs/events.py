@@ -1,17 +1,14 @@
 import discord
 from discord.ext import commands, tasks
-from discord.errors import HTTPException, Forbidden
+from discord.errors import Forbidden
 from discord.ext.commands import (
     CommandNotFound,
     BadArgument,
     MissingRequiredArgument,
     CommandOnCooldown,
-    cooldown,
-    BucketType,
 )
 import random
 from datetime import datetime
-import time
 
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
@@ -22,6 +19,17 @@ import json
 
 auto_reddit_IDs = [974642338150367252]
 fish_IDs = [918830241135353907, 885113515411669002]
+
+# used for sus reactions
+special_guilds = [
+    694107776015663146,
+    956464081697648640,
+    876859496444596234,
+    946136828916944987,
+    918787074801401868,
+    903236631958548501,
+    885113462378876948
+]
 
 henwees = [
     "henwee :)",
@@ -254,15 +262,6 @@ class events(commands.Cog):
         if ctx.author.bot:
             return
 
-        special_guilds = [
-            694107776015663146,
-            956464081697648640,
-            876859496444596234,
-            946136828916944987,
-            918787074801401868,
-            903236631958548501,
-885113462378876948
-        ]
         if ctx.guild.id in special_guilds:
             if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
                 msg = await ctx.reply("amogus") 

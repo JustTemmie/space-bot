@@ -2,12 +2,6 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
-from typing import Optional
-import json
-import time
-import random
-import asyncio
-from datetime import datetime
 
 from libraries.economyLib import *
 

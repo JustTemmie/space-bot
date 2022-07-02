@@ -1,9 +1,6 @@
-from urllib import response
 import discord
-from discord import Member, Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
-import json
 
 
 from libraries.economyLib import *

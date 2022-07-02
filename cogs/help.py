@@ -1,12 +1,9 @@
-from sre_parse import CATEGORIES
 import discord
-from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 from discord.ext.buttons import Paginator
 
 import json
-import os
 
 
 # WARNING this code is bad lmao

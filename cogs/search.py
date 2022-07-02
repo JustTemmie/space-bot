@@ -1,13 +1,11 @@
 import discord
-from discord import Member, File, Embed, Intents, Object, NotFound
-from discord.errors import HTTPException, Forbidden
-from discord.ext import tasks, commands
+from discord import Embed
+from discord.ext import commands
 
 # from discord.ext.menus import MenuPages, ListPageSource
 from discord.ext.commands import (
     cooldown,
     BucketType,
-    MissingRequiredArgument,
 )
 
 import requests
