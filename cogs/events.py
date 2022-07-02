@@ -260,7 +260,8 @@ class events(commands.Cog):
             876859496444596234,
             946136828916944987,
             918787074801401868,
-            903236631958548501
+            903236631958548501,
+885113462378876948
         ]
         if ctx.guild.id in special_guilds:
             if "sus" in ctx.content.lower() and not "jesus" in ctx.content.lower():
