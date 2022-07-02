@@ -27,10 +27,10 @@ class miscZoo(commands.Cog):
         user = ctx.author
 
         if input == None:
-            message_str = f"||\n||                 🌲  **{user.display_name}'"
-            if message_str[-2:-1] != "s":
-                message_str += "s"
-            message_str += " zoo:**  🌲\n\n"
+            end = "s"
+            if user.display_name[-1:] == "s":
+                end = ""
+            message_str = f"||\n||                 🌲  **{user.display_name}'{end} zoo:**  🌲\n\n"
             
             animalsInTiers = {
                 "common": [],
