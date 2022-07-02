@@ -21,8 +21,9 @@ class ecobuild(commands.Cog):
         self.bot = bot
 
     @commands.command(
-        name="hunt",
-        brief="go look for some animals, perhaps even add them to your zoo"
+        name = "hunt",
+        aliases = ["h"],
+        brief = "go look for some animals, perhaps even add them to your zoo"
     )
     @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
