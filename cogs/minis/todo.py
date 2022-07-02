@@ -52,7 +52,11 @@ class todo(commands.Cog):
         for i, reminder in enumerate(data[str(ctx.author.id)]):
             embed.add_field(name = f"{i+1}", value = reminder, inline = False)
         
-        await ctx.send(embed = embed)
+        try:
+            await ctx.send(embed = embed)
+        except Exception as e:
+            await ctx.send(f"{ctx.author.mention} your todo list is too long to be displayed in a embed, please use {ctx.prefix} delete todo <index> to delete a todo")
+            
         
     @commands.command(
         name = "delete",
