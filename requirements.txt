@@ -16,3 +16,4 @@ qrcode
 opencv-python
 numpy
 Image
+interruptingcow
