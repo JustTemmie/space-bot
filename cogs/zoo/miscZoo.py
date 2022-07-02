@@ -65,7 +65,7 @@ class miscZoo(commands.Cog):
         name="dex",
         brief="check a specific animal"
     )
-    @cooldown(3, 10, BucketType.user)
+    @cooldown(1, 3, BucketType.user)
     async def dexCommand(self, ctx, input, user: discord.Member = None):
         input = input.lower()
         await aniLib.open_zoo(self, ctx)
