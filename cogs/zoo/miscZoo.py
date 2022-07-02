@@ -124,6 +124,7 @@ class miscZoo(commands.Cog):
 **Sold:** {data[str(user.id)]["animals"][animalTier][animalName]["sold"]}
 **Sacrificed:** {data[str(user.id)]["animals"][animalTier][animalName]["sacrificed"]}
 **XP:** {data[str(user.id)]["animals"][animalTier][animalName]["xp"]}
+**Coins:** {data[str(user.id)]["animals"][animalTier][animalName]["coins"]}
             """)
         
         await ctx.send(embed=embed)
