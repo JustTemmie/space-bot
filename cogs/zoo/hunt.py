@@ -39,8 +39,7 @@ class ecobuild(commands.Cog):
         with open("storage/animals.json", "r") as f:
             animals = json.load(f)
 
-        await aniLib.open_bot()
-        
+
         roll = random.random()
         for tier in tiers:
             if tiers[tier] > roll:
@@ -55,6 +54,8 @@ class ecobuild(commands.Cog):
         
         data[str(ctx.author.id)]["animals"][tier][animal_name]["caught"] += 1
         data[str(ctx.author.id)]["animals"][tier][animal_name]["count"] += 1
+        
+        data["global"]["animals"][tier][animal_name]["caught"] += 1
         
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)#, indent=4)

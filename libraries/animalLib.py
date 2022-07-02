@@ -10,7 +10,9 @@ async def check_if_zoo_not_exist(user):
     users = await get_animal_data()
 
     if str(user.id) in users:
+        await update_global_zoo()
         await update_zoo(user)
+        
         return False
     
     return True
@@ -19,41 +21,9 @@ async def update_zoo(user):
     return
     data = await get_animal_data()
 
-
-async def open_bot():
-    with open("storage/playerInfo/animals.json", "r") as f:
-            data = json.load(f)
-
-    data["global"] = {}
-
-    data["global"]['version'] = 1.00
-
-    data["global"]["animals"] = {}
-    data["global"]["animals"]["common"] = {}
-
-    animals = {
-        "common": ["snail", "butterfly", "cricket", "bee", "worm", "beetle"],
-        "uncommon": ["dog", "cat", "mouse", "pig", "bird", "bat"],
-        "rare": ["duck", "owl", "boar", "fox", "goat", "bear"],
-        "epic": ["whale", "dolphin", "seal", "otter", "blowfish", "squid"],
-        "mythical": ["scorpion", "monkey", "giraffe", "sheep", "lizard", "snake"],
-    }
-
-    data["global"]["animals"] = {}
-
-    for i in animals:
-        data["global"]["animals"][i] = {}
-
-        for nr, x in enumerate(animals[i]):
-            data["global"]["animals"][i][x] = {}
-            data["global"]["animals"][i][x]["caught"] = 0
-            data["global"]["animals"][i][x]["sold"] = 0
-            data["global"]["animals"][i][x]["sacrificed"] = 0
-            data["global"]["animals"][i][x]["xp"] = 0
-
-
-    with open("storage/playerInfo/animals.json", "w") as f:
-        json.dump(data, f)
+async def update_global_zoo():
+    return
+    data = await get_animal_data()
 
 async def open_zoo(self, ctx):
     user = ctx.author
