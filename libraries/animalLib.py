@@ -4,7 +4,7 @@ from libraries.miscLib import *
 from libraries.economyLib import check_if_not_exist, open_account
 from discord import Embed
 
-zoo_version = 1.00
+zoo_version = 1.01
 
 async def check_if_zoo_not_exist(user):
     users = await get_animal_data()
@@ -18,8 +18,25 @@ async def check_if_zoo_not_exist(user):
     return True
 
 async def update_zoo(user):
-    return
     data = await get_animal_data()
+    
+    if data[str(user.id)]['version'] < 1.01:
+        animals = {
+            "common": ["snail", "butterfly", "cricket", "bee", "worm", "beetle"],
+            "uncommon": ["dog", "cat", "mouse", "pig", "bird", "bat"],
+            "rare": ["duck", "owl", "boar", "fox", "goat", "bear"],
+            "epic": ["whale", "dolphin", "seal", "otter", "blowfish", "squid"],
+            "mythical": ["scorpion", "monkey", "giraffe", "sheep", "lizard", "snake"],
+        }
+
+        for i in animals:
+            for nr, x in enumerate(animals[i]):
+                data[str(user.id)]["animals"][i][x]["coins"] = 0
+
+        data[str(user.id)]['version'] = 1.01    
+        with open("storage/playerInfo/animals.json", "w") as f:
+            json.dump(data, f)
+                
 
 async def update_global_zoo():
     return
@@ -35,8 +52,8 @@ async def open_zoo(self, ctx):
     if await check_if_not_exist(ctx.author):
         await open_account(self, ctx)
         
-    if await check_if_not_exist(ctx.author):
-        return       
+        if await check_if_not_exist(ctx.author):
+            return       
     
         
 
@@ -70,6 +87,7 @@ async def open_zoo(self, ctx):
             data[str(user.id)]["animals"][i][x]["sold"] = 0
             data[str(user.id)]["animals"][i][x]["sacrificed"] = 0
             data[str(user.id)]["animals"][i][x]["xp"] = 0
+            data[str(user.id)]["animals"][i][x]["coins"] = 0
         
 
     with open("storage/playerInfo/animals.json", "w") as f:
