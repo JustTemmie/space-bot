@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`prefix` `imdb` `ship` `pride/flag` `qr` `hunt` `zoo` `math`"
+        "description": "`prefix` `imdb` `ship` `pride/flag` `qr` `hunt` `zoo` `dex` `math` `todo` `delete"
     },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
@@ -12,7 +12,7 @@
     "animals": {
         "icon": "🐕",
         "name": "Animals",
-        "description": "`hunt` `zoo`"
+        "description": "`hunt` `zoo` `dex`"
     },
     "2nd": {
         "icon": "👤",
@@ -37,7 +37,7 @@
     "6th": {
         "icon": "🛠️",
         "name": "Utility",
-        "description": "`help` `math` `info` `ping` `poll` `serverinfo` `userinfo` `weather`"
+        "description": "`help` `math` `info` `ping` `poll` `serverinfo` `userinfo` `weather` `todo` `delete`"
     },
     "7th": {
         "icon": "⚖️",
