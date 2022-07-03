@@ -4,7 +4,7 @@ from libraries.miscLib import *
 from libraries.economyLib import check_if_not_exist, open_account
 from discord import Embed
 
-zoo_version = 1.02
+zoo_version = 1.03
 
 async def check_if_zoo_not_exist(user):
     users = await get_animal_data()
@@ -39,13 +39,28 @@ async def update_zoo(user):
         
         data = await get_animal_data()
     
-    if data[str(user.id)]["version"] < 1.02:
+    if data[str(user.id)]["version"] < 1.03:
         
         data[str(user.id)]["team"] = {}
         
         data[str(user.id)]["team"]["members"] = {}
+        data[str(user.id)]["team"]["members"]["animal1"] = {}
+        data[str(user.id)]["team"]["members"]["animal1"]["name"] = "None"
+        data[str(user.id)]["team"]["members"]["animal1"]["icon"] = "None"
+        data[str(user.id)]["team"]["members"]["animal2"] = {}
+        data[str(user.id)]["team"]["members"]["animal2"]["name"] = "None"
+        data[str(user.id)]["team"]["members"]["animal2"]["icon"] = "None"
+        data[str(user.id)]["team"]["members"]["animal3"] = {}
+        data[str(user.id)]["team"]["members"]["animal3"]["name"] = "None"
+        data[str(user.id)]["team"]["members"]["animal3"]["icon"] = "None"
+        data[str(user.id)]["team"]["members"]["animal4"] = {}
+        data[str(user.id)]["team"]["members"]["animal4"]["name"] = "None"
+        data[str(user.id)]["team"]["members"]["animal4"]["icon"] = "None"
+        data[str(user.id)]["team"]["members"]["animal5"] = {}
+        data[str(user.id)]["team"]["members"]["animal5"]["name"] = "None"
+        data[str(user.id)]["team"]["members"]["animal5"]["icon"] = "None"
         
-        data[str(user.id)]["version"] = 1.02
+        data[str(user.id)]["version"] = 1.03
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
         
@@ -109,6 +124,21 @@ async def open_zoo(self, ctx):
     data[str(user.id)]["team"] = {}
         
     data[str(user.id)]["team"]["members"] = {}
+    data[str(user.id)]["team"]["members"]["animal1"] = {}
+    data[str(user.id)]["team"]["members"]["animal1"]["name"] = "None"
+    data[str(user.id)]["team"]["members"]["animal1"]["icon"] = "None"
+    data[str(user.id)]["team"]["members"]["animal2"] = {}
+    data[str(user.id)]["team"]["members"]["animal2"]["name"] = "None"
+    data[str(user.id)]["team"]["members"]["animal2"]["icon"] = "None"
+    data[str(user.id)]["team"]["members"]["animal3"] = {}
+    data[str(user.id)]["team"]["members"]["animal3"]["name"] = "None"
+    data[str(user.id)]["team"]["members"]["animal3"]["icon"] = "None"
+    data[str(user.id)]["team"]["members"]["animal4"] = {}
+    data[str(user.id)]["team"]["members"]["animal4"]["name"] = "None"
+    data[str(user.id)]["team"]["members"]["animal4"]["icon"] = "None"
+    data[str(user.id)]["team"]["members"]["animal5"] = {}
+    data[str(user.id)]["team"]["members"]["animal5"]["name"] = "None"
+    data[str(user.id)]["team"]["members"]["animal5"]["icon"] = "None"
     
     
     ####################################################
