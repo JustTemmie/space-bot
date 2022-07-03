@@ -24,6 +24,26 @@
         "name": "Trade",
         "description": "`buy` `sell` `market`"
     },
+    "12th": {
+        "icon": "🎲",
+        "name": "Gambling",
+        "description": "`coinflip` `slot`"
+    },
+    "11th": {
+        "icon": "🏅",
+        "name": "Rankings",
+        "description": "`leaderboard`"
+    },
+    "9th": {
+        "icon": "🫂",
+        "name": "Social",
+        "description": "`marry` `divorce` `ship`"
+    },
+    "10th": {
+        "icon": "🤗",
+        "name": "Actions",
+        "description": "`bite` `boop` `cuddle` `hug` `grouphug` `kill` `kiss` `hold` `mock` `pat` `stare` `punch` `steal`"
+    },
     "4th": {
         "icon": "🖼️",
         "name": "Images",
@@ -49,34 +69,9 @@
         "name": "Search",
         "description": "`reddit` `imdb` `tenor` `urban` `wikipedia` `youtube`"
     },
-    "9th": {
-        "icon": "🫂",
-        "name": "Social",
-        "description": "`marry` `divorce` `ship`"
-    },
-    "10th": {
-        "icon": "🤗",
-        "name": "Actions",
-        "description": "`bite` `boop` `cuddle` `hug` `grouphug` `kill` `kiss` `hold` `mock` `pat` `stare` `punch` `steal`"
-    },
-    "11th": {
-        "icon": "🏅",
-        "name": "Rankings",
-        "description": "`leaderboard`"
-    },
-    "12th": {
-        "icon": "🎲",
-        "name": "Gambling",
-        "description": "`coinflip` `slot`"
-    },
     "13th": {
         "icon": "❓",
         "name": "Misc",
-        "description": "`settings` `alientohuman` `humantoalien` `texttoimage` `morse` "
-    },
-    "14th": {
-        "icon": "😕",
-        "name": "???",
-        "description": "`dice` `report` `rick` `remindme` `beaver` `unbeaver`"
+        "description": "`settings` `alientohuman` `humantoalien` `texttoimage` `morse` `dice` `report` `rick` `remindme` `beaver` `unbeaver`"
     }
 }
