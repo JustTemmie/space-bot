@@ -18,6 +18,10 @@ class todo(commands.Cog):
     )
     @cooldown(5, 10, BucketType.user)
     async def todoCommand(self, ctx, *, todo = None):
+        if len(todo) > 125:
+            await ctx.send("That todo is too long!")
+            return
+        
         if await check_if_not_exist(ctx.author):
             await open_account(self, ctx)
             
