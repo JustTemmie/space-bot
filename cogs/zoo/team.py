@@ -80,7 +80,7 @@ class zooTeam(commands.Cog):
                         
                         break
                 
-                    if i == 4:
+                    if i == 5:
                         return await ctx.send("Sorry, your team is full please specify a position to replace")
 
             else:

@@ -6,27 +6,33 @@
         "animals": {
             "1": {
                 "icon": "🐌",
-                "name": ["snail", "bug"]
+                "name": ["snail", "bug"],
+                "description": "Slow and steady wins the race"
             },
             "2": {
                 "icon": "🦋",
-                "name": ["butterfly"]
+                "name": ["butterfly"],
+                "description": "You ever heard of the butterfly effect? These things can be very powerful"
             },
             "3": {
                 "icon": "🦗",
-                "name": ["cricket"]
+                "name": ["cricket"],
+                "description": "Data/Audio/CricketSounds.mp3"
             },
             "4": {
                 "icon": "🐝",
-                "name": ["bee", "b"]
+                "name": ["bee", "b"],
+                "description": "Baby Bumblebee can just be spelt bb bbb change my mind"
             },
             "5": {
                 "icon": "🪱",
-                "name": ["worm"]
+                "name": ["worm"],
+                "description": "No arm, no leg, head empty"
             },
             "6": {
                 "icon": "🪲",
-                "name": ["beetle"]
+                "name": ["beetle"],
+                "description": "Not to be confused with The Beatles"
             }
         }
     },
@@ -37,27 +43,33 @@
         "animals": {
             "1": {
                 "icon": "🐶",
-                "name": ["dog"]
+                "name": ["dog"],
+                "description": ""
             },
             "2": {
                 "icon": "🐱",
-                "name": ["cat"]
+                "name": ["cat"],
+                "description": "They can respawn"
             },
             "3": {
                 "icon": "🐭",
-                "name": ["mouse", "rat"]
+                "name": ["mouse", "rat"],
+                "description": ""
             },
             "4": {
                 "icon": "🐷",
-                "name": ["pig"]
+                "name": ["pig"],
+                "description": "Oink Oink!"
             },
             "5": {
                 "icon": "🐦",
-                "name": ["bird"]
+                "name": ["bird"],
+                "description": ""
             },
             "6": {
                 "icon": "🦇",
-                "name": ["bat"]
+                "name": ["bat"],
+                "description": ""
             }
         }
     },
@@ -68,27 +80,33 @@
         "animals": {
             "1": {
                 "icon": "🦆",
-                "name": ["duck", "goose"]
+                "name": ["duck", "goose"],
+                "description": "Then he waddled away, waddle waddle\n'Til the very next day"
             },
             "2": {
                 "icon": "🦉",
-                "name": ["owl", "hooter", "hooty"]
+                "name": ["owl", "hooter", "hooty"],
+                "description": "GAHOOOTT!"
             },
             "3": {
                 "icon": "🐗",
-                "name": ["boar"]
+                "name": ["boar", "hog"],
+                "description": "Oink Oink! (but more boarish)"
             },
             "4": {
                 "icon": "🦊",
-                "name": ["fox"]
+                "name": ["fox"],
+                "description": "But what does it say?"
             },
             "5": {
                 "icon": "🐐",
-                "name": ["goat"]
+                "name": ["goat"],
+                "description": ""
             },
             "6": {
                 "icon": "🐻",
-                "name": ["bear"]
+                "name": ["bear", "grizzly"],
+                "description": ""
             }
         }
     },
@@ -99,27 +117,33 @@
         "animals": {
             "1": {
                 "icon": "🐳",
-                "name": ["whale"]
+                "name": ["whale"],
+                "description": "They sing"
             },
             "2": {
                 "icon": "🐬",
-                "name": ["dolphin"]
+                "name": ["dolphin"],
+                "description": "At least this one won't sing Baby shark, doo-doo-doo-doo-doo-doo"
             },
             "3": {
                 "icon": "🦭",
-                "name": ["seal"]
+                "name": ["seal"],
+                "description": "Die Robben :)"
             },
             "4": {
                 "icon": "🦦",
-                "name": ["otter"]
+                "name": ["otter"],
+                "description": ""
             },
             "5": {
                 "icon": "🐡",
-                "name": ["blowfish", "fish"]
+                "name": ["blowfish", "fish"],
+                "description": ""
             },
             "6": {
                 "icon": "🦑",
-                "name": ["squid", "octopus"]
+                "name": ["squid", "octopus"],
+                "description": ""
             }
         }
     },
@@ -130,27 +154,33 @@
         "animals": {
             "1": {
                 "icon": "🦂",
-                "name": ["scorpion"]
+                "name": ["scorpion"],
+                "description": ""
             },
             "2": {
                 "icon": "🐒",
-                "name": ["monkey"]
+                "name": ["monkey"],
+                "description": ""
             },
             "3": {
                 "icon": "🦒",
-                "name": ["giraffe"]
+                "name": ["giraffe"],
+                "description": ""
             },
             "4": {
                 "icon": "🐑",
-                "name": ["sheep"]
+                "name": ["sheep"],
+                "description": ""
             },
             "5": {
                 "icon": "🦎",
-                "name": ["lizard", "gecko"]
+                "name": ["lizard", "gecko"],
+                "description": ""
             },
             "6": {
                 "icon": "🐍",
-                "name": ["snake"]
+                "name": ["snake"],
+                "description": ""
             }
         }
     }

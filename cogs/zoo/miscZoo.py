@@ -90,6 +90,7 @@ class zooMisc(commands.Cog):
                     if input == animal["name"][nick]:
                         icon = animal["icon"]
                         animalName = animal["name"][0]
+                        description = animal["description"]
                         names = ""
                         for name in animal["name"]:
                             names += f"{name}, "
@@ -106,12 +107,12 @@ class zooMisc(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{icon} {animalName}"
         embed.color = user.colour
-        #embed.description = f"{animalTier}"
+        embed.description = f"\"{description}\""
         #embed.description = "   Can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
         
         aliasesString = ""
         if len(names[(len(animalName)+2):-2]) >= 1:
-            aliasesString = f"\n**AKA:** {names[(len(animalName)+2):-2]}"
+            aliasesString = f"\n**Aliases:** {names[(len(animalName)+2):-2]}"
         
         embed.add_field(
             inline=False,
