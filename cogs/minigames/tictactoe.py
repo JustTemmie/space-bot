@@ -101,7 +101,7 @@ class tictactoe(commands.Cog):
                 await ctx.send(f"{player.mention} wins!")
                 return
             
-            if await self.check_tie(ctx, board):
+            if await self.check_draw(ctx, board):
                 await ctx.send("It's a tie!")
                 return
             
@@ -139,6 +139,7 @@ class tictactoe(commands.Cog):
     async def check_draw(self, ctx, board):
         if "-" not in board:
             return True
+        
         return False
     
     
