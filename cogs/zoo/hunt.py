@@ -16,7 +16,7 @@ tiers = {
     "common": 1,
 }
 
-class ecobuild(commands.Cog):
+class zooHunt(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -67,4 +67,4 @@ class ecobuild(commands.Cog):
         #         await ctx.send(animals[i]["animals"][str(y)]["name"][0])
     
 def setup(bot):
-    bot.add_cog(ecobuild(bot))
+    bot.add_cog(zooHunt(bot))
