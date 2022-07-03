@@ -7,7 +7,7 @@ import json
 import libraries.animalLib as aniLib
 
 
-class miscZoo(commands.Cog):
+class zooMisc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -132,4 +132,4 @@ class miscZoo(commands.Cog):
         
 
 def setup(bot):
-    bot.add_cog(miscZoo(bot))
+    bot.add_cog(zooMisc(bot))
