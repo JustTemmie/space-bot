@@ -108,7 +108,7 @@ class ecogeneration(commands.Cog):
         if data[str(ctx.author.id)]["dam"]["level"] >= 2:
             payout *= 1.25
         
-        if data[str(ctx.author.id)]["dam"]["level"] >= 3:
+        if data[str(ctx.author.id)]["dam"]["level"] >= 5:
             payout *= 1.25
         
         

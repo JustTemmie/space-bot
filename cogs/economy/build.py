@@ -131,9 +131,9 @@ class ecobuild(commands.Cog):
 
             lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marry command"
             lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
-            lvl3 = f"╰ +2 skill points and another + 25% logs from {ctx.prefix}scavenge"
+            lvl3 = f"╰ +2 skill points and unlock the Beaver Lodge"
             lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
-            lvl5 = f"╰ +5 skill points and unlock the Beaver Lodge"
+            lvl5 = f"╰ +5 skill points and another + 25% logs from {ctx.prefix}scavenge"
             
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
             embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
@@ -150,10 +150,10 @@ class ecobuild(commands.Cog):
 
 
         if build_type.lower() == "lodge":
-            if current_damlevel < 5:
-                return await ctx.send("You need to upgrade your dam to lvl 5 first")
+            if current_damlevel < 3:
+                return await ctx.send("You need to upgrade your dam to lvl 3 first")
             
-            return await ctx.send("not implemented yet, sorry")
+            return await ctx.send("not implemented yet, sorry, but it's coming soon (like 72 hours at most)")
             
         
         await ctx.send("that's not a valid building")
