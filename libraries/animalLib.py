@@ -4,7 +4,7 @@ from libraries.miscLib import *
 from libraries.economyLib import check_if_not_exist, open_account
 from discord import Embed
 
-zoo_version = 1.01
+zoo_version = 1.02
 
 async def check_if_zoo_not_exist(user):
     users = await get_animal_data()
@@ -20,7 +20,7 @@ async def check_if_zoo_not_exist(user):
 async def update_zoo(user):
     data = await get_animal_data()
     
-    if data[str(user.id)]['version'] < 1.01:
+    if data[str(user.id)]["version"] < 1.01:
         animals = {
             "common": ["snail", "butterfly", "cricket", "bee", "worm", "beetle"],
             "uncommon": ["dog", "cat", "mouse", "pig", "bird", "bat"],
@@ -33,9 +33,23 @@ async def update_zoo(user):
             for nr, x in enumerate(animals[i]):
                 data[str(user.id)]["animals"][i][x]["coins"] = 0
 
-        data[str(user.id)]['version'] = 1.01    
+        data[str(user.id)]["version"] = 1.01    
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
+        
+        data = await get_animal_data()
+    
+    if data[str(user.id)]["version"] < 1.02:
+        
+        data[str(user.id)]["team"] = {}
+        
+        data[str(user.id)]["team"]["members"] = {}
+        
+        data[str(user.id)]["version"] = 1.02
+        with open("storage/playerInfo/animals.json", "w") as f:
+            json.dump(data, f)
+        
+        data = await get_animal_data()
                 
 
 async def update_global_zoo():
@@ -61,7 +75,7 @@ async def open_zoo(self, ctx):
     
     ##########################################
     
-    data[str(user.id)]['version'] = zoo_version
+    data[str(user.id)]["version"] = zoo_version
     
     data[str(user.id)]["animals"] = {}
     data[str(user.id)]["animals"]["common"] = {}
@@ -88,7 +102,16 @@ async def open_zoo(self, ctx):
             data[str(user.id)]["animals"][i][x]["sacrificed"] = 0
             data[str(user.id)]["animals"][i][x]["xp"] = 0
             data[str(user.id)]["animals"][i][x]["coins"] = 0
+    
+    
+    ####################################################
+    
+    data[str(user.id)]["team"] = {}
         
+    data[str(user.id)]["team"]["members"] = {}
+    
+    
+    ####################################################
 
     with open("storage/playerInfo/animals.json", "w") as f:
         json.dump(data, f)
@@ -102,7 +125,7 @@ async def open_bot():
 
     data["global"] = {}
 
-    data["global"]['version'] = 1.00
+    data["global"]["version"] = 1.00
 
     data["global"]["animals"] = {}
     data["global"]["animals"]["common"] = {}
