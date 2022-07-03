@@ -1,6 +1,4 @@
-from turtle import position
-import discord
-from discord import Member, Embed
+from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 import json
@@ -49,7 +47,7 @@ class zooTeam(commands.Cog):
                                 names.append(name)
                             break
             
-            if input.lower() is not "none":
+            if input.lower() != "none":
                 if input not in names:
                     return await ctx.send(f"{input} was not found")
 
