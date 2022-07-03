@@ -141,7 +141,7 @@ class tictactoe(commands.Cog):
                 )
                 try:
                     move = int(message.content) - 1
-                    #await message.delete()
+                    await message.delete()
                     break
                 except:
                     pass
