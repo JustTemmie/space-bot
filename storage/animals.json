@@ -18,7 +18,7 @@
             },
             "4": {
                 "icon": "🐝",
-                "name": ["bee"]
+                "name": ["bee", "b"]
             },
             "5": {
                 "icon": "🪱",
@@ -45,7 +45,7 @@
             },
             "3": {
                 "icon": "🐭",
-                "name": ["mouse"]
+                "name": ["mouse", "rat"]
             },
             "4": {
                 "icon": "🐷",
@@ -68,7 +68,7 @@
         "animals": {
             "1": {
                 "icon": "🦆",
-                "name": ["duck"]
+                "name": ["duck", "goose"]
             },
             "2": {
                 "icon": "🦉",
@@ -115,11 +115,11 @@
             },
             "5": {
                 "icon": "🐡",
-                "name": ["blowfish"]
+                "name": ["blowfish", "fish"]
             },
             "6": {
                 "icon": "🦑",
-                "name": ["squid"]
+                "name": ["squid", "octopus"]
             }
         }
     },
@@ -146,7 +146,7 @@
             },
             "5": {
                 "icon": "🦎",
-                "name": ["lizard"]
+                "name": ["lizard", "gecko"]
             },
             "6": {
                 "icon": "🐍",
