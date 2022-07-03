@@ -103,12 +103,18 @@ class zooTeam(commands.Cog):
         for i in range(0, 3):
             icon = data[str(user.id)]['team']['members'][f'animal{i+1}']['icon']
             name = data[str(user.id)]['team']['members'][f'animal{i+1}']['name']
-            embed.add_field(name = f"{i+1}", value = f"{icon} {name}", inline = True)
+            if name == "None":
+                embed.add_field(name = f"{i+1}", value = f"None", inline = True)
+            else:
+                embed.add_field(name = f"{i+1}", value = f"{icon} {name}", inline = True)
         
         for i in range(3, 5):
             icon = data[str(user.id)]['team']['members'][f'animal{i+1}']['icon']
             name = data[str(user.id)]['team']['members'][f'animal{i+1}']['name']
-            embed.add_field(name = f"{i+1} benched", value = f"{icon} {name}", inline = True)
+            if name == "None":
+                embed.add_field(name = f"{i+1} benched", value = f"None", inline = True)
+            else:
+                embed.add_field(name = f"{i+1} benched", value = f"{icon} {name}", inline = True)
 
             
         await ctx.send(embed=embed)

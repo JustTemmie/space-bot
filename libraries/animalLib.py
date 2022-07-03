@@ -4,7 +4,7 @@ from libraries.miscLib import *
 from libraries.economyLib import check_if_not_exist, open_account
 from discord import Embed
 
-zoo_version = 1.04
+zoo_version = 1.05
 
 async def check_if_zoo_not_exist(user):
     users = await get_animal_data()
@@ -39,22 +39,22 @@ async def update_zoo(user):
         
         data = await get_animal_data()
     
-    if data[str(user.id)]["version"] < 1.04:
+    if data[str(user.id)]["version"] < 1.05:
         
         data[str(user.id)]["team"] = {}
         data[str(user.id)]["team"]["members"] = {}
         
         animal1to6 = [
-            "animal1", "animal2", "animal3", "animal4", "animal5", "animal6"
+            "animal1", "animal2", "animal3", "animal4", "animal5"
         ]
         
         for animal in animal1to6:
             data[str(user.id)]["team"]["members"][animal] = {}
-            data[str(user.id)]["team"]["members"][animal]["name"] = ""
+            data[str(user.id)]["team"]["members"][animal]["name"] = "None"
             data[str(user.id)]["team"]["members"][animal]["icon"] = ""
-            data[str(user.id)]["team"]["members"][animal]["tier"] = ""
+            data[str(user.id)]["team"]["members"][animal]["tier"] = "None"
         
-        data[str(user.id)]["version"] = 1.04
+        data[str(user.id)]["version"] = 1.05
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
         
@@ -119,14 +119,14 @@ async def open_zoo(self, ctx):
     data[str(user.id)]["team"]["members"] = {}
         
     animal1to6 = [
-        "animal1", "animal2", "animal3", "animal4", "animal5", "animal6"
+        "animal1", "animal2", "animal3", "animal4", "animal5"
     ]
     
     for animal in animal1to6:
         data[str(user.id)]["team"]["members"][animal] = {}
-        data[str(user.id)]["team"]["members"][animal]["name"] = ""
-        data[str(user.id)]["team"]["members"][animal]["icon"] = ""
-        data[str(user.id)]["team"]["members"][animal]["tier"] = ""
+        data[str(user.id)]["team"]["members"][animal]["name"] = "none"
+        data[str(user.id)]["team"]["members"][animal]["icon"] = "none"
+        data[str(user.id)]["team"]["members"][animal]["tier"] = "none"
     
     
     ####################################################
