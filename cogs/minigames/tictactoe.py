@@ -20,7 +20,7 @@ class tictactoe(commands.Cog):
     @commands.max_concurrency(1, BucketType.channel)
     @cooldown(1, 5, BucketType.channel)
     async def tictactoeCommand(self, ctx, SelectedPlayer: Member):
-        await ctx.send(f"Starting game with {SelectedPlayer.mention}")
+        await ctx.send(f"Starting game between {ctx.author.mention} and {SelectedPlayer.mention}")
         
         valid_placements = [0, 1, 2, 3, 4, 5, 6, 7, 8]
         board = [
