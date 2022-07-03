@@ -77,6 +77,8 @@ class tictactoe(commands.Cog):
             move = await self.get_move(ctx, valid_placements, board, player, piece)
 
             if move == "exit":
+                await ctx.send(f"{player.mention} took too long to make a move, {otherPlayer.mention} wins!")
+                break
                 return
             
             board[move] = piece
@@ -157,8 +159,10 @@ class tictactoe(commands.Cog):
                 except:
                     pass
             except asyncio.TimeoutError:
-                await ctx.send(f"{player.mention} took too long to make a move, cancelling game")
                 return "exit"
+        
+        if message is None:
+            return "exit"
 
         #await ctx.send(board)
         
