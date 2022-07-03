@@ -5,6 +5,7 @@ from discord.ext.commands import cooldown, BucketType
 import json
 
 import libraries.animalLib as aniLib
+from libraries.standardLib import make_4_long
 
 
 class zooMisc(commands.Cog):
@@ -52,7 +53,7 @@ class zooMisc(commands.Cog):
                 name = animal["name"][0]
                 caught = data[str(user.id)]['animals'][tier][name]["caught"]
                 if caught != 0 or tier == "common":
-                    animalsInTiers[tier].append(f"{icon}`{data[str(user.id)]['animals'][tier][name]['count']}` ")
+                    animalsInTiers[tier].append(f"{icon}`{make_4_long(data[str(user.id)]['animals'][tier][name]['count'])}` ")
 
         for tier in animalsInTiers:
             if len(animalsInTiers[tier]) != 0:
