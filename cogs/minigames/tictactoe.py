@@ -101,6 +101,10 @@ class tictactoe(commands.Cog):
                 await ctx.send(f"{player.mention} wins!")
                 return
             
+            if await self.check_tie(ctx, board):
+                await ctx.send("It's a tie!")
+                return
+            
             oldMsg = await ctx.send((f"{player.display_name} chose {move + 1}\nit's now {otherPlayer.mention}'s turn"))
             
             turn += 1
@@ -129,6 +133,12 @@ class tictactoe(commands.Cog):
         if (board[0] == piece and board[4] == piece and board[8] == piece) or (board[2] == piece and board[4] == piece and board[6] == piece):
             return True
 
+        return False
+
+    @commands.Cog.listener()
+    async def check_draw(self, ctx, board):
+        if "-" not in board:
+            return True
         return False
     
     
