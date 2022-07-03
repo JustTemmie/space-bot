@@ -57,7 +57,7 @@ async def check_captcha(self, ctx, increase_by = 1):
     with open("./storage/playerInfo/bank.json", "w") as f:
         json.dump(data, f)
 
-    if counter < 100:
+    if counter < 80:
         return False
 
 
