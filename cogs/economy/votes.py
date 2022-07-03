@@ -39,7 +39,7 @@ class TopGG(commands.Cog):
                 weekendstr = "\nit's the weekend, you got double rewards!"
         except Exception as e:
             print(f"VOTE ERROR {e}")
-            await self.bot.get_channel(978695336283480146).send(f"VOTE ERROR {e}")
+            await self.bot.get_channel(978695336283480146).send(f"VOTE ERROR {e}\nData: {data}")
             
         user = int(data['user'])
         
