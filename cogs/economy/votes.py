@@ -103,7 +103,8 @@ class TopGG(commands.Cog):
             await userObj.send(f"You have received **{money}** <:beaverCoin:968588341291397151> and **{logs}** <:log:970325254461329438> for voting!{streakstr}{weekendstr}")
             sucessstr = f"Successfully sent a vote confirmation to {userObj.name}!\nData: {data}"
         except Exception as e:
-            sucessstr = f"Failed to send a vote confirmation to {userObj.name}!\n{e}\nData: {data}"
+            sucessstr = f"Failed to send a vote confirmation to {userObj.name}!\nData: {data}"
+            print(f"VOTE ERROR {e}")
 
         data[str(user)]["wallet"] += money
         data[str(user)]["inventory"]["logs"] += logs
