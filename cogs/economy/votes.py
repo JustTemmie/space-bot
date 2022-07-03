@@ -33,10 +33,14 @@ class TopGG(commands.Cog):
         
         print(data)
 
-        if data["is_weekend"]:
-            is_weekend = True
-            weekendstr = "\nit's the weekend, you got double rewards!"
-
+        try:
+            if data["is_weekend"]:
+                is_weekend = True
+                weekendstr = "\nit's the weekend, you got double rewards!"
+        except Exception as e:
+            print(f"VOTE ERROR {e}")
+            await self.bot.get_channel(978695336283480146).send(f"VOTE ERROR {e}")
+            
         user = int(data['user'])
         
         userObj = self.bot.get_user(user)
