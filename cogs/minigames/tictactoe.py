@@ -147,6 +147,7 @@ class tictactoe(commands.Cog):
     
     @commands.Cog.listener()
     async def get_move(self, ctx, valid_placements, board, player, piece):
+        message = None
         for i in range(5):
             try:    
                 message = await self.bot.wait_for(
