@@ -76,7 +76,7 @@ class ecogeneration(commands.Cog):
         
     @commands.command(
         name="scavenge",
-        aliases=["search", "find", "loot"],
+        aliases=["scav", "s", "find", "loot"],
         brief="go scavenge for some l ö g <:log:970325254461329438>",
     )
     @cooldown(1, 300, BucketType.user)
