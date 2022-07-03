@@ -30,6 +30,8 @@ class TopGG(commands.Cog):
         weekendstr = ""
         streakstr = ""
         is_weekend = False
+        
+        print(data)
 
         if data["is_weekend"]:
             is_weekend = True
