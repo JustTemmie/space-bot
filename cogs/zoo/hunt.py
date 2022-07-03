@@ -22,7 +22,7 @@ class zooHunt(commands.Cog):
 
     @commands.command(
         name = "hunt",
-        aliases = ["h"],
+        aliases = ["hu"],
         brief = "go look for some animals, perhaps even add them to your zoo"
     )
     @cooldown(1, 300, BucketType.user)
