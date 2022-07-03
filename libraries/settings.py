@@ -1,7 +1,7 @@
 import json
 
 async def get_user_settings():
-    with open("storage/playerinfo/settings.json", "r") as f:
+    with open("storage/playerInfo/settings.json", "r") as f:
         settings = json.load(f)
     return settings
 
