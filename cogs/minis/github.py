@@ -85,5 +85,5 @@ class github(commands.Cog):
             self.n += 1
 
 
-def setup(bot):
-    bot.add_cog(github(bot))
+async def setup(bot):
+    await bot.add_cog(github(bot))

@@ -186,5 +186,5 @@ class tictactoe(commands.Cog):
                 await ctx.send(await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10)
                 return await self.get_move(ctx, valid_placements, board, player, piece)
 
-def setup(bot):
-    bot.add_cog(tictactoe(bot))
+async def setup(bot):
+    await bot.add_cog(tictactoe(bot))

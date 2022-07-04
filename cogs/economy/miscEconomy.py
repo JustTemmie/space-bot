@@ -114,6 +114,8 @@ class ecoeconomy(commands.Cog):
     )
     @cooldown(2, 10, BucketType.user)
     async def leaderboard_command(self, ctx, x=5):
+        await ctx.channel.typing()
+        
         users = await get_bank_data()
         if x > 10:
             x = 10
@@ -144,5 +146,5 @@ class ecoeconomy(commands.Cog):
 
 
 
-def setup(bot):
-    bot.add_cog(ecoeconomy(bot))
+async def setup(bot):
+    await bot.add_cog(ecoeconomy(bot))

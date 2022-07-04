@@ -27,11 +27,8 @@ class search(commands.Cog):
         brief="search up something using urban dictionary",
     )
     @cooldown(5, 20, BucketType.user)
-    async def urbandictionary(self, ctx, *, search):
-        if not ctx.channel.is_nsfw():
-            return await ctx.send("this command is sadly for NSFW channels only for now, sorry")
-        
-        await ctx.trigger_typing()
+    async def urbandictionary(self, ctx, *, search):        
+        await ctx.typing()
         req = requests.get(
             "http://api.urbandictionary.com/v0/define?term=" + urllib.parse.quote(search)
         )
@@ -49,21 +46,6 @@ class search(commands.Cog):
         embed.add_field(name="Example", value=req.json()["list"][entry]["example"])
         msg = await ctx.send(embed=embed)
         
-        
-
-    
-    async def check_nsfw(self, ctx, json, loops = 0):
-        if loops > 5:
-            return False
-        
-        req_len = len(json["data"]["children"])
-        rand = random.randrange(0, req_len)
-        post = json["data"]["children"][rand]
-        
-        if post["data"]["over_18"] and not ctx.channel.is_nsfw():
-            return await self.check_nsfw(ctx, json, loops + 1)
-        
-        return post
     
     @commands.command(
         name="imdb",
@@ -71,6 +53,7 @@ class search(commands.Cog):
     )
     @cooldown(5, 20, BucketType.user)
     async def imdb_command(self, ctx, *, movie):
+        await ctx.typing()
 
         try:
             movie = imdb.IMDb().search_movie(movie)
@@ -103,7 +86,21 @@ class search(commands.Cog):
         except Exception as e:
             print(e)
             await ctx.send(f"Error: {e}")
+            
+        
 
+    async def check_nsfw(self, ctx, json, loops = 0):
+        if loops > 5:
+            return False
+        
+        req_len = len(json["data"]["children"])
+        rand = random.randrange(0, req_len)
+        post = json["data"]["children"][rand]
+        
+        if post["data"]["over_18"] and not ctx.channel.is_nsfw():
+            return await self.check_nsfw(ctx, json, loops + 1)
+        
+        return post
     
     @commands.command(
         name="reddit",
@@ -111,7 +108,8 @@ class search(commands.Cog):
         brief="get a random reddit post from the specified subreddit",
     )
     @cooldown(1, 2, BucketType.guild)
-    async def reddit_search(self, ctx, *, search):
+    async def reddit_search(self, ctx, search):
+        await ctx.channel.typing()
         if search == "tra" or search == "traa":
             search = "traaaaaaannnnnnnnnns"
         
@@ -184,10 +182,8 @@ class search(commands.Cog):
     )
     @cooldown(3, 10, BucketType.guild)
     async def wikipedia_search(self, ctx, *, search):
-        if not ctx.channel.is_nsfw():
-            return await ctx.send("this command is sadly for NSFW channels only for now, sorry")
                                   
-        await ctx.channel.trigger_typing()
+        await ctx.channel.typing()
         search = wikipedia.search(search)
 
         if not search:
@@ -218,5 +214,5 @@ class search(commands.Cog):
         await ctx.send("https://mcc.live/")
 
 
-def setup(bot):
-    bot.add_cog(search(bot))
+async def setup(bot):
+    await bot.add_cog(search(bot))

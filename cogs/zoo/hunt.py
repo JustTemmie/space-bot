@@ -65,5 +65,5 @@ class zooHunt(commands.Cog):
         #         await ctx.send(animals[i]["animals"][str(y)]["icon"])
         #         await ctx.send(animals[i]["animals"][str(y)]["name"][0])
     
-def setup(bot):
-    bot.add_cog(zooHunt(bot))
+async def setup(bot):
+    await bot.add_cog(zooHunt(bot))

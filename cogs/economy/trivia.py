@@ -28,6 +28,7 @@ class ecotrivia(commands.Cog):
         )
     @cooldown(1, 2, BucketType.user)
     async def triviaCommand(self, ctx, category = "random", dif = "random"):
+        await ctx.channel.typing()
         help_strs = ["help", "category", "categories"]
         if category.lower() in help_strs:
             await ctx.send(
@@ -209,5 +210,5 @@ d) {answers[3]}
 
     
             
-def setup(bot):
-    bot.add_cog(ecotrivia(bot))
+async def setup(bot):
+    await bot.add_cog(ecotrivia(bot))

@@ -185,5 +185,5 @@ class social(commands.Cog):
                 await ctx.send(f"API returned a {response.status} status.")
 
 
-def setup(bot):
-    bot.add_cog(social(bot))
+async def setup(bot):
+    await bot.add_cog(social(bot))

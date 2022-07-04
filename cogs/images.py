@@ -32,7 +32,7 @@ class images(commands.Cog):
 
     #     wanted = Image.open("images/presets/wanted.png")
 
-    #     asset = user.avatar_url_as(size=256)
+    #     asset = user.display_avatar.replace(size=256)
     #     data = io.BytesIO(await asset.read())
     #     pfp = Image.open(data)
 
@@ -51,7 +51,7 @@ class images(commands.Cog):
         if user == None:
             user = ctx.author
 
-        asset = user.avatar_url_as(size=512)
+        asset = user.display_avatar.replace(size=512)
         data = io.BytesIO(await asset.read())
         pfp = Image.open(data)
 
@@ -67,7 +67,7 @@ class images(commands.Cog):
         if user == None:
             user = ctx.author
 
-        asset = user.avatar_url_as(size=512)
+        asset = user.display_avatar.replace(size=512)
         data = io.BytesIO(await asset.read())
         pfp = Image.open(data)
 
@@ -166,5 +166,5 @@ async def resize(image, new_width):
     return image
 
 
-def setup(bot):
-    bot.add_cog(images(bot))
+async def setup(bot):
+    await bot.add_cog(images(bot))

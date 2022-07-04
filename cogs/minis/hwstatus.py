@@ -123,5 +123,5 @@ class hw(commands.Cog):
         await ctx.send(embed=Embed)
 
 
-def setup(bot):
-    bot.add_cog(hw(bot))
+async def setup(bot):
+    await bot.add_cog(hw(bot))

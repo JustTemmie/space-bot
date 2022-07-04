@@ -229,5 +229,5 @@ class ecogambling(commands.Cog):
                 f"<:sadcat:849342846582390834> - {await SL.removeat(ctx.author.display_name)} lost {amount} <:beaverCoin:968588341291397151>"
             )
 
-def setup(bot):
-    bot.add_cog(ecogambling(bot))
+async def setup(bot):
+    await bot.add_cog(ecogambling(bot))

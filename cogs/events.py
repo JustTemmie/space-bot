@@ -169,7 +169,7 @@ class events(commands.Cog):
 
         elif isinstance(exc, CommandOnCooldown):
             await ctx.send(
-                f"That command is on {str(exc.cooldown.type).split('.')[-1]} cooldown. Please try again in {exc.retry_after:,.2f} seconds.",
+                f"That command is on cooldown. Please try again in {exc.retry_after:,.2f} seconds.",
                 delete_after=(exc.retry_after + 0.7),
             )
 
@@ -549,5 +549,5 @@ async def react_beaver(ctx):
 
 
 
-def setup(bot):
-    bot.add_cog(events(bot))
+async def setup(bot):
+    await bot.add_cog(events(bot))

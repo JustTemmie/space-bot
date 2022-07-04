@@ -42,7 +42,7 @@
     "10th": {
         "icon": "🤗",
         "name": "Actions",
-        "description": "`bite` `boop` `cuddle` `hug` `grouphug` `kill` `kiss` `hold` `mock` `pat` `stare` `punch` `steal`"
+        "description": "`bite` `boop` `cuddle` `hug` `kill` `kiss` `hold` `mock` `pat` `stare` `punch` `steal`"
     },
     "4th": {
         "icon": "🖼️",
@@ -62,7 +62,7 @@
     "7th": {
         "icon": "⚖️",
         "name": "Units",
-        "description": "`celcius` `fahrenheit` `kg` `pound`"
+        "description": "`celsius` `fahrenheit` `kg` `pound`"
     },
     "8th": {
         "icon": "🔍",
@@ -72,6 +72,6 @@
     "13th": {
         "icon": "❓",
         "name": "Misc",
-        "description": "`settings` `alientohuman` `humantoalien` `texttoimage` `morse` `dice` `report` `rick` `remindme` `beaver` `unbeaver`"
+        "description": "`settings` `alientohuman` `humantoalien` `texttoimage` `morse` `dice` `bugreport` `rick` `remindme` `beaver` `unbeaver`"
     }
 }

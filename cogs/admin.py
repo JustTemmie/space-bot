@@ -132,7 +132,7 @@ class admin(Cog):
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
 
-                embed.set_thumbnail(url=target.avatar_url)
+                embed.set_thumbnail(url=target.display_avatar.url)
                 await self.bot.get_channel(772591539423281172).send(embed=embed)
                 await ctx.send(embed=embed)
 
@@ -206,7 +206,7 @@ class admin(Cog):
                 for name, value, inline in fields:
                     embed.add_field(name=name, value=value, inline=inline)
 
-            embed.set_thumbnail(url=target.avatar_url)
+            embed.set_thumbnail(url=target.display_avatar.url)
             await self.bot.get_channel(772591539423281172).send(embed=embed)
             await ctx.send(embed=embed)
 
@@ -362,5 +362,5 @@ async def open_warnings():
             report["users"] = []
 
 
-def setup(bot):
-    bot.add_cog(admin(bot))
+async def setup(bot):
+    await bot.add_cog(admin(bot))

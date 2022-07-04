@@ -15,7 +15,7 @@ class ecostats(commands.Cog):
         data = await get_bank_data()
         
         if amount == 0:
-            embed = discord.Embed(name = "stats", description = "", color = 0x00ff00)
+            embed = discord.Embed(title = "stats", description = "", color = 0x00ff00)
             embed.add_field(
             name="Stats:",
             value= f"""
@@ -35,5 +35,5 @@ class ecostats(commands.Cog):
         
         await ctx.send("command not implemented yet")
         
-def setup(bot):
-    bot.add_cog(ecostats(bot))
+async def setup(bot):
+    await bot.add_cog(ecostats(bot))

@@ -64,5 +64,5 @@ class qrcodegenerator(commands.Cog):
         img.save("temp/qrcode.png")
         await ctx.send(file=discord.File("temp/qrcode.png"))
 
-def setup(bot):
-    bot.add_cog(qrcodegenerator(bot))
+async def setup(bot):
+    await bot.add_cog(qrcodegenerator(bot))

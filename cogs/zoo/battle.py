@@ -84,5 +84,5 @@ class zooBattle(commands.Cog):
         #img.show()     
         
 
-def setup(bot):
-    bot.add_cog(zooBattle(bot))
+async def setup(bot):
+    await bot.add_cog(zooBattle(bot))

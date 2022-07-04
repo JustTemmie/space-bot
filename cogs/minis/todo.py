@@ -18,9 +18,10 @@ class todo(commands.Cog):
     )
     @cooldown(5, 10, BucketType.user)
     async def todoCommand(self, ctx, *, todo = None):
-        if len(todo) > 125:
-            await ctx.send("That todo is too long!")
-            return
+        if todo != None:
+            if len(todo) > 125:
+                await ctx.send("That todo is too long!")
+                return
         
         if await check_if_not_exist(ctx.author):
             await open_account(self, ctx)
@@ -37,7 +38,7 @@ class todo(commands.Cog):
          
         if todo != None:
             if len(data[str(ctx.author.id)]) > 15:
-                await ctx.send(f"you have too many todos, please delete some using {ctx.prefix} delete todo <number>")
+                await ctx.send(f"you have too many todos, please delete some using {ctx.prefix}delete todo <number>")
                 return
             data[str(ctx.author.id)].append(todo)
             
@@ -51,7 +52,7 @@ class todo(commands.Cog):
         if ctx.author.display_name[-1:] != "s":
             end = "s"
         embed = Embed(title = f"{ctx.author.display_name}'{end} Todo List", description = "", color = ctx.author.color)
-        embed.set_footer(text = f"use {ctx.prefix} delete todo <index> to delete a todo")
+        embed.set_footer(text = f"use {ctx.prefix}delete todo <index> to delete a todo")
         
         for i, reminder in enumerate(data[str(ctx.author.id)]):
             embed.add_field(name = f"{i+1}", value = reminder, inline = False)
@@ -99,5 +100,5 @@ class todo(commands.Cog):
         
 
 
-def setup(bot):
-    bot.add_cog(todo(bot))
+async def setup(bot):
+    await bot.add_cog(todo(bot))

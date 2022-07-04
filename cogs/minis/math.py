@@ -27,5 +27,5 @@ class mathCommands(commands.Cog):
         except Exception as e:
             await ctx.send(f"Error: {e}")
 
-def setup(bot):
-    bot.add_cog(mathCommands(bot))
+async def setup(bot):
+    await bot.add_cog(mathCommands(bot))

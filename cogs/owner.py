@@ -91,13 +91,13 @@ class Owner(commands.Cog):
     @commands.is_owner()
     @commands.command()
     async def load(self, ctx, extension):
-        self.bot.load_extension(f"cogs.{extension}")
+        await self.bot.load_extension(f"cogs.{extension}")
         await ctx.send(f"{extension} was loaded")
 
     @commands.is_owner()
     @commands.command()
     async def unload(self, ctx, extension):
-        self.bot.unload_extension(f"cogs.{extension}")
+        await self.bot.unload_extension(f"cogs.{extension}")
         await ctx.send(f"{extension} was unloaded")
 
     @commands.command()
@@ -109,8 +109,8 @@ class Owner(commands.Cog):
                 if filename.endswith('.py'):# and "owner" not in filename:
                     try:
                         filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
-                        self.bot.reload_extension(filename[:-3])
-                        self.bot.dispatch("load", filename[:-3])
+                        await self.bot.reload_extension(filename[:-3])
+                        await self.bot.dispatch("load", filename[:-3])
                     except Exception as e:
                         errstr += f"{e}\n"
             if errstr == "":
@@ -284,5 +284,5 @@ class Owner(commands.Cog):
             await ctx.send("```py\n>>> {}\n\n\n{}```".format(code, e))
 
 
-def setup(bot):
-    bot.add_cog(Owner(bot))
+async def setup(bot):
+    await bot.add_cog(Owner(bot))

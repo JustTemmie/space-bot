@@ -122,5 +122,5 @@ class test(commands.Cog):
         #m.set_footer(text=wm.footer)
         await ctx.send(embed=m)
 
-def setup(bot):
-    bot.add_cog(test(bot))
+async def setup(bot):
+    await bot.add_cog(test(bot))

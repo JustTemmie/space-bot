@@ -166,5 +166,5 @@ class ecomarry(commands.Cog):
         await ctx.send(f"{ctx.author.mention} divorced {member.mention} 💔")
 
 
-def setup(bot):
-    bot.add_cog(ecomarry(bot))
+async def setup(bot):
+    await bot.add_cog(ecomarry(bot))
