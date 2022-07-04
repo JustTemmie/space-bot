@@ -108,7 +108,7 @@ Divider can be `-`, `|`, `/`, and `\`
         
         
         # Load profile picture as a gif
-        asset = user.avatar_url_as(size=512)
+        asset = user.display_avatar.replace(size=512)
         data = BytesIO(await asset.read())
         # Load the pfp into PIL
         pfp = Image.open(data)
@@ -157,5 +157,5 @@ Divider can be `-`, `|`, `/`, and `\`
         await ctx.send(file=discord.File(output, filename="pride.png"))
 
 
-def setup(bot):
-    bot.add_cog(Images(bot))
+async def setup(bot):
+    await bot.add_cog(Images(bot))

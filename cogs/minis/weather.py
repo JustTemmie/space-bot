@@ -90,5 +90,5 @@ class weather(Cog):
             await ctx.send("https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8", file=discord.File("temp/yr.jpg"))
 
 
-def setup(bot):
-    bot.add_cog(weather(bot))
+async def setup(bot):
+    await bot.add_cog(weather(bot))

@@ -42,7 +42,7 @@ class ball8(commands.Cog):
 
     @commands.command(
         name="8ball",
-        aliases=["8"],
+        aliases=["8", "8b"],
         brief="Ask the 8ball a question"
     )
     @cooldown(1, 2, BucketType.user)
@@ -56,5 +56,5 @@ class ball8(commands.Cog):
         await msg.edit(content=random.choice(responses))
 
 
-def setup(bot):
-    bot.add_cog(ball8(bot))
+async def setup(bot):
+    await bot.add_cog(ball8(bot))

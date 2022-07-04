@@ -44,7 +44,7 @@ class info(commands.Cog):
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
-            embed.set_thumbnail(url=target.avatar_url)
+            embed.set_thumbnail(url=target.display_avatar.url)
 
         await ctx.send(embed=embed)
 
@@ -71,7 +71,6 @@ class info(commands.Cog):
         fields = [
             ("ID", ctx.guild.id, True),
             ("Owner", ctx.guild.owner, True),
-            ("Region", ctx.guild.region, True),
             ("Members", len(ctx.guild.members), True),
             ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
             ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
@@ -94,10 +93,10 @@ class info(commands.Cog):
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
-        embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.set_thumbnail(url=ctx.guild.icon)
 
         await ctx.send(embed=embed)
 
 
-def setup(bot):
-    bot.add_cog(info(bot))
+async def setup(bot):
+    await bot.add_cog(info(bot))

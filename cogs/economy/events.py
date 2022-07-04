@@ -61,5 +61,5 @@ class ecoevents(commands.Cog):
             await update_bank_data(user, random.randint(2, 5))
             await update_bank_data(user, 1, "xp")
             
-def setup(bot):
-    bot.add_cog(ecoevents(bot))
+async def setup(bot):
+    await bot.add_cog(ecoevents(bot))

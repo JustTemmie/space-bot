@@ -123,5 +123,5 @@ class ecoshop(commands.Cog):
         await ctx.send(f"thank you for your business! here's your {round(lower_payout)} <:beaverCoin:968588341291397151> plus an extra {round(payout)-round(lower_payout)} <:beaverCoin:968588341291397151> i threw in for good measure :)")
 
 
-def setup(bot):
-    bot.add_cog(ecoshop(bot))
+async def setup(bot):
+    await bot.add_cog(ecoshop(bot))

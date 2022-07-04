@@ -17,18 +17,28 @@ class misc(commands.Cog):
         # print("hi there")
 
         
-    @commands.command(name="report", brief="report bugs so they can be fixed :D (hopefully)")
+    @commands.command(
+        name="bugreport",
+        aliases=["bug"],
+        brief="report bugs so they can be fixed :D (hopefully)"
+    )
     @cooldown(5, 300, BucketType.user)
     async def report_command(self, ctx, *, input):
-        embed = Embed(name="Report", colour=0xAF62EB, timestamp=datetime.utcnow())
-        embed.set_author(name=f"{ctx.author.username} : {ctx.author.id}", icon_url=ctx.author.avatar_url)
-        
-        
-        embed.add_field(name="Report:", value=input, inline=False)        
-        await self.bot.report_out_public.send(embed = embed)
-        await ctx.send(embed = embed)
-        ctx.add_reaction("✅")
-        
+        try:
+            embed = Embed(title="Report", colour=0xAF62EB, timestamp=datetime.utcnow())
+            embed.set_author(name=f"{ctx.author.name} : {ctx.author.id}", icon_url=ctx.author.avatar.url)
+            
+            
+            embed.add_field(name="||\n||", value=input, inline=False)        
+            #await self.bot.report_out_public.send(embed = embed)
+            await ctx.send(embed = embed)
+            msg = await ctx.fetch_message(ctx.message.id)
+            await msg.add_reaction("✅")
+    
+        except Exception as e:
+            await ctx.send(f"{e}")
+            msg = await ctx.fetch_message(ctx.message.id)
+            await msg.add_reaction("✅")
 
     @commands.command(name="pound", brief="pound to kg")
     async def poundtokg(self, ctx, *, input):
@@ -47,5 +57,5 @@ class misc(commands.Cog):
         await ctx.send(f"{await SL.removeat(input)} fahrenheit is {(float(input) - 32)/9*5} celsius")
 
 
-def setup(bot):
-    bot.add_cog(misc(bot))
+async def setup(bot):
+    await bot.add_cog(misc(bot))

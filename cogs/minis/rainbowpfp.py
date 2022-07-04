@@ -45,7 +45,7 @@ class rainbowPFP(commands.Cog):
         if user == None:
             user = ctx.author
 
-        asset = user.avatar_url_as(size=256)
+        asset = user.display_avatar.replace(size=256)
         data = io.BytesIO(await asset.read())
         pfp = Image.open(data)
 
@@ -105,5 +105,5 @@ async def make_gif(frame_folder, inputDuration):
     frame_one.save("temp/rainbowPFP/output.gif", format="GIF", append_images=framesObj,
                save_all=True, duration=inputDuration, loop=0, transparency=0, optimize=True)
     
-def setup(bot):
-    bot.add_cog(rainbowPFP(bot))
+async def setup(bot):
+    await bot.add_cog(rainbowPFP(bot))

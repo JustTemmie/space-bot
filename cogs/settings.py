@@ -117,5 +117,5 @@ Description: `{settings[category][child]['description']}`
         
 
 
-def setup(bot):
-    bot.add_cog(settings(bot))
+async def setup(bot):
+    await bot.add_cog(settings(bot))

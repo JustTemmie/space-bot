@@ -16,7 +16,7 @@ async def generate_user_capcha(user):
     for i in range(1, 10):
         sizes.append(random.randint(80, 140))
 
-    image = ImageCaptcha(fonts = ["./font.ttf"], font_sizes = sizes, width = 500, height = 300)
+    image = ImageCaptcha(fonts = ["./storage/fonts/captchaFont.ttf"], font_sizes = sizes, width = 500, height = 300)
     
     possibleLetters = "ABCEFGHJKLMNOPRSTUVWXYZ"
 

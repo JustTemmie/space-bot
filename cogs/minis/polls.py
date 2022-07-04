@@ -38,5 +38,5 @@ class polls(commands.Cog):
             pass
 
 
-def setup(bot):
-    bot.add_cog(polls(bot))
+async def setup(bot):
+    await bot.add_cog(polls(bot))

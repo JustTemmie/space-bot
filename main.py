@@ -4,6 +4,7 @@ import random
 import logging
 from time import time
 import json
+import asyncio
 
 from datetime import datetime, timedelta
 import topgg
@@ -171,11 +172,17 @@ async def change_status_task():
 
 
 
-# loads cogs
-for filename in glob.iglob("./cogs/**", recursive=True):
-    if filename.endswith('.py'):
-        filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
-        bot.load_extension(f'{filename[:-3]}') # removes the ".py" from the end of the filename, to make it into cogs.economy
+async def setup(bot):
+    # loads cogs
+    for filename in glob.iglob("./cogs/**", recursive=True):
+        if filename.endswith('.py'):
+            filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
+            await bot.load_extension(f'{filename[:-3]}') # removes the ".py" from the end of the filename, to make it into cogs.economy
+    
 
-# Start bot
-bot.run((TOKEN), bot=True, reconnect=True)
+async def main():
+    async with bot:
+        await setup(bot)
+        await bot.start(TOKEN)
+
+asyncio.run(main())

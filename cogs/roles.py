@@ -57,5 +57,5 @@ class role_menu(commands.Cog):
                 await member.remove_roles(role)
 
 
-def setup(bot):
-    bot.add_cog(role_menu(bot))
+async def setup(bot):
+    await bot.add_cog(role_menu(bot))

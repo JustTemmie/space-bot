@@ -124,5 +124,5 @@ class ecogeneration(commands.Cog):
         await ctx.send(f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!")
 
         
-def setup(bot):
-    bot.add_cog(ecogeneration(bot))
+async def setup(bot):
+    await bot.add_cog(ecogeneration(bot))

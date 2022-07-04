@@ -22,6 +22,8 @@ class ecoprofile(commands.Cog):
         if await check_if_not_exist(user):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
+        await ctx.channel.typing()
+
         bankdata = await get_bank_data()
 
         wallet_amount = bankdata[str(user.id)]["wallet"]
@@ -86,7 +88,7 @@ class ecoprofile(commands.Cog):
         embed.add_field(name="Married to:", value=f"{married_to}", inline=False)
 
         embed.set_footer(text="Sent from my iPhone"),
-        embed.set_thumbnail(url=f"{user.avatar_url}")
+        embed.set_thumbnail(url=f"{user.display_avatar.url}")
 
         await ctx.send(embed=embed)
 
@@ -109,5 +111,5 @@ class ecoprofile(commands.Cog):
 
         await ctx.send(f'quote set to "{quote}"!')
         
-def setup(bot):
-    bot.add_cog(ecoprofile(bot))
+async def setup(bot):
+    await bot.add_cog(ecoprofile(bot))

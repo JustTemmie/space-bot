@@ -71,7 +71,7 @@ class reminder(commands.Cog):
 
         sendtime = round(time.time() + seconds)
         embed = Embed(title=reminder, description = f"i will remind you <t:{sendtime}:R>", color=ctx.author.colour)
-        embed.set_footer(text=f"{ctx.author.name}", icon_url=ctx.author.avatar_url)
+        embed.set_footer(text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url)
         
         with open("storage/reminders.json", "r") as f:
             data = json.load(f)
@@ -90,5 +90,5 @@ class reminder(commands.Cog):
 
 
 
-def setup(bot):
-    bot.add_cog(reminder(bot))
+async def setup(bot):
+    await bot.add_cog(reminder(bot))

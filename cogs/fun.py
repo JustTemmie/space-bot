@@ -110,10 +110,10 @@ class fun(commands.Cog):
             user = ctx.author
 
         if dm_or_not == "dm" or dm_or_not == "DM":
-            await user.send(f"{user.avatar_url}")
+            await user.send(f"{user.display_avatar.url}")
 
         else:
-            await ctx.send(f"{user.avatar_url}")
+            await ctx.send(f"{user.display_avatar.url}")
 
     @commands.command(
         name="mock",
@@ -272,7 +272,7 @@ class fun(commands.Cog):
     @commands.command(name="joke", aliases=["funny"], brief="they're all horrible. Seriously")
     @cooldown(3, 5, BucketType.guild)
     async def tell_joke(self, ctx):
-        await ctx.channel.trigger_typing()
+        await ctx.channel.typing()
         req = requests.get("https://icanhazdadjoke.com", headers={"Accept": "text/plain"})
         content = req.content.decode("UTF-8")
 
@@ -281,7 +281,7 @@ class fun(commands.Cog):
     @commands.command(name="funfact", aliases=["ff"], brief="Fun fact. U gei")
     @cooldown(2, 4, BucketType.guild)
     async def fact_command(self, ctx):
-        await ctx.channel.trigger_typing()
+        await ctx.channel.typing()
         text = requests.get("https://uselessfacts.jsph.pl/random.json?language=en").json()["text"]
         await ctx.send(text)
 
@@ -317,8 +317,8 @@ class fun(commands.Cog):
     # instead of using this we rather limited the number of dice as HTTPException is wack
 
 
-def setup(bot):
-    bot.add_cog(fun(bot))
+async def setup(bot):
+    await bot.add_cog(fun(bot))
 
 
 # '''

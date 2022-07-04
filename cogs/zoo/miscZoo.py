@@ -76,9 +76,7 @@ class zooMisc(commands.Cog):
         if await aniLib.check_if_zoo_not_exist(ctx.author):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
-        with open("storage/animals.json", "r") as f:
-            zoo = json.load(f)
-        
+        zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()
         
         
@@ -132,5 +130,5 @@ class zooMisc(commands.Cog):
         
         
 
-def setup(bot):
-    bot.add_cog(zooMisc(bot))
+async def setup(bot):
+    await bot.add_cog(zooMisc(bot))
