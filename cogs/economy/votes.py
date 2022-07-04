@@ -3,10 +3,16 @@ from discord.ext import commands
 import topgg
 import time
 
-from main import TOP_GG_ENCRYPTION_KEY, TOP_GG_PORT, TOP_GG_TOKEN
-
 from libraries.economyLib import *
 from libraries.settings import *
+
+from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv("keys.env")
+TOP_GG_TOKEN = getenv("TOP_GG_TOKEN")
+TOP_GG_PORT = getenv("TOP_GG_PORT")
+TOP_GG_ENCRYPTION_KEY = getenv("TOP_GG_ENCRYPTION_KEY")
 
 class TopGG(commands.Cog):
     """
