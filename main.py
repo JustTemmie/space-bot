@@ -75,7 +75,37 @@ def get_prefix(bot, message):
         return commands.when_mentioned_or(DEFAULT_PREFIX, "beav")(bot, message)
 
 
-# Shard the bot
+class MyClient(discord.Client):
+    def __init__(self):
+        super().__init__(intents=discord.Intents.all())
+        self.synced = False
+    
+    async def on_ready(self):
+        await self.wait_until_ready()
+        if not self.synced:
+            await tree.sync()
+            self.synced = True
+        print("Slash commands are now ready!")
+    
+
+client = MyClient()
+tree = discord.app_commands.CommandTree(client)
+
+@tree.command(name = "ping", description = "Pong!")
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message(f"Pong! slash commands have a latency of {round(client.latency * 1000)}ms")
+
+@tree.command(name = "prefix", description = "Tells you what the bot's prefixes are")
+async def ping(interaction: discord.Interaction):
+    with open("storage/guild_data/prefixes.json", "r") as f:
+        prefixes = json.load(f)
+
+    prefixesstr = ""
+    for i in prefixes[str(interaction.guild.id)]:
+        prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
+
+    await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
+
 bot = commands.AutoShardedBot(
     shard_count=SHARDS,
     command_prefix=(get_prefix),
@@ -83,12 +113,10 @@ bot = commands.AutoShardedBot(
     intents=discord.Intents.all()
 )
 
-
 # Remove default help command
 bot.remove_command("help")
 # Set the ready status to False, so the bot knows it hasnt been initialized yet.
 bot.ready = False
-
 
 @bot.event
 async def on_autopost_success():
@@ -141,7 +169,8 @@ async def on_ready():
 
         # Set the bot ready to True
         bot.ready = True
-
+    
+    await client.start(TOKEN)
 
 # Change the bot's status
 @tasks.loop(hours=5, minutes=random.randint(0, 120))

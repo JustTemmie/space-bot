@@ -215,7 +215,7 @@ class fun(commands.Cog):
     @commands.command(name="ping", aliases=["pong", "latency"], brief="P O N G")
     @cooldown(3, 5, BucketType.guild)
     async def ping_pong(self, ctx):
-        await ctx.send(f"Pong! {round(self.bot.latency * 1000)}ms")
+        await ctx.send(f"Pong! normal commands have a latency of {round(self.bot.latency * 1000)}ms")
 
     @commands.command(
         name="fact",
