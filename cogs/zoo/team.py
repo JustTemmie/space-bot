@@ -16,7 +16,7 @@ class zooTeam(commands.Cog):
         brief = "see your team and change out your members",
     )
     @cooldown(2, 5, BucketType.user)
-    async def teamCommand(self, ctx, command = "none", input = None, position = 0):
+    async def teamCommand(self, ctx, command = "Display", input = None, position = 0):
         await aniLib.open_zoo(self, ctx)
         
         #if user is None:
@@ -25,9 +25,7 @@ class zooTeam(commands.Cog):
         if await aniLib.check_if_zoo_not_exist(ctx.author):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
-        with open("storage/animals.json", "r") as f:
-            zoo = json.load(f)
-        
+        zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()
         
         if command.lower() in ["add", "set"]:

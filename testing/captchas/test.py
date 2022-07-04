@@ -9,7 +9,7 @@ if __name__ == '__main__':
     for i in range(1, 10):
         sizes.append(random.randint(110, 170))
 
-    imageCaptcha = ImageCaptcha(fonts = ["./font.ttf"], font_sizes = sizes, width = 500, height = 300)
+    imageCaptcha = ImageCaptcha(fonts = ["./storage/fonts/captchaFont.ttf"], font_sizes = sizes, width = 500, height = 300)
     #ImageCaptcha.create_noise_dots(image, color = (0, 0, 0), width = 1, number = 100)
     
     possibleLetters = "ABCEFGHJKLMNOPRSTUVWXYZ"

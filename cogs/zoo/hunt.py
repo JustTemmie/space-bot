@@ -36,8 +36,7 @@ class zooHunt(commands.Cog):
         if await check_captcha(self, ctx, 0.5):
             return
 
-        with open("storage/animals.json", "r") as f:
-            animals = json.load(f)
+        animals = await aniLib.get_zoo_data()
 
 
         roll = random.random()

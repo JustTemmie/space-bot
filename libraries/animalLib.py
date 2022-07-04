@@ -172,6 +172,12 @@ async def open_bot():
     with open("storage/playerInfo/animals.json", "w") as f:
         json.dump(data, f)
 
+async def get_zoo_data():
+    with open("storage/animals.json", "r") as f:
+        data = json.load(f)
+
+    return data
+
 async def get_animal_data():
     with open("storage/playerInfo/animals.json", "r") as f:
         data = json.load(f)
