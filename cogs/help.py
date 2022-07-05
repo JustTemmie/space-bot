@@ -57,7 +57,7 @@ class help(commands.Cog, name="Help command"):
 
     async def help_no_entity(self, ctx):
         embed = discord.Embed()
-        embed.title = "Commands Page Default"
+        embed.title = f"{page} Commands"
         embed.color = ctx.author.colour
         embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
         embed.set_footer(text = f"{ctx.prefix}help <command/category> for more info on that command or category")
@@ -107,7 +107,7 @@ class help(commands.Cog, name="Help command"):
                 return False
 
             embed.clear_fields()
-            embed.title = f"Commands Page {page}"
+            embed.title = f"{page} Commands"
             
             with open(f"storage/help_pages/{page}.json", "r") as f:
                 data = json.load(f)
