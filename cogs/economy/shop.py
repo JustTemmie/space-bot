@@ -13,7 +13,11 @@ class ecoshop(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="shop", aliases=["market"], brief="buy something, wouldya?")
+    @commands.command(
+        name="shop",
+        aliases=["market"],
+        brief="buy something, wouldya?"
+    )
     @cooldown(5, 12, BucketType.user)
     async def shop_command(self, ctx, page=1):
         pages = 2
@@ -40,7 +44,11 @@ class ecoshop(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="buy", aliases=["transact"], brief="pay for something, wouldya?")
+    @commands.hybrid_command(
+        name="buy",
+        aliases=["transact"],
+        brief="pay for something, wouldya?"
+    )
     @cooldown(5, 15, BucketType.user)
     async def buy_command(self, ctx, item, amount: Optional[int] = 1):
         await open_account(self, ctx)

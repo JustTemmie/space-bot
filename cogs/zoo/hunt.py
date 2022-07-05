@@ -20,7 +20,7 @@ class zooHunt(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(
+    @commands.hybrid_command(
         name = "hunt",
         aliases = ["hu"],
         brief = "go look for some animals, perhaps even add them to your zoo"

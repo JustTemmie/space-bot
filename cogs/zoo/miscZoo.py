@@ -12,7 +12,7 @@ class zooMisc(commands.Cog):
         self.bot = bot
 
     
-    @commands.command(
+    @commands.hybrid_command(
         name="zoo",
         brief="check your zoo"
     )
@@ -61,18 +61,13 @@ class zooMisc(commands.Cog):
         await ctx.send(message_str)
         return
     
-    @commands.hybrid_command(name = "slashtest")
-    async def arsars(self, ctx):
-        # this will create a global slash command 'ping' and a message command 'ping'
-        await ctx.send("pong")
-    
-    @commands.command(
+    @commands.hybrid_command(
         name="dex",
         brief="check a specific animal",
     )
     @cooldown(1, 3, BucketType.user)
-    async def dexCommand(self, ctx, input, user: discord.Member = None):
-        input = input.lower()
+    async def dexCommand(self, ctx, animal: str, user: discord.Member = None):
+        input = animal.lower()
         await aniLib.open_zoo(self, ctx)
         
         if user is None:

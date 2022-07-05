@@ -78,7 +78,7 @@ class admin(Cog):
             #description=f"Prefixes for this server: ",
             color=ctx.author.color,
         )
-        embed.description = f"To clear the prefixes, use {ctx.prefix}{ctx.invoked_with} clear, this will still leave \"a!\" as the a prefix\nTo overwrite a prefix, use {ctx.prefix}{ctx.invoked_with} index <prefix>, this can also be set to \"none\" in order to clear it\nExample {ctx.prefix}{ctx.invoked_with} 2 none"
+        embed.description = f"To clear the prefixes, use {ctx.prefix}{ctx.invoked_with} clear, this will still leave \"a!\" as the a prefix\nTo overwrite a prefix, use {ctx.prefix}{ctx.invoked_with} index <prefix>, this can also be set to \"none\" in order to clear it\nExample {ctx.prefix}{ctx.invoked_with} 2 none\n\nIf you clear all prefixes pinging the bot will still be a valid prefix\nExample @andromeda prefix"
         
         for i, prefix in enumerate(prefixes[str(ctx.guild.id)]):
             if prefix.lower() == "none":

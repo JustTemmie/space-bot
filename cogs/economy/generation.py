@@ -10,7 +10,10 @@ class ecogeneration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="daily", brief="get your daily beaver coins here!")
+    @commands.hybrid_command(
+        name="daily",
+        brief="get your daily beaver coins here!"
+    )
     @cooldown(3, 15, BucketType.user)
     async def daily_command(self, ctx):
         await open_account(self, ctx)
@@ -74,7 +77,7 @@ class ecogeneration(commands.Cog):
         
         
         
-    @commands.command(
+    @commands.hybrid_command(
         name="scavenge",
         aliases=["scav", "find", "loot"],
         brief="go scavenge for some l ö g <:log:970325254461329438>",

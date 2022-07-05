@@ -11,7 +11,7 @@ class ecogambling(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(
+    @commands.hybrid_command(
         name="coinflip",
         aliases=["flip", "cf"],
         brief="flip a coin! if you win you double your bet, if you lose you don't",
@@ -69,10 +69,10 @@ class ecogambling(commands.Cog):
             content=f"{msg.content} it landed on  {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>"
         )
 
-    @commands.command(
+    @commands.hybrid_command(
         name="slot",
         aliases=["slots"],
-        brief="do you ever wish you didn't have any money? well do i have the solution for YOU, introducing - gambling™",
+        brief="do you ever wish you didn't have any money? introducing, gambling™",
     )
     @cooldown(1, 5, BucketType.user)
     async def slot_machine_command(self, ctx, amount=None):

@@ -11,7 +11,10 @@ class ecoprofile(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="profile", brief="tells you some basic info about the person specified")
+    @commands.hybrid_command(
+        name="profile",
+        brief="tells you some basic info about the person specified"
+    )
     @cooldown(3, 10, BucketType.user)
     async def generateprofile(self, ctx, user: discord.Member = None):
 

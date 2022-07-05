@@ -11,7 +11,7 @@ class ecoinv(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(
+    @commands.hybrid_command(
         name="send",
         aliases=["give", "simp", "transfer", "gift"],
         brief="give someone money, you simp :)",
@@ -53,7 +53,7 @@ class ecoinv(commands.Cog):
         )
     
     
-    @commands.command(
+    @commands.hybrid_command(
         name="inventory",
         aliases=["inv", "items"],
         brief="lets you check your items n' stuff",

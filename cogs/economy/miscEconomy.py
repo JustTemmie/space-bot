@@ -107,18 +107,18 @@ class ecoeconomy(commands.Cog):
         await ctx.send(embed=embed)
     
 
-    @commands.command(
+    @commands.hybrid_command(
         name="leaderboard",
         aliases=["lb", "top"],
         brief="checks the current leaderboard",
     )
     @cooldown(2, 10, BucketType.user)
-    async def leaderboard_command(self, ctx, x=5):
+    async def leaderboard_command(self, ctx, show_top=5):
         await ctx.channel.typing()
         
         users = await get_bank_data()
-        if x > 10:
-            x = 10
+        if show_top > 10:
+            show_top = 10
 
         leaderboard = []
 
@@ -127,9 +127,9 @@ class ecoeconomy(commands.Cog):
 
         leaderboard.sort(key=lambda x: x[1], reverse=True)
 
-        embed = discord.Embed(title=f"Top {x} richest people", colour=ctx.author.colour)
+        embed = discord.Embed(title=f"Top {show_top} richest people", colour=ctx.author.colour)
 
-        for i in range(0, x):
+        for i in range(0, show_top):
             try:
                 user = await self.bot.fetch_user(int(leaderboard[i][0]))
                 balance = leaderboard[i][1]

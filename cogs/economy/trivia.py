@@ -27,7 +27,8 @@ class ecotrivia(commands.Cog):
         """
         )
     @cooldown(1, 2, BucketType.user)
-    async def triviaCommand(self, ctx, category = "random", dif = "random"):
+    async def triviaCommand(self, ctx, category = "random", difficulty = "random"):
+        dif = difficulty
         await ctx.channel.typing()
         help_strs = ["help", "category", "categories"]
         if category.lower() in help_strs:

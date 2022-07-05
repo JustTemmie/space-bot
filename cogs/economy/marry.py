@@ -13,7 +13,10 @@ class ecomarry(commands.Cog):
         self.bot = bot
 
     # this code doesn't use any else statements btw 😎 i find it more clean :shrug:
-    @commands.command(name="marry", brief = "marry someone! even though, they're probably not even going to be your friend")
+    @commands.hybrid_command(
+        name="marry",
+        brief = "marry someone! even though, they're probably not even going to be your friend"
+    )
     @cooldown(20, 600, BucketType.user)
     @commands.guild_only()
     async def marry_someone(self, ctx, member: discord.Member, ring=None):
@@ -113,7 +116,10 @@ class ecomarry(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-    @commands.command(name="divorce", brief="divorce your current partner, you fu\*\*\*\*\* hoe")
+    @commands.hybrid_command(
+        name="divorce",
+        brief="divorce your current partner, you fu\*\*\*\*\* hoe"
+    )
     @cooldown(15, 600, BucketType.user)
     @commands.guild_only()
     async def divorce_someone(self, ctx, member: discord.Member):

@@ -52,7 +52,59 @@ logging.error("error")
 logging.critical("critical")
 
 
-# Set bot prefix
+class MyBot(commands.Bot):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.synced = False
+    
+    async def on_ready(self):
+        print(f"Logged in as {self.user}")
+        
+        await self.wait_until_ready()
+        if not self.synced:
+            await tree.sync()#guild = discord.Object(id = 628212961218920477))
+            self.synced = True
+        print("Slash commands are now ready!")
+        
+
+        if not bot.ready:
+
+            # Start the status updater
+            change_status_task.start()
+
+            # Post new status to STATUS_OUT channel from config.json
+            bot.status_out = bot.get_channel(STATUS_OUT)
+
+            try:
+                # Send a message saying how long the bot was offline for
+                with open("storage/misc/time.json", "r") as f:
+                    last_time = json.load(f)
+                await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
+            except:
+                print("i hope this is running on alpha")
+
+
+            # If the bot userid matches Andromeda's userid then connect to top.gg
+            if bot.user.id == 765222621779853312:
+                bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)
+
+            # Create guild_count var and initialize to 0
+            guild_count = 0
+            # for each guild the bot is in
+            for guild in bot.guilds:
+                # Print guild name and id
+                print(f"- {guild.id} (name: {guild.name})")
+                # Increment guild_count
+                guild_count = guild_count + 1
+
+            # Print the bot name, number of guilds, and number of shards.
+            print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
+
+            # Set the bot ready to True
+            bot.ready = True
+
+
+# get the prefix from the server it's in
 def get_prefix(bot, message):
     try:
         # Get the guild prefixes from prefixes.json file
@@ -75,43 +127,29 @@ def get_prefix(bot, message):
         return commands.when_mentioned_or(DEFAULT_PREFIX, "beav")(bot, message)
 
 
-# class MyClient(discord.Client):
-#     def __init__(self):
-#         super().__init__(intents=discord.Intents.all())
-#         self.synced = False
-    
-#     async def on_ready(self):
-#         await self.wait_until_ready()
-#         if not self.synced:
-#             await tree.sync()#guild = discord.Object(id = 628212961218920477))
-#             self.synced = True
-#         print("Slash commands are now ready!")
-    
+bot = MyBot(
+    command_prefix = (get_prefix),
+    intents = discord.Intents.all()
+)
 
-# client = MyClient()
-# tree = discord.app_commands.CommandTree(client)
+tree = bot.tree
 
 # @tree.command(name = "ping", description = "Pong!")
 # async def ping(interaction: discord.Interaction):
-#     await interaction.response.send_message(f"Pong! slash commands have a latency of {round(client.latency * 1000)}ms")
+#     await interaction.response.send_message(f"Pong! slash commands have a latency of {round(bot.latency * 1000)}ms")
 
-# @tree.command(name = "prefix", description = "Tells you what the bot's prefixes are")
-# async def ping(interaction: discord.Interaction):
-#     with open("storage/guild_data/prefixes.json", "r") as f:
-#         prefixes = json.load(f)
+@tree.command(name = "prefix", description = "Tells you what the bot's prefixes are")
+async def ping(interaction: discord.Interaction):
+    with open("storage/guild_data/prefixes.json", "r") as f:
+        prefixes = json.load(f)
 
-#     prefixesstr = ""
-#     for i in prefixes[str(interaction.guild.id)]:
-#         prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
+    prefixesstr = ""
+    for i in prefixes[str(interaction.guild.id)]:
+        prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
 
-#     await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
+    await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
 
-bot = commands.AutoShardedBot(
-    shard_count=SHARDS,
-    command_prefix=(get_prefix),
-    owner_ids=OWNER_IDS,
-    intents=discord.Intents.all()
-)
+
 
 # Remove default help command
 bot.remove_command("help")
@@ -129,48 +167,6 @@ async def on_autopost_success():
 async def on_shard_ready(shard_id):
     print(f"Shard {shard_id} Ready!")
 
-
-@bot.event
-async def on_ready():
-    """Event that is called when the bot is connected to discord."""
-    # Check if bot has been initialized
-    if not bot.ready:
-
-        # Start the status updater
-        change_status_task.start()
-
-        # Post new status to STATUS_OUT channel from config.json
-        bot.status_out = bot.get_channel(STATUS_OUT)
-
-        try:
-            # Send a message saying how long the bot was offline for
-            with open("storage/misc/time.json", "r") as f:
-                last_time = json.load(f)
-            await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
-        except:
-            print("i hope this is running on alpha")
-
-
-        # If the bot userid matches Andromeda's userid then connect to top.gg
-        if bot.user.id == 765222621779853312:
-            bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)
-
-        # Create guild_count var and initialize to 0
-        guild_count = 0
-        # for each guild the bot is in
-        for guild in bot.guilds:
-            # Print guild name and id
-            print(f"- {guild.id} (name: {guild.name})")
-            # Increment guild_count
-            guild_count = guild_count + 1
-
-        # Print the bot name, number of guilds, and number of shards.
-        print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
-
-        # Set the bot ready to True
-        bot.ready = True
-    
-    # hawait client.start(TOKEN)
 
 # Change the bot's status
 @tasks.loop(hours=5, minutes=random.randint(0, 120))

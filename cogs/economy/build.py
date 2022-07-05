@@ -11,13 +11,13 @@ class ecobuild(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-    @commands.command(
+    @commands.hybrid_command(
         name = "build",
         aliases = ["construct", "buildings", "upgrade"],
         brief = "work your way through the build process on your very own dam"
     )
     @cooldown(8, 15, BucketType.user)
-    async def build_command(self, ctx, build_type = "None", amount = 0):
+    async def build_command(self, ctx, building = "None", amount = 0):
         if amount < 0:
             return await ctx.send("you can't build a dam with anegative amount of logs")
 
@@ -33,7 +33,7 @@ class ecobuild(commands.Cog):
         current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
         current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
 
-        if build_type == "None":
+        if building == "None":
             embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
             embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.display_avatar.url)
 
@@ -51,7 +51,7 @@ class ecobuild(commands.Cog):
 
         #await ctx.send(f"no.")
 
-        if build_type.lower() == "dam":
+        if building.lower() == "dam":
             if logs < amount:
                 return await ctx.send("you don't have that many logs")
 
@@ -149,7 +149,7 @@ class ecobuild(commands.Cog):
 
 
 
-        if build_type.lower() == "lodge":
+        if building.lower() == "lodge":
             if current_damlevel < 3:
                 return await ctx.send("You need to upgrade your dam to lvl 3 first")
             

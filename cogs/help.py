@@ -152,7 +152,11 @@ class help(commands.Cog, name="Help command"):
         await ctx.send(embed=embed)
         
         
-    @commands.command(name="help", aliases=["commands"], description="The help command, woah")
+    @commands.hybrid_command(
+        name="help",
+        aliases=["commands"],
+        description="The help command, woah"
+    )
     @cooldown(5, 35, BucketType.user)
     async def help_command(self, ctx, *, entity=None):
         if not entity:
