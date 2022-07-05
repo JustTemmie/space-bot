@@ -61,10 +61,14 @@ class zooMisc(commands.Cog):
         await ctx.send(message_str)
         return
     
-    @commands.hybrid_command(
+    @commands.hybrid_command(name = "test")
+    async def arsars(self, ctx):
+        # this will create a global slash command 'ping' and a message command 'ping'
+        await ctx.send("pong")
+    
+    @commands.command(
         name="dex",
         brief="check a specific animal",
-        with_app_command=True
     )
     @cooldown(1, 3, BucketType.user)
     async def dexCommand(self, ctx, input, user: discord.Member = None):
