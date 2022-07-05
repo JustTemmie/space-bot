@@ -61,9 +61,10 @@ class zooMisc(commands.Cog):
         await ctx.send(message_str)
         return
     
-    @commands.command(
+    @commands.hybrid_command(
         name="dex",
-        brief="check a specific animal"
+        brief="check a specific animal",
+        with_app_command=True
     )
     @cooldown(1, 3, BucketType.user)
     async def dexCommand(self, ctx, input, user: discord.Member = None):
