@@ -83,7 +83,7 @@ class MyClient(discord.Client):
     async def on_ready(self):
         await self.wait_until_ready()
         if not self.synced:
-            await tree.sync()
+            await tree.sync()#guild = discord.Object(id = 628212961218920477))
             self.synced = True
         print("Slash commands are now ready!")
     
@@ -91,20 +91,20 @@ class MyClient(discord.Client):
 client = MyClient()
 tree = discord.app_commands.CommandTree(client)
 
-@tree.command(name = "ping", description = "Pong!")
-async def ping(interaction: discord.Interaction):
-    await interaction.response.send_message(f"Pong! slash commands have a latency of {round(client.latency * 1000)}ms")
+# @tree.command(name = "ping", description = "Pong!")
+# async def ping(interaction: discord.Interaction):
+#     await interaction.response.send_message(f"Pong! slash commands have a latency of {round(client.latency * 1000)}ms")
 
-@tree.command(name = "prefix", description = "Tells you what the bot's prefixes are")
-async def ping(interaction: discord.Interaction):
-    with open("storage/guild_data/prefixes.json", "r") as f:
-        prefixes = json.load(f)
+# @tree.command(name = "prefix", description = "Tells you what the bot's prefixes are")
+# async def ping(interaction: discord.Interaction):
+#     with open("storage/guild_data/prefixes.json", "r") as f:
+#         prefixes = json.load(f)
 
-    prefixesstr = ""
-    for i in prefixes[str(interaction.guild.id)]:
-        prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
+#     prefixesstr = ""
+#     for i in prefixes[str(interaction.guild.id)]:
+#         prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
 
-    await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
+#     await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
 
 bot = commands.AutoShardedBot(
     shard_count=SHARDS,

@@ -1,0 +1,14 @@
+@tree.command(name = "ping", description = "Pong!")
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message(f"Pong! slash commands have a latency of {round(client.latency * 1000)}ms")
+
+@tree.command(name = "prefix", description = "Tells you what the bot's prefixes are")
+async def ping(interaction: discord.Interaction):
+    with open("storage/guild_data/prefixes.json", "r") as f:
+        prefixes = json.load(f)
+
+    prefixesstr = ""
+    for i in prefixes[str(interaction.guild.id)]:
+        prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
+
+    await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
