@@ -75,21 +75,21 @@ def get_prefix(bot, message):
         return commands.when_mentioned_or(DEFAULT_PREFIX, "beav")(bot, message)
 
 
-class MyClient(discord.Client):
-    def __init__(self):
-        super().__init__(intents=discord.Intents.all())
-        self.synced = False
+# class MyClient(discord.Client):
+#     def __init__(self):
+#         super().__init__(intents=discord.Intents.all())
+#         self.synced = False
     
-    async def on_ready(self):
-        await self.wait_until_ready()
-        if not self.synced:
-            await tree.sync()#guild = discord.Object(id = 628212961218920477))
-            self.synced = True
-        print("Slash commands are now ready!")
+#     async def on_ready(self):
+#         await self.wait_until_ready()
+#         if not self.synced:
+#             await tree.sync()#guild = discord.Object(id = 628212961218920477))
+#             self.synced = True
+#         print("Slash commands are now ready!")
     
 
-client = MyClient()
-tree = discord.app_commands.CommandTree(client)
+# client = MyClient()
+# tree = discord.app_commands.CommandTree(client)
 
 # @tree.command(name = "ping", description = "Pong!")
 # async def ping(interaction: discord.Interaction):
@@ -170,7 +170,7 @@ async def on_ready():
         # Set the bot ready to True
         bot.ready = True
     
-    await client.start(TOKEN)
+    # hawait client.start(TOKEN)
 
 # Change the bot's status
 @tasks.loop(hours=5, minutes=random.randint(0, 120))
