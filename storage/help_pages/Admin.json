@@ -1,4 +1,9 @@
 {
+    "recent": {
+        "icon": "✨",
+        "name": "New Commands",
+        "description": "`prefix`"
+    },
     "admn1st": {
         "icon": "🛡️",
         "name": "Moderation",

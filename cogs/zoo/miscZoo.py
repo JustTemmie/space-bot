@@ -61,7 +61,7 @@ class zooMisc(commands.Cog):
         await ctx.send(message_str)
         return
     
-    @commands.hybrid_command(name = "test")
+    @commands.hybrid_command(name = "slashtest")
     async def arsars(self, ctx):
         # this will create a global slash command 'ping' and a message command 'ping'
         await ctx.send("pong")

@@ -1,13 +1,9 @@
 import discord
+from discord.ui import Select, View
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 import json
-
-
-# WARNING this code is bad lmao
-# it's old and i updated it later on, a lot of this is unused :p
-
 
 class help(commands.Cog, name="Help command"):
     def __init__(self, bot):
@@ -61,26 +57,72 @@ class help(commands.Cog, name="Help command"):
 
     async def help_no_entity(self, ctx):
         embed = discord.Embed()
-        embed.title = "Commands"
+        embed.title = "Commands Page Default"
         embed.color = ctx.author.colour
         embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
         embed.set_footer(text = f"{ctx.prefix}help <command/category> for more info on that command or category")
         
-        with open(f"storage/help_pages/everyone.json", "r") as f:
+        with open(f"storage/help_pages/Default.json", "r") as f:
             data = json.load(f)
         
-        if ctx.channel.permissions_for(ctx.author).manage_messages:
-            with open(f"storage/help_pages/admin.json", "r") as f:
-                admin_data = json.load(f)
-            
-            for i in admin_data:
-                data[i] = admin_data[i]
-
         for entry in data:
             embed.add_field(name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False)
+        
+        options = [
+            discord.SelectOption(
+                label="Default Page",
+                emoji="📚",
+                description="commands that don't fit into any other catagory",
+            ),
+            discord.SelectOption(
+                label="Economy",
+                emoji="💰",
+                description="info about andromeda's economy system"
+            ),
+        ]
+        
+        if ctx.channel.permissions_for(ctx.author).manage_messages:
+            options.append(
+                discord.SelectOption(
+                    label="Admin",
+                    emoji="🛡",
+                    description="administrator things"
+                ),
+            )
+        
+        set_page = Select(
+            placeholder="change the current page",
+            options = options   
+        )
 
+        async def set_page_func(interaction):
+            if set_page.values[0] == "Default Page":
+                page = "Default"
+            elif set_page.values[0] == "Economy":
+                page = "Economy"
+            elif set_page.values[0] == "Admin":
+                page = "Admin"
+            else:
+                await interaction.response.send_message("an error occured, sorry about that")
+                return False
 
-        await ctx.send(embed=embed)
+            embed.clear_fields()
+            embed.title = f"Commands Page {page}"
+            
+            with open(f"storage/help_pages/{page}.json", "r") as f:
+                data = json.load(f)
+            
+            for entry in data:
+                embed.add_field(name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False)
+            
+            await msg.edit(embed=embed)
+            await interaction.response.defer()
+    
+        set_page.callback = set_page_func
+        view = View()
+        view.add_item(set_page)
+
+        msg = await ctx.send(embed=embed, view=view)
             
     
     async def help_category(self, ctx, data, entity):
@@ -118,7 +160,7 @@ class help(commands.Cog, name="Help command"):
             return
 
 
-        with open(f"storage/help_pages/everyone.json", "r") as f:
+        with open(f"storage/help_pages/everyone1.json", "r") as f:
             data = json.load(f)
         
         if ctx.channel.permissions_for(ctx.author).manage_messages:

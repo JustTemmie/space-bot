@@ -1,0 +1,42 @@
+{
+    "recent": {
+        "icon": "✨",
+        "name": "New Commands",
+        "description": "`hunt` `zoo` `dex`"
+    },
+    "1st": {
+        "icon": "<:beaverCoin:968588341291397151>",
+        "name": "Economy",
+        "description": "`daily` `vote` `scavenge` `balance` `build` `inventory` `send` `tutorial`"
+    },
+    "animals": {
+        "icon": "🐕",
+        "name": "Animals",
+        "description": "`hunt` `zoo` `dex`"
+    },
+    "2nd": {
+        "icon": "👤",
+        "name": "User",
+        "description": "`stats` `profile` `quote`"
+    },
+    "3rd": {
+        "icon": "🛍",
+        "name": "Trade",
+        "description": "`buy` `sell` `market`"
+    },
+    "12th": {
+        "icon": "🎲",
+        "name": "Gambling",
+        "description": "`coinflip` `slot`"
+    },
+    "11th": {
+        "icon": "🏅",
+        "name": "Rankings",
+        "description": "`leaderboard`"
+    },
+    "9th": {
+        "icon": "🫂",
+        "name": "Social",
+        "description": "`marry` `divorce` `ship`"
+    }
+}
