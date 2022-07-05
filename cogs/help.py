@@ -158,8 +158,8 @@ class help(commands.Cog, name="Help command"):
         description="The help command, woah"
     )
     @cooldown(5, 35, BucketType.user)
-    async def help_command(self, ctx, *, entity=None):
-        if not entity:
+    async def help_command(self, ctx, *, Command=None):
+        if not Command:
             await self.help_no_entity(ctx)
             return
 
@@ -174,13 +174,13 @@ class help(commands.Cog, name="Help command"):
                     data[i] = admin_data[i]
 
         for nr in data:
-            if data[nr]["name"].lower() == entity.lower():
+            if data[nr]["name"].lower() == Command.lower():
                 data = data[nr]
-                await self.help_category(ctx, data, entity)
+                await self.help_category(ctx, data, Command)
                 return
 
 
-        command = self.bot.get_command(entity)
+        command = self.bot.get_command(Command)
         if command:
             await self.setup_help_pag(ctx, command)
             return
