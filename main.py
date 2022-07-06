@@ -129,6 +129,7 @@ def get_prefix(bot, message):
 
 bot = MyBot(
     command_prefix = (get_prefix),
+    owner_ids = OWNER_IDS,
     intents = discord.Intents.all()
 )
 
