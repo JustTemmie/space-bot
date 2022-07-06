@@ -163,12 +163,20 @@ class help(commands.Cog, name="Help command"):
             await self.help_no_entity(ctx)
             return
 
+        if Command.lower() == "new commands":
+            await ctx.send("category not found")
+            return
 
-        with open(f"storage/help_pages/everyone1.json", "r") as f:
+        with open(f"storage/help_pages/Default.json", "r") as f:
             data = json.load(f)
         
+        with open(f"storage/help_pages/Economy.json", "r") as f:
+            econ_data = json.load(f)
+            for i in econ_data:
+                data[i] = econ_data[i]
+        
         if ctx.channel.permissions_for(ctx.author).manage_messages:
-            with open(f"storage/help_pages/admin.json", "r") as f:
+            with open(f"storage/help_pages/Admin.json", "r") as f:
                 admin_data = json.load(f)
                 for i in admin_data:
                     data[i] = admin_data[i]
@@ -185,7 +193,7 @@ class help(commands.Cog, name="Help command"):
             await self.setup_help_pag(ctx, command)
             return
 
-        await ctx.send("cog not found")
+        await ctx.send("category not found")
 
 
 async def setup(bot):
