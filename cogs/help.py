@@ -152,7 +152,7 @@ class help(commands.Cog, name="Help command"):
         await ctx.send(embed=embed)
         
         
-    @commands.hybrid_command(
+    @commands.command(
         name="help",
         aliases=["commands"],
         description="The help command, woah"
