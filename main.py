@@ -5,12 +5,15 @@ import logging
 from time import time
 import json
 import asyncio
-
 from datetime import datetime, timedelta
-import topgg
+
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 import discord
 from discord.ext import tasks, commands
+
+import topgg
+#import libraries.database as db 
 
 from dotenv import load_dotenv
 
@@ -55,7 +58,10 @@ logging.critical("critical")
 class MyBot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.synced = False
+        self.synced = True
+        
+        #self.scheduler = AsyncIOScheduler()
+        #db.autosave(self.scheduler)
     
     async def on_ready(self):
         print(f"Logged in as {self.user}")
@@ -68,6 +74,8 @@ class MyBot(commands.Bot):
         
 
         if not bot.ready:
+            
+            #self.scheduler.start()
 
             # Start the status updater
             change_status_task.start()
@@ -197,8 +205,16 @@ async def change_status_task():
     await bot.status_out.send(f'status changed to "{status}"')
 
 
+# async def setup(bot):
+#     print("Setting up...")
+ 
+#     db.multiexec("INSERT OR IGNORE INTO guilds (GuildID) VALUES (?)",
+# 					 ((guild.id,) for guild in bot.guilds))
 
-async def setup(bot):
+#     db.commit()
+
+async def load_cogs(bot):
+    print("Loading cogs...")
     # loads cogs
     for filename in glob.iglob("./cogs/**", recursive=True):
         if filename.endswith('.py'):
@@ -208,7 +224,8 @@ async def setup(bot):
 
 async def main():
     async with bot:
-        await setup(bot)
+        #await setup(bot)
+        await load_cogs(bot)
         await bot.start(TOKEN)
 
 asyncio.run(main())

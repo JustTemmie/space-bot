@@ -5,7 +5,6 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 import json
 
-
 class testcog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -41,7 +40,7 @@ class testcog(commands.Cog):
         
         await ctx.send("hi", view=view)
         # https://www.youtube.com/watch?v=56XoybDajjA
-        
+    
         
 
 async def setup(bot):

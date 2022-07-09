@@ -6,6 +6,8 @@ import sys
 import os
 import glob
 
+import libraries.database as db
+
 # These imports are just for the run command, for convenience
 import subprocess
 import datetime
@@ -141,6 +143,7 @@ class Owner(commands.Cog):
                 ),
             )
             await ctx.send("Restarting bot...")
+            #db.commit()
             os.execv(sys.executable, ["python3"] + sys.argv)
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
@@ -159,6 +162,7 @@ class Owner(commands.Cog):
                 ),
             )
             await self.bot.close()
+            #db.commit()
             print("closed using !shutdown command")
         except Exception as error:
             await ctx.send(f"```py\n{error}```")

@@ -94,7 +94,7 @@ class social(commands.Cog):
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def arsarsars(self, ctx, targets: Greedy[Member]):
-        await self.social_commands(ctx, "hold hands", 20, "is doing lews things to", ", how cute", "discoverede that holding hands with oneself is really just clapping when you think about it", "omggg so lewd", targets)
+        await self.social_commands(ctx, "hold hands", 20, "is doing lewd things to", ", how cute", "discovered that holding hands with oneself is really just clapping when you think about it", "omggg so lewd", targets)
 
 
     @commands.command(name="cuddle", aliases=["hug²"], brief="it's like hugs, but ever more wholesome")

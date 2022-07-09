@@ -6,6 +6,7 @@ images/processed/*.png
 *.yaml
 *.pyc
 *.log
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__
