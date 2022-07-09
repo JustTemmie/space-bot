@@ -1,7 +1,5 @@
 metno_locationforecast
 wikipedia
-discord.py
-buttons
 gitpython
 python-dotenv
 psutil
@@ -17,3 +15,5 @@ opencv-python
 numpy
 Image
 interruptingcow
+
+git+https://github.com/Rapptz/discord.py # discord py beta

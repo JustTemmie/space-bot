@@ -20,25 +20,6 @@ async def check_if_zoo_not_exist(user):
 async def update_zoo(user):
     data = await get_animal_data()
     
-    if data[str(user.id)]["version"] < 1.01:
-        animals = {
-            "common": ["snail", "butterfly", "cricket", "bee", "worm", "beetle"],
-            "uncommon": ["dog", "cat", "mouse", "pig", "bird", "bat"],
-            "rare": ["duck", "owl", "boar", "fox", "goat", "bear"],
-            "epic": ["whale", "dolphin", "seal", "otter", "blowfish", "squid"],
-            "mythical": ["scorpion", "monkey", "giraffe", "sheep", "lizard", "snake"],
-        }
-
-        for i in animals:
-            for nr, x in enumerate(animals[i]):
-                data[str(user.id)]["animals"][i][x]["coins"] = 0
-
-        data[str(user.id)]["version"] = 1.01    
-        with open("storage/playerInfo/animals.json", "w") as f:
-            json.dump(data, f)
-        
-        data = await get_animal_data()
-    
     if data[str(user.id)]["version"] < 1.05:
         
         data[str(user.id)]["team"] = {}
@@ -57,6 +38,44 @@ async def update_zoo(user):
         data[str(user.id)]["version"] = 1.05
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
+        
+        data = await get_animal_data()
+    
+    if data[str(user.id)]["version"] < 1.06:
+        data[str(user.id)]["version"] = 1.06
+        
+        animals = {
+            "common": ["snail", "butterfly", "cricket", "bee", "worm", "beetle"],
+            "uncommon": ["dog", "cat", "mouse", "pig", "bird", "bat"],
+            "rare": ["duck", "owl", "boar", "fox", "goat", "bear"],
+            "epic": ["whale", "dolphin", "seal", "otter", "blowfish", "squid"],
+            "mythical": ["scorpion", "monkey", "giraffe", "sheep", "lizard", "snake"],
+        }
+        
+        moves = ["move1", "move2", "move3", "move4", "move5", "move6"]
+        activeMoves = ["activeMove1", "activeMove2", "activeMove3"]
+        
+        for i in animals:
+            for nr, x in enumerate(animals[i]):
+                data[str(user.id)]["animals"][i][x]["coins"] = 0
+                
+                data[str(user.id)]["animals"][i][x]["moves"] = {}
+                
+                for move in moves:
+                    data[str(user.id)]["animals"][i][x]["moves"][move] = {}
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
+                
+                for move in activeMoves:
+                    data[str(user.id)]["animals"][i][x]["moves"][move] = {}
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
+        
+        with open("storage/playerInfo/animals.json", "w") as f:
+            json.dump(data, f)
+
         
         data = await get_animal_data()
                 
@@ -112,6 +131,28 @@ async def open_zoo(self, ctx):
             data[str(user.id)]["animals"][i][x]["xp"] = 0
             data[str(user.id)]["animals"][i][x]["coins"] = 0
     
+    
+    ####################################################
+    
+    moves = ["move1", "move2", "move3", "move4", "move5", "move6"]
+    activeMoves = ["activeMove1", "activeMove2", "activeMove3"]
+    
+    for i in animals:
+        for nr, x in enumerate(animals[i]):
+            
+            data[str(user.id)]["animals"][i][x]["moves"] = {}
+            
+            for move in moves:
+                data[str(user.id)]["animals"][i][x]["moves"][move] = {}
+                data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
+                data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
+                data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
+            
+            for move in activeMoves:
+                data[str(user.id)]["animals"][i][x]["moves"][move] = {}
+                data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
+                data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
+                data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
     
     ####################################################
     

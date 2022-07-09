@@ -105,7 +105,7 @@
             },
             "6": {
                 "icon": "🐻",
-                "name": ["bear", "grizzly"],
+                "name": ["bear", "grizzly", "teddy"],
                 "description": "Fluffy and huggable"
             }
         }

@@ -1,0 +1,12 @@
+{
+    "emoji": "⚔️",
+    "display_name": "Sting",
+    "desc": "charge in at the enemy, dealing (damage) damage | cost: (cost)",
+    "formatting": [
+        "damage",
+        "cost"
+    ],
+    "cost": 5,
+    "damage": 7,
+    "healing": 0
+}

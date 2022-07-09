@@ -144,7 +144,8 @@ class Owner(commands.Cog):
             )
             await ctx.send("Restarting bot...")
             #db.commit()
-            os.execv(sys.executable, ["python3"] + sys.argv)
+            python = sys.executable
+            os.execl(python, python, * sys.argv)
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return

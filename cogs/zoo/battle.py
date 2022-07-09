@@ -1,3 +1,6 @@
+from code import interact
+from dis import dis
+from email.base64mime import header_length
 import discord
 from discord.ui import Button, View, Select
 from discord import Embed
@@ -88,16 +91,50 @@ class zooBattle(commands.Cog):
             "animal3": [],
         }
         
-        async def buttonCallbackLink(interaction): await buttonCallback(interaction, teamMembers, decidedMoves) 
+        async def buttonCallbackLink(interaction):
+            print(teamMembers)
+            print(decidedMoves)
+            print(len(decidedMoves["animal1"]))
+            print(len(decidedMoves["animal2"]))
+            animals = ["animal1", "animal2", "animal3"]
+            for animal in animals:
+                if len(decidedMoves[animal]) == 0:
+                    await sentMsg.reply(await SL.removeat(f"you haven't decided on a move for {teamMembers[animals.index(animal)]} yet"), delete_after=5)
+                    await interaction.response.defer()
+                    return
+            
+            await interaction.message.edit(view=view)
+            await buttonCallback(interaction, teamMembers, decidedMoves) 
+
+
+        async def concedeCallback(interaction):
+            await ctx.send(await SL.removeat(f"{ctx.author.display_name} has decided to concede"))
+            await interaction.message.edit(view=View()) # remove the inteactions on the message
+            return
         async def dropDown1Link(interaction): decidedMoves["animal1"] = await dropDown(interaction, 1, teamMembers)
         async def dropDown2Link(interaction): decidedMoves["animal2"] = await dropDown(interaction, 2, teamMembers)
         async def dropDown3Link(interaction): decidedMoves["animal3"] = await dropDown(interaction, 3, teamMembers)
         
+        async def getMoveInfoLink(interaction):
+            id = "sting"
+            emoji, display_name, desc, formatting, cost, damage, healing = await getMoveInfo(id)
+            for i in formatting:
+                desc = desc.replace(f"({i})", str(eval(str(i))))
+                
+            await add_to_dropdown(1, emoji, display_name, desc, id, damage-healing, cost)
+            await interaction.response.defer()
         
-        button = Button(label="hi", style=discord.ButtonStyle.green, emoji="⚔️")
-        view = View()
-        view.add_item(button)
-        button.callback = buttonCallbackLink
+        confirmationButton = Button(label="Confirm Attacks", style=discord.ButtonStyle.green, emoji="⚔️")
+        concedeButton = Button(label="Concede", style=discord.ButtonStyle.red, emoji="🏳️")
+        test = Button(label="test", style=discord.ButtonStyle.gray, emoji="🧪")
+        view = View(timeout=480,)
+        view.add_item(confirmationButton)
+        view.add_item(concedeButton)
+        view.add_item(test)
+        confirmationButton.callback = buttonCallbackLink
+        concedeButton.callback = concedeCallback
+        test.callback = getMoveInfoLink
+        
         
         options = {
             "options1": [],
@@ -127,11 +164,24 @@ class zooBattle(commands.Cog):
         animal2.callback = dropDown2Link
         animal3.callback = dropDown3Link
 
-        await ctx.send(file=discord.File(output, filename="battle.png"), view=view)
-        
-        
+        sentMsg = await ctx.send(file=discord.File(output, filename="battle.png"), view=view)
+
         
 
+async def getMoveInfo(id):
+    with open(f"storage/battle_data/moves/{id}.json", "r") as f:
+        move = json.load(f)
+    
+
+    emoji = move["emoji"]
+    display_name = move["display_name"]
+    desc = move["desc"]
+    formatting = move["formatting"]
+    cost = move["cost"]
+    damage = move["damage"]
+    healing = move["healing"]
+
+    return emoji, display_name, desc, formatting, cost, damage, healing
 
 async def buttonCallback(interaction, teamMembers, decidedMoves):
     await interaction.response.send_message(
@@ -139,15 +189,12 @@ async def buttonCallback(interaction, teamMembers, decidedMoves):
 {teamMembers[0]} used {decidedMoves["animal1"][0]} | data: {decidedMoves["animal1"]}
 {teamMembers[1]} used {decidedMoves["animal2"][0]} | data: {decidedMoves["animal2"]}
 {teamMembers[2]} used {decidedMoves["animal3"][0]} | data: {decidedMoves["animal3"]}
-                      
         """)
-    await interaction.response.defer()
+    #await interaction.response.defer()
 
 async def dropDown(interaction, teamNumber=0, teamMembers = []):
     #print(interaction.data)
     #print(teamNumber)
-    
-    
     
     values = interaction.data["values"][0].split(",")
     
@@ -165,9 +212,9 @@ async def dropDown(interaction, teamNumber=0, teamMembers = []):
 
 def get_pets(team):
     pets = [
-        f"storage/battle_data/images/{team['animal1']['name'].lower()}.png",
-        f"storage/battle_data/images/{team['animal2']['name'].lower()}.png",
-        f"storage/battle_data/images/{team['animal3']['name'].lower()}.png",
+        f"storage/battle_data/images/animalSprites/{team['animal1']['name'].lower()}.png",
+        f"storage/battle_data/images/animalSprites/{team['animal2']['name'].lower()}.png",
+        f"storage/battle_data/images/animalSprites/{team['animal3']['name'].lower()}.png",
     ]
     
     return pets
