@@ -44,7 +44,14 @@ class zooHunt(commands.Cog):
             if tiers[tier] > roll:
                 break
         
-        ID = random.randint(1  , 6)
+        ID = random.randint(1, 6)
+        
+        # this makes a specific user get way more snails, it's a social experiment
+        if ctx.author.id == 411536312961597440: 
+            if tier == "common":
+                if random.randint(1, 4) == 1:
+                    ID = 1
+        
         selectedAnimal = animals[tier]["animals"][str(ID)]
         animal_name = selectedAnimal["name"][0]
         await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}, it's {animals[tier]['aoran']} {tier}{animals[tier]['icon']} animal")
