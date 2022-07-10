@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`imdb` `ship` `pride/flag` `qr` `math` `todo` `delete`"
+        "description": "`imdb` `ship` `pride/flag` `qr` `todo` `delete`"
     },
     "10th": {
         "icon": "🤗",
@@ -22,7 +22,7 @@
     "6th": {
         "icon": "🛠️",
         "name": "Utility",
-        "description": "`help` `math` `info` `ping` `poll` `serverinfo` `userinfo` `weather` `remindme` `todo` `delete`"
+        "description": "`help` `info` `ping` `poll` `serverinfo` `userinfo` `weather` `remindme` `todo` `delete`"
     },
     "7th": {
         "icon": "⚖️",

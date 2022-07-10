@@ -90,7 +90,7 @@ class ecogambling(commands.Cog):
         if amount == "all":
             amount = bal[0]
 
-        amount = int(amount)
+        amount = int(float(amount))
         if amount > 50000:
             amount = 50000
 
