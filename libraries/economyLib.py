@@ -10,6 +10,7 @@ from discord import Embed
 inv_version = 1.03
 
 confirmations = [
+        "consent"
         "yes",
         "yess",
         "yesss"
@@ -28,7 +29,6 @@ confirmations = [
         "okay?",
         "i do",
         "i am",
-        "ja",
         "beaver",
         "wouldn't mind",
         "aye aye"
