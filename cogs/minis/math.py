@@ -19,7 +19,7 @@ class mathCommands(commands.Cog):
     )
     @cooldown(120, 1800, BucketType.user)
     async def math_command(self, ctx, *, equation):
-        await ctx.send("disabled for now")
+        await ctx.send("disabled for now because of security reasons, sorry")
         # try:
         #     with timeout(5, exception=RuntimeError):
         #         for symbol in replacement_table:
