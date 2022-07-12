@@ -192,7 +192,7 @@ async def open_account(self, ctx):
         color=ctx.author.color
     )
     
-    embed.add_field(name = "If you do, please respond with \"yes\"\nDoing this means you agree to Andromeda's TOS and privacy policy\n(it's like 40 lines, you can read it in 2 min)\n\nhttps://github.com/JustTemmie/space-bot/blob/main/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md", value = "||\n||", inline = False)
+    embed.add_field(name = "If you do, please respond with \"yes\"\nDoing this means you agree to Andromeda's TOS and privacy policy", value = "||\n||(it's like 40 lines, you can read it in 2 min)\nhttps://github.com/JustTemmie/space-bot/blob/main/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md", inline = False)
     
     await ctx.send(embed=embed)
     input = await get_input(self, ctx, 30, "please try again")
