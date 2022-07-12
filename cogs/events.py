@@ -10,12 +10,16 @@ from discord.ext.commands import (
 import random
 from datetime import datetime
 
-IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
-
 import logging
 import requests
 import re
 import json
+import os
+
+from time import time
+from math import floor
+
+IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 auto_reddit_IDs = [974642338150367252]
 fish_IDs = [918830241135353907, 885113515411669002]
@@ -147,6 +151,7 @@ class events(commands.Cog):
         self.random_reddit.start()
         self.update_timer.start()
         #self.genshin_nick.start()
+        self.send_hourly_log.start()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
@@ -191,9 +196,10 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
         logging.info(f"{ctx.command.name} was successfully invoked by {ctx.author}")
-        print(
-            f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}"
-        )
+        print(f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}")
+        fileObj = open(f'temp/hourlyLogs/{floor(time()/3600)}.txt', 'a')
+        fileObj.write(f"{ctx.command.name} was successfully invoked by {ctx.author}\n")
+        fileObj.close()
 
 
     @commands.Cog.listener()
@@ -493,7 +499,16 @@ class events(commands.Cog):
             with open("storage/misc/time.json", "w") as f:
                 json.dump((datetime.utcnow() - datetime(1970, 1, 1)).seconds, f)
             
-            
+    
+    @tasks.loop(seconds=30)
+    async def send_hourly_log(self):
+        if self.bot.is_ready():
+            for file in os.listdir("temp/hourlyLogs"):
+                print(file)
+                if file != f"{floor(time() / 3600)}.txt":
+                    await self.bot.get_channel(978695336048623713).send(file=discord.File(f"temp/hourlyLogs/{file}"))
+                    os.remove(f"temp/hourlyLogs/{file}")
+        
     @tasks.loop(hours=1)
     async def random_beaver(self):
         return
