@@ -46,13 +46,13 @@ async def check_captcha(self, ctx, increase_by = 1):
     time_since_last_message = time.time() - last_message
     timer = time_since_last_message / 600
 
-    decrease_by = floor(timer**0.75)
+    decrease_by = floor(timer**0.65)
 
     data[str(ctx.author.id)]["anti-cheat"]["counter"] += increase_by - decrease_by
     data[str(ctx.author.id)]["anti-cheat"]["last_command"] = time.time()
 
-    if counter < 0:
-        counter = 0
+    if data[str(ctx.author.id)]["anti-cheat"]["counter"] < 0:
+        data[str(ctx.author.id)]["anti-cheat"]["counter"] = 0
     
     with open("./storage/playerInfo/bank.json", "w") as f:
         json.dump(data, f)
