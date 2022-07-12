@@ -52,7 +52,7 @@ class zooHunt(commands.Cog):
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 1:
             animalmulti += 1
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 2:
-            animalmulti += 1
+            animalmulti += 1.334
     
         if random.random() < 0.15 * animalmulti:
             animal2, animal2name, tier2 = await self.roll_animal(ctx, animals)
