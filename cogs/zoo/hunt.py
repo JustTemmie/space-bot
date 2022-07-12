@@ -36,7 +36,7 @@ class zooHunt(commands.Cog):
         if await aniLib.check_if_zoo_not_exist(ctx.author):
             return await ctx.send("you need to create an account first")
         
-        if await check_captcha(self, ctx, 0.5):
+        if await check_captcha(self, ctx, 1):
             return
 
         bank = await ecoLib.get_bank_data()
