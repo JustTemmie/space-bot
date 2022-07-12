@@ -138,7 +138,6 @@ class ecoshop(commands.Cog):
                                 await ctx.send("you don't have that animal")
                                 return
                             if amount == "all":
-                                # removing 1 as i'm adding it back later, it just makes the code slightly faster
                                 selling[tier] += data[str(user.id)]["animals"][tier][animalName]["count"]
                                 data[str(user.id)]["animals"][tier][animalName]["count"] = 0
                             
@@ -219,7 +218,7 @@ class ecoshop(commands.Cog):
                 differentTiersSold += 1
                 differentAnimalsSold += animalAmount[1]
         
-        if floor(payout*(1+merchant*0.005))-payout > random.randint(15, 25):
+        if floor(payout*(1+merchant*0.01))-payout > random.randint(15, 25):
             soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.005))-payout} <:beaverCoin:968588341291397151>"
             payout = floor(payout*(1+merchant*0.005))
         
