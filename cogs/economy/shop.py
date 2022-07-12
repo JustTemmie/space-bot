@@ -3,10 +3,13 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 import json
 
+import random
+from math import floor
 from typing import Optional
 
 
-from libraries.economyLib import *
+import libraries.economyLib as ecoLib
+import libraries.animalLib as aniLib
 
 
 class ecoshop(commands.Cog):
@@ -25,12 +28,12 @@ class ecoshop(commands.Cog):
             await ctx.send("that page doesn't exist, sorry")
             return
 
-        await open_account(self, ctx)
+        await ecoLib.open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
+        if await ecoLib.check_if_not_exist(ctx.author):
             return await ctx.send("you need to create an account first")
         
-        shop = await get_shop_data()
+        shop = await ecoLib.get_shop_data()
 
         page_bonus_string = {1: "", 2: "**Rings:**\nUse them to marry someone\n"}[page]
 
@@ -51,13 +54,13 @@ class ecoshop(commands.Cog):
     )
     @cooldown(5, 15, BucketType.user)
     async def buy_command(self, ctx, item, amount: Optional[int] = 1):
-        await open_account(self, ctx)
+        await ecoLib.open_account(self, ctx)
 
-        if await check_if_not_exist(ctx.author):
+        if await ecoLib.check_if_not_exist(ctx.author):
             return await ctx.send("you need to create an account first")
         
-        shop = await get_shop_data()
-        bank = await get_bank_data()
+        shop = await ecoLib.get_shop_data()
+        bank = await ecoLib.get_bank_data()
         wallet = bank[str(ctx.author.id)]["wallet"]
 
         for i in shop:
@@ -84,52 +87,158 @@ class ecoshop(commands.Cog):
         await ctx.send("i could not find that item, sorry")
         
     
-    @commands.command(name="sell", brief="try selling your <:log:970325254461329438> for money")
+    @commands.command(
+        name="sell",
+        brief="try selling your animals for money\nyou can sell a specific animal, an entire tier, or simly \"all\"")
     @cooldown(8, 60, BucketType.user)
-    async def sell_command(self, ctx, amount=0):
-        return await ctx.send("this command is currently disabled and is going to be reworked into selling animals rather than logs, logs will *stay* unsellable.")
+    async def sell_command(self, ctx, animal, amount = "1"):
+        if amount.lower() != "all":
+            if not amount.isnumeric():
+                await ctx.send("that is not a valid amount")
+                return
+            amount = int(amount)
     
-        if amount == 0:
-            return await ctx.send("please specify an amount of logs to sell")
+        input = animal.lower()
+        await ecoLib.open_account(self, ctx)
+        await aniLib.open_zoo(self, ctx)
         
-        if amount < 10:
-            return await ctx.send("you can't sell less than 10 logs, it's not worth my time")
+        user = ctx.author
 
-        await open_account(self, ctx)
+        if await aniLib.check_if_zoo_not_exist(user):
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        zoo = await aniLib.get_zoo_data()
+        data = await aniLib.get_animal_data()
         
-        data = await get_bank_data()
-        charisma = 5#data[str(ctx.author.id)]["stats"]["charisma"]
-        # check if the user has enough logs
-        if data[str(ctx.author.id)]["inventory"]["logs"] < amount:
-            return await ctx.send("you don't have enough logs to sell")
+        tiers = [
+            "common",
+            "uncommon",
+            "rare",
+            "epic",
+            "mythical",
+        ]
         
-        # get the price of the logs
-        lower_price = (0.2 * charisma**0.8 + 1.2) 
-        price = (0.2 * charisma**0.8) + (random.uniform(1.2, 1.5)) 
-        print(price)
-        lower_payout = lower_price * amount
-        payout = price * amount
-        payout **= 1.01
+        selling = {
+            "common": 0,
+            "uncommon": 0,
+            "rare": 0,
+            "epic": 0,
+            "mythical": 0,
+        }
         
-        await ctx.send(f"are you sure you want to sell your logs for {round(lower_payout)} <:beaverCoin:968588341291397151>?")
-        member_response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
-        if member_response.content.lower() not in confirmations:
-            await ctx.send(f"alright then, keep your dumb logs")
-            return
+        if animal not in tiers and animal != "all":
+            icon = ""
+            for tier in zoo:
+                for i in zoo[tier]["animals"]:
+                    animal = zoo[tier]["animals"][i]
+                    for nick in range(0, len(animal["name"])):
+                        if input == animal["name"][nick]:
+                            animalName = animal["name"][0]
+                            if data[str(user.id)]["animals"][tier][animalName]["count"] == 0:
+                                await ctx.send("you don't have that animal")
+                                return
+                            if amount == "all":
+                                # removing 1 as i'm adding it back later, it just makes the code slightly faster
+                                selling[tier] += data[str(user.id)]["animals"][tier][animalName]["count"]
+                                data[str(user.id)]["animals"][tier][animalName]["count"] = 0
+                            
+                            else:
+                                if data[str(user.id)]["animals"][tier][animalName]["count"] < amount:
+                                    await ctx.send("you don't have that many animals")
+                                    return
+                                selling[tier] += amount
+                                data[str(user.id)]["animals"][tier][animalName]["count"] -= amount
+                                
 
-        # remove the logs from the user's inventory
-        data[str(ctx.author.id)]["inventory"]["logs"] -= amount
-        with open("storage/playerInfo/bank.json", "w") as f:
-            json.dump(data, f)
+                                
+                            icon = animal["icon"]
+                            break
             
-        # add the money to the user's balance
-        await update_bank_data(ctx.author, round(payout))
-        
-        await ctx.send(f"thank you for your business! here's your {round(lower_payout)} <:beaverCoin:968588341291397151> plus an extra {round(payout)-round(lower_payout)} <:beaverCoin:968588341291397151> i threw in for good measure :)")
+            if icon == "":
+                await ctx.send(f"could not find any animal named {input}, sorry")
+                return
 
+        
+        if animal == "all":
+            for tier in zoo:
+                for i in zoo[tier]["animals"]:
+                    selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"]
+                    data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"] = 0
+                            
+
+        if animal in tiers:
+            for tier in zoo:
+                if tier == animal:
+                    for i in zoo[tier]["animals"]:
+                        selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"]
+                        data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"] = 0
+                    break
+
+
+        tier_prices = {
+            "common": 6,
+            "uncommon": 30,
+            "rare": 90,
+            "epic": 300,
+            "mythical": 5000,
+        }
+        
+        merchant_colours = [
+            0xffb3ba,
+            0xffdfba,
+            0xffffba,
+            0xbaffc9,
+            0xbae1ff,
+        ]
+        
+        merchant_emojis = [
+            "🧑‍🌾",
+            "🧑🏻‍🌾",
+            "🧑🏼‍🌾",
+            "🧑🏽‍🌾",
+            "🧑🏾‍🌾",
+            "🧑🏿‍🌾",
+        ]
+        
+        merchant = random.randrange(0, len(merchant_colours))
+        merchant_emoji = random.choice(merchant_emojis)
+        
+        soldstr = ""
+        payout = 0
+        differentTiersSold = 0
+        differentAnimalsSold = 0
+        for price, animalAmount in zip(tier_prices.items(), selling.items()):
+            if animalAmount[1] != 0:
+                soldstr += f"{animalAmount[1]} {price[0]} animal for {price[1]} <:beaverCoin:968588341291397151>"
+                if animalAmount[1] >= 2:
+                    soldstr += f" each, for a total of {price[1]*animalAmount[1]} <:beaverCoin:968588341291397151>"
+                soldstr += "\n"
+                
+                payout += price[1]*animalAmount[1]
+                
+                differentTiersSold += 1
+                differentAnimalsSold += animalAmount[1]
+        
+        if floor(payout*(1+merchant*0.005))-payout > random.randint(15, 25):
+            soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.005))-payout} <:beaverCoin:968588341291397151>"
+            payout = floor(payout*(1+merchant*0.005))
+        
+        with open("storage/playerInfo/animals.json", "w") as f:
+            json.dump(data, f)
+        await ecoLib.update_bank_data(ctx.author, round(payout))
+        
+        if differentTiersSold != 1:
+            soldstr += f"\n\n\nI bought a total of {differentAnimalsSold} animals for {payout} <:beaverCoin:968588341291397151>\nPlease come again!"
+            
+        
+        embed = discord.Embed()
+        embed.title = f"{merchant_emoji} Merchant"
+        embed.colour = merchant_colours[merchant]
+        embed.add_field(name="||\n||", value=soldstr)
+        
+
+        await ctx.send(embed=embed)
+        
 
 async def setup(bot):
     await bot.add_cog(ecoshop(bot))

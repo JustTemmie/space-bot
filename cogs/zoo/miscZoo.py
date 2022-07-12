@@ -73,7 +73,7 @@ class zooMisc(commands.Cog):
         if user is None:
             user = ctx.author
 
-        if await aniLib.check_if_zoo_not_exist(ctx.author):
+        if await aniLib.check_if_zoo_not_exist(user):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         zoo = await aniLib.get_zoo_data()
