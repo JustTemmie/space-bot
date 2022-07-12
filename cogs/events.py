@@ -377,27 +377,28 @@ class events(commands.Cog):
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
 
-
-        quotes = [
-            "frog friday!!!"
-            "fr- waiit what?",
-        ]
-        videos = [
-            "images/video/funnies/funnyfrogfriday.mp4"
-            "images/video/funnies/fish.mp4",
-        ]
         
         x = 0
         
         if random.randrange(0, 10) == 2:
              x = 1
  
-        for ID in fish_IDs:\
-            await self.bot.get_channel(ID).send(
-                quotes[x], file=discord.File(videos[x])
-            )
-
+        for ID in fish_IDs:
+            if x == 0:
+                await self.bot.get_channel(ID).send("frog friday!!!", file=discord.File("images/video/funnies/funnyfrogfriday.mp4"))
+            if x == 1:
+                await self.bot.get_channel(ID).send("fr- waiit what?", file=discord.File("images/video/funnies/fish.mp4"))
+            
+    @tasks.loop(hours=1)
+    async def beaver_break(self):
+        if not self.bot.ready:
+            return
+        
+        if random.randint(0, 2000) != 2:
+            return
     
+        for ID in fish_IDs:
+            await self.bot.get_channel(ID).send("beaver time!!!", file=discord.File("images/video/funnies/thebizzarebeaverbreak.mp4"))
     #@tasks.loop(seconds=30)
     #async def genshin_nick(self):
     #    if not self.bot.is_ready():
@@ -504,7 +505,6 @@ class events(commands.Cog):
     async def send_hourly_log(self):
         if self.bot.is_ready():
             for file in os.listdir("temp/hourlyLogs"):
-                print(file)
                 if file != f"{floor(time() / 3600)}.txt":
                     await self.bot.get_channel(978695336048623713).send(file=discord.File(f"temp/hourlyLogs/{file}"))
                     os.remove(f"temp/hourlyLogs/{file}")
