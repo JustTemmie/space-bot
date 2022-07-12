@@ -7,7 +7,7 @@ from libraries.miscLib import *
 from discord import Embed
 
 
-inv_version = 1.03
+inv_version = 1.04
 
 confirmations = [
         "consent",
@@ -170,6 +170,13 @@ async def update_account(user):
 
         users = await get_bank_data()
     
+    if users[str(user.id)]["version"] <= 1.03:
+        users[str(user.id)]["anti-cheat"]["banned_until"] = 0
+        with open("storage/playerInfo/bank.json", "w") as f:
+            json.dump(users, f)
+
+        users = await get_bank_data()
+    
     if str(user.id) in users:
         users[str(user.id)]["version"] = inv_version
         
@@ -283,6 +290,7 @@ async def open_account(self, ctx):
     users[str(user.id)]["anti-cheat"] = {}
     users[str(user.id)]["anti-cheat"]["counter"] = 0
     users[str(user.id)]["anti-cheat"]["last_command"] = time.time()
+    users[str(user.id)]["anti-cheat"]["banned_until"] = 0
     
 
     
