@@ -83,7 +83,7 @@ class ecoprofile(commands.Cog):
             else:
                 y += 1
         if y != 0:
-            married_to += f"and {y} more"
+            married_to += f"and {y-1} more"
 
         if n == 0:
             married_to = "None"
