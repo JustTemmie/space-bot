@@ -228,7 +228,7 @@ class ecoshop(commands.Cog):
                 differentAnimalsSold += animalAmount[1]
         
         if floor(payout*(1+merchant*0.01))-payout > random.randint(15, 25):
-            soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.01))-payout} <:beaverCoin:968588341291397151>"
+            soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.01))-payout} <:beaverCoin:968588341291397151>\n"
             payout = floor(payout*(1+merchant*0.01))
         
         with open("storage/playerInfo/animals.json", "w") as f:
@@ -236,7 +236,7 @@ class ecoshop(commands.Cog):
         await ecoLib.update_bank_data(ctx.author, round(payout))
         
         if differentTiersSold != 1:
-            soldstr += f"\n\n\nI bought a total of {differentAnimalsSold} animals for {payout} <:beaverCoin:968588341291397151>\nPlease come again!"
+            soldstr += f"\n\nI bought a total of {differentAnimalsSold} animals for {payout} <:beaverCoin:968588341291397151>\nPlease come again!"
             
         
         embed = discord.Embed()
