@@ -25,8 +25,11 @@ class ecobuild(commands.Cog):
 
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         data = await get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]

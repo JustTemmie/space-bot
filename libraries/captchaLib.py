@@ -58,7 +58,7 @@ async def check_captcha(self, ctx, increase_by = 1):
         json.dump(data, f)
 
     # the random number is just because this code can send multiple captchas at once, which isn't ideal lmao
-    if counter < 80 + random.randint(0, 40):
+    if counter < 70 + random.randint(0, 60):
         return False
 
 
@@ -85,7 +85,22 @@ async def check_captcha(self, ctx, increase_by = 1):
         
 async def check_captcha_valid(self, ctx, captchaStr, loop = 1):
     if loop > 5:
-        await ctx.send(f"you failed the captcha!\nthe next time you fail you will be banned from the economy system for 48 hours")
+        with open("./storage/playerInfo/bank.json", "r") as f:
+            data = json.load(f)
+        
+        banNr = data[str(ctx.author.id)]["anti-cheat"]["banned_x_times"]
+        
+        # 12 hours, 24 hours, 48 hours, so on
+        bannedFor = 43200*2**banNr
+        
+        data[str(ctx.author.id)]["anti-cheat"]["banned_x_times"] = banNr + 1
+        data[str(ctx.author.id)]["anti-cheat"]["banned_until"] = time.time() + bannedFor
+        
+        with open("./storage/playerInfo/bank.json", "w") as f:
+            json.dump(data, f)
+        
+        await ctx.send(f"You have been **banned** for {round(bannedFor/60/60)} hours due to suspicious activity. This ban will last until <t:{bannedFor + round(time.time())}>\nIf you think this is a mistake, please contact our support server <https://discord.gg/8MdVe6NgVy>")
+        
         return False
     
     try:
@@ -104,3 +119,14 @@ async def check_captcha_valid(self, ctx, captchaStr, loop = 1):
 
     await ctx.send(f"you failed the captcha!\n**Attempt {loop}/5**") 
     return await check_captcha_valid(self, ctx, captchaStr, loop+1)
+
+
+async def isUserBanned(user):
+    with open("./storage/playerInfo/bank.json", "r") as f:
+        data = json.load(f)
+    
+    if data[str(user.id)]["anti-cheat"]["banned_until"] > time.time():
+        return True
+    
+    return False
+    

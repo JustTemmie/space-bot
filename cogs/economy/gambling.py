@@ -24,8 +24,11 @@ class ecogambling(commands.Cog):
         
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         bal = await update_bank_data(ctx.author)
         
@@ -78,8 +81,11 @@ class ecogambling(commands.Cog):
     async def slot_machine_command(self, ctx, amount=None):
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")

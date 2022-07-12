@@ -30,8 +30,11 @@ class ecoshop(commands.Cog):
 
         await ecoLib.open_account(self, ctx)
         
-        if await ecoLib.check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await ecoLib.check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         shop = await ecoLib.get_shop_data()
 
@@ -56,8 +59,11 @@ class ecoshop(commands.Cog):
     async def buy_command(self, ctx, item, amount: Optional[int] = 1):
         await ecoLib.open_account(self, ctx)
 
-        if await ecoLib.check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await ecoLib.check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         shop = await ecoLib.get_shop_data()
         bank = await ecoLib.get_bank_data()
@@ -104,7 +110,10 @@ class ecoshop(commands.Cog):
         
         user = ctx.author
 
-        if await aniLib.check_if_zoo_not_exist(user):
+        userNotExist = await aniLib.check_if_zoo_not_exist(user)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         zoo = await aniLib.get_zoo_data()

@@ -5,9 +5,10 @@ import time
 
 from libraries.miscLib import *
 from discord import Embed
+from libraries.captchaLib import isUserBanned
 
 
-inv_version = 1.04
+inv_version = 1.05
 
 confirmations = [
         "consent",
@@ -82,6 +83,9 @@ async def check_if_not_exist(user):
     users = await get_bank_data()
 
     if str(user.id) in users:
+        if await isUserBanned(user):
+            return "banned"
+        
         await update_account(user)
         return False
     
@@ -172,6 +176,13 @@ async def update_account(user):
     
     if users[str(user.id)]["version"] <= 1.03:
         users[str(user.id)]["anti-cheat"]["banned_until"] = 0
+        with open("storage/playerInfo/bank.json", "w") as f:
+            json.dump(users, f)
+
+        users = await get_bank_data()
+    
+    if users[str(user.id)]["version"] <= 1.04:
+        users[str(user.id)]["anti-cheat"]["banned_x_times"] = 0
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(users, f)
 
@@ -291,6 +302,7 @@ async def open_account(self, ctx):
     users[str(user.id)]["anti-cheat"]["counter"] = 0
     users[str(user.id)]["anti-cheat"]["last_command"] = time.time()
     users[str(user.id)]["anti-cheat"]["banned_until"] = 0
+    users[str(user.id)]["anti-cheat"]["banned_x_times"] = 0
     
 
     

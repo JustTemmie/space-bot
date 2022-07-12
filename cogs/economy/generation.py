@@ -18,8 +18,11 @@ class ecogeneration(commands.Cog):
     async def daily_command(self, ctx):
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         bank = await get_bank_data()
         daily_info = bank[str(ctx.author.id)]["daily"]
@@ -86,8 +89,11 @@ class ecogeneration(commands.Cog):
     async def scavenge_logs(self, ctx):
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         if await check_captcha(self, ctx, 0.5):
             return

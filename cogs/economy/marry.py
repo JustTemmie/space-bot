@@ -26,8 +26,11 @@ class ecomarry(commands.Cog):
 
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         if await check_if_not_exist(member):
             return await ctx.send(f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first")
@@ -129,8 +132,11 @@ class ecomarry(commands.Cog):
 
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_if_not_exist(member):
             return await ctx.send(f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first")
