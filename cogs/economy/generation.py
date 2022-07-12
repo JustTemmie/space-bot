@@ -56,8 +56,8 @@ class ecogeneration(commands.Cog):
             streak += f"**{daily_info['streak']} day streak!**"
 
         payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
-        if payout >= 400:
-            payout = 400
+        if payout >= 500:
+            payout = 500
             
         # skills
         if bank[str(ctx.author.id)]["dam"]["level"] >= 4:
