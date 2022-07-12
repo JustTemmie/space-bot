@@ -219,7 +219,7 @@ class ecoshop(commands.Cog):
                 differentAnimalsSold += animalAmount[1]
         
         if floor(payout*(1+merchant*0.01))-payout > random.randint(15, 25):
-            soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.005))-payout} <:beaverCoin:968588341291397151>"
+            soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.01))-payout} <:beaverCoin:968588341291397151>"
             payout = floor(payout*(1+merchant*0.005))
         
         with open("storage/playerInfo/animals.json", "w") as f:
