@@ -71,7 +71,7 @@ class ecoprofile(commands.Cog):
 
         for i in married_to_data:
             i = married_to_data[i]
-            if n < 5:
+            if n < 10:
                 if i["married"]:
                     x = await self.bot.fetch_user(i["married_to"])
                     ring = (i["ring"])
