@@ -1,3 +1,4 @@
+from os import dup
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 import json
@@ -5,6 +6,7 @@ import json
 import random
 
 import libraries.animalLib as aniLib
+import libraries.economyLib as ecoLib
 from libraries.captchaLib import *
 
 tiers = {
@@ -27,6 +29,7 @@ class zooHunt(commands.Cog):
     )
     @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
+        await ecoLib.open_account(self, ctx)
         await aniLib.open_zoo(self, ctx)
         #await aniLib.open_bot()
                
@@ -36,9 +39,58 @@ class zooHunt(commands.Cog):
         if await check_captcha(self, ctx, 0.5):
             return
 
+        bank = await ecoLib.get_bank_data()
         animals = await aniLib.get_zoo_data()
 
+        
+        selectedAnimal, animal_name, tier = await self.roll_animal(ctx, animals)
+        
+        
+        # skills
+        animalmulti = 0
+        animal2 = animal2name = tier2 = ""
+        if bank[str(ctx.author.id)]["lodge"]["level"] >= 1:
+            animalmulti += 1
+        if bank[str(ctx.author.id)]["lodge"]["level"] >= 2:
+            animalmulti += 1
+    
+        if random.random() < 0.15 * animalmulti:
+            animal2, animal2name, tier2 = await self.roll_animal(ctx, animals)
 
+        
+        if animal2 == "":
+            await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}, it's {animals[tier]['aoran']} {tier}{animals[tier]['icon']} animal")
+        else:
+            duplicatestr = ""
+            if animal2name == animal_name:
+                duplicatestr = "another"
+            await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']} and a{duplicatestr} {animal2name} {animal2['icon']}")
+    
+        
+        data = await aniLib.get_animal_data()
+        
+        
+        data[str(ctx.author.id)]["animals"][tier][animal_name]["caught"] += 1
+        data[str(ctx.author.id)]["animals"][tier][animal_name]["count"] += 1
+        
+        data["global"]["animals"][tier][animal_name]["caught"] += 1
+        
+        if animal2 != "":
+            data[str(ctx.author.id)]["animals"][tier2][animal2name]["caught"] += 1
+            data[str(ctx.author.id)]["animals"][tier2][animal2name]["count"] += 1
+            
+            data["global"]["animals"][tier2][animal2name]["caught"] += 1
+    
+        with open("storage/playerInfo/animals.json", "w") as f:
+            json.dump(data, f)#, indent=4)
+        
+        # for i in animals:
+        #     #await ctx.send(animals(i)["name"])
+        #     for y in range(1, 7):
+        #         await ctx.send(animals[i]["animals"][str(y)]["icon"])
+        #         await ctx.send(animals[i]["animals"][str(y)]["name"][0])
+    
+    async def roll_animal(self, ctx, animals):
         roll = random.random()
         for tier in tiers:
             if tiers[tier] > roll:
@@ -54,23 +106,8 @@ class zooHunt(commands.Cog):
         
         selectedAnimal = animals[tier]["animals"][str(ID)]
         animal_name = selectedAnimal["name"][0]
-        await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}, it's {animals[tier]['aoran']} {tier}{animals[tier]['icon']} animal")
         
-        data = await aniLib.get_animal_data()
-        
-        data[str(ctx.author.id)]["animals"][tier][animal_name]["caught"] += 1
-        data[str(ctx.author.id)]["animals"][tier][animal_name]["count"] += 1
-        
-        data["global"]["animals"][tier][animal_name]["caught"] += 1
-        
-        with open("storage/playerInfo/animals.json", "w") as f:
-            json.dump(data, f)#, indent=4)
-        
-        # for i in animals:
-        #     #await ctx.send(animals(i)["name"])
-        #     for y in range(1, 7):
-        #         await ctx.send(animals[i]["animals"][str(y)]["icon"])
-        #         await ctx.send(animals[i]["animals"][str(y)]["name"][0])
+        return selectedAnimal, animal_name, tier
     
 async def setup(bot):
     await bot.add_cog(zooHunt(bot))
