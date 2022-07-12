@@ -225,9 +225,9 @@ class ecobuild(commands.Cog):
             if level >= 4: lvl4bold = "**"
             if level >= 5: lvl5bold = "**"
 
-            lvl1 = f"╰ +2 skill points and a 15% chance to get a second animals from {ctx.prefix}hunt"
-            lvl2 = f"╰ +2 skill points another 20% chance to get a second animal from {ctx.prefix}hunt"
-            lvl3 = f"╰ +2 skill points +18 coolness from {ctx.prefix}hunt"
+            lvl1 = f"╰ +2 skill points and a 20% chance to get a second animals from {ctx.prefix}hunt"
+            lvl2 = f"╰ +2 skill points another 30% chance to get a second animal from {ctx.prefix}hunt"
+            lvl3 = f"╰ +2 skill points garuante a second animal from {ctx.prefix}hunt"
             lvl4 = f"╰ +2 skill points and unlock the Beaver Lodge"
             lvl5 = f"╰ +5 skill points and another +18 coolness from {ctx.prefix}hunt"
             
