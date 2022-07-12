@@ -175,10 +175,10 @@ class ecoshop(commands.Cog):
 
 
         tier_prices = {
-            "common": 6,
-            "uncommon": 30,
-            "rare": 90,
-            "epic": 300,
+            "common": 10,
+            "uncommon": 50,
+            "rare": 150,
+            "epic": 600,
             "mythical": 5000,
         }
         
