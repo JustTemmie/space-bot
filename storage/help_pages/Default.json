@@ -7,7 +7,7 @@
     "10th": {
         "icon": "🤗",
         "name": "Actions",
-        "description": "`bite` `boop` `cuddle` `hug` `kill` `kiss` `hold` `mock` `pat` `stare` `punch` `steal`"
+        "description": "`bite` `boop` `cuddle` `hug` `kill` `kiss` `hold` `pat` `stare` `punch` `steal`"
     },
     "4th": {
         "icon": "🖼️",
@@ -17,7 +17,7 @@
     "5th": {
         "icon": "🎱",
         "name": "Fun",
-        "description": "`8ball` `fact` `funfact` `joke` `shitpost` `trivia` `ship`"
+        "description": "`8ball` `fact` `funfact` `joke` `shitpost` `trivia` `ship` `mock`"
     },
     "6th": {
         "icon": "🛠️",

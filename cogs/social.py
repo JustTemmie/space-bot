@@ -147,6 +147,7 @@ class social(commands.Cog):
     @commands.guild_only()
     async def hugss(self, ctx, targets: Greedy[Member]):
         await self.social_commands(ctx, "hug", 50, "hugged ", "", "do you need a hug? :(", "hugs :)", targets)
+        
 
     @commands.command(name="fuck", brief="hi there, you found the hidden command")
     @cooldown(5, 25, BucketType.guild)
