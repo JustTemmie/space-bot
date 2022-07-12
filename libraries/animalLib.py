@@ -1,7 +1,7 @@
 import json
 
 from libraries.miscLib import *
-from libraries.economyLib import check_if_not_exist, open_account
+from libraries.economyLib import check_if_not_exist, open_account, update_account
 from libraries.captchaLib import isUserBanned
 from discord import Embed
 
@@ -11,12 +11,14 @@ async def check_if_zoo_not_exist(user):
     users = await get_animal_data()
 
     if str(user.id) in users:
-        if await isUserBanned(user):
-            return "banned"
-
         await update_global_zoo()
         await update_zoo(user)
         
+        await update_account(user)
+        
+        if await isUserBanned(user):
+            return "banned"
+
         return False
     
     return True
