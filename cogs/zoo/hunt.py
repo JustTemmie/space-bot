@@ -39,7 +39,7 @@ class zooHunt(commands.Cog):
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
-        if await check_captcha(self, ctx, 1):
+        if await check_captcha(self, ctx, 0.4):
             return
 
         bank = await ecoLib.get_bank_data()

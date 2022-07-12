@@ -95,7 +95,7 @@ class ecogeneration(commands.Cog):
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
-        if await check_captcha(self, ctx, 0.5):
+        if await check_captcha(self, ctx, random.uniform(0.3, 0.7)):
             return
         
         data = await get_bank_data()

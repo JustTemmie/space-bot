@@ -169,8 +169,8 @@ class events(commands.Cog):
 
         elif isinstance(exc, CommandOnCooldown):
             await ctx.send(
-                f"That command is on cooldown. Please try again in {exc.retry_after:,.2f} seconds.",
-                delete_after=(exc.retry_after + 0.7),
+                f"That command is on cooldown. Please try again in {exc.retry_after:,.2f+0.15} seconds.",
+                delete_after=(exc.retry_after*1.05 + 0.15),
             )
 
         #      elif isinstance(exc.original, HTTPException):
