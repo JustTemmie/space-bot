@@ -198,7 +198,7 @@ class events(commands.Cog):
         logging.info(f"{ctx.command.name} was successfully invoked by {ctx.author}")
         print(f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}")
         fileObj = open(f'temp/hourlyLogs/{floor(time()/3600)}.txt', 'a')
-        fileObj.write(f"{ctx.command.name} was successfully invoked by {ctx.author}\n")
+        fileObj.write(f"{ctx.command.name} was successfully invoked by {ctx.author} at {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}\n")
         fileObj.close()
 
 
@@ -363,7 +363,7 @@ class events(commands.Cog):
     @tasks.loop(seconds=8)
     async def fish_friday(self):
         if not self.bot.ready:
-            return
+            return  
 
         if datetime.today().weekday() != 4:
             return
