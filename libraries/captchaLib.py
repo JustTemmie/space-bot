@@ -58,8 +58,9 @@ async def check_captcha(self, ctx, increase_by = 1):
         json.dump(data, f)
 
     # the random number is just because this code can send multiple captchas at once, which isn't ideal lmao
-    if counter < 70 + random.randint(0, 60):
-        return False
+    if counter < 70:
+        if random.randint(0, 50) != 2:
+            return False
 
 
     captchaStr = await generate_user_capcha(ctx.author)
