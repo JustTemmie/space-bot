@@ -68,7 +68,7 @@ class zooHunt(commands.Cog):
         else:
             duplicatestr = ""
             if animal2name == animal_name:
-                duplicatestr = "another"
+                duplicatestr = "nother"
             await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']} and a{duplicatestr} {animal2name} {animal2['icon']}")
     
         
