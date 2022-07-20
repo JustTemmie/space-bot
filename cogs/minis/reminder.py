@@ -38,25 +38,25 @@ class reminder(commands.Cog):
         timing = timing.split(",")
         for i in timing:
             if "day" in i:
-                seconds += (i.split(" ")[0]) * 86400
+                seconds += float(i.split(" ")[0]) * 86400
             elif "hour" in i:
-                seconds += (i.split(" ")[0]) * 3600
+                seconds += float(i.split(" ")[0]) * 3600
             elif "minute" in i:
-                seconds += (i.split(" ")[0]) * 60
+                seconds += float(i.split(" ")[0]) * 60
             elif "second" in i:
-                seconds += (i.split(" ")[0])
+                seconds += float(i.split(" ")[0])
             
             
             else:
                 single_letters = (i.split(" ")[1])
                 if single_letters == "d":
-                    seconds += (i.split(" ")[0]) * 86400
+                    seconds += float(i.split(" ")[0]) * 86400
                 elif single_letters == "h" or single_letters == "hr":
-                    seconds += (i.split(" ")[0]) * 3600
+                    seconds += float(i.split(" ")[0]) * 3600
                 elif single_letters == "m" or single_letters == "min":
-                    seconds += (i.split(" ")[0]) * 60
+                    seconds += float(i.split(" ")[0]) * 60
                 elif single_letters == "s" or single_letters == "sec":
-                    seconds += (i.split(" ")[0])
+                    seconds += float(i.split(" ")[0])
                 
                 else:
                     return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
