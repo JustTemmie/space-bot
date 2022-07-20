@@ -116,7 +116,7 @@ class zooBattle(commands.Cog):
         async def dropDown3Link(interaction): decidedMoves["animal3"] = await dropDown(interaction, 3, teamMembers)
         
         async def getMoveInfoLink(interaction):
-            id = "sting"
+            id = "sting" # need do fetch this from the player data
             emoji, display_name, desc, formatting, cost, damage, healing = await getMoveInfo(id)
             for i in formatting:
                 desc = desc.replace(f"({i})", str(eval(str(i))))
@@ -127,7 +127,7 @@ class zooBattle(commands.Cog):
         confirmationButton = Button(label="Confirm Attacks", style=discord.ButtonStyle.green, emoji="⚔️")
         concedeButton = Button(label="Concede", style=discord.ButtonStyle.red, emoji="🏳️")
         test = Button(label="test", style=discord.ButtonStyle.gray, emoji="🧪")
-        view = View(timeout=480,)
+        view = View(timeout=300,)
         view.add_item(confirmationButton)
         view.add_item(concedeButton)
         view.add_item(test)
