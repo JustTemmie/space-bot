@@ -32,7 +32,7 @@ class zooHunt(commands.Cog):
         await ecoLib.open_account(self, ctx)
         await aniLib.open_zoo(self, ctx)
         #await aniLib.open_bot()
-               
+                
         userNotExist = await aniLib.check_if_zoo_not_exist(ctx.author)
         if userNotExist == "banned":
             return
@@ -58,7 +58,7 @@ class zooHunt(commands.Cog):
             animalmulti += 1.5
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 3:
             animalmulti += 2.5
-    
+
         if random.random() < 0.20 * animalmulti:
             animal2, animal2name, tier2 = await self.roll_animal(ctx, animals)
 
@@ -70,7 +70,7 @@ class zooHunt(commands.Cog):
             if animal2name == animal_name:
                 duplicatestr = "nother"
             await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']} and a{duplicatestr} {animal2name} {animal2['icon']}")
-    
+
         
         data = await aniLib.get_animal_data()
         
@@ -85,7 +85,7 @@ class zooHunt(commands.Cog):
             data[str(ctx.author.id)]["animals"][tier2][animal2name]["count"] += 1
             
             data["global"]["animals"][tier2][animal2name]["caught"] += 1
-    
+
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)#, indent=4)
         
@@ -94,7 +94,7 @@ class zooHunt(commands.Cog):
         #     for y in range(1, 7):
         #         await ctx.send(animals[i]["animals"][str(y)]["icon"])
         #         await ctx.send(animals[i]["animals"][str(y)]["name"][0])
-    
+
     async def roll_animal(self, ctx, animals):
         roll = random.random()
         for tier in tiers:
@@ -102,12 +102,6 @@ class zooHunt(commands.Cog):
                 break
         
         ID = random.randint(1, 6)
-        
-        # this makes a specific user get way more snails, it's a social experiment
-        if ctx.author.id == 411536312961597440: 
-            if tier == "common":
-                if random.randint(1, 5) == 1:
-                    ID = 1
         
         selectedAnimal = animals[tier]["animals"][str(ID)]
         animal_name = selectedAnimal["name"][0]
