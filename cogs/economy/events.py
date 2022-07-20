@@ -14,7 +14,10 @@ class ecoevents(commands.Cog):
         if ctx.author.bot:
             return
 
-        if await check_if_not_exist(ctx.author):
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
             return
 
         data = await get_bank_data()
@@ -46,7 +49,10 @@ class ecoevents(commands.Cog):
         if user.bot:
             return
 
-        if await check_if_not_exist(user):
+        userNotExist = await check_if_not_exist(user)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
             return
 
         data = await get_bank_data()

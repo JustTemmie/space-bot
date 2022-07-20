@@ -7,6 +7,7 @@ from discord.ext.commands import (
     Greedy,
 )
 
+import asyncio
 import json
 from aiohttp import request
 import random
@@ -19,6 +20,7 @@ load_dotenv("keys.env")
 tenor_api_key = os.getenv("TENOR")
 
 import libraries.standardLib as SL
+from libraries.economyLib import confirmations
 
 class social(commands.Cog):
     def __init__(self, bot):
@@ -145,7 +147,25 @@ class social(commands.Cog):
     @commands.guild_only()
     async def hugss(self, ctx, targets: Greedy[Member]):
         await self.social_commands(ctx, "hug", 50, "hugged ", "", "do you need a hug? :(", "hugs :)", targets)
+        
 
+    @commands.command(name="fuck", brief="hi there, you found the hidden command")
+    @cooldown(5, 25, BucketType.guild)
+    @commands.guild_only()
+    async def fuck_command(self, ctx, targets: Greedy[Member]):
+        for person in targets:
+            await ctx.send(f"hey {person.mention} do you consent to {ctx.author.mention} uhm.. yeah..")
+            try:
+                response = await self.bot.wait_for(
+                    "message", check=lambda m: m.author == person, timeout=30
+                )
+            except asyncio.TimeoutError:
+                return await ctx.send(await SL.removeat(f"**Timed out** {person.display_name} took too long to answer, cancelling"))
+            if response.content.lower() not in confirmations:
+                await ctx.send(f"yeah no, sorry {ctx.author.mention}, i'm not doing that :p")
+                return
+            
+        await self.social_commands(ctx, "blush", 40, "did uh... something with", "", "is... enjoying themselves?!?", "woahwoahwaoh", targets)
 
     @commands.command(name="kill", aliases=["murder"], brief="that's an official oisann moment")
     @cooldown(8, 25, BucketType.guild)

@@ -5,17 +5,20 @@ import time
 
 from libraries.miscLib import *
 from discord import Embed
+from libraries.captchaLib import isUserBanned
 
 
-inv_version = 1.03
+inv_version = 1.06
 
 confirmations = [
+        "consent",
         "yes",
         "yess",
         "yesss"
         "yes.",
         "yep",
         "yup",
+        "yea",
         "y",
         "correct",
         "ys",
@@ -28,7 +31,6 @@ confirmations = [
         "okay?",
         "i do",
         "i am",
-        "ja",
         "beaver",
         "wouldn't mind",
         "aye aye"
@@ -82,6 +84,10 @@ async def check_if_not_exist(user):
 
     if str(user.id) in users:
         await update_account(user)
+        
+        if await isUserBanned(user):
+            return "banned"
+        
         return False
     
     return True
@@ -169,6 +175,14 @@ async def update_account(user):
 
         users = await get_bank_data()
     
+    if users[str(user.id)]["version"] <= 1.05:
+        users[str(user.id)]["anti-cheat"]["banned_until"] = 0
+        users[str(user.id)]["anti-cheat"]["banned_x_times"] = 0
+        with open("storage/playerInfo/bank.json", "w") as f:
+            json.dump(users, f)
+
+        users = await get_bank_data()
+    
     if str(user.id) in users:
         users[str(user.id)]["version"] = inv_version
         
@@ -191,7 +205,7 @@ async def open_account(self, ctx):
         color=ctx.author.color
     )
     
-    embed.add_field(name = "If you do, please respond with \"yes\"\nDoing this means you agree to Andromeda's TOS and privacy policy\n(it's like 40 lines, you can read it in 2 min)\n\nhttps://github.com/JustTemmie/space-bot/blob/main/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md", value = "||\n||", inline = False)
+    embed.add_field(name = "If you do, please respond with \"yes\"\nDoing this means you agree to Andromeda's TOS and privacy policy", value = "||\n||(it's like 40 lines, you can read it in 2 min)\nhttps://github.com/JustTemmie/space-bot/blob/main/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md", inline = False)
     
     await ctx.send(embed=embed)
     input = await get_input(self, ctx, 30, "please try again")
@@ -282,6 +296,8 @@ async def open_account(self, ctx):
     users[str(user.id)]["anti-cheat"] = {}
     users[str(user.id)]["anti-cheat"]["counter"] = 0
     users[str(user.id)]["anti-cheat"]["last_command"] = time.time()
+    users[str(user.id)]["anti-cheat"]["banned_until"] = 0
+    users[str(user.id)]["anti-cheat"]["banned_x_times"] = 0
     
 
     

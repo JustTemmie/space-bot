@@ -10,12 +10,16 @@ from discord.ext.commands import (
 import random
 from datetime import datetime
 
-IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
-
 import logging
 import requests
 import re
 import json
+import os
+
+from time import time
+from math import floor
+
+IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 auto_reddit_IDs = [974642338150367252]
 fish_IDs = [918830241135353907, 885113515411669002]
@@ -147,6 +151,7 @@ class events(commands.Cog):
         self.random_reddit.start()
         self.update_timer.start()
         #self.genshin_nick.start()
+        self.send_hourly_log.start()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
@@ -170,7 +175,7 @@ class events(commands.Cog):
         elif isinstance(exc, CommandOnCooldown):
             await ctx.send(
                 f"That command is on cooldown. Please try again in {exc.retry_after:,.2f} seconds.",
-                delete_after=(exc.retry_after + 0.7),
+                delete_after=(exc.retry_after*1.05 + 0.7),
             )
 
         #      elif isinstance(exc.original, HTTPException):
@@ -191,9 +196,10 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
         logging.info(f"{ctx.command.name} was successfully invoked by {ctx.author}")
-        print(
-            f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}"
-        )
+        print(f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}")
+        fileObj = open(f'temp/hourlyLogs/{floor(time()/3600)}.txt', 'a')
+        fileObj.write(f"{ctx.command.name} was successfully invoked by {ctx.author} at {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}\n")
+        fileObj.close()
 
 
     @commands.Cog.listener()
@@ -357,7 +363,7 @@ class events(commands.Cog):
     @tasks.loop(seconds=8)
     async def fish_friday(self):
         if not self.bot.ready:
-            return
+            return  
 
         if datetime.today().weekday() != 4:
             return
@@ -371,27 +377,28 @@ class events(commands.Cog):
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
 
-
-        quotes = [
-            "frog friday!!!"
-            "fr- waiit what?",
-        ]
-        videos = [
-            "images/video/funnies/funnyfrogfriday.mp4"
-            "images/video/funnies/fish.mp4",
-        ]
         
         x = 0
         
         if random.randrange(0, 10) == 2:
              x = 1
  
-        for ID in fish_IDs:\
-            await self.bot.get_channel(ID).send(
-                quotes[x], file=discord.File(videos[x])
-            )
-
+        for ID in fish_IDs:
+            if x == 0:
+                await self.bot.get_channel(ID).send("frog friday!!!", file=discord.File("images/video/funnies/funnyfrogfriday.mp4"))
+            if x == 1:
+                await self.bot.get_channel(ID).send("fr- waiit what?", file=discord.File("images/video/funnies/fish.mp4"))
+            
+    @tasks.loop(hours=1)
+    async def beaver_break(self):
+        if not self.bot.ready:
+            return
+        
+        if random.randint(0, 2000) != 2:
+            return
     
+        for ID in fish_IDs:
+            await self.bot.get_channel(ID).send("beaver time!!!", file=discord.File("images/video/funnies/thebizzarebeaverbreak.mp4"))
     #@tasks.loop(seconds=30)
     #async def genshin_nick(self):
     #    if not self.bot.is_ready():
@@ -493,7 +500,15 @@ class events(commands.Cog):
             with open("storage/misc/time.json", "w") as f:
                 json.dump((datetime.utcnow() - datetime(1970, 1, 1)).seconds, f)
             
-            
+    
+    @tasks.loop(seconds=30)
+    async def send_hourly_log(self):
+        if self.bot.is_ready():
+            for file in os.listdir("temp/hourlyLogs"):
+                if file != f"{floor(time() / 3600)}.txt":
+                    await self.bot.get_channel(978695336048623713).send(file=discord.File(f"temp/hourlyLogs/{file}"))
+                    os.remove(f"temp/hourlyLogs/{file}")
+        
     @tasks.loop(hours=1)
     async def random_beaver(self):
         return

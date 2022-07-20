@@ -1,7 +1,8 @@
 import json
 
 from libraries.miscLib import *
-from libraries.economyLib import check_if_not_exist, open_account
+from libraries.economyLib import check_if_not_exist, open_account, update_account
+from libraries.captchaLib import isUserBanned
 from discord import Embed
 
 zoo_version = 1.05
@@ -13,6 +14,11 @@ async def check_if_zoo_not_exist(user):
         await update_global_zoo()
         await update_zoo(user)
         
+        await update_account(user)
+        
+        if await isUserBanned(user):
+            return "banned"
+
         return False
     
     return True
@@ -94,8 +100,11 @@ async def open_zoo(self, ctx):
     if await check_if_not_exist(ctx.author):
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return       
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")       
     
         
 

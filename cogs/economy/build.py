@@ -25,8 +25,11 @@ class ecobuild(commands.Cog):
 
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         data = await get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
@@ -153,7 +156,94 @@ class ecobuild(commands.Cog):
             if current_damlevel < 3:
                 return await ctx.send("You need to upgrade your dam to lvl 3 first")
             
-            return await ctx.send("not implemented yet, sorry, but it's coming soon (like 72 hours at most)")
+            if logs < amount:
+                return await ctx.send("you don't have that many logs")
+
+            lodge_levels = [
+                5000,
+                10000,
+                15000,
+                25000,
+                3500
+            ]
+
+            level = current_lodgelevel
+
+            data[str(ctx.author.id)]["inventory"]["logs"] -= amount
+            data[str(ctx.author.id)]["lodge"]["spent"]["logs"] += amount
+            spent = data[str(ctx.author.id)]["lodge"]["spent"]["logs"]
+
+            if level == len(lodge_levels):
+                next_level = spent + 1
+                next_level_str = "MAX"
+                bar = await progress_bar(25, 25, 25)
+
+            else:
+                next_level = lodge_levels[level] # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
+                next_level_str = f"{spent}/{next_level}"
+                bar = await progress_bar(spent, next_level, 25)
+    
+            if spent >= next_level:
+                embed = discord.Embed(title=f"Lodge", description=f"You have upgraded your lodge to level {level+1}", color=ctx.author.color)
+                if level != len(lodge_levels)-1:
+                    embed.add_field(name="Logs needed for next level", value=f"╰ {lodge_levels[level+1]} <:log:970325254461329438>", inline=False)
+                    
+                data[str(ctx.author.id)]["lodge"]["level"] += 1
+                leftOverLogs = data[str(ctx.author.id)]["lodge"]["spent"]["logs"] - next_level
+                
+                data[str(ctx.author.id)]["lodge"]["spent"]["logs"] = 0
+                data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
+                
+                 
+                newlvl = data[str(ctx.author.id)]["lodge"]["level"]
+                
+                if newlvl == 1:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 2:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 3:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 4:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 5:
+                    data[str(ctx.author.id)]["stats"]["points"] += 5
+                
+
+            else:
+                embed = discord.Embed(title=f"<:lodge:975903060608057404> lodge LV {level}", description=f"{bar} || {next_level_str} to LV {level+1}", color=ctx.author.color)
+
+
+            #if bonus_string == "":
+            
+            level = data[str(ctx.author.id)]["lodge"]["level"]
+            
+            with open("storage/playerInfo/bank.json", "w") as f:
+                json.dump(data, f)
+            
+            lvl1bold = lvl2bold = lvl3bold = lvl4bold = lvl5bold = ""
+            
+            if level >= 1: lvl1bold = "**"
+            if level >= 2: lvl2bold = "**"
+            if level >= 3: lvl3bold = "**"
+            if level >= 4: lvl4bold = "**"
+            if level >= 5: lvl5bold = "**"
+
+            lvl1 = f"╰ +2 skill points and a 20% chance to get a second animals from {ctx.prefix}hunt"
+            lvl2 = f"╰ +2 skill points another 30% chance to get a second animal from {ctx.prefix}hunt"
+            lvl3 = f"╰ +2 skill points guarantee a second animal from {ctx.prefix}hunt"
+            lvl4 = f"╰ +2 skill points and unlock the Beaver Lodge"
+            lvl5 = f"╰ +5 skill points and another +18 coolness from {ctx.prefix}hunt"
+            
+            embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
+            embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
+            embed.add_field(name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False)
+            embed.add_field(name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False)
+            embed.add_field(name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False)
+            
+            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.display_avatar.url)
+
+            await ctx.send(embed=embed)
+            return
             
         
         await ctx.send("that's not a valid building")

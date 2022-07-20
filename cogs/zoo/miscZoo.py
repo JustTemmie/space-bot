@@ -23,7 +23,10 @@ class zooMisc(commands.Cog):
             
         await aniLib.open_zoo(self, ctx)
         
-        if await aniLib.check_if_zoo_not_exist(user):
+        userNotExist = await aniLib.check_if_zoo_not_exist(user)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         with open("storage/animals.json", "r") as f:
@@ -73,7 +76,10 @@ class zooMisc(commands.Cog):
         if user is None:
             user = ctx.author
 
-        if await aniLib.check_if_zoo_not_exist(ctx.author):
+        userNotExist = await aniLib.check_if_zoo_not_exist(user)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         zoo = await aniLib.get_zoo_data()

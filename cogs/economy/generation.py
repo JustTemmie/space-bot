@@ -18,8 +18,11 @@ class ecogeneration(commands.Cog):
     async def daily_command(self, ctx):
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         bank = await get_bank_data()
         daily_info = bank[str(ctx.author.id)]["daily"]
@@ -55,7 +58,7 @@ class ecogeneration(commands.Cog):
             daily_info["streak"] += 1
             streak += f"**{daily_info['streak']} day streak!**"
 
-        payout = random.randint(35, 85) + round(random.randrange(5, 10) * daily_info["streak"])
+        payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
         if payout >= 500:
             payout = 500
             
@@ -86,10 +89,13 @@ class ecogeneration(commands.Cog):
     async def scavenge_logs(self, ctx):
         await open_account(self, ctx)
         
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
-        if await check_captcha(self, ctx, 0.5):
+        if await check_captcha(self, ctx, random.uniform(0.3, 0.7)):
             return
         
         data = await get_bank_data()

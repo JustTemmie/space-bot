@@ -2,12 +2,12 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`imdb` `ship` `pride/flag` `qr` `math` `todo` `delete`"
+        "description": "`imdb` `ship` `pride/flag` `qr` `todo` `delete`"
     },
     "10th": {
         "icon": "🤗",
         "name": "Actions",
-        "description": "`bite` `boop` `cuddle` `hug` `kill` `kiss` `hold` `mock` `pat` `stare` `punch` `steal`"
+        "description": "`bite` `boop` `cuddle` `hug` `kill` `kiss` `hold` `pat` `stare` `punch` `steal`"
     },
     "4th": {
         "icon": "🖼️",
@@ -17,12 +17,12 @@
     "5th": {
         "icon": "🎱",
         "name": "Fun",
-        "description": "`8ball` `fact` `funfact` `joke` `shitpost` `trivia` `ship`"
+        "description": "`8ball` `fact` `funfact` `joke` `shitpost` `trivia` `ship` `mock`"
     },
     "6th": {
         "icon": "🛠️",
         "name": "Utility",
-        "description": "`help` `math` `info` `ping` `poll` `serverinfo` `userinfo` `weather` `remindme` `todo` `delete`"
+        "description": "`help` `info` `ping` `poll` `serverinfo` `userinfo` `weather` `remindme` `todo` `delete`"
     },
     "7th": {
         "icon": "⚖️",

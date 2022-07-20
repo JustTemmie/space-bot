@@ -22,7 +22,10 @@ class ecoprofile(commands.Cog):
             await open_account(self, ctx)
             user = ctx.author
 
-        if await check_if_not_exist(user):
+        userNotExist = await check_if_not_exist(user)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         await ctx.channel.typing()
@@ -71,7 +74,7 @@ class ecoprofile(commands.Cog):
 
         for i in married_to_data:
             i = married_to_data[i]
-            if n < 5:
+            if n < 10:
                 if i["married"]:
                     x = await self.bot.fetch_user(i["married_to"])
                     ring = (i["ring"])
@@ -83,7 +86,7 @@ class ecoprofile(commands.Cog):
             else:
                 y += 1
         if y != 0:
-            married_to += f"and {y} more"
+            married_to += f"and {y-1} more"
 
         if n == 0:
             married_to = "None"
@@ -104,8 +107,11 @@ class ecoprofile(commands.Cog):
 
         await open_account(self, ctx)
 
-        if await check_if_not_exist(ctx.author):
-            return await ctx.send("you need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         data = await get_bank_data()
         data[str(ctx.author.id)]["quote"] = quote
