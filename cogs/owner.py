@@ -296,7 +296,7 @@ class Owner(commands.Cog):
         name="ownerremind",
         )
     @commands.is_owner()
-    async def owner_remind_command(self, ctx, user, *, reminder):
+    async def owner_remind_command(self, ctx, user: discord.Member, *, reminder):
         seconds = 0
         reminder, timing = (value for value in reminder.split(" in "))
         
