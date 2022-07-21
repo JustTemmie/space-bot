@@ -7,6 +7,9 @@ import os
 import glob
 
 import libraries.database as db
+from libraries.RSmiscLib import str_replacer
+# this might be highlighted as a bug, but it's just a library written in rust lmao
+# it should be fine if you've ran the setup file
 
 # These imports are just for the run command, for convenience
 import subprocess
@@ -287,6 +290,76 @@ class Owner(commands.Cog):
                 await ctx.send(output.format(result))
         except Exception as e:
             await ctx.send("```py\n>>> {}\n\n\n{}```".format(code, e))
+
+
+    @commands.command(
+        name="ownerremind",
+        )
+    @commands.is_owner()
+    async def owner_remind_command(self, ctx, user, *, reminder):
+        seconds = 0
+        reminder, timing = (value for value in reminder.split(" in "))
+        
+        ch = " "
+        occurrence = 2
+        replacing_character = ','
+        
+
+        #for i in range(ceil((timing.count(ch)))):
+        timing = str_replacer(timing, ch,
+            replacing_character, occurrence)
+        
+        timing = timing.split(",")
+        for i in timing:
+            if "day" in i:
+                seconds += float(i.split(" ")[0]) * 86400
+            elif "hour" in i:
+                seconds += float(i.split(" ")[0]) * 3600
+            elif "minute" in i:
+                seconds += float(i.split(" ")[0]) * 60
+            elif "second" in i:
+                seconds += float(i.split(" ")[0])
+            
+            
+            else:
+                single_letters = (i.split(" ")[1])
+                if single_letters == "d":
+                    seconds += float(i.split(" ")[0]) * 86400
+                elif single_letters == "h" or single_letters == "hr":
+                    seconds += float(i.split(" ")[0]) * 3600
+                elif single_letters == "m" or single_letters == "min":
+                    seconds += float(i.split(" ")[0]) * 60
+                elif single_letters == "s" or single_letters == "sec":
+                    seconds += float(i.split(" ")[0])
+                
+                else:
+                    return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
+
+        
+        if seconds < 30:
+            return await ctx.send(f"please set a time greater than 30 seconds")
+        
+        if seconds > 31536000:
+            return await ctx.send(f"please set a time less than 1 year")
+        
+
+        sendtime = round(time.time() + seconds)
+        embed = discord.Embed(title=reminder, description = f"i will remind {user.display_name} in <t:{sendtime}:R>", color=user.colour)
+        embed.set_footer(text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url)
+        
+        with open("storage/reminders.json", "r") as f:
+            data = json.load(f)
+        
+        
+        if not str(user.id) in data:
+            data[str(user.id)] = {}
+        
+        data[str(user.id)][sendtime] = reminder
+        
+        with open("storage/reminders.json", "w") as f:
+            json.dump(data, f)
+        
+        await ctx.send(embed=embed)
 
 
 async def setup(bot):
