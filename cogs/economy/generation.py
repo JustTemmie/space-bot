@@ -32,8 +32,7 @@ class ecogeneration(commands.Cog):
 
         streak = ""
         if (
-            daily_info["streak"] != 0
-            and daily_info["day"] < (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
+            daily_info["day"] < (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
         ):
             if bank[str(ctx.author.id)]["inventory"]["insurance"] >= 1:
                 await ctx.send(
@@ -49,10 +48,10 @@ class ecogeneration(commands.Cog):
 
                 else:
                     streak += f"**you lost your streak of {daily_info['streak']} days :(**"
-                    daily_info["streak"] = 0
+                    daily_info["streak"] = 1
             else:
                 streak += f"**you lost your streak of {daily_info['streak']} days :(**"
-                daily_info["streak"] = 0
+                daily_info["streak"] = 1
 
         else:
             daily_info["streak"] += 1
