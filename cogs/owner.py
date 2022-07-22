@@ -291,10 +291,18 @@ class Owner(commands.Cog):
         except Exception as e:
             await ctx.send("```py\n>>> {}\n\n\n{}```".format(code, e))
 
+    @commands.command(name="ownerreact")
+    @commands.is_owner()
+    async def ownerreact(self, ctx, msgid = None, emoji = None):
+        try:    
+            message = await ctx.fetch_message(msgid)
+            await message.add_reaction(emoji)
+        except Exception as e:
+            await ctx.send(f"Error: {e}", delete_after=20)
 
     @commands.command(
         name="ownerremind",
-        )
+    )
     @commands.is_owner()
     async def owner_remind_command(self, ctx, user: discord.Member, *, reminder):
         seconds = 0
