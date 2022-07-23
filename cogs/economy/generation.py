@@ -124,6 +124,7 @@ class ecogeneration(commands.Cog):
         
         data = await get_bank_data()
         data[str(ctx.author.id)]["inventory"]["logs"] += payout
+        data[str(ctx.author.id)]["statistics"]["total_logs"] += payout
         data[str(ctx.author.id)]["scavenge_cooldown"] = time.time()
 
         with open("storage/playerInfo/bank.json", "w") as f:

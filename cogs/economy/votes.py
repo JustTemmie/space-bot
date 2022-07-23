@@ -114,6 +114,7 @@ class TopGG(commands.Cog):
 
         data[str(user)]["wallet"] += money
         data[str(user)]["inventory"]["logs"] += logs
+        data[str(user.id)]["statistics"]["total_logs"] += logs
 
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
