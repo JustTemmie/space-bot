@@ -35,8 +35,6 @@ class showCooldowns(commands.Cog):
         
         embed = Embed(title="Cooldowns", color=ctx.author.color)
         
-        await ctx.send(voteCD)
-        
         if voteCD > 43200:
             embed.add_field(name="Vote", value=f"✅", inline=False)
         else:
