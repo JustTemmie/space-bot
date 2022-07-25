@@ -72,6 +72,9 @@ class ecogeneration(commands.Cog):
         bank[str(ctx.author.id)]["wallet"] += payout
         daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
         bank[str(ctx.author.id)]["daily"] = daily_info
+        
+        bank[str(ctx.author.id)]["statistics"]["total_coins"] += payout
+        
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(bank, f)
 

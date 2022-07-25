@@ -113,6 +113,7 @@ class TopGG(commands.Cog):
             print(f"VOTE ERROR {e}")
 
         data[str(user)]["wallet"] += money
+        data[str(user)]["statistics"]["total_coins"] += money
         data[str(user)]["inventory"]["logs"] += logs
         data[str(user)]["statistics"]["total_logs"] += logs
 

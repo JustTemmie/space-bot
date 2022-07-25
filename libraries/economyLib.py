@@ -321,6 +321,8 @@ async def update_bank_data(user, change=0, mode="wallet"):
     users = await get_bank_data()
 
     users[str(user.id)][mode] += change
+    if change > 0:
+        users[str(user.id)]["statistics"]["total_coins"] += change
 
     with open("storage/playerInfo/bank.json", "w") as f:
         json.dump(users, f)
