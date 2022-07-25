@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`hunt` `zoo` `dex`"
+        "description": "`hunt` `zoo` `dex` `cooldowns`"
     },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
@@ -38,5 +38,10 @@
         "icon": "🫂",
         "name": "Social",
         "description": "`marry` `divorce`"
+    },
+    "other": {
+        "icon": "🛠️",
+        "name": "Other",
+        "description": "`cooldowns`"
     }
 }
