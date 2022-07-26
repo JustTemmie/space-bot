@@ -47,6 +47,16 @@ class zooMisc(commands.Cog):
             "epic": [],
             "mythical": [],
         }
+        
+        caughtPerTier = {
+            "common": 0,
+            "uncommon": 0,
+            "rare": 0,
+            "epic": 0,
+            "mythical": 0,
+        }
+        
+        tiers = ["common", "uncommon", "rare", "epic", "mythical"]
 
         for tier in zoo:
             for i in zoo[tier]["animals"]:
@@ -56,11 +66,22 @@ class zooMisc(commands.Cog):
                 caught = data[str(user.id)]['animals'][tier][name]["caught"]
                 if caught != 0 or tier == "common":
                     animalsInTiers[tier].append(f"{icon}`{make_4_long(data[str(user.id)]['animals'][tier][name]['count'])}` ")
+                
+                caughtPerTier[tier] += caught
+
 
         for tier in animalsInTiers:
             if len(animalsInTiers[tier]) != 0:
                 message_str += f"{zoo[tier]['icon']}    {' '.join(animalsInTiers[tier])}\n"
-                        
+        
+        print(zoo)
+        message_str += "\n" 
+        for i, tier in enumerate(caughtPerTier):
+            message_str += f"{caughtPerTier[tier]} {tiers[i]}, "
+        
+        message_str = message_str[:-2]
+            
+            
         await ctx.send(message_str)
         return
     
