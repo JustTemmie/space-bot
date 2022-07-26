@@ -77,7 +77,8 @@ class zooMisc(commands.Cog):
         print(zoo)
         message_str += "\n" 
         for i, tier in enumerate(caughtPerTier):
-            message_str += f"{caughtPerTier[tier]} {tiers[i]}, "
+            if caughtPerTier[tier] != 0:
+                message_str += f"{caughtPerTier[tier]} {tiers[i]}, "
         
         message_str = message_str[:-2]
             
