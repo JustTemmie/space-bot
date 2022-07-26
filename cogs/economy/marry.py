@@ -121,7 +121,7 @@ class ecomarry(commands.Cog):
 
     @commands.hybrid_command(
         name="divorce",
-        brief="divorce your current partner, you fu\*\*\*\*\* hoe"
+        brief="divorce one of your current partners, you hoe"
     )
     @cooldown(15, 600, BucketType.user)
     @commands.guild_only()
