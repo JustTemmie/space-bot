@@ -50,7 +50,7 @@ class ecogambling(commands.Cog):
         coinsides = ["Heads", "Tails"]
 
         result = coinsides[random.randint(0, 1)]
-        msg = await ctx.reply("the the coin was tossed into the air and...")
+        msg = await ctx.reply("the coin was tossed into the air and...")
         await asyncio.sleep(1.0)
 
         bal = await update_bank_data(ctx.author)
