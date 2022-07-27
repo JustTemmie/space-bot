@@ -67,16 +67,15 @@ class Images(commands.Cog):
         
         if flag == None:
             embed = discord.Embed()
-            embed.title = f"{ctx.prefix}{ctx.command}" + " [flag] {divider} {flag_2} {blur}"
+            embed.title = f"{ctx.prefix}{ctx.command}" + " [flag] [divider] [flag_2] {blur}"
             embed.description = """
 Generate a pride flag pfp
 Possible values are `progress`, `gay`, `bi`, `lesbian`, `sapphic`, `mlm`, `pan`, `polyamorous`, `polysexual`, `trans`, `agender`, `enby`, `aro`, `ace`, `french`, `genderfluid`, `genderqueer`, `maverique`, `bigender`, `demigender`, `demiboy`, and `demigirl`
 
-You may also specify 2 flags to have them put side-by-side. The divider determines how the flags are split.
-Divider can be `-`, `|`, `/`, and `\`
+You must specify 2 flags, this will put them side-by-side. The divider determines how the flags are split.
+Divider can be `-`, `|`, `/`, and `\` - this has to be done even if you only want to use one flag. (just use it twice lol)
 
 `blur` may be set to `true` to blur the background flags
-(If you want to blur one flag as the background, specify that flag twice with any divider value lol)
 
 `credit to github user @Quantum-Cucumber for the original code`
 """
