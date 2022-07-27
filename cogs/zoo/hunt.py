@@ -66,10 +66,10 @@ class zooHunt(commands.Cog):
         if animal2 == "":
             await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}, it's {animals[tier]['aoran']} {tier}{animals[tier]['icon']} animal")
         else:
-            duplicatestr = ""
+            duplicatestr = "a"
             if animal2name == animal_name:
-                duplicatestr = "nother"
-            await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']} and a{duplicatestr} {animal2name} {animal2['icon']}")
+                duplicatestr = "another"
+            await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']} and {duplicatestr} {animal2name} {animal2['icon']}")
 
         
         data = await aniLib.get_animal_data()
