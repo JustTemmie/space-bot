@@ -62,7 +62,7 @@ class Images(commands.Cog):
     @cooldown(2, 5, BucketType.user)
     async def pride(self, ctx, flag = None, seperator = None, flag_2 = None, blur = "false", user: discord.Member = None):
         
-        if seperator == None:
+        if flag != None and seperator == None:
             image = Image.open(f"images/flags/{flag.title()}.png")
             output = BytesIO()
             image.save(output, format="png")
