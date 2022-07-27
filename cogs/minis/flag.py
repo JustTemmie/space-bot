@@ -62,6 +62,14 @@ class Images(commands.Cog):
     @cooldown(2, 5, BucketType.user)
     async def pride(self, ctx, flag = None, seperator = None, flag_2 = None, blur = "false", user: discord.Member = None):
         
+        if seperator == None:
+            image = Image.open(f"images/flags/{flag.title()}.png")
+            output = BytesIO()
+            image.save(output, format="png")
+            output.seek(0)
+            await ctx.send(f"{flag.title()}.png", file=discord.File(output, filename=f"{flag.title()}.png"))
+            return
+            
         if user == None:
             user = ctx.author
         
@@ -92,12 +100,13 @@ Divider can be `-`, `|`, `/`, and `\` - this has to be done even if you only wan
             except:
                 await ctx.send("That doesn't seem to be a valid seperator, please try again")
                 return
+            
+            if flag_2.title() not in FLAGS:
+                await ctx.send("That second flag doesn't seem to be a valid flag, please try again")
+                return
 
         if flag.title() not in FLAGS:
             await ctx.send("That first flag doesn't seem to be a valid flag, please try again")
-            return
-        if flag_2.title() not in FLAGS:
-            await ctx.send("That second flag doesn't seem to be a valid flag, please try again")
             return
 
         if blur.lower() in ["true", "blur", "1"]:
