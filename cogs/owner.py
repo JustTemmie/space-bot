@@ -5,6 +5,7 @@ import ast
 import sys
 import os
 import glob
+from yt_dlp import YoutubeDL
 
 import libraries.database as db
 from libraries.RSmiscLib import str_replacer
@@ -325,6 +326,45 @@ class Owner(commands.Cog):
             await message.add_reaction(emoji)
         except Exception as e:
             await ctx.send(f"Error: {e}", delete_after=20)
+
+    @commands.command(name="download")
+    @commands.is_owner()
+    async def download(self, ctx, url):
+        await ctx.message.delete()
+        ydl_opts = {
+            'format': 'mp4',
+            'outtmpl': 'storage/videos/%(id)s.%(ext)s',
+        }
+        with YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(url, download=False)
+            name=info_dict.get("id", None)
+            extention=info_dict.get("ext", None)
+            
+            ydl.download(url)
+            
+        print(f"{name}.{extention} has been downloaded")
+        await ctx.send(f"hi", file = discord.File(f"storage/videos/{name}.{extention}"))    
+        #await ctx.send(ctx.content(), file = discord.File(f"storage/videos/{url}.mp4"))
+    
+    @commands.command(name="youtube")
+    @commands.is_owner()
+    async def redirect_youtube(self, ctx, url):
+        await ctx.message.delete()
+
+        ydl_opts = {
+            'format': 'mp4',
+        }
+        with YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(url, download=False)
+        
+        await ctx.send(info_dict["url"])
+        
+        # embed = discord.Embed(title = info_dict["title"], color = ctx.author.color, url = info_dict["url"])
+        # embed.video.url = info_dict["url"]
+        # print(embed.video.url)
+        
+        # await ctx.send(embed=embed)
+
 
     @commands.command(
         name="ownerremind",

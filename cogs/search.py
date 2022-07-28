@@ -147,33 +147,33 @@ class search(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(
-        name="youtube",
-        aliases=["yt", "youtubesearch", "ytsearch"],
-        brief='Responds with a link containing the search keywords given by the user, or if the input starts with "channel" or "user" it redirects to the account with that custom url, if it exists',
-    )
-    @cooldown(20, 300, BucketType.user)
-    async def youtube_search(self, ctx, *, input=None):
-        link = "https://www.youtube.com/results?search_query=" + (str(input))
-        channel_link = "https://www.youtube.com/user/"
+    # @commands.command(
+    #     name="youtube",
+    #     aliases=["yt", "youtubesearch", "ytsearch"],
+    #     brief='Responds with a link containing the search keywords given by the user, or if the input starts with "channel" or "user" it redirects to the account with that custom url, if it exists',
+    # )
+    # @cooldown(20, 300, BucketType.user)
+    # async def youtube_search(self, ctx, *, input=None):
+    #     link = "https://www.youtube.com/results?search_query=" + (str(input))
+    #     channel_link = "https://www.youtube.com/user/"
 
-        if input == None:
-            link = "https://youtube.com"
-            await ctx.send(f"no input was given, redirected to youtube.com instead\n{link}")
+    #     if input == None:
+    #         link = "https://youtube.com"
+    #         await ctx.send(f"no input was given, redirected to youtube.com instead\n{link}")
 
-        elif input.startswith("channel") or input.startswith("user"):
-            if input.startswith("channel"):
-                newinput = input[8:]
-            else:
-                newinput = input[5:]
-            await ctx.send(
-                f'tried finding the user "{newinput}"\n'
-                + channel_link
-                + (str(newinput)).replace(" ", "+")
-            )
+    #     elif input.startswith("channel") or input.startswith("user"):
+    #         if input.startswith("channel"):
+    #             newinput = input[8:]
+    #         else:
+    #             newinput = input[5:]
+    #         await ctx.send(
+    #             f'tried finding the user "{newinput}"\n'
+    #             + channel_link
+    #             + (str(newinput)).replace(" ", "+")
+    #         )
 
-        elif input != None:
-            await ctx.send(f'search results for "{input}"\n' + link.replace(" ", "+"))
+    #     elif input != None:
+    #         await ctx.send(f'search results for "{input}"\n' + link.replace(" ", "+"))
 
     @commands.command(
         name="wikipedia",
