@@ -7,6 +7,7 @@ apscheduler
 pillow
 pdf2image
 youtube-dl
+yt-dlp
 topggpy
 captcha
 IMDbPY
