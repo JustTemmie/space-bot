@@ -34,6 +34,7 @@ responses = [
     'Hang on, what?',
     'It\'s just the beginning',
     'Good Luck',
+    'beaver?',
 ]
 
 class ball8(commands.Cog):
