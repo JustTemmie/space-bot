@@ -295,7 +295,6 @@ class Owner(commands.Cog):
     @commands.command(
         name="deletemsg",
     )
-    @commands.guild_only()
     async def react_beaver_command(self, ctx, id=None):
         
         await ctx.message.delete()
