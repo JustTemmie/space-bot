@@ -7,7 +7,7 @@
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
         "name": "Economy",
-        "description": "`daily` `vote` `scavenge` `balance` `build` `inventory` `send` `tutorial`"
+        "description": "`daily` `scavenge` `balance` `build` `inventory` `send` `tutorial`"
     },
     "animals": {
         "icon": "🐕",
