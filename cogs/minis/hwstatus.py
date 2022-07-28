@@ -73,7 +73,7 @@ class hw(commands.Cog):
             Embed.add_field(name="Min Frequency", value=f"{cpufreq.min:.2f}Mhz", inline=False)
             Embed.add_field(
                 name="Current Frequency",
-                value=f"{(cpufreq.current)*1000:.2f}Mhz",
+                value=f"{(cpufreq.current):.2f}Mhz",
                 inline=False,
             )
 
