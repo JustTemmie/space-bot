@@ -295,20 +295,20 @@ class Owner(commands.Cog):
     @commands.command(
         name="deletemsg",
     )
-    async def react_beaver_command(self, ctx, id=None):
+    async def react_beaver_command(self, ctx, id: int = 0):
         
         await ctx.message.delete()
         #message = ctx.message
        # await self.bot.http.delete_message(message.channel.id, message.id)
 
-        if message.reference:
-            id = message.reference.message_id
-            message = await message.channel.fetch_message(id)
-            await message.delete()
+        if ctx.message.reference:
+            id = ctx.message.reference.message_id
+            msg = await ctx.fetch_message(id)
+            await msg.delete()
 
-        elif id != None:
-            message = await message.channel.fetch_message(id)
-            await message.delete()
+        elif id != 0:
+            msg = await ctx.fetch_message(id)
+            await msg.delete()
 
         else:
             await ctx.send(
