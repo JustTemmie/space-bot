@@ -291,6 +291,33 @@ class Owner(commands.Cog):
         except Exception as e:
             await ctx.send("```py\n>>> {}\n\n\n{}```".format(code, e))
 
+    
+    @commands.command(
+        name="deletemsg",
+    )
+    @commands.guild_only()
+    async def react_beaver_command(self, ctx, id=None):
+        
+        await ctx.message.delete()
+        #message = ctx.message
+       # await self.bot.http.delete_message(message.channel.id, message.id)
+
+        if message.reference:
+            id = message.reference.message_id
+            message = await message.channel.fetch_message(id)
+            await message.delete()
+
+        elif id != None:
+            message = await message.channel.fetch_message(id)
+            await message.delete()
+
+        else:
+            await ctx.send(
+                f"to use this command, reply to a message with {ctx.prefix}deletemsg",
+                delete_after=4,
+            )
+            
+    
     @commands.command(name="ownerreact")
     @commands.is_owner()
     async def ownerreact(self, ctx, msgid = None, emoji = None):
