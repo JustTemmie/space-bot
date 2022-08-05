@@ -6,6 +6,13 @@
         "╰Protects you from losing your daily - this lets you miss one daily and then will be removed\n",
         ""
     ],
+    "Stick": [
+        100,
+        "<:stick:1005255854892781709>",
+        1,
+        "╰Use it to bonk people in the head! ",
+        ""
+    ],
 
     "Common": [
         2500,
@@ -39,7 +46,7 @@
         25000000,
         "<:mythical_ring:970309114955702372>",
         2,
-        "",
+        "╰All rings can be used to marry people, differences are entirely visual!",
         "Ring "
     ]  
 }

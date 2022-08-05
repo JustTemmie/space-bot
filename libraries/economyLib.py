@@ -8,7 +8,7 @@ from discord import Embed
 from libraries.captchaLib import isUserBanned
 
 
-inv_version = 1.08
+inv_version = 1.09
 
 confirmations = [
         "consent",
@@ -181,6 +181,9 @@ async def update_account(user):
     if users[str(user.id)]["version"] <= 1.07:
         users[str(user.id)]["statistics"]["total_coins"] = 0
     
+    if users[str(user.id)]["version"] <= 1.08:
+        users[str(user.id)]["inventory"]["stick"] = 0
+    
     if str(user.id) in users:
         users[str(user.id)]["version"] = inv_version
         
@@ -235,6 +238,7 @@ async def open_account(self, ctx):
     users[str(user.id)]["inventory"] = {}
     users[str(user.id)]["inventory"]["logs"] = 0
     users[str(user.id)]["inventory"]["insurance"] = 0
+    users[str(user.id)]["inventory"]["stick"] = 0
 
     ###############################################################################
     
