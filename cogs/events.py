@@ -277,7 +277,11 @@ class events(commands.Cog):
             
             if "bee " in ctx.content.lower() or "bee" == ctx.content.lower():   
                 await ctx.add_reaction("<a:B_:976827254799740938>")
-        
+
+            if "french" in ctx.content.lower() and "pride" not in ctx.content.lower():
+                await ctx.add_reaction("🇫🇷")
+                await ctx.reply("heyo what the fuck do you think you're saying?? seriously? speaking of the french???") 
+            
         
         if random.randint(0, 75000) == 2:
             await react_beaver(ctx)
@@ -321,9 +325,6 @@ class events(commands.Cog):
             await ctx.add_reaction("🧠")
             await ctx.add_reaction("🔫")
         
-        if "french" in ctx.content.lower() and "pride" not in ctx.content.lower() and "flag" not in ctx.content.lower():
-            await ctx.add_reaction("🇫🇷")
-            await ctx.reply("heyo what the fuck do you think you're saying?? seriously? speaking of the french???") 
             
 
 

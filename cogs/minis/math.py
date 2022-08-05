@@ -1,6 +1,5 @@
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
-from interruptingcow import timeout
 
 from math import *
 
