@@ -87,7 +87,15 @@ class weather(Cog):
             #yr = yr.resize((1653*2, 2339*2))
             #yr.save("images/processed/yr.jpg")
             
-            await ctx.send("https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8", file=discord.File("temp/yr.jpg"))
+            av_button = discord.ui.Button(label = "Open Externally", url = "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8" emoji = "📩" )
+            view = discord.ui.View()
+            view.add_item(av_button)
+            
+            embed = discord.Embed()
+            embed.set_image(url="https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8")
+            embed.color = ctx.author.colour
+            
+            await ctx.send(embed=embed, view=view)
 
 
 async def setup(bot):
