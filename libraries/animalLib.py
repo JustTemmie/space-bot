@@ -283,8 +283,6 @@ async def update_bot_zoo():
             "legendary": ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"],
         }
 
-        data["global"]["animals"] = {}
-
         for i in animals:
             data["global"]["animals"][i] = {}
 
