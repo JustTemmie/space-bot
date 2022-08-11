@@ -46,6 +46,7 @@ class zooMisc(commands.Cog):
             "rare": [],
             "epic": [],
             "mythical": [],
+            "legendary": [],
         }
         
         caughtPerTier = {
@@ -54,9 +55,10 @@ class zooMisc(commands.Cog):
             "rare": 0,
             "epic": 0,
             "mythical": 0,
+            "legendary": 0,
         }
         
-        tiers = ["common", "uncommon", "rare", "epic", "mythical"]
+        tiers = ["common", "uncommon", "rare", "epic", "mythical", "legendary"]
 
         for tier in zoo:
             for i in zoo[tier]["animals"]:

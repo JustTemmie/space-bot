@@ -5,7 +5,7 @@ from libraries.economyLib import check_if_not_exist, open_account, update_accoun
 from libraries.captchaLib import isUserBanned
 from discord import Embed
 
-zoo_version = 1.05
+zoo_version = 1.07
 
 async def check_if_zoo_not_exist(user):
     users = await get_animal_data()
@@ -84,6 +84,53 @@ async def update_zoo(user):
 
         
         data = await get_animal_data()
+        
+    if data[str(user.id)]["version"] < 1.07:
+        data[str(user.id)]["version"] = 1.07
+    
+        data[str(user.id)]["animals"]["legendary"] = {}
+        legendaries = ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"]
+        
+        i = "legendary"
+        for x in legendaries:
+            
+            data[str(user.id)]["animals"][i][x] = {}
+            data[str(user.id)]["animals"][i][x]["caught"] = 0
+            data[str(user.id)]["animals"][i][x]["count"] = 0
+            data[str(user.id)]["animals"][i][x]["sold"] = 0
+            data[str(user.id)]["animals"][i][x]["sacrificed"] = 0
+            data[str(user.id)]["animals"][i][x]["xp"] = 0
+            data[str(user.id)]["animals"][i][x]["coins"] = 0
+            
+        animals = {
+            "legendary": ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"]
+        }
+        
+        moves = ["move1", "move2", "move3", "move4", "move5", "move6"]
+        activeMoves = ["activeMove1", "activeMove2", "activeMove3"]
+        
+        for i in animals:
+            for nr, x in enumerate(animals[i]):
+                data[str(user.id)]["animals"][i][x]["coins"] = 0
+                
+                data[str(user.id)]["animals"][i][x]["moves"] = {}
+                
+                for move in moves:
+                    data[str(user.id)]["animals"][i][x]["moves"][move] = {}
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
+                
+                for move in activeMoves:
+                    data[str(user.id)]["animals"][i][x]["moves"][move] = {}
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
+        
+        with open("storage/playerInfo/animals.json", "w") as f:
+            json.dump(data, f)
+        
+        data = await get_animal_data()
                 
 
 async def update_global_zoo():
@@ -123,6 +170,7 @@ async def open_zoo(self, ctx):
         "rare": ["duck", "owl", "boar", "fox", "goat", "bear"],
         "epic": ["whale", "dolphin", "seal", "otter", "blowfish", "squid"],
         "mythical": ["scorpion", "monkey", "giraffe", "sheep", "lizard", "snake"],
+        "legendary": ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"],
     }
 
     data[str(user.id)]["animals"] = {}
@@ -193,7 +241,7 @@ async def open_bot():
 
     data["global"] = {}
 
-    data["global"]["version"] = 1.00
+    data["global"]["version"] = 1.01
 
     data["global"]["animals"] = {}
     data["global"]["animals"]["common"] = {}
@@ -204,6 +252,7 @@ async def open_bot():
         "rare": ["duck", "owl", "boar", "fox", "goat", "bear"],
         "epic": ["whale", "dolphin", "seal", "otter", "blowfish", "squid"],
         "mythical": ["scorpion", "monkey", "giraffe", "sheep", "lizard", "snake"],
+        "legendary": ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"],
     }
 
     data["global"]["animals"] = {}
@@ -221,6 +270,34 @@ async def open_bot():
 
     with open("storage/playerInfo/animals.json", "w") as f:
         json.dump(data, f)
+
+async def update_bot_zoo():
+    with open("storage/playerInfo/animals.json", "r") as f:
+        data = json.load(f)
+
+    if data["global"]["version"] < 1.01:
+
+        data["global"]["version"] = 1.01
+
+        animals = {
+            "legendary": ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"],
+        }
+
+        data["global"]["animals"] = {}
+
+        for i in animals:
+            data["global"]["animals"][i] = {}
+
+            for nr, x in enumerate(animals[i]):
+                data["global"]["animals"][i][x] = {}
+                data["global"]["animals"][i][x]["caught"] = 0
+                data["global"]["animals"][i][x]["sold"] = 0
+                data["global"]["animals"][i][x]["sacrificed"] = 0
+                data["global"]["animals"][i][x]["xp"] = 0
+
+
+        with open("storage/playerInfo/animals.json", "w") as f:
+            json.dump(data, f)
 
 async def get_zoo_data():
     with open("storage/animals.json", "r") as f:

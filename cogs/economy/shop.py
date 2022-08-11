@@ -125,6 +125,7 @@ class ecoshop(commands.Cog):
             "rare",
             "epic",
             "mythical",
+            "legendary",
         ]
         
         selling = {
@@ -133,6 +134,7 @@ class ecoshop(commands.Cog):
             "rare": 0,
             "epic": 0,
             "mythical": 0,
+            "legendary": 0,
         }
         
         if animal not in tiers and animal != "all":
@@ -189,6 +191,7 @@ class ecoshop(commands.Cog):
             "rare": 150,
             "epic": 600,
             "mythical": 5000,
+            "legendary": 30000,
         }
         
         merchant_colours = [

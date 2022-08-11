@@ -11,6 +11,7 @@ from libraries.captchaLib import *
 
 tiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
+    "legendary": 0.00015,
     "mythical": 0.001,
     "epic": 0.01,
     "rare": 0.05,
@@ -31,7 +32,6 @@ class zooHunt(commands.Cog):
     async def huntCommand(self, ctx):
         await ecoLib.open_account(self, ctx)
         await aniLib.open_zoo(self, ctx)
-        #await aniLib.open_bot()
                 
         userNotExist = await aniLib.check_if_zoo_not_exist(ctx.author)
         if userNotExist == "banned":

@@ -183,5 +183,42 @@
                 "description": ""
             }
         }
+    },
+    "legendary": {
+        "icon": "💎",
+        "aoran": "a",
+        "name": "legendary",
+        "animals": {
+            "1": {
+                "icon": "🦫",
+                "name": ["beaver"],
+                "description": "They eat log :)"
+            },
+            "2": {
+                "icon": "🐺",
+                "name": ["wolf"],
+                "description": "Wild dogs"
+            },
+            "3": {
+                "icon": "🐧",
+                "name": ["penguin"],
+                "description": "LINUX?!?!?!?"
+            },
+            "4": {
+                "icon": "🐉",
+                "name": ["dragon"],
+                "description": "Dragon dee-"
+            },
+            "5": {
+                "icon": "🦄",
+                "name": ["unicorn"],
+                "description": "They can taste the rainbow 😳"
+            },
+            "6": {
+                "icon": "⛄",
+                "name": ["snowman"],
+                "description": "These guys are so chill"
+            }
+        }
     }
 }
