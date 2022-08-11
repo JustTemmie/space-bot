@@ -9,6 +9,8 @@ replacement_table = {
     "^": "**"
 }
 
+allowedCharacters = "1234567890/*-+()!"
+
 class mathCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -19,12 +21,13 @@ class mathCommands(commands.Cog):
     )
     @cooldown(120, 1800, BucketType.user)
     async def math_command(self, ctx, *, equation):
-        if set(equation).difference(set("1234567890/*-+()")):
-            return await ctx.send("invalid characters used, please only use numbers and the following: `+-*/^`")
+        for symbol in replacement_table:
+            equation = equation.replace(symbol, replacement_table[symbol])
         try:
             with timeout(5, exception=RuntimeError):
-                for symbol in replacement_table:
-                    equation = equation.replace(symbol, replacement_table[symbol])
+                if set(equation).difference(set(allowedCharacters)):
+                    return await ctx.send(f"invalid characters used, please only use the following symbols: `{allowedCharacters}`")
+                
                 await ctx.send(f"= {eval(equation)}")
         except Exception as e:
             await ctx.send(f"Error: {e}")
