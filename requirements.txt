@@ -16,6 +16,6 @@ qrcode              # handles generation of QR codes
 opencv-python       # handles the processing of QR codes
 numpy==1.22.1       # used in the QR command, never imported but it's required lmao
 Image
-
+interruptingcow     # used in the math command
 
 git+https://github.com/Rapptz/discord.py # discord py beta - main library for handling commands and such
