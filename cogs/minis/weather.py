@@ -22,13 +22,18 @@ yr_places = {
     "oslo": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-72837/Noreg/Oslo/Oslo/Oslo",
     "trondheim": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-211102/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim",
     "stavanger": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-15183/Norge/Rogaland/Stavanger/Stavanger",
+    "sandnes": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-15452/Norge/Rogaland/Sandnes/Sandnes",
     "bergen": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-92416/Norge/Vestland/Bergen/Bergen",
     "drammen": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-58733/Norge/Viken/Drammen/Drammen",
     "fredrikstad": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-33600/Norge/Viken/Fredrikstad/Fredrikstad",
+    "porsgrunn": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-31680/Norge/Vestfold%20og%20Telemark/Porsgrunn/Porsgrunn",
     "kristiansand": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-2376/Norge/Agder/Kristiansand/Kristiansand",
     "moss": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-46556/Norge/Viken/Moss/Moss",
     "tromso": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
     "tromsø": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
+    "harstad": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-294022/Norge/Troms%20og%20Finnmark/Harstad/Harstad",
+    "molde": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-189277/Norge/M%C3%B8re%20og%20Romsdal/Molde/Molde",
+    "horten": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-508394/Norge/Vestfold%20og%20Telemark/Horten/Horten",
     "mo i rana": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-260276/Norge/Nordland/Rana/Mo%20i%20Rana",
 }
 
