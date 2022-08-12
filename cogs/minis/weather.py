@@ -18,6 +18,19 @@ from dotenv import load_dotenv
 load_dotenv("keys.env")
 weather_key = os.getenv("OPENWEATHER")
 
+yr_places = {
+    "oslo": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-72837/Noreg/Oslo/Oslo/Oslo",
+    "trondheim": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-211102/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim",
+    "stavanger": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-15183/Norge/Rogaland/Stavanger/Stavanger",
+    "bergen": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-92416/Norge/Vestland/Bergen/Bergen",
+    "drammen": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-58733/Norge/Viken/Drammen/Drammen",
+    "fredrikstad": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-33600/Norge/Viken/Fredrikstad/Fredrikstad",
+    "kristiansand": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-2376/Norge/Agder/Kristiansand/Kristiansand",
+    "moss": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-46556/Norge/Viken/Moss/Moss",
+    "tromso": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
+    "tromsø": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
+    "mo i rana": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-260276/Norge/Nordland/Rana/Mo%20i%20Rana",
+}
 
 class weather(Cog):
     def __init__(self, bot):
@@ -74,9 +87,9 @@ class weather(Cog):
 
         await ctx.send(embed=embed)
         
-        if input == "tromsø":
+        if input.lower() in yr_places:
             response = requests.get(
-                'https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8'
+                yr_places[input.lower()]
             )
             
             with open('temp/yr.pdf', 'wb') as f:
