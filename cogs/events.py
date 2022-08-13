@@ -343,14 +343,13 @@ class events(commands.Cog):
             #        ctx.guild.id == 926467601540993064
             #        or ctx.guild.id == 918787074801401868
             #        or ctx.guild.id == 694107776015663146):
-            #    if random.randrange(1, 30) == 2:  #1/30
-            #        await ctx.channel.send(
+            #    if random.randrange(1, 30) == 2:  #1/30            #        await ctx.channel.send(
             #            henwees[hendex],
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
             # elif "we" in ctx.content and ctx.author != self.bot.user and (
             #        ctx.guild.id == 926467601540993064
-            #        or ctx.guild.id == 918787074801401868
+            #        or ctx.guild.id == 918787074801401868i me
             #        or ctx.guild.id == 694107776015663146):
             #    if random.randrange(1, 150) == 2:  #1/150
             #        await ctx.channel.send(
@@ -369,8 +368,9 @@ class events(commands.Cog):
 
         if jsoninfo == str(datetime.now().day):
             return
-    
-        await self.send_reddit(1008131433669341274, "frogs")
+
+        # sends frog in #daily frogs
+        await self.send_reddit(965075480652967976, "frogs")
 
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
@@ -446,7 +446,7 @@ class events(commands.Cog):
         #    print("no activities")
 
 
-    @tasks.loop(minutes=10)
+    @tasks.loop(minutes=30)
     async def random_reddit(self):
         await self.send_reddit(974642338150367252, "all")
         
@@ -455,7 +455,7 @@ class events(commands.Cog):
         if self.bot.is_ready():
             try:
                 req = requests.get(
-                    f"http://reddit.com/r/{subreddit}/hot.json?limit=500",
+                    f"http://reddit.com/r/{subreddit}/hot.json?limit=25",
                     headers={"User-agent": "Chrome"},
                 )
                 json = req.json()
@@ -463,8 +463,11 @@ class events(commands.Cog):
                     return
 
                 req_len = len(json["data"]["children"])
-                rand = random.randint(0, req_len - 1)
-                post = json["data"]["children"][rand]
+                for i in range(req_len):
+                    post = json["data"]["children"][i]
+                    url = post["data"]["url"]
+                    if re.match(r".*\.(jpg|png|gif)$", url):
+                        break
 
                 title = post["data"]["title"]
                 author = "u/" + post["data"]["author"]
