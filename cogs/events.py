@@ -21,7 +21,6 @@ from math import floor
 
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
-auto_reddit_IDs = [974642338150367252]
 fish_IDs = [918830241135353907, 885113515411669002]
 
 # used for sus reactions
@@ -364,19 +363,20 @@ class events(commands.Cog):
     async def fish_friday(self):
         if not self.bot.ready:
             return  
-
-        if datetime.today().weekday() != 4:
-            return
         
         with open("images/video/date.json", "r") as f:
             jsoninfo = json.load(f)
 
         if jsoninfo == str(datetime.now().day):
             return
+    
+        await self.send_reddit(1008131433669341274, "frogs")
 
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
 
+        if datetime.today().weekday() != 4:
+            return
         
         x = 0
         
@@ -448,10 +448,14 @@ class events(commands.Cog):
 
     @tasks.loop(minutes=10)
     async def random_reddit(self):
+        await self.send_reddit(974642338150367252, "all")
+        
+    
+    async def send_reddit(self, channel, subreddit):
         if self.bot.is_ready():
             try:
                 req = requests.get(
-                    "http://reddit.com/r/all/hot.json?limit=500",
+                    f"http://reddit.com/r/{subreddit}/hot.json?limit=500",
                     headers={"User-agent": "Chrome"},
                 )
                 json = req.json()
@@ -480,8 +484,7 @@ class events(commands.Cog):
 
                 embed.set_footer(text="By {} in {}".format(author, subreddit))
                 
-                for ID in auto_reddit_IDs:
-                    await self.bot.get_channel(ID).send("beaver", embed=embed)
+                await self.bot.get_channel(channel).send(embed=embed)
             
             except:
                 pass
