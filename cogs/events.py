@@ -358,7 +358,7 @@ class events(commands.Cog):
             #            file=discord.File("images/processed/henwee_fall.gif"))
 
 
-    @tasks.loop(seconds=8)
+    @tasks.loop(seconds=10)
     async def fish_friday(self):
         if not self.bot.ready:
             return  
@@ -370,7 +370,7 @@ class events(commands.Cog):
             return
 
         # sends frog in #daily frogs
-        await self.send_reddit(965075480652967976, "frogs")
+        await self.send_reddit(1008131433669341274, "frogs")
 
         with open("images/video/date.json", "w") as f:
             json.dump(f"{datetime.now().day}", f)
@@ -455,24 +455,24 @@ class events(commands.Cog):
         if self.bot.is_ready():
             try:
                 req = requests.get(
-                    f"http://reddit.com/r/{subreddit}/hot.json?limit=25",
+                    f"http://reddit.com/r/{subreddit}/hot.json?limit=50",
                     headers={"User-agent": "Chrome"},
                 )
                 json = req.json()
                 if "error" in json or json["data"]["after"] is None:
+                    await self.bot.get_channel(channel).send(f"an error occured, no r/{subreddit} for now :(")
                     return
 
                 req_len = len(json["data"]["children"])
                 for i in range(req_len):
                     post = json["data"]["children"][i]
-                    url = post["data"]["url"]
+                    url = post["data"]["url"] # can be image or post link
                     if re.match(r".*\.(jpg|png|gif)$", url):
                         break
-
+                              
                 title = post["data"]["title"]
                 author = "u/" + post["data"]["author"]
                 subreddit = post["data"]["subreddit_name_prefixed"]
-                url = post["data"]["url"]  # can be image or post link
                 link = "https://reddit.com" + post["data"]["permalink"]
                 if "selftext" in post["data"]:
                     text = post["data"]["selftext"]  # may not exist
@@ -485,12 +485,12 @@ class events(commands.Cog):
                 if re.match(r".*\.(jpg|png|gif)$", url):
                     embed.set_image(url=url)
 
-                embed.set_footer(text="By {} in {}".format(author, subreddit))
+                embed.set_footer(text=f"By {author} in {subreddit}")
                 
                 await self.bot.get_channel(channel).send(embed=embed)
             
-            except:
-                pass
+            except Exception as e:
+                print(f"error in send_reddit: {e}")
 
     @tasks.loop(seconds=293)
     async def henwee(self):
