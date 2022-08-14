@@ -22,13 +22,13 @@ class mathCommands(commands.Cog):
     @cooldown(120, 1800, BucketType.user)
     async def math_command(self, ctx, *, equation):
         for symbol in replacement_table:
-            equation = equation.replace(symbol, replacement_table[symbol])
+            mathEquation = equation.replace(symbol, replacement_table[symbol])
         try:
             with timeout(5, exception=RuntimeError):
-                if set(equation).difference(set(allowedCharacters)):
+                if set(mathEquation).difference(set(allowedCharacters)):
                     return await ctx.send(f"invalid characters used, please only use the following symbols: `{allowedCharacters}`")
                 
-                await ctx.send(f"= {eval(equation)}")
+                await ctx.send(f"{equation }= {eval(mathEquation)}")
         except Exception as e:
             await ctx.send(f"Error: {e}")
 

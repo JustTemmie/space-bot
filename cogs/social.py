@@ -44,7 +44,8 @@ class social(commands.Cog):
         )
         actees = []
         for member in targets:
-            if member.id not in actees:
+            #if member.id not in actees: 
+            # yea sure put the same person in multiple times, fuck it
                 actees.append(member.id)
 
         title_string = f"{await SL.removeat(ctx.author.display_name)} {string} "
