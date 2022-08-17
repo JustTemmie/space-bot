@@ -54,8 +54,6 @@ class stickyummy(commands.Cog):
                 data[str(ctx.author.id)]["inventory"]["stick"] -= 1
                 data[str(ctx.author.id)]["statistics"]["total_sticks_eaten"] += 1
                 
-                print(data)
-                
                 with open("./storage/playerInfo/bank.json", "w") as f:
                     json.dump(data, f)
                     
