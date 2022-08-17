@@ -41,6 +41,7 @@ class ecostatistics(commands.Cog):
         
         embed.add_field(name="Total <:beaverCoin:968588341291397151> earned", value=f"{bankdata[str(user.id)]['statistics']['total_coins']}", inline=False)
         embed.add_field(name="Total <:log:970325254461329438> gathered", value=f"{bankdata[str(user.id)]['statistics']['total_logs']}", inline=False)
+        embed.add_field(name="Total <:stick:1005255854892781709> eaten", value=f"{bankdata[str(user.id)]['statistics']['total_sticks_eaten']}", inline=False)
         
         await ctx.send(embed=embed)
         
