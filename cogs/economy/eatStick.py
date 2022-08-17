@@ -37,7 +37,7 @@ class stickyummy(commands.Cog):
         
             r = requests.get(
                 "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
-                % (f"anime eat stick", tenor_api_key, 20)
+                % (f"anime eating chopsticks", tenor_api_key, 40)
             )
 
             if r.status_code == 200:
