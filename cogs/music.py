@@ -504,7 +504,7 @@ https://rg3.github.io/youtube-dl/supportedsites.html""")
                 song = Song(source)
 
                 await ctx.voice_state.songs.put(song)
-                await ctx.send('Enqueued {}'.format(str(source)))
+                await ctx.send(f"Enqueued {str(source)}")
 
     @_join.before_invoke
     @_play.before_invoke
