@@ -138,12 +138,12 @@
             "5": {
                 "icon": "🐡",
                 "name": ["blowfish", "fish"],
-                "description": ""
+                "description": "Big Fish 😊"
             },
             "6": {
                 "icon": "🦑",
                 "name": ["squid", "octopus"],
-                "description": ""
+                "description": "Splatoon!?!??! 😳"
             }
         }
     },
@@ -185,7 +185,7 @@
         }
     },
     "legendary": {
-        "icon": "💎",
+        "icon": "<:legendary_ring:1009857628651917373>",
         "aoran": "a",
         "name": "legendary",
         "animals": {
