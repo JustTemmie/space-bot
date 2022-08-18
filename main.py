@@ -59,11 +59,7 @@ logging.critical("critical")
 class MyBot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.synced = True
         
-        # if andromeda is the bot, sync the command tree (slash command stuff)
-        if bot.user.id == 765222621779853312:
-            self.synced = False
         #self.scheduler = AsyncIOScheduler()
         #db.autosave(self.scheduler)
     
@@ -71,10 +67,12 @@ class MyBot(commands.Bot):
         print(f"Logged in as {self.user}")
         
         await self.wait_until_ready()
-        if not self.synced:
+        
+        # if andromeda is the bot, sync the command tree (slash command stuff)
+        if bot.user.id == 765222621779853312:
             await tree.sync()#guild = discord.Object(id = 628212961218920477))
-            self.synced = True
-        print("Slash commands are now ready!")
+    
+            print("Slash commands successfully synced")
         
 
         if not bot.ready:
