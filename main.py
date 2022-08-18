@@ -177,7 +177,6 @@ async def on_shard_ready(shard_id):
     print(f"Shard {shard_id} Ready!")
 
 
-# Change the bot's status
 @tasks.loop(hours=5, minutes=random.randint(0, 120))
 async def change_status_task():
     # status = "changed the host, should be more stable now :)"
@@ -185,7 +184,6 @@ async def change_status_task():
     status = random.choice(statuses)
     # Check if the status is "advanced"
     if "extra-" in status:
-        # Define advanced statuses
         advanced_statuses = {
             "extra-total_users": f"{len(bot.users)} users",
             "extra-total_guilds": f"over {len(bot.guilds)} guilds",
@@ -196,12 +194,10 @@ async def change_status_task():
         for key, value in advanced_statuses.items():
             status = status.replace(key, value)
 
-    # Set the bot's status
     await bot.change_presence(
         status=discord.Status.idle,
         activity=discord.Activity(type=discord.ActivityType.watching, name=(status)),
     )
-    # Send status change in the STATUS_OUT channel
     await bot.status_out.send(f'status changed to "{status}"')
 
 
