@@ -113,31 +113,53 @@ class ecoeconomy(commands.Cog):
         brief="checks the current leaderboard",
     )
     @cooldown(2, 10, BucketType.user)
-    async def leaderboard_command(self, ctx, show_top=5):
+    async def leaderboard_command(self, ctx, user_count = "5", category = "money"):
         await ctx.channel.typing()
         
-        users = await get_bank_data()
-        if show_top > 10:
-            show_top = 10
-
+        if not str(user_count).isdigit():
+            if str(category).isdigit():
+                # switch the values of user_count and category
+                user_count, category = category, user_count
+            
+            else:
+                category = user_count
+                user_count = 5
+            
+            
+        user_count = int(user_count)
+        
         leaderboard = []
-
-        for user in users:
-            leaderboard.append([user, users[user]["wallet"]])
+        users = await get_bank_data()
+        if user_count > 10:
+            user_count = 10
+        
+        match category:
+            case ("money" | "cash" | "coin"):
+                icon = "<:beaverCoin:968588341291397151>"
+                for user in users:
+                    leaderboard.append([user, users[user]["wallet"]])
+            case ("stick" | "sticks" | "eat"):
+                icon = "<:stick:1005255854892781709>"
+                for user in users:
+                    leaderboard.append([user, users[user]["statistics"]["total_sticks_eaten"]])
+            case _:
+                await ctx.send(f"sorry, {category} does not seem to be a valid category")
+                return
 
         leaderboard.sort(key=lambda x: x[1], reverse=True)
+        
+        embed = discord.Embed(title=f"Top {user_count} richest people", colour=ctx.author.colour)
 
-        embed = discord.Embed(title=f"Top {show_top} richest people", colour=ctx.author.colour)
-
-        for i in range(0, show_top):
+        for i in range(0, user_count):
             try:
                 user = await self.bot.fetch_user(int(leaderboard[i][0]))
                 balance = leaderboard[i][1]
-                embed.add_field(
-                    name=f"{i+1}. {user.display_name}",
-                    value=f"{balance} <:beaverCoin:968588341291397151>",
-                    inline=False,
-                )
+                if balance != 0:
+                    embed.add_field(
+                        name=f"{i+1}. {user.display_name}",
+                        value=f"{balance} {icon}",
+                        inline=False,
+                    )
             except Exception as e:
                 await ctx.send(f"error: {e}")
                 break
