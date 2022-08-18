@@ -136,10 +136,12 @@ class ecoeconomy(commands.Cog):
         match category:
             case ("money" | "cash" | "coin"):
                 icon = "<:beaverCoin:968588341291397151>"
+                title_ending = "richest people"
                 for user in users:
                     leaderboard.append([user, users[user]["wallet"]])
             case ("stick" | "sticks" | "eat"):
                 icon = "<:stick:1005255854892781709>"
+                title_ending = "hungriest users"
                 for user in users:
                     leaderboard.append([user, users[user]["statistics"]["total_sticks_eaten"]])
             case _:
@@ -166,7 +168,7 @@ class ecoeconomy(commands.Cog):
                 await ctx.send(f"error: {e}")
                 break
         
-        embed.title = f"Top {i} richest people"
+        embed.title = f"Top {i} {title_ending}"
 
         await ctx.reply(embed=embed, mention_author=False)
 
