@@ -44,7 +44,7 @@
             "1": {
                 "icon": "🐶",
                 "name": ["dog"],
-                "description": ""
+                "description": "Dogs often find themselves in rough situations"
             },
             "2": {
                 "icon": "🐱",
@@ -54,7 +54,7 @@
             "3": {
                 "icon": "🐭",
                 "name": ["mouse", "rat"],
-                "description": ""
+                "description": "omg rodents, yknow what's a rodent?!?? BEAVERS!!"
             },
             "4": {
                 "icon": "🐷",
@@ -165,7 +165,7 @@
             "3": {
                 "icon": "🦒",
                 "name": ["giraffe"],
-                "description": ""
+                "description": "Tall things yknow?"
             },
             "4": {
                 "icon": "🐑",
