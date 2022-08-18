@@ -144,6 +144,20 @@ class ecoeconomy(commands.Cog):
                 title_ending = "hungriest users"
                 for user in users:
                     leaderboard.append([user, users[user]["statistics"]["total_sticks_eaten"]])
+            case ("marriage" | "marriages" | "married"):
+                icon = "<:colourless_ring:1009857626919665664>"
+                title_ending = "biggest hoes"
+                for user in users:
+                    married_to = 0
+                    for marriage in users[user]["marriage"]:
+                        if users[user]["marriage"][marriage]["married"]:
+                            married_to += 1
+                    leaderboard.append([user, married_to]) 
+            case ("logs" | "log"):
+                icon = "<:log:970325254461329438>"
+                title_ending = "richest users in terms of logs"
+                for user in users:
+                    leaderboard.append([user, users[user]["inventory"]["logs"]])         
             case _:
                 await ctx.send(f"sorry, {category} does not seem to be a valid category")
                 return
@@ -157,6 +171,7 @@ class ecoeconomy(commands.Cog):
                 user = await self.bot.fetch_user(int(leaderboard[i][0]))
                 balance = leaderboard[i][1]
                 if balance == 0:
+                    i -= 1
                     break
 
                 embed.add_field(
@@ -168,7 +183,7 @@ class ecoeconomy(commands.Cog):
                 await ctx.send(f"error: {e}")
                 break
         
-        embed.title = f"Top {i} {title_ending}"
+        embed.title = f"Top {i+1} {title_ending}"
 
         await ctx.reply(embed=embed, mention_author=False)
 
