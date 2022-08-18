@@ -148,21 +148,25 @@ class ecoeconomy(commands.Cog):
 
         leaderboard.sort(key=lambda x: x[1], reverse=True)
         
-        embed = discord.Embed(title=f"Top {user_count} richest people", colour=ctx.author.colour)
+        embed = discord.Embed(colour=ctx.author.colour)
 
         for i in range(0, user_count):
             try:
                 user = await self.bot.fetch_user(int(leaderboard[i][0]))
                 balance = leaderboard[i][1]
-                if balance != 0:
-                    embed.add_field(
-                        name=f"{i+1}. {user.display_name}",
-                        value=f"{balance} {icon}",
-                        inline=False,
-                    )
+                if balance == 0:
+                    break
+
+                embed.add_field(
+                    name=f"{i+1}. {user.display_name}",
+                    value=f"{balance} {icon}",
+                    inline=False,
+                )
             except Exception as e:
                 await ctx.send(f"error: {e}")
                 break
+        
+        embed.title = f"Top {i} richest people"
 
         await ctx.reply(embed=embed, mention_author=False)
 
