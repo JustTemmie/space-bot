@@ -8,6 +8,7 @@ import asyncio
 from datetime import datetime, timedelta
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from libraries.economyLib import update_accounts
 
 import discord
 from discord.ext import tasks, commands
@@ -60,6 +61,9 @@ class MyBot(commands.Bot):
         super().__init__(*args, **kwargs)
         self.synced = True
         
+        # if andromeda is the bot, sync the command tree (slash command stuff)
+        if bot.user.id == 765222621779853312:
+            self.synced = False
         #self.scheduler = AsyncIOScheduler()
         #db.autosave(self.scheduler)
     
@@ -75,9 +79,9 @@ class MyBot(commands.Bot):
 
         if not bot.ready:
             
-            #self.scheduler.start()
-
-            # Start the status updater
+            # update all the accounts in the bank file whenever the bot turns on
+            await update_accounts()
+            
             change_status_task.start()
 
             # Post new status to STATUS_OUT channel from config.json
@@ -96,19 +100,13 @@ class MyBot(commands.Bot):
             if bot.user.id == 765222621779853312:
                 bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)
 
-            # Create guild_count var and initialize to 0
             guild_count = 0
-            # for each guild the bot is in
             for guild in bot.guilds:
-                # Print guild name and id
                 print(f"- {guild.id} (name: {guild.name})")
-                # Increment guild_count
                 guild_count = guild_count + 1
 
-            # Print the bot name, number of guilds, and number of shards.
             print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
 
-            # Set the bot ready to True
             bot.ready = True
 
 
