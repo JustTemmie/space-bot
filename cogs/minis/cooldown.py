@@ -35,11 +35,20 @@ class showCooldowns(commands.Cog):
         
         embed = Embed(title="Cooldowns", color=ctx.author.color)
         
-        if voteCD > 43200:
-            embed.add_field(name="Vote", value=f"✅", inline=False)
-        else:
-            timeLeft = await self.time_conversion(abs(43200-voteCD))
-            embed.add_field(name="Vote", value=f"{timeLeft}", inline=False)
+        # if voteCD > 43200:
+        #     embed.add_field(name="Vote", value=f"✅", inline=False)
+        # else:
+        #     timeLeft = await self.time_conversion(abs(43200-voteCD))
+        #     embed.add_field(name="Vote", value=f"{timeLeft}", inline=False)
+        
+        command = self.bot.get_command("scavenge")
+        embed.add_field(name="Scavenge", value=await self.time_conversion(round(command.get_cooldown_retry_after(ctx))), inline=False)
+        
+        command = self.bot.get_command("hunt")
+        embed.add_field(name="Hunt", value=await self.time_conversion(round(command.get_cooldown_retry_after(ctx))), inline=False)
+        
+        command = self.bot.get_command("eat")
+        embed.add_field(name="Eat", value=await self.time_conversion(round(command.get_cooldown_retry_after(ctx))), inline=False)
         
 
         await ctx.send(embed=embed)
@@ -50,7 +59,18 @@ class showCooldowns(commands.Cog):
         sec_value %= 3600
         min_value = sec_value // 60
         sec_value %= 60
-        return f"{hour_value}H {min_value}M {sec_value}S"
+        returnStr = ""
+        if hour_value >= 1:
+            returnStr += f"{hour_value}H "
+        if min_value >= 1:
+            returnStr += f"{min_value}M "
+        if sec_value >= 1:
+            returnStr += f"{sec_value}S"
+        
+        if returnStr == "":
+            returnStr = "✅"
+
+        return returnStr
 
 async def setup(bot):
     await bot.add_cog(showCooldowns(bot))
