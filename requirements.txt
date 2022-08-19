@@ -18,4 +18,5 @@ numpy==1.22.1       # used in the QR command, never imported but it's required l
 Image
 interruptingcow     # used in the math command
 
-git+https://github.com/Rapptz/discord.py # discord py beta - main library for handling commands and such
+discord.py          # the main discord.py library    
+#git+https://github.com/Rapptz/discord.py # discord py beta - main library for handling commands and such
