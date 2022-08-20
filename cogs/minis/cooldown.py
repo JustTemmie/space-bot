@@ -42,16 +42,28 @@ class showCooldowns(commands.Cog):
         #     embed.add_field(name="Vote", value=f"{timeLeft}", inline=False)
         
         command = self.bot.get_command("scavenge")
-        embed.add_field(name="Scavenge", value=await self.time_conversion(round(command.get_cooldown_retry_after(ctx))), inline=False)
+        command_cooldown = await self.get_cooldown(command, ctx)
+        desc = f"{await self.time_conversion(command_cooldown)}"
+        if command_cooldown > 0: desc = f" <t:{command_cooldown+round(time())}:R>"
+        embed.add_field(name="Scavenge", value=desc, inline=False)
         
         command = self.bot.get_command("hunt")
-        embed.add_field(name="Hunt", value=await self.time_conversion(round(command.get_cooldown_retry_after(ctx))), inline=False)
+        command_cooldown = await self.get_cooldown(command, ctx)
+        desc = f"{await self.time_conversion(command_cooldown)}"
+        if command_cooldown > 0: desc = f" <t:{command_cooldown+round(time())}:R>"
+        embed.add_field(name="Hunt", value=desc, inline=False)
         
         command = self.bot.get_command("eat")
-        embed.add_field(name="Eat", value=await self.time_conversion(round(command.get_cooldown_retry_after(ctx))), inline=False)
+        command_cooldown = await self.get_cooldown(command, ctx)
+        desc = f"{await self.time_conversion(command_cooldown)}"
+        if command_cooldown > 0: desc = f" <t:{command_cooldown+round(time())}:R>"
+        embed.add_field(name="Eat", value=desc, inline=False)
         
 
         await ctx.send(embed=embed)
+    
+    async def get_cooldown(self, command, ctx):
+        return round(command.get_cooldown_retry_after(ctx))
     
     async def time_conversion(self, sec):
         sec_value = sec % (24 * 3600)
