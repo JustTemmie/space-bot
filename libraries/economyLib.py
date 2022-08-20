@@ -55,7 +55,7 @@ async def get_ring_emoji(ring):
     elif ring == "mythical":
             return "<:mythical_ring:970309114955702372>"
     elif ring == "legendary":
-            return "<:legendary_ring:1009857628651917373> (legendary)"
+            return "<:legendary_ring:1009857628651917373>"
     else:
             return "none"
 
