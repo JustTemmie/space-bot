@@ -32,7 +32,6 @@ class ecogambling(commands.Cog):
         
         bal = await update_bank_data(ctx.author)
         
-        random.seed(bal[0])
         if amount == "all":
             amount = bal[0]
 
