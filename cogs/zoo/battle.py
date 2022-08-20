@@ -87,7 +87,7 @@ class zooBattle(commands.Cog):
         output = BytesIO()
         img.save(output, format="png")
         output.seek(0)
-        
+
         decidedMoves = {
             "animal1": [],
             "animal2": [],
@@ -100,6 +100,7 @@ class zooBattle(commands.Cog):
             print(len(decidedMoves["animal1"]))
             print(len(decidedMoves["animal2"]))
             animals = ["animal1", "animal2", "animal3"]
+            
             for animal in animals:
                 if len(decidedMoves[animal]) == 0:
                     await sentMsg.reply(await SL.removeat(f"you haven't decided on a move for {teamMembers[animals.index(animal)]} yet"), delete_after=5)
@@ -108,7 +109,6 @@ class zooBattle(commands.Cog):
             
             await interaction.message.edit(view=view)
             await buttonCallback(interaction, teamMembers, decidedMoves) 
-
 
         async def concedeCallback(interaction):
             await ctx.send(await SL.removeat(f"{ctx.author.display_name} has decided to concede"))
@@ -123,6 +123,8 @@ class zooBattle(commands.Cog):
             emoji, display_name, desc, formatting, cost, damage, healing = await getMoveInfo(id)
             for i in formatting:
                 desc = desc.replace(f"({i})", str(eval(str(i))))
+                print("a")
+                print(desc)
                 
             await add_to_dropdown(1, emoji, display_name, desc, id, damage-healing, cost)
             await interaction.response.defer()
@@ -186,12 +188,12 @@ async def getMoveInfo(id):
 
     return emoji, display_name, desc, formatting, cost, damage, healing
 
-async def buttonCallback(interaction, teamMembers, decidedMoves):
+async def buttonCallback(interaction, teamMembers, decidedMovesLocal):
     await interaction.response.send_message(
         f"""
-{teamMembers[0]} used {decidedMoves["animal1"][0]} | data: {decidedMoves["animal1"]}
-{teamMembers[1]} used {decidedMoves["animal2"][0]} | data: {decidedMoves["animal2"]}
-{teamMembers[2]} used {decidedMoves["animal3"][0]} | data: {decidedMoves["animal3"]}
+{teamMembers[0]} used {decidedMovesLocal["animal1"][0]} | data: {decidedMovesLocal["animal1"]}
+{teamMembers[1]} used {decidedMovesLocal["animal2"][0]} | data: {decidedMovesLocal["animal2"]}
+{teamMembers[2]} used {decidedMovesLocal["animal3"][0]} | data: {decidedMovesLocal["animal3"]}
         """)
     #await interaction.response.defer()
 
