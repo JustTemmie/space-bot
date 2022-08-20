@@ -32,12 +32,13 @@ class ecogambling(commands.Cog):
         
         bal = await update_bank_data(ctx.author)
         
+        random.seed(bal[0])
         if amount == "all":
             amount = bal[0]
 
         amount = int(amount)
-        if amount > 50000:
-            amount = 50000
+        if amount > 100000:
+            amount = 100000
 
         if amount < 5:
             await ctx.send("please bet at leaaaast 5 <:beaverCoin:968588341291397151>")
