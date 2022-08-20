@@ -31,7 +31,7 @@ class ecogambling(commands.Cog):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
         bal = await update_bank_data(ctx.author)
-        
+        random.seed(bal[0])
         if amount == "all":
             amount = bal[0]
 
