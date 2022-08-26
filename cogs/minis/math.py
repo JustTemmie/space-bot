@@ -9,7 +9,7 @@ replacement_table = {
     "^": "**"
 }
 
-allowedCharacters = "1234567890/*-+()!"
+allowedCharacters = "1234567890/*-+()!."
 
 class mathCommands(commands.Cog):
     def __init__(self, bot):
