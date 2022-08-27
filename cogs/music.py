@@ -69,7 +69,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.title = data.get('title')
         self.thumbnail = data.get('thumbnail')
         self.description = data.get('description')
-        self.duration_in_seconds = data.get('duration')
+        self.playing_until = round(time()+data.get('duration'))
         self.duration = self.parse_duration(int(data.get('duration')))
         self.tags = data.get('tags')
         self.url = data.get('webpage_url')
@@ -156,7 +156,7 @@ class Song:
                  .add_field(name='Uploader', value=f'[{self.source.uploader}]({self.source.uploader_url})')
                  .add_field(name='URL', value=f'[Click]({self.source.url})')
                  .add_field(name='Duration', value=self.source.duration)
-                 .add_field(name="Time left", value=f"<t:{round(time()+self.source.duration_in_seconds)}:R>", inline=True)
+                 .add_field(name="Time left", value=f"<t:{self.source.playing_until}:R>", inline=True)
                  .set_thumbnail(url=self.source.thumbnail))
 
         return embed
