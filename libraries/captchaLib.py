@@ -93,8 +93,8 @@ async def check_captcha_valid(self, ctx, captchaStr, loop = 1):
         
         banNr = data[str(ctx.author.id)]["anti-cheat"]["banned_x_times"]
         
-        # 12 hours, 24 hours, 48 hours, so on
-        bannedFor = 43200*2**banNr
+        # 6 hours, 12 hours, 24 hours, 48 hours, so on
+        bannedFor = 21600*2**banNr
         
         data[str(ctx.author.id)]["anti-cheat"]["banned_x_times"] = banNr + 1
         data[str(ctx.author.id)]["anti-cheat"]["banned_until"] = time.time() + bannedFor
@@ -112,6 +112,23 @@ async def check_captcha_valid(self, ctx, captchaStr, loop = 1):
         )
     except asyncio.TimeoutError:
         await ctx.send(f"**Timed out** You took too long to answer the captcha!")
+        
+        with open("./storage/playerInfo/bank.json", "r") as f:
+            data = json.load(f)
+        
+        banNr = data[str(ctx.author.id)]["anti-cheat"]["banned_x_times"]
+        
+        # 6 hours, 12 hours, 24 hours, 48 hours, so on
+        bannedFor = 21600*2**banNr
+        
+        data[str(ctx.author.id)]["anti-cheat"]["banned_x_times"] = banNr + 1
+        data[str(ctx.author.id)]["anti-cheat"]["banned_until"] = time.time() + bannedFor
+        
+        with open("./storage/playerInfo/bank.json", "w") as f:
+            json.dump(data, f)
+        
+        await ctx.send(f"You have been **banned** for {round(bannedFor/60/60)} hours due to suspicious activity. This ban will last until <t:{bannedFor + round(time.time())}>\nIf you think this is a mistake, please contact our support server <https://discord.gg/8MdVe6NgVy>")
+
         return False
 
 
