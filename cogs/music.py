@@ -13,6 +13,7 @@ import discord
 import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
+from time import time
 
 
 # Silence useless bug reports messages
@@ -68,6 +69,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.title = data.get('title')
         self.thumbnail = data.get('thumbnail')
         self.description = data.get('description')
+        self.duration_in_seconds = data.get('duration')
         self.duration = self.parse_duration(int(data.get('duration')))
         self.tags = data.get('tags')
         self.url = data.get('webpage_url')
@@ -151,6 +153,7 @@ class Song:
                                description='```css\n{0.source.title}\n```'.format(self),
                                color=discord.Color.blurple())
                  .add_field(name='Duration', value=self.source.duration)
+                 .add_field(name="Time left", value=time()+self.source.duration_in_seconds, inline=True)
                  .add_field(name='Requested by', value=self.requester.mention)
                  .add_field(name='Uploader', value='[{0.source.uploader}]({0.source.uploader_url})'.format(self))
                  .add_field(name='URL', value='[Click]({0.source.url})'.format(self))
