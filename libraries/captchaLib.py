@@ -57,7 +57,7 @@ async def check_captcha(self, ctx, increase_by = 1):
     with open("./storage/playerInfo/bank.json", "w") as f:
         json.dump(data, f)
 
-    if counter < 30:
+    if counter < 80:
         return False
 
     # the random number is just because this code can send multiple captchas at once, which isn't ideal lmao
