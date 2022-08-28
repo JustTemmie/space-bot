@@ -79,6 +79,10 @@ class ecogambling(commands.Cog):
     )
     @cooldown(1, 5, BucketType.user)
     async def slot_machine_command(self, ctx, amount=None):
+        
+        ##########################################################################
+        ########## THIS CODE IS TERRIBLE AND NO I'M NOT FIXING IT SORRY ##########
+        ##########################################################################
         await open_account(self, ctx)
         
         userNotExist = await check_if_not_exist(ctx.author)
