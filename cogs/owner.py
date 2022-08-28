@@ -6,6 +6,7 @@ import sys
 import os
 import glob
 from yt_dlp import YoutubeDL
+import asyncio
 
 import libraries.database as db
 from libraries.RSmiscLib import str_replacer
@@ -297,10 +298,34 @@ class Owner(commands.Cog):
         name="bash"
     )
     @commands.is_owner()
-    async def run_bash(self, ctx, command):
-        output = os.system(command)
-        await ctx.send(f"`{command}` returned output:\n```{output}```")
+    async def run_bash(self, ctx, *, command):
+        commandArray = command.split(" ")        
+        await ctx.send(f"are you sure you want to run the command `{command}`?")
+        try:
+            response = await self.bot.wait_for(
+                "message", check=lambda m: m.author == ctx.author, timeout=30
+            )
+        except asyncio.TimeoutError:
+            return await ctx.send(f"**Timed out** cancelling")
 
+        output = subprocess.run([*commandArray], stdout=subprocess.PIPE, timeout=50)
+        output = output.stdout.decode('utf-8')
+        
+        
+        if len(output) + len(command) < 1975:
+            await ctx.send(f"`{command}` returned output:\n```{output} ```")
+            return
+        
+        n = 1994
+        split_strings = []
+        
+        for index in range(0, len(output), n):
+            split_strings.append(output[index : index + n])
+
+
+        for message in split_strings:
+            await ctx.send(f"```{message}```")
+        
 
     @commands.command(
         name="deletemsg",
