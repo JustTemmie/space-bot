@@ -294,8 +294,18 @@ class Owner(commands.Cog):
 
     
     @commands.command(
+        name="bash"
+    )
+    @commands.is_owner()
+    async def run_bash(self, ctx, command):
+        output = os.system(command)
+        await ctx.send(f"`{command}` returned output:\n```{output}```")
+
+
+    @commands.command(
         name="deletemsg",
     )
+    @commands.is_owner()
     async def react_beaver_command(self, ctx, id: int = 0):
         
         await ctx.message.delete()
