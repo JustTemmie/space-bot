@@ -308,6 +308,10 @@ class Owner(commands.Cog):
         except asyncio.TimeoutError:
             return await ctx.send(f"**Timed out** cancelling")
 
+        confirmations = ["yes", "ye", "y"]
+        if response.content not in confirmations:
+            return await ctx.send("oh ok")
+
         output = subprocess.run([*commandArray], stdout=subprocess.PIPE, timeout=50)
         output = output.stdout.decode('utf-8')
         
