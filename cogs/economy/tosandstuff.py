@@ -6,7 +6,7 @@ from discord.ext.commands import cooldown, BucketType
 import json
 
 
-class ecobuild(commands.Cog):
+class rulesandstuff(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -18,8 +18,8 @@ class ecobuild(commands.Cog):
             color=ctx.author.color
         )
 
-        embed.add_field(name = "Below are links to Andromeda's TOS and privacy policy", value = "nhttps://github.com/JustTemmie/space-bot/blob/main/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md", inline = False)
+        embed.add_field(name = "Below are links to Andromeda's TOS and privacy policy", value = "https://github.com/JustTemmie/space-bot/blob/main/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md", inline = False)
         await ctx.send(embed=embed)
 
 async def setup(bot):
-    await bot.add_cog(ecobuild(bot))
+    await bot.add_cog(rulesandstuff(bot))
