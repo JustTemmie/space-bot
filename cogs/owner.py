@@ -214,6 +214,13 @@ class Owner(commands.Cog):
             json.dump(shitposts, f)
 
     @commands.is_owner()
+    @commands.command(name="ownerecho")
+    async def echocommand(self, ctx, *, message):
+        await ctx.delete()
+        await ctx.send(message)
+    
+    
+    @commands.is_owner()
     @commands.command(name="pip")
     async def pipe(self, ctx, action, *, pip):
         if action == "install":
