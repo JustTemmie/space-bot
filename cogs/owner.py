@@ -215,9 +215,9 @@ class Owner(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="ownerecho")
-    async def echoownercommand(self, ctx, *, message):
-        await ctx.delete()
-        await ctx.send(message)
+    async def echoownercommand(self, ctx, *, messagecontent):
+        await ctx.message.delete()
+        await ctx.send(messagecontent)
     
     
     @commands.is_owner()
