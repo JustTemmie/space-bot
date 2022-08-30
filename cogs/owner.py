@@ -235,6 +235,8 @@ class Owner(commands.Cog):
         
         with open("./storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
+        
+        await ctx.send(f"banned user `{user.display_name}` until <t:{time.time()+bannedFor:R}>")
 
 
     
