@@ -219,6 +219,26 @@ class Owner(commands.Cog):
         await ctx.message.delete()
         await ctx.send(messagecontent)
     
+    @commands.is_owner()
+    @commands.command(name="ecoban")
+    async def ownerbaneconomy(self, ctx, user: discord.Member):
+        with open("./storage/playerInfo/bank.json", "r") as f:
+            data = json.load(f)
+        
+        banNr = data[str(user.id)]["anti-cheat"]["banned_x_times"]
+        
+        # 6 hours, 12 hours, 24 hours, 48 hours, so on
+        bannedFor = 21600*2**banNr
+        
+        data[str(user.id)]["anti-cheat"]["banned_x_times"] = banNr + 1
+        data[str(user.id)]["anti-cheat"]["banned_until"] = time.time() + bannedFor
+        
+        with open("./storage/playerInfo/bank.json", "w") as f:
+            json.dump(data, f)
+        
+        await ctx.send(f"banned user `{user.display_name}` until <t:{time.time()+bannedFor:R}>")
+
+
     
     @commands.is_owner()
     @commands.command(name="pip")
