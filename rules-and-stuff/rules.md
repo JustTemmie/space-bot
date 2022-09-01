@@ -5,7 +5,7 @@
 I.E using multiple accounts for any reason or using any sort of scripting / macro software
 
 
-• Do not abuse any exploits / bugs found in the bot<, instead report them to us thru this form>
+• Do not abuse any exploits / bugs found in the bot<!---, instead report them to us thru this form-->
 
 
 • You will not sell/trade anything within this bot for other goods or services outside of the bot 
