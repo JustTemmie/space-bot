@@ -1,10 +1,7 @@
-# Failure to follow these rules will result in a ban and/or account reset!
+# Failure to follow these rules will result in a ban or account reset!
 
-• Any actions performed to gain an unfair advantage over other users are explicitly against the rules. This includes but not limited to:
-
-├> Using macros/scripts for any commands
-
-└> Using multiple accounts for any reason
+• Any actions performed to gain an unfair advantage over other users are explicitly against the rules.
+I.E using multiple accounts for any reason or using any sort of scripting / macro software
 
 
 • Do not use any exploits and report any found in the bot
