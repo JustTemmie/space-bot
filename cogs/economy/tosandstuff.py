@@ -18,7 +18,7 @@ class rulesandstuff(commands.Cog):
             color=ctx.author.color
         )
 
-        embed.add_field(name = "Below are links to Andromeda's TOS and privacy policy", value = "https://github.com/JustTemmie/space-bot/blob/main/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/privacy-policy.md", inline = False)
+        embed.add_field(name = "Below are links to Andromeda's TOS, privacy policy, and rules", value = "https://github.com/JustTemmie/space-bot/blob/main/rules-and-stuff/service.md\nhttps://github.com/JustTemmie/space-bot/blob/main/rules-and-stuff/privacy-policy.md\nhttps://github.com/JustTemmie/space-bot/blob/main/rules-and-stuff/rules.md", inline = False)
         await ctx.send(embed=embed)
 
 async def setup(bot):
