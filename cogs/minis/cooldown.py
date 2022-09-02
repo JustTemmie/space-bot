@@ -63,63 +63,62 @@ class showCooldowns(commands.Cog):
         await ctx.send(embed=embed)
     
     
-    @commands.command(
-        name="calendar",
-        aliases=["goals"],
-        brief="complete daily goals to earn a small reward",
-    )
-    @cooldown(2, 5, BucketType.user)
-    async def dailycooldowns(self, ctx):
-        await EL.open_account(self, ctx)
+    # @commands.command(
+    #     name="calendar",
+    #     aliases=["goals"],
+    #     brief="complete daily goals to earn a small reward",
+    # )
+    # @cooldown(2, 5, BucketType.user)
+    # async def dailycooldowns(self, ctx):
+    #     await EL.open_account(self, ctx)
         
-        userNotExist = await EL.check_if_not_exist(ctx.author)
-        if userNotExist == "banned":
-            return
-        if userNotExist:
-            return await ctx.send("i could not find your inventory, you need to create an account first")
+    #     userNotExist = await EL.check_if_not_exist(ctx.author)
+    #     if userNotExist == "banned":
+    #         return
+    #     if userNotExist:
+    #         return await ctx.send("i could not find your inventory, you need to create an account first")
         
-        data = await EL.get_bank_data()
+    #     data = await EL.get_bank_data()
         
-        voteCD = round(time() - data[str(ctx.author.id)]["dailyvote"]["last_vote"])
+    #     voteCD = round(time() - data[str(ctx.author.id)]["dailyvote"]["last_vote"])
             
-            
-        embed = Embed(title="Calendar", color=ctx.author.color)
+    #     embed = Embed(title="Calendar", color=ctx.author.color)
         
-        daily_info = data[str(ctx.author.id)]["daily"]
-        if daily_info["day"] == (datetime.utcnow() - datetime(1970, 1, 1)).days:
-            desc = f"<t:{round(await self.time_until_end_of_day() + time())}:R>"
-        else: desc = "✅"
-        embed.add_field(name="Daily", value=desc, inline=False)
+    #     daily_info = data[str(ctx.author.id)]["daily"]
+    #     if daily_info["day"] == (datetime.utcnow() - datetime(1970, 1, 1)).days:
+    #         desc = f"<t:{round(await self.time_until_end_of_day() + time())}:R>"
+    #     else: desc = "✅"
+    #     embed.add_field(name="Daily", value=desc, inline=False)
         
-        await ctx.send(embed=embed)
+    #     await ctx.send(embed=embed)
     
-    async def get_cooldown(self, command, ctx):
-        return round(command.get_cooldown_retry_after(ctx))
+    # async def get_cooldown(self, command, ctx):
+    #     return round(command.get_cooldown_retry_after(ctx))
     
-    # https://stackoverflow.com/questions/45986035/seconds-until-end-of-day-in-python
-    async def time_until_end_of_day(self):
-        dt = datetime.utcnow()
-        return ((24 - dt.hour - 1) * 60 * 60) + ((60 - dt.minute - 1) * 60) + (60 - dt.second)
+    # # https://stackoverflow.com/questions/45986035/seconds-until-end-of-day-in-python
+    # async def time_until_end_of_day(self):
+    #     dt = datetime.utcnow()
+    #     return ((24 - dt.hour - 1) * 60 * 60) + ((60 - dt.minute - 1) * 60) + (60 - dt.second)
 
-    # unused lmao
-    async def time_conversion(self, sec):
-        sec_value = sec % (24 * 3600)
-        hour_value = sec_value // 3600
-        sec_value %= 3600
-        min_value = sec_value // 60
-        sec_value %= 60
-        returnStr = ""
-        if hour_value >= 1:
-            returnStr += f"{hour_value}H "
-        if min_value >= 1:
-            returnStr += f"{min_value}M "
-        if sec_value >= 1:
-            returnStr += f"{sec_value}S"
+    # # unused lmao
+    # async def time_conversion(self, sec):
+    #     sec_value = sec % (24 * 3600)
+    #     hour_value = sec_value // 3600
+    #     sec_value %= 3600
+    #     min_value = sec_value // 60
+    #     sec_value %= 60
+    #     returnStr = ""
+    #     if hour_value >= 1:
+    #         returnStr += f"{hour_value}H "
+    #     if min_value >= 1:
+    #         returnStr += f"{min_value}M "
+    #     if sec_value >= 1:
+    #         returnStr += f"{sec_value}S"
         
-        if returnStr == "":
-            returnStr = "✅"
+    #     if returnStr == "":
+    #         returnStr = "✅"
 
-        return returnStr
+    #     return returnStr
 
 async def setup(bot):
     await bot.add_cog(showCooldowns(bot))
