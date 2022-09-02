@@ -65,6 +65,9 @@ class ecoshop(commands.Cog):
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
         
+        if amount <= 0:
+            return await ctx.send("hey! i'm not buying your junk!")
+
         shop = await ecoLib.get_shop_data()
         bank = await ecoLib.get_bank_data()
         wallet = bank[str(ctx.author.id)]["wallet"]
