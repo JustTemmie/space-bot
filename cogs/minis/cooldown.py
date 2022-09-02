@@ -59,6 +59,31 @@ class showCooldowns(commands.Cog):
         if command_cooldown > 0: desc = f"<t:{command_cooldown+round(time())}:R>"
         else: desc = "✅"
         embed.add_field(name="Eat", value=desc, inline=False)
+
+        await ctx.send(embed=embed)
+    
+    
+    @commands.command(
+        name="calendar",
+        aliases=["goals"],
+        brief="complete daily goals to earn a small reward",
+    )
+    @cooldown(2, 5, BucketType.user)
+    async def dailycooldowns(self, ctx):
+        await EL.open_account(self, ctx)
+        
+        userNotExist = await EL.check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find your inventory, you need to create an account first")
+        
+        data = await EL.get_bank_data()
+        
+        voteCD = round(time() - data[str(ctx.author.id)]["dailyvote"]["last_vote"])
+            
+            
+        embed = Embed(title="Calendar", color=ctx.author.color)
         
         daily_info = data[str(ctx.author.id)]["daily"]
         if daily_info["day"] == (datetime.utcnow() - datetime(1970, 1, 1)).days:
@@ -66,7 +91,6 @@ class showCooldowns(commands.Cog):
         else: desc = "✅"
         embed.add_field(name="Daily", value=desc, inline=False)
         
-
         await ctx.send(embed=embed)
     
     async def get_cooldown(self, command, ctx):
