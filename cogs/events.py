@@ -60,9 +60,11 @@ class events(commands.Cog):
                 await ctx.send("I do not have the permission to do that.")
 
             else:
+                await ctx.send(exc.original)
                 raise exc.original
 
         else:
+            await ctx.send(exc)
             raise exc
 
     @commands.Cog.listener()
