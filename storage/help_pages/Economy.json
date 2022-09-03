@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`statistics` `eat` `rules`"
+        "description": "`statistics` `eat` `rules` `calendar`"
     },
     "1st": {
         "icon": "<:beaverCoin:968588341291397151>",
@@ -42,6 +42,6 @@
     "other": {
         "icon": "🛠️",
         "name": "Other",
-        "description": "`cooldowns` `eat` `rules`"
+        "description": "`cooldowns` `calendar` `eat` `rules`"
     }
 }
