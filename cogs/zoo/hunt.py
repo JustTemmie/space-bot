@@ -28,7 +28,7 @@ class zooHunt(commands.Cog):
         aliases = ["hu"],
         brief = "go look for some animals, perhaps even add them to your zoo"
     )
-    @cooldown(1, 300, BucketType.user)
+    @cooldown(1, 0.1, BucketType.user)
     async def huntCommand(self, ctx):
         await ecoLib.open_account(self, ctx)
         await aniLib.open_zoo(self, ctx)
@@ -48,6 +48,7 @@ class zooHunt(commands.Cog):
         
         selectedAnimal, animal_name, tier = await self.roll_animal(ctx, animals)
         
+        animal1tier = animal2tier = ""
         
         # skills
         animalmulti = 0
@@ -66,10 +67,12 @@ class zooHunt(commands.Cog):
         if animal2 == "":
             await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}, it's {animals[tier]['aoran']} {tier}{animals[tier]['icon']} animal")
         else:
+            if animals[tier]["name"] not in ["common", "uncommon"]: animal1tier = animals[tier]["icon"]
+            if animals[tier2]["name"] not in ["common", "uncommon"]: animal2tier = animals[tier2]["icon"]
             duplicatestr = "a"
             if animal2name == animal_name:
                 duplicatestr = "another"
-            await ctx.send(f"You caught a {animals[tier]['icon']}{animal_name} {selectedAnimal['icon']} and {duplicatestr} {animals[tier2]['icon']}{animal2name} {animal2['icon']}")
+            await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}{animal1tier} and {duplicatestr} {animal2name} {animal2['icon']}{animal2tier}")
 
         
         data = await aniLib.get_animal_data()
