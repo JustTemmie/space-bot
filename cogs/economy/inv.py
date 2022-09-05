@@ -56,7 +56,7 @@ class ecoinv(commands.Cog):
         )
     
     
-    @commands.hybrid_command(
+    @commands.command(
         name="inventory",
         aliases=["inv", "items"],
         brief="lets you check your items n' stuff",
