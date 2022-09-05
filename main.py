@@ -71,7 +71,7 @@ class MyBot(commands.Bot):
         # if andromeda is the bot, sync the command tree (slash command stuff)
         if bot.user.id == 765222621779853312:
             await tree.sync()#guild = discord.Object(id = 628212961218920477))
-    
+
             print("Slash commands successfully synced")
         
 
@@ -143,7 +143,7 @@ tree = bot.tree
 # async def ping(interaction: discord.Interaction):
 #     await interaction.response.send_message(f"Pong! slash commands have a latency of {round(bot.latency * 1000)}ms")
 
-@tree.command(name = "prefix", description = "Tells you what the bot's prefixes are")
+@tree.command(name = "prefixes", description = "Tells you what the bot's prefixes are")
 async def ping(interaction: discord.Interaction):
     with open("storage/guild_data/prefixes.json", "r") as f:
         prefixes = json.load(f)
