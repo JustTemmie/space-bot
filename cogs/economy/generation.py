@@ -10,7 +10,7 @@ class ecogeneration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.hybrid_command(
+    @commands.command(
         name="daily",
         brief="get your daily beaver coins here!"
     )
@@ -82,7 +82,7 @@ class ecogeneration(commands.Cog):
         
         
         
-    @commands.hybrid_command(
+    @commands.command(
         name="scavenge",
         aliases=["scav", "find", "loot"],
         brief="go scavenge for some l ö g <:log:970325254461329438>",

@@ -11,7 +11,7 @@ class ecobuild(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-    @commands.hybrid_command(
+    @commands.command(
         name = "build",
         aliases = ["construct", "buildings", "upgrade"],
         brief = "work your way through the build process on your very own dam"

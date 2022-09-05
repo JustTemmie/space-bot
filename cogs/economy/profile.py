@@ -11,7 +11,7 @@ class ecoprofile(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.hybrid_command(
+    @commands.command(
         name="profile",
         brief="tells you some basic info about the person specified"
     )

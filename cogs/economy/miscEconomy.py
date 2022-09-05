@@ -107,7 +107,7 @@ class ecoeconomy(commands.Cog):
         await ctx.send(embed=embed)
     
 
-    @commands.hybrid_command(
+    @commands.command(
         name="leaderboard",
         aliases=["lb", "top"],
         brief="checks the current leaderboard",

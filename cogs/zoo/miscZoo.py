@@ -12,7 +12,7 @@ class zooMisc(commands.Cog):
         self.bot = bot
 
     
-    @commands.hybrid_command(
+    @commands.command(
         name="zoo",
         brief="check your zoo"
     )
@@ -88,7 +88,7 @@ class zooMisc(commands.Cog):
         await ctx.send(message_str)
         return
     
-    @commands.hybrid_command(
+    @commands.command(
         name="dex",
         brief="check a specific animal",
     )

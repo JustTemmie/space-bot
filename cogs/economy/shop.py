@@ -50,7 +50,7 @@ class ecoshop(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.hybrid_command(
+    @commands.command(
         name="buy",
         aliases=["transact"],
         brief="pay for something, wouldya?"

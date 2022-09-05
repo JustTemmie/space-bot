@@ -13,7 +13,7 @@ class ecomarry(commands.Cog):
         self.bot = bot
 
     # this code doesn't use any else statements btw 😎 i find it more clean :shrug:
-    @commands.hybrid_command(
+    @commands.command(
         name="marry",
         brief = "marry someone! even though, they're probably not even going to be your friend"
     )
@@ -119,7 +119,7 @@ class ecomarry(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-    @commands.hybrid_command(
+    @commands.command(
         name="divorce",
         brief="divorce one of your current partners, you hoe"
     )

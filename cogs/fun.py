@@ -31,7 +31,7 @@ class fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.hybrid_command(
+    @commands.command(
         name="texttoimage",
         aliases=["tti"],
         brief="takes a string of text and converts it to an image, don't ask",
@@ -107,7 +107,7 @@ class fun(commands.Cog):
 
         await ctx.send(random.choice(shitposts["list"]))
 
-    @commands.hybrid_command(
+    @commands.command(
         name="avatar",
         aliases=["pfp"],
         brief="sends the profile picture of a specified user",
@@ -201,7 +201,7 @@ class fun(commands.Cog):
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
 
-    @commands.hybrid_command(
+    @commands.command(
         name="morse",
         brief="translates the latin alphabet into morse code",
     )
@@ -223,16 +223,16 @@ class fun(commands.Cog):
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
 
-    @commands.hybrid_command(
+    @commands.command(
         name="ping",
         aliases=["pong", "latency"],
         brief="P O N G"
     )
     @cooldown(3, 5, BucketType.guild)
     async def ping_pong(self, ctx):
-        await ctx.send(f"Pong! normal commands have a latency of {round(self.bot.latency * 1000)}ms")
+        await ctx.send(f"Pong! latency of {round(self.bot.latency * 1000)}ms")
 
-    @commands.hybrid_command(
+    @commands.command(
         name="fact",
         aliases=["animal"],
         brief="Tells you a random fact about the specified animal",
@@ -308,7 +308,7 @@ class fun(commands.Cog):
         await ctx.send(text)
 
 
-    @commands.hybrid_command(
+    @commands.command(
         name="dice",
         aliases=["roll"],
         brief="Roll some virtual dice! dice <amount of dice>d<wanted sides on dice>",
