@@ -23,7 +23,7 @@ responses = [
     'Don\'t count on it.',
     'My reply is no.',
     'My sources say no.',
-    'Outlook not so good.',
+    'Outlook not so good. (use yahoo instead)',
     'Very doubtful.',
     'No way.',
     'Maybe',
