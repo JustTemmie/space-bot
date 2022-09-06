@@ -87,7 +87,7 @@ class zooHunt(commands.Cog):
             
             animalIcons = ""
             for i in range(0, len(caught)):
-                animalIcons += caught[i]["icon"]
+                animalIcons += caught[i]["icon"] + " "
                 
             bonusStr = ""
             if peak_rarity != "":
