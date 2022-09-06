@@ -18,6 +18,8 @@ import topgg
 
 from dotenv import load_dotenv
 
+VERSION = "4.0.0"
+
 # Load dotenv file
 load_dotenv("keys.env")
 TOKEN = os.getenv("DISCORD")#_STABLE")
@@ -56,7 +58,7 @@ logging.error("error")
 logging.critical("critical")
 
 
-class MyBot(commands.Bot):
+class Andromeda(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -131,10 +133,11 @@ def get_prefix(bot, message):
         return commands.when_mentioned_or(DEFAULT_PREFIX, "beav")(bot, message)
 
 
-bot = MyBot(
+bot = Andromeda(
+    shards = SHARDS,
     command_prefix = (get_prefix),
     owner_ids = OWNER_IDS,
-    intents = discord.Intents.all()
+    intents = discord.Intents.all(),
 )
 
 tree = bot.tree
@@ -160,6 +163,7 @@ async def ping(interaction: discord.Interaction):
 bot.remove_command("help")
 # Set the ready status to False, so the bot knows it hasnt been initialized yet.
 bot.ready = False
+bot.version = VERSION
 
 @bot.event
 async def on_autopost_success():
