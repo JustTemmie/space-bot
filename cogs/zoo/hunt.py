@@ -8,6 +8,7 @@ import random
 import libraries.animalLib as aniLib
 import libraries.economyLib as ecoLib
 from libraries.captchaLib import *
+from libraries.standardLib import removeat
 
 tiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
@@ -28,7 +29,7 @@ class zooHunt(commands.Cog):
         aliases = ["hu"],
         brief = "go look for some animals, perhaps even add them to your zoo"
     )
-    @cooldown(1, 0.1, BucketType.user)
+    @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
         await ecoLib.open_account(self, ctx)
         await aniLib.open_zoo(self, ctx)
@@ -46,57 +47,61 @@ class zooHunt(commands.Cog):
         animals = await aniLib.get_zoo_data()
 
         
-        selectedAnimal, animal_name, tier = await self.roll_animal(ctx, animals)
+        animals_to_get = 1
+        caught = []
+        caughttier = []
         
-        animal1tier = animal2tier = ""
         
         # skills
-        animalmulti = 0
-        animal2 = animal2name = tier2 = ""
+        chance_for_bonus = 0
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 1:
-            animalmulti += 1
+            chance_for_bonus = 0.2
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 2:
-            animalmulti += 1.5
+            chance_for_bonus += 0.3
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 3:
-            animalmulti += 2.5
+            chance_for_bonus += 0.5
 
-        if random.random() < 0.20 * animalmulti:
-            animal2, animal2name, tier2 = await self.roll_animal(ctx, animals)
+        if random.random() <= chance_for_bonus:
+            animals_to_get += 1
 
-        
-        if animal2 == "":
-            await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}, it's {animals[tier]['aoran']} {tier}{animals[tier]['icon']} animal")
+                
+
+        for i in range(0, animals_to_get):
+            animal, tier = await self.roll_animal(ctx, animals)
+            caught.append(animal)
+            caughttier.append(tier)
+
+
+        if len(caught) == 1:
+            await ctx.send(f"{await removeat(ctx.author.display_name)}, you went on a hunt and caught a {caught[0]['name'][0]} {caught[0]['icon']}, it's {animals[caughttier[0]]['aoran']} {caughttier[0]}{animals[caughttier[0]]['icon']} animal")
         else:
-            if animals[tier]["name"] not in ["common", "uncommon"]: animal1tier = animals[tier]["icon"]
-            if animals[tier2]["name"] not in ["common", "uncommon"]: animal2tier = animals[tier2]["icon"]
-            duplicatestr = "a"
-            if animal2name == animal_name:
-                duplicatestr = "another"
-            await ctx.send(f"You caught a {animal_name} {selectedAnimal['icon']}{animal1tier} and {duplicatestr} {animal2name} {animal2['icon']}{animal2tier}")
+            peak_rarity = ""
+            for i, animal in enumerate(caught):
+                if caughttier[i] not in []:
+                    for n in tiers:
+                        if peak_rarity == n:
+                            break
+                        if caughttier[i] == n:
+                            peak_rarity = n
+                            break
+            
+            animalIcons = ""
+            for i in range(0, len(caught)):
+                animalIcons += caught[i]["icon"]
+            
+            await ctx.send(f"{await removeat(ctx.author.display_name)}, you went on a hunt\nYou found {animalIcons}")
 
         
         data = await aniLib.get_animal_data()
         
-        
-        data[str(ctx.author.id)]["animals"][tier][animal_name]["caught"] += 1
-        data[str(ctx.author.id)]["animals"][tier][animal_name]["count"] += 1
-        
-        data["global"]["animals"][tier][animal_name]["caught"] += 1
-        
-        if animal2 != "":
-            data[str(ctx.author.id)]["animals"][tier2][animal2name]["caught"] += 1
-            data[str(ctx.author.id)]["animals"][tier2][animal2name]["count"] += 1
+        for i, n in zip(caught, caughttier):
+            data[str(ctx.author.id)]["animals"][n][i["name"][0]]["caught"] += 1
+            data[str(ctx.author.id)]["animals"][n][i["name"][0]]["count"] += 1
             
-            data["global"]["animals"][tier2][animal2name]["caught"] += 1
+            data["global"]["animals"][n][i["name"][0]]["caught"] += 1
+            with open("storage/playerInfo/animals.json", "w") as f:
+                json.dump(data, f)#, indent=4)
 
-        with open("storage/playerInfo/animals.json", "w") as f:
-            json.dump(data, f)#, indent=4)
-        
-        # for i in animals:
-        #     #await ctx.send(animals(i)["name"])
-        #     for y in range(1, 7):
-        #         await ctx.send(animals[i]["animals"][str(y)]["icon"])
-        #         await ctx.send(animals[i]["animals"][str(y)]["name"][0])
 
     async def roll_animal(self, ctx, animals):
         roll = random.random()
@@ -107,9 +112,8 @@ class zooHunt(commands.Cog):
         ID = random.randint(1, 6)
         
         selectedAnimal = animals[tier]["animals"][str(ID)]
-        animal_name = selectedAnimal["name"][0]
         
-        return selectedAnimal, animal_name, tier
+        return selectedAnimal, tier
     
 async def setup(bot):
     await bot.add_cog(zooHunt(bot))
