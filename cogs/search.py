@@ -2,11 +2,7 @@ import discord
 from discord import Embed
 from discord.ext import commands
 
-# from discord.ext.menus import MenuPages, ListPageSource
-from discord.ext.commands import (
-    cooldown,
-    BucketType,
-)
+from discord.ext.commands import cooldown, BucketType
 
 import requests
 import wikipedia

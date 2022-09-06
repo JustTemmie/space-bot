@@ -1,9 +1,6 @@
 import discord
 from discord.ui import Select, View
-from discord import Member, Embed
 from discord.ext import commands
-from discord.ext.commands import cooldown, BucketType
-import json
 
 class testcog(commands.Cog):
     def __init__(self, bot):

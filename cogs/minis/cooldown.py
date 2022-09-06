@@ -1,6 +1,5 @@
 
-import discord
-from discord import Member, Embed
+from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
@@ -8,7 +7,6 @@ from time import time
 from datetime import datetime
 
 import libraries.economyLib as EL
-import libraries.standardLib as SL 
 
 class showCooldowns(commands.Cog):
     def __init__(self, bot):

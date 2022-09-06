@@ -1,9 +1,5 @@
-from code import interact
-from dis import dis
-from email.base64mime import header_length
 import discord
 from discord.ui import Button, View, Select
-from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 

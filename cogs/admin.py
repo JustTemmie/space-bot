@@ -4,16 +4,7 @@ from typing import Optional
 
 from discord import Embed, Member
 from discord.ext import commands
-from discord.ext.commands import (
-    Cog,
-    Greedy,
-    cooldown,
-    BucketType,
-    CheckFailure,
-    command,
-    has_permissions,
-    bot_has_permissions,
-)
+from discord.ext.commands import Cog, Greedy, cooldown, BucketType, CheckFailure, command, has_permissions, bot_has_permissions
 import json
 
 from libraries.miscLib import get_input

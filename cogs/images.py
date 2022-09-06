@@ -1,9 +1,6 @@
 import discord
 from discord.ext import commands
-from discord.ext.commands import (
-    cooldown,
-    BucketType,
-)
+from discord.ext.commands import cooldown, BucketType
 
 import libraries.ascii as ascii
 import functools

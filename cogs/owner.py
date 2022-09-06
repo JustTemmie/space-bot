@@ -8,7 +8,6 @@ import glob
 from yt_dlp import YoutubeDL
 import asyncio
 
-import libraries.database as db
 from libraries.RSmiscLib import str_replacer
 # this might be highlighted as a bug, but it's just a library written in rust lmao
 # it should be fine if you've ran the setup file
