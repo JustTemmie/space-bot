@@ -12,7 +12,7 @@ from libraries.standardLib import removeat
 
 tiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
-    "legendary": 0.00015,
+    "legendary": 0.0002,
     "mythical": 0.001,
     "epic": 0.01,
     "rare": 0.05,
@@ -91,7 +91,7 @@ class zooHunt(commands.Cog):
                 
             bonusStr = ""
             if peak_rarity != "":
-                bonusStr = f"\nwoah, that {peak_animal}... it's {animals[peak_rarity]['aoran']} {peak_rarity}{animals[peak_rarity]['icon']} animal"
+                bonusStr = f"\nwoah, that {peak_animal}... it's {animals[peak_rarity]['aoran']} {peak_rarity}{animals[peak_rarity]['icon']}animal"
             
             await ctx.send(f"{await removeat(ctx.author.display_name)} went on a hunt\nThey found: {animalIcons}{bonusStr}")
 
@@ -109,9 +109,11 @@ class zooHunt(commands.Cog):
 
     async def roll_animal(self, ctx, animals):
         roll = random.random()
+        discarded_roll = 0
         for tier in tiers:
-            if tiers[tier] > roll:
+            if tiers[tier]+discarded_roll > roll:
                 break
+            discarded_roll += round(tiers[tier], 3)
         
         ID = random.randint(1, 6)
         
