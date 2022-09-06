@@ -43,14 +43,13 @@ class zooHunt(commands.Cog):
         if await check_captcha(self, ctx, 1.2):
             return
 
+
         bank = await ecoLib.get_bank_data()
         animals = await aniLib.get_zoo_data()
 
-        
         animals_to_get = 1
         caught = []
         caughttier = []
-        
         
         # skills
         chance_for_bonus = 0
@@ -65,7 +64,6 @@ class zooHunt(commands.Cog):
             animals_to_get += 1
 
                 
-
         for i in range(0, animals_to_get):
             animal, tier = await self.roll_animal(ctx, animals)
             caught.append(animal)
@@ -89,7 +87,7 @@ class zooHunt(commands.Cog):
             for i in range(0, len(caught)):
                 animalIcons += caught[i]["icon"]
             
-            await ctx.send(f"{await removeat(ctx.author.display_name)}, you went on a hunt\nYou found {animalIcons}")
+            await ctx.send(f"{await removeat(ctx.author.display_name)} went on a hunt\nThey found: {animalIcons}")
 
         
         data = await aniLib.get_animal_data()
