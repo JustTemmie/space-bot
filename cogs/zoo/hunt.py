@@ -74,20 +74,26 @@ class zooHunt(commands.Cog):
             await ctx.send(f"{await removeat(ctx.author.display_name)}, you went on a hunt and caught a {caught[0]['name'][0]} {caught[0]['icon']}, it's {animals[caughttier[0]]['aoran']} {caughttier[0]}{animals[caughttier[0]]['icon']} animal")
         else:
             peak_rarity = ""
+            peak_animal = ""
             for i, animal in enumerate(caught):
-                if caughttier[i] not in []:
+                if caughttier[i] not in ["common", "uncommon", "rare"]:
                     for n in tiers:
                         if peak_rarity == n:
                             break
                         if caughttier[i] == n:
                             peak_rarity = n
+                            peak_animal = animal["name"][0]
                             break
             
             animalIcons = ""
             for i in range(0, len(caught)):
                 animalIcons += caught[i]["icon"]
+                
+            bonusStr = ""
+            if peak_rarity != "":
+                bonusStr = f"\nwoah, that {peak_animal}... it's {animals[peak_rarity]['aoran']} {peak_rarity}{animals[peak_rarity]['icon']} animal"
             
-            await ctx.send(f"{await removeat(ctx.author.display_name)} went on a hunt\nThey found: {animalIcons}")
+            await ctx.send(f"{await removeat(ctx.author.display_name)} went on a hunt\nThey found: {animalIcons}{bonusStr}")
 
         
         data = await aniLib.get_animal_data()
