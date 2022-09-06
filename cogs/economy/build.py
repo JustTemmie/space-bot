@@ -134,7 +134,7 @@ class ecobuild(commands.Cog):
 
             lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marry command"
             lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
-            lvl3 = f"╰ +2 skill points and unlock the Beaver Lodge"
+            lvl3 = f"╰ +2 skill points and + *something secret* ;) (good luck finding it!)"
             lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
             lvl5 = f"╰ +5 skill points and another + 25% logs from {ctx.prefix}scavenge"
             
@@ -152,10 +152,7 @@ class ecobuild(commands.Cog):
 
 
 
-        if building.lower() == "lodge":
-            if current_damlevel < 3:
-                return await ctx.send("You need to upgrade your dam to lvl 3 first")
-            
+        if building.lower() == "lodge":            
             if logs < amount:
                 return await ctx.send("you don't have that many logs")
 
@@ -164,7 +161,7 @@ class ecobuild(commands.Cog):
                 10000,
                 15000,
                 25000,
-                3500
+                35000
             ]
 
             level = current_lodgelevel
@@ -231,8 +228,8 @@ class ecobuild(commands.Cog):
             lvl1 = f"╰ +2 skill points and a 20% chance to get a second animals from {ctx.prefix}hunt"
             lvl2 = f"╰ +2 skill points another 30% chance to get a second animal from {ctx.prefix}hunt"
             lvl3 = f"╰ +2 skill points guarantee a second animal from {ctx.prefix}hunt"
-            lvl4 = f"╰ +2 skill points and unlock the Beaver Lodge"
-            lvl5 = f"╰ +5 skill points and another +18 coolness from {ctx.prefix}hunt"
+            lvl4 = f"╰ +2 skill points and - 25000 logs"
+            lvl5 = f"╰ +5 skill points and +1 more skill point"
             
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
             embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
