@@ -298,8 +298,39 @@ class admin(Cog):
                 json.dump(data, f)
         
         
-    
-    
+    @commands.command(
+        name="nonimagepurge",
+        aliases=["ipurge"],
+        brief="clears all X last messages that don't have an image attatched"
+    )
+    @bot_has_permissions(manage_messages=True)
+    #@has_permissions(manage_messages=True)
+    async def nonimagepurge(self, ctx, amount=0):
+        if amount >= 100:
+            amount = 99
+        
+        if amount <= 0:
+            await ctx.send("please specifiy an amount")
+            return
+        
+        if 0 < amount:
+            channel = ctx.message.channel
+            messages = []
+            async for message in channel.history():
+                if len(message.attachments) == 0:
+                    messages.append(message)
+                    if len(messages) >= amount+1:
+                        break
+
+            await channel.delete_messages(messages)
+            await ctx.send(
+                f"{amount} messages have been purged by {ctx.message.author.mention}",
+                delete_after=10,
+            )
+
+        else:
+            await ctx.send("The limit provided is not within acceptable bounds.")
+            
     @commands.command(
         name="clear",
         aliases=["purge"],
