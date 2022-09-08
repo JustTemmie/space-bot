@@ -317,7 +317,7 @@ class admin(Cog):
             channel = ctx.message.channel
             messages = []
             async for message in channel.history():
-                if len(message.attachments) == 0:
+                if len(message.attachments) == 0 and len(message.embeds) == 0:
                     messages.append(message)
                     if len(messages) >= amount+1:
                         break
