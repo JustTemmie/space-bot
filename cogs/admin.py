@@ -304,7 +304,7 @@ class admin(Cog):
         brief="clears all X last messages that don't have an image attatched"
     )
     @bot_has_permissions(manage_messages=True)
-    #@has_permissions(manage_messages=True)
+    @has_permissions(manage_messages=True)
     async def nonimagepurge(self, ctx, amount=0):
         if amount >= 100:
             amount = 99
