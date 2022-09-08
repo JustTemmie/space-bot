@@ -334,7 +334,7 @@ class admin(Cog):
                 delete_after=10,
             )
             if purged != amount+1:
-                await ctx.send("cannot delete messages that are more than 14 days old, sorry")
+                await ctx.send("cannot delete messages that are more than 14 days old, sorry", delete_after=10)
 
         else:
             await ctx.send("The limit provided is not within acceptable bounds.")
