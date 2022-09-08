@@ -6,6 +6,7 @@ from discord import Embed, Member
 from discord.ext import commands
 from discord.ext.commands import Cog, Greedy, cooldown, BucketType, CheckFailure, command, has_permissions, bot_has_permissions
 import json
+import time
 
 from libraries.miscLib import get_input
 
@@ -304,7 +305,7 @@ class admin(Cog):
         brief="clears all X last messages that don't have an image attatched"
     )
     @bot_has_permissions(manage_messages=True)
-    @has_permissions(manage_messages=True)
+    #@has_permissions(manage_messages=True)
     async def nonimagepurge(self, ctx, amount=0):
         if amount >= 100:
             amount = 99
@@ -318,15 +319,22 @@ class admin(Cog):
             messages = []
             async for message in channel.history():
                 if len(message.attachments) == 0 and len(message.embeds) == 0:
+                    # if the message is over 14 days old, don't
+                    if time.mktime(message.created_at.timetuple())+1209500 < int(time.time()):
+                        break
                     messages.append(message)
                     if len(messages) >= amount+1:
                         break
+            
+            purged = len(messages)
 
             await channel.delete_messages(messages)
             await ctx.send(
-                f"{amount} messages have been purged by {ctx.message.author.mention}",
+                f"{purged} messages have been purged by {ctx.message.author.mention}",
                 delete_after=10,
             )
+            if purged != amount+1:
+                await ctx.send("cannot delete messages that are more than 14 days old, sorry")
 
         else:
             await ctx.send("The limit provided is not within acceptable bounds.")
