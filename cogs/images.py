@@ -93,7 +93,7 @@ class images(commands.Cog):
         charset=string.ascii_letters + string.punctuation + string.digits + " ",
     ):
         font = ascii.get_font(font)
-        if resolution > 512 and ctx.author.id != 368423564229083137:
+        if resolution > 512 and ctx.author.id != 725539745572323409:
             await ctx.send("to prevent abuse, your resolution has been changed to 512")
             resolution = 512
         elif resolution > 2048:
