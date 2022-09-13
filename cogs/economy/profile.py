@@ -45,12 +45,12 @@ class ecoprofile(commands.Cog):
         )
         embed.add_field(
             name="Balance:",
-            value=f"<:beaverCoin:968588341291397151> {int(wallet_amount)}\n<:log:970325254461329438> {logs}",
+            value=f"<:beaverCoin:1019212566095986768> {int(wallet_amount)}\n<:log:1019212550782599220> {logs}",
             inline=False,
         )
         embed.add_field(
             name="Buildings:",
-            value=f"<:dam:975903060561887352> Dam: LV {current_damlevel}\n<:lodge:975903060608057404> Lodge: LV {current_lodgelevel}",
+            value=f"<:dam:1019212343760142387> Dam: LV {current_damlevel}\n<:lodge:1019212491143786527> Lodge: LV {current_lodgelevel}",
             inline=False,
         )
         embed.add_field(

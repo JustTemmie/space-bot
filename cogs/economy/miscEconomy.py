@@ -96,7 +96,7 @@ class ecoeconomy(commands.Cog):
             )
             embed.add_field(
                 name=f"Gambling :)))",
-                value=f"if you don't really care how much money you would like, you can gamble with commands such as {ctx.prefix}slots and you'll get some <:beaverCoin:968588341291397151> every now and again",
+                value=f"if you don't really care how much money you would like, you can gamble with commands such as {ctx.prefix}slots and you'll get some <:beaverCoin:1019212566095986768> every now and again",
                 inline=False,
             )
 
@@ -135,7 +135,7 @@ class ecoeconomy(commands.Cog):
         
         match category:
             case ("money" | "cash" | "coin"):
-                icon = "<:beaverCoin:968588341291397151>"
+                icon = "<:beaverCoin:1019212566095986768>"
                 title_ending = "richest people"
                 for user in users:
                     leaderboard.append([user, users[user]["wallet"]])
@@ -154,7 +154,7 @@ class ecoeconomy(commands.Cog):
                             married_to += 1
                     leaderboard.append([user, married_to]) 
             case ("logs" | "log"):
-                icon = "<:log:970325254461329438>"
+                icon = "<:log:1019212550782599220>"
                 title_ending = "richest users in terms of logs"
                 for user in users:
                     leaderboard.append([user, users[user]["inventory"]["logs"]])         

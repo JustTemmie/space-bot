@@ -78,14 +78,14 @@ class ecogeneration(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(bank, f)
 
-        await ctx.send(f"you got +{payout} <:beaverCoin:968588341291397151>!\n{streak}")
+        await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
         
         
         
     @commands.command(
         name="scavenge",
         aliases=["scav", "find", "loot"],
-        brief="go scavenge for some l ö g <:log:970325254461329438>",
+        brief="go scavenge for some l ö g <:log:1019212550782599220>",
     )
     @cooldown(1, 300, BucketType.user)
     async def scavenge_logs(self, ctx):
@@ -133,7 +133,7 @@ class ecogeneration(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(f"you scavenged for <:log:970325254461329438>, and you found {payout} of them!")
+        await ctx.send(f"you scavenged for <:log:1019212550782599220>, and you found {payout} of them!")
 
         
 async def setup(bot):

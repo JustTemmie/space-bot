@@ -25,7 +25,7 @@ class ecoowner(commands.Cog):
 
         auth = ctx.author.display_name
 
-        await ctx.send(await SL.removeat(f"{ctx.author.display_name} gave {amount} <:beaverCoin:968588341291397151> to {member.display_name}"))
+        await ctx.send(await SL.removeat(f"{ctx.author.display_name} gave {amount} <:beaverCoin:1019212566095986768> to {member.display_name}"))
 
 async def setup(bot):
     await bot.add_cog(ecoowner(bot))

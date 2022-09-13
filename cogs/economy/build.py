@@ -40,8 +40,8 @@ class ecobuild(commands.Cog):
             embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
             embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.display_avatar.url)
 
-            embed.add_field(name=f"<:dam:975903060561887352> `Beaver Dam`: LV {current_damlevel}", value=f"`{ctx.prefix}build dam`", inline=False)
-            embed.add_field(name=f"<:lodge:975903060608057404> `Beaver Lodge`: LV {current_lodgelevel}", value=f"`{ctx.prefix}build lodge`", inline=False)
+            embed.add_field(name=f"<:dam:1019212343760142387> `Beaver Dam`: LV {current_damlevel}", value=f"`{ctx.prefix}build dam`", inline=False)
+            embed.add_field(name=f"<:lodge:1019212491143786527> `Beaver Lodge`: LV {current_lodgelevel}", value=f"`{ctx.prefix}build lodge`", inline=False)
 
             await ctx.send(embed=embed)
             return
@@ -85,7 +85,7 @@ class ecobuild(commands.Cog):
             if spent >= next_level:
                 embed = discord.Embed(title=f"Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color)
                 if level != len(dam_levels)-1:
-                    embed.add_field(name="Logs needed for next level", value=f"╰ {dam_levels[level+1]} <:log:970325254461329438>", inline=False)
+                    embed.add_field(name="Logs needed for next level", value=f"╰ {dam_levels[level+1]} <:log:1019212550782599220>", inline=False)
                     
                 data[str(ctx.author.id)]["dam"]["level"] += 1
                 leftOverLogs = data[str(ctx.author.id)]["dam"]["spent"]["logs"] - next_level
@@ -110,7 +110,7 @@ class ecobuild(commands.Cog):
                 
 
             else:
-                embed = discord.Embed(title=f"<:dam:975903060561887352> Dam LV {level}", description=f"{bar} || {next_level_str} to LV {level+1}", color=ctx.author.color)
+                embed = discord.Embed(title=f"<:dam:1019212343760142387> Dam LV {level}", description=f"{bar} || {next_level_str} to LV {level+1}", color=ctx.author.color)
 
 
             #if bonus_string == "":
@@ -183,7 +183,7 @@ class ecobuild(commands.Cog):
             if spent >= next_level:
                 embed = discord.Embed(title=f"Lodge", description=f"You have upgraded your lodge to level {level+1}", color=ctx.author.color)
                 if level != len(lodge_levels)-1:
-                    embed.add_field(name="Logs needed for next level", value=f"╰ {lodge_levels[level+1]} <:log:970325254461329438>", inline=False)
+                    embed.add_field(name="Logs needed for next level", value=f"╰ {lodge_levels[level+1]} <:log:1019212550782599220>", inline=False)
                     
                 data[str(ctx.author.id)]["lodge"]["level"] += 1
                 leftOverLogs = data[str(ctx.author.id)]["lodge"]["spent"]["logs"] - next_level
@@ -207,7 +207,7 @@ class ecobuild(commands.Cog):
                 
 
             else:
-                embed = discord.Embed(title=f"<:lodge:975903060608057404> lodge LV {level}", description=f"{bar} || {next_level_str} to LV {level+1}", color=ctx.author.color)
+                embed = discord.Embed(title=f"<:lodge:1019212491143786527> lodge LV {level}", description=f"{bar} || {next_level_str} to LV {level+1}", color=ctx.author.color)
 
 
             #if bonus_string == "":

@@ -52,7 +52,7 @@ class ecoinv(commands.Cog):
         auth = ctx.author.display_name
 
         await ctx.send(
-            f"{await SL.removeat(auth)} gave {amount} <:beaverCoin:968588341291397151> to {await SL.removeat(member.display_name)}"
+            f"{await SL.removeat(auth)} gave {amount} <:beaverCoin:1019212566095986768> to {await SL.removeat(member.display_name)}"
         )
     
     
@@ -130,7 +130,7 @@ class ecoinv(commands.Cog):
         embed = discord.Embed(title=f"{user.display_name}'s balance", colour=user.colour)
         embed.add_field(
             name="wallet balance",
-            value=f"{wallet_amount} <:beaverCoin:968588341291397151>",
+            value=f"{wallet_amount} <:beaverCoin:1019212566095986768>",
         )
         await ctx.send(embed=embed)
         

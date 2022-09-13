@@ -40,7 +40,7 @@ class ecogambling(commands.Cog):
             amount = 100000
 
         if amount < 5:
-            await ctx.send("please bet at leaaaast 5 <:beaverCoin:968588341291397151>")
+            await ctx.send("please bet at leaaaast 5 <:beaverCoin:1019212566095986768>")
             return
 
         if amount > bal[0]:
@@ -56,20 +56,20 @@ class ecogambling(commands.Cog):
         bal = await update_bank_data(ctx.author)
         if amount > bal[0]:
             await msg.edit(
-                content=f"{msg.content} it... didn't land??!\n{ctx.author.display_name} won {amount} <:beaverCoin:968588341291397151>"
+                content=f"{msg.content} it... didn't land??!\n{ctx.author.display_name} won {amount} <:beaverCoin:1019212566095986768>"
             )
             return
 
         if result.lower() == side.lower():
             await update_bank_data(ctx.author, amount, "wallet")
             await msg.edit(
-                content=f"{msg.content} it landed on {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:968588341291397151>"
+                content=f"{msg.content} it landed on {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:1019212566095986768>"
             )
             return
 
         await update_bank_data(ctx.author, -amount, "wallet")
         await msg.edit(
-            content=f"{msg.content} it landed on  {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:968588341291397151>"
+            content=f"{msg.content} it landed on  {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:1019212566095986768>"
         )
 
     @commands.command(
@@ -109,7 +109,7 @@ class ecogambling(commands.Cog):
             return
 
         if amount < 3:
-            await ctx.send("please bet at leaaaast 3 <:beaverCoin:968588341291397151>")
+            await ctx.send("please bet at leaaaast 3 <:beaverCoin:1019212566095986768>")
             return
 
         final = []
@@ -174,7 +174,7 @@ class ecogambling(commands.Cog):
         ):
             await update_bank_data(ctx.author, 19 * amount, "wallet")
             await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {20*amount} <:beaverCoin:968588341291397151>"
+                f"{await SL.removeat(ctx.author.display_name)} won {20*amount} <:beaverCoin:1019212566095986768>"
             )
 
         elif (
@@ -184,7 +184,7 @@ class ecogambling(commands.Cog):
         ):
             await update_bank_data(ctx.author, 9 * amount, "wallet")
             await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {10*amount} <:beaverCoin:968588341291397151>"
+                f"{await SL.removeat(ctx.author.display_name)} won {10*amount} <:beaverCoin:1019212566095986768>"
             )
 
         elif (
@@ -194,7 +194,7 @@ class ecogambling(commands.Cog):
         ):
             await update_bank_data(ctx.author, 13 * amount, "wallet")
             await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {14*amount} <:beaverCoin:968588341291397151>"
+                f"{await SL.removeat(ctx.author.display_name)} won {14*amount} <:beaverCoin:1019212566095986768>"
             )
 
         elif (
@@ -204,7 +204,7 @@ class ecogambling(commands.Cog):
         ):
             await update_bank_data(ctx.author, 6 * amount, "wallet")
             await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {7*amount} <:beaverCoin:968588341291397151>"
+                f"{await SL.removeat(ctx.author.display_name)} won {7*amount} <:beaverCoin:1019212566095986768>"
             )
 
         elif (
@@ -214,7 +214,7 @@ class ecogambling(commands.Cog):
         ):
             await update_bank_data(ctx.author, 5 * amount, "wallet")
             await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {6*amount} <:beaverCoin:968588341291397151>"
+                f"{await SL.removeat(ctx.author.display_name)} won {6*amount} <:beaverCoin:1019212566095986768>"
             )
 
         elif (
@@ -224,19 +224,19 @@ class ecogambling(commands.Cog):
         ):
             await update_bank_data(ctx.author, 4 * amount, "wallet")
             await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {5*amount} <:beaverCoin:968588341291397151>"
+                f"{await SL.removeat(ctx.author.display_name)} won {5*amount} <:beaverCoin:1019212566095986768>"
             )
 
         elif final[0] == final[1] or final[0] == final[2] or final[1] == final[2]:
             await update_bank_data(ctx.author, 0.5 * amount, "wallet")
             await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {1.5*amount} <:beaverCoin:968588341291397151>"
+                f"{await SL.removeat(ctx.author.display_name)} won {1.5*amount} <:beaverCoin:1019212566095986768>"
             )
 
         else:
             await update_bank_data(ctx.author, -1 * amount, "wallet")
             await msg.reply(
-                f"<:sadcat:849342846582390834> - {await SL.removeat(ctx.author.display_name)} lost {amount} <:beaverCoin:968588341291397151>"
+                f"<:sadcat:849342846582390834> - {await SL.removeat(ctx.author.display_name)} lost {amount} <:beaverCoin:1019212566095986768>"
             )
 
 async def setup(bot):
