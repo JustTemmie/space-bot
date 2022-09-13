@@ -45,17 +45,17 @@ async def progress_bar(current, total, witdh = 20):
 async def get_ring_emoji(ring):
     ring = ring.lower()
     if ring == "common":
-            return "<:commoner_ring:970309052053733396>"
+            return "<:common_ring:1019212572832047185>"
     elif ring == "uncommon":
-            return "<:uncommon_ring:970309091249516555>"
+            return "<:uncommon_ring:1019212584647413801>"
     elif ring == "rare":
-            return "<:rare_ring:970309099134803978>"
+            return "<:rare_ring:1019212592713060352>"
     elif ring == "epic":
-            return "<:epic_ring:970309107489849435>"
+            return "<:epic_ring:1019212603131711498>"
     elif ring == "mythical":
-            return "<:mythical_ring:970309114955702372>"
+            return "<:mythical_ring:1019212609603510302>"
     elif ring == "legendary":
-            return "<:legendary_ring:1009857628651917373>"
+            return "<:legendary_ring:1019212617295876167>"
     else:
             return "none"
 

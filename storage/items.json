@@ -16,27 +16,27 @@
 
     "common": [
         "Common Ring",
-        "<:commoner_ring:970309052053733396>"
+        "<:common_ring:1019212572832047185>"
     ],
     "uncommon": [
         "Uncommon Ring",
-        "<:uncommon_ring:970309091249516555>"
+        "<:uncommon_ring:1019212584647413801>"
     ],
     "rare": [
         "Rare Ring",
-        "<:rare_ring:970309099134803978>"
+        "<:rare_ring:1019212592713060352>"
     ],
     "epic": [
         "Epic Ring",
-        "<:epic_ring:970309107489849435>"
+        "<:epic_ring:1019212603131711498>"
     ],
     "mythical": [
         "Mythical Ring",
-        "<:mythical_ring:970309114955702372>"
+        "<:mythical_ring:1019212609603510302>"
     ],
     "legendary": [
         "Legendary Ring",
-        "<:legendary_ring:1009857628651917373>"
+        "<:legendary_ring:1019212617295876167>"
     ],
     
     

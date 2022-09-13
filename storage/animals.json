@@ -1,6 +1,6 @@
 {
     "common": {
-        "icon": "<:commoner_ring:970309052053733396>",
+        "icon": "<:common_ring:1019212572832047185>",
         "aoran": "a",
         "name": "common",
         "animals": {
@@ -37,7 +37,7 @@
         }
     },
     "uncommon": {
-        "icon": "<:uncommon_ring:970309091249516555>",
+        "icon": "<:uncommon_ring:1019212584647413801>",
         "aoran": "an",
         "name": "uncommon",
         "animals": {
@@ -74,7 +74,7 @@
         }
     },
     "rare": {
-        "icon": "<:rare_ring:970309099134803978>",
+        "icon": "<:rare_ring:1019212592713060352>",
         "aoran": "a",
         "name": "rare",
         "animals": {
@@ -111,7 +111,7 @@
         }
     },
     "epic": {
-        "icon": "<:epic_ring:970309107489849435>",
+        "icon": "<:epic_ring:1019212603131711498>",
         "aoran": "an",
         "name": "epic",
         "animals": {
@@ -148,7 +148,7 @@
         }
     },
     "mythical": {
-        "icon": "<:mythical_ring:970309114955702372>",
+        "icon": "<:mythical_ring:1019212609603510302>",
         "aoran": "a",
         "name": "mythical",
         "animals": {
@@ -185,7 +185,7 @@
         }
     },
     "legendary": {
-        "icon": "<:legendary_ring:1009857628651917373>",
+        "icon": "<:legendary_ring:1019212617295876167>",
         "aoran": "a",
         "name": "legendary",
         "animals": {
