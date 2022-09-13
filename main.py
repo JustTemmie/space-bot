@@ -71,7 +71,7 @@ class Andromeda(commands.AutoShardedBot):
         await self.wait_until_ready()
         
         # if andromeda is the bot, sync the command tree (slash command stuff)
-        if bot.user.id == 765222621779853312:
+        if bot.user.id == 870019731527204875:
             await tree.sync()#guild = discord.Object(id = 628212961218920477))
 
             print("Slash commands successfully synced")
@@ -97,7 +97,7 @@ class Andromeda(commands.AutoShardedBot):
 
 
             # If the bot userid matches Andromeda's userid then connect to top.gg
-            if bot.user.id == 765222621779853312:
+            if bot.user.id == 870019731527204875:
                 bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)
 
             guild_count = 0
