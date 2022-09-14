@@ -18,6 +18,7 @@ confirmations = [
         "yep",
         "yup",
         "yea",
+        "ye",
         "y",
         "oui",
         "si",

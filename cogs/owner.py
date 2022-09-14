@@ -9,6 +9,7 @@ from yt_dlp import YoutubeDL
 import asyncio
 
 from libraries.RSmiscLib import str_replacer
+from libraries.economyLib import confirmations
 # this might be highlighted as a bug, but it's just a library written in rust lmao
 # it should be fine if you've ran the setup file
 
@@ -334,7 +335,6 @@ class Owner(commands.Cog):
         except asyncio.TimeoutError:
             return await ctx.send(f"**Timed out** cancelling")
 
-        confirmations = ["yes", "ye", "y"]
         if response.content not in confirmations:
             return await ctx.send("oh ok")
 
