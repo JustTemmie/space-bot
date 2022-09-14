@@ -20,7 +20,7 @@ class role_menu(commands.Cog):
                 return
         
         channel = payload.channel_id
-       
+
         
         with open(f"./storage/reactions/roles/{channel}.json") as react_file:
             data = json.load(react_file)

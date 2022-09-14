@@ -14,7 +14,8 @@ class ecoeconomy(commands.Cog):
         brief="vote for the bot and get some rewards",
     )
     async def vote_command(self, ctx):
-        await ctx.send("vote for the bot on top.gg to earn some rewards!\nhttps://top.gg/bot/765222621779853312/vote")
+        await ctx.send("voting is currently disabled, it will be back within the next ~1.5 - 2 months")
+        #await ctx.send("vote for the bot on top.gg to earn some rewards!\nhttps://top.gg/bot/765222621779853312/vote")
         
     
     @commands.command(
