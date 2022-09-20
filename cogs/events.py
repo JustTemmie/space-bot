@@ -52,7 +52,7 @@ class events(commands.Cog):
             # raise exc  # .original
 
             if isinstance(exc.original, Forbidden):
-                await ctx.send("I do not have the permission to do that.")
+                await ctx.send(f"I do not have the permission to do that\n{exc}")
 
             else:
                 await ctx.send(exc.original)
