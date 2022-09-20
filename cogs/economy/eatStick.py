@@ -69,6 +69,8 @@ class stickyummy(commands.Cog):
     @cooldown(1, 900, BucketType.user)
     @commands.guild_only()
     async def feedcommand(self, ctx, target: Member):
+        if target == ctx.author:
+            return await ctx.send("you can't feed yourself sadly, sorry about that")
         await open_account(self, ctx)
         
         userNotExist = await check_if_not_exist(ctx.author)
