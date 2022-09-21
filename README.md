@@ -13,11 +13,11 @@
 
 ## Invite
 
-<a href="https://discord.com/oauth2/authorize?client_id=765222621779853312&permissions=1541842332758&scope=bot%20applications.commands">
+<a href="https://discord.com/oauth2/authorize?client_id=870019731527204875&permissions=1541842332758&scope=bot%20applications.commands">
   Invite the bot!
 </a>
 <br/>
-Take a look at the <a href="https://top.gg/bot/765222621779853312">top.gg page</a>.
+//Take a look at the <a href="https://top.gg/bot/765222621779853312">top.gg page</a>.
 
 ##  Setup
 `NOTE: This is only for self hosting`
