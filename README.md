@@ -17,7 +17,7 @@
   Invite the bot!
 </a>
 <br/>
-//Take a look at the <a href="https://top.gg/bot/765222621779853312">top.gg page</a>.
+\\Take a look at the <a href="https://top.gg/bot/765222621779853312">top.gg page</a>.
 
 ##  Setup
 `NOTE: This is only for self hosting`
