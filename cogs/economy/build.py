@@ -228,8 +228,8 @@ class ecobuild(commands.Cog):
             lvl1 = f"╰ +2 skill points and a 20% chance to get a second animals from {ctx.prefix}hunt"
             lvl2 = f"╰ +2 skill points another 30% chance to get a second animal from {ctx.prefix}hunt"
             lvl3 = f"╰ +2 skill points guarantee a second animal from {ctx.prefix}hunt"
-            lvl4 = f"╰ +2 skill points and - 25000 logs"
-            lvl5 = f"╰ +5 skill points and +1 more skill point"
+            lvl4 = f"╰ +2 skill points and +1 brief sense of accomplishment"
+            lvl5 = f"╰ +5 skill points and +1 long lasting sense of accomplishment"
             
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
             embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
