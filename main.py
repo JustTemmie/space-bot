@@ -208,14 +208,6 @@ async def change_status_task():
     await bot.status_out.send(f'status changed to "{status}"')
 
 
-# async def setup(bot):
-#     print("Setting up...")
- 
-#     db.multiexec("INSERT OR IGNORE INTO guilds (GuildID) VALUES (?)",
-# 					 ((guild.id,) for guild in bot.guilds))
-
-#     db.commit()
-
 async def load_cogs(bot):
     print("Loading cogs...")
     # loads cogs
