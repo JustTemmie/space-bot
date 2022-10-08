@@ -97,6 +97,7 @@ class help(commands.Cog, name="Help command"):
 
         async def set_page_func(interaction):
             if interaction.user != ctx.author:
+                await interaction.response.defer()
                 return
 
             if set_page.values[0] == "Default Page":
