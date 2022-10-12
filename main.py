@@ -179,9 +179,16 @@ async def on_shard_ready(shard_id):
 
 @tasks.loop(hours=5, minutes=random.randint(0, 120))
 async def change_status_task():
-    # status = "changed the host, should be more stable now :)"
-    # Set the status to a random status from the statuses list
+    #Set the status to a random status from the statuses list
     status = random.choice(statuses)
+    
+    if "watching-" in status:
+        status = status.replace("watching-", "")
+        act = discord.ActivityType.watching
+    elif "playing-" in status:
+        status = status.replace("playing-", "")
+        act = discord.ActivityType.playing
+    
     # Check if the status is "advanced"
     if "extra-" in status:
         advanced_statuses = {
@@ -196,7 +203,7 @@ async def change_status_task():
 
     await bot.change_presence(
         status=discord.Status.idle,
-        activity=discord.Activity(type=discord.ActivityType.watching, name=(status)),
+        activity=discord.Activity(type=act, name=(status)),
     )
     await bot.status_out.send(f'status changed to "{status}"')
 
