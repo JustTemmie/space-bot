@@ -11,6 +11,8 @@ import os
 from time import time
 from math import floor
 
+cooldown_dictionary = {}
+
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 class events(commands.Cog):
@@ -40,6 +42,27 @@ class events(commands.Cog):
             )
 
         elif isinstance(exc, CommandOnCooldown):
+
+            
+            ####################
+            # this section makes it so the bot will only respond with "that command is on cooldown" a max of 3 times every 8 seconds for each user
+            if ctx.author.id not in cooldown_dictionary:
+                cooldown_dictionary[ctx.author.id] = {}
+                cooldown_dictionary[ctx.author.id][0] = time()
+                return
+            
+            for i in range(0, len(cooldown_dictionary[ctx.author.id])):
+                if cooldown_dictionary[ctx.author.id][i]+8 < time():
+                    cooldown_dictionary[ctx.author.id][i] = time()
+                    break
+                
+                if i == len(cooldown_dictionary[ctx.author.id])-1:
+                    cooldown_dictionary[ctx.author.id][i+1] = time()
+                
+                if i == 2:
+                    return
+            ####################
+            
             await ctx.send(
                 f"That command is on cooldown. Please try again in {exc.retry_after:,.2f} seconds.",
                 delete_after=(exc.retry_after*1.05 + 0.7),
