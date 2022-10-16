@@ -55,6 +55,7 @@ class shipcog(commands.Cog):
             await ctx.send(await SL.removeat(f"wow.. {person1.display_name} and {person2.display_name} seem to be perfect for eachother getting an incredible {result} / 100 on my test"))
         else:
             await ctx.send("uhm... this shouldn't be possible but you somehow broke the command, uhm... sorry lmao")
+
         random.seed()
         
 

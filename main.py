@@ -18,7 +18,7 @@ import topgg
 
 from dotenv import load_dotenv
 
-VERSION = "4.0.2"
+VERSION = "2242a"
 
 # Load dotenv file
 load_dotenv("keys.env")
