@@ -45,14 +45,13 @@ class events(commands.Cog):
 
             
             ####################
-            # this section makes it so the bot will only respond with "that command is on cooldown" a max of 3 times every 8 seconds for each user
+            # this section makes it so the bot will only respond with "that command is on cooldown" a max of 3 times every 10 seconds for each user
             if ctx.author.id not in cooldown_dictionary:
                 cooldown_dictionary[ctx.author.id] = {}
                 cooldown_dictionary[ctx.author.id][0] = time()
-                return
             
             for i in range(0, len(cooldown_dictionary[ctx.author.id])):
-                if cooldown_dictionary[ctx.author.id][i]+8 < time():
+                if cooldown_dictionary[ctx.author.id][i]+10 < time():
                     cooldown_dictionary[ctx.author.id][i] = time()
                     break
                 
