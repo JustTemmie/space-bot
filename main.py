@@ -18,8 +18,6 @@ import topgg
 
 from dotenv import load_dotenv
 
-VERSION = "2242a"
-
 # Load dotenv file
 load_dotenv("keys.env")
 TOKEN = os.getenv("DISCORD")#_STABLE")
@@ -44,6 +42,7 @@ DEFAULT_PREFIX = config["DEFAULT_PREFIX"]
 SHARDS = config["SHARDS"]
 OWNER_IDS = config["OWNER_IDS"]
 STATUS_OUT = config["STATUS_OUT"]
+VERSION = config["VERSION"]
 
 # Logging
 logging.basicConfig(
