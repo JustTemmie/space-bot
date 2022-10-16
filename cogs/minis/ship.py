@@ -45,10 +45,10 @@ class shipcog(commands.Cog):
         elif result <= 79:
             await ctx.send(await SL.removeat(f"{person1.display_name} and {person2.display_name} seem to have a great future ahead of them, with a score of {result} / 100"))
         elif result <= 89:
-            await ctx.send(random.choice(
+            await ctx.send(random.choice([
                 (await SL.removeat(f"the love between {person1.display_name} and {person2.display_name} burns as hot as the sun, scoring a {result} / 100")),
                 (await SL.removeat(f"the love of {person1.display_name} and {person2.display_name} is as strong as the love between a cat and a cardboard box, scoring a {result} / 100")),
-            ))
+            ]))
         elif result <= 99:
             await ctx.send(await SL.removeat(f"the bond between {person1.display_name} and {person2.display_name} seems so strong, i'm rating it a {result} / 100"))
         elif result == 100:
