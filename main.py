@@ -14,13 +14,14 @@ import discord
 from discord.ext import tasks, commands
 
 import topgg
-#import libraries.database as db 
+
+# import libraries.database as db
 
 from dotenv import load_dotenv
 
 # Load dotenv file
 load_dotenv("keys.env")
-TOKEN = os.getenv("DISCORD")#_STABLE")
+TOKEN = os.getenv("DISCORD")  # _STABLE")
 TOP_GG_TOKEN = os.getenv("TOP_GG_TOKEN")
 TOP_GG_PORT = os.getenv("TOP_GG_PORT")
 TOP_GG_ENCRYPTION_KEY = os.getenv("TOP_GG_ENCRYPTION_KEY")
@@ -60,31 +61,30 @@ logging.critical("critical")
 class Andromeda(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         self.scheduler = AsyncIOScheduler()
-        #db.autosave(self.scheduler)
-    
+        # db.autosave(self.scheduler)
+
     async def on_ready(self):
         print(f"Logged in as {self.user}")
-        
+
         await self.wait_until_ready()
-        
+
         # if andromeda is the bot, sync the command tree (slash command stuff)
         if bot.user.id == 870019731527204875:
             try:
                 await bot.get_guild(899655475912671253).leave()
             except:
                 pass
-            await tree.sync()#guild = discord.Object(id = 628212961218920477))
+            await tree.sync()  # guild = discord.Object(id = 628212961218920477))
 
             print("Slash commands successfully synced")
-        
 
         if not bot.ready:
-            
+
             # update all the accounts in the bank file whenever the bot turns on
             await update_accounts()
-            
+
             change_status_task.start()
 
             # Post new status to STATUS_OUT channel from config.json
@@ -94,21 +94,26 @@ class Andromeda(commands.AutoShardedBot):
                 # Send a message saying how long the bot was offline for
                 with open("storage/misc/time.json", "r") as f:
                     last_time = json.load(f)
-                await bot.get_channel(978695335570444435).send(f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**")
+                await bot.get_channel(978695335570444435).send(
+                    f"Bot back online!\n**I was offline for: {timedelta(seconds=((datetime.utcnow() - datetime(1970, 1, 1)).seconds)-int(last_time))}**"
+                )
             except:
                 print("i hope this is running on alpha")
 
-
             # If the bot userid matches Andromeda's userid then connect to top.gg
             if bot.user.id == 870019731527204875:
-                bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)
+                bot.topggobj = topgg.DBLClient(
+                    bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True
+                )
 
             guild_count = 0
             for guild in bot.guilds:
                 print(f"- {guild.id} (name: {guild.name})")
                 guild_count = guild_count + 1
 
-            print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
+            print(
+                f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)"
+            )
 
             bot.ready = True
 
@@ -125,7 +130,7 @@ def get_prefix(bot, message):
         # For each guild in prefixes.json
         for i in rawprefixes[str(message.guild.id)]:
             # Check if the prefix is not none
-            if rawprefixes[str(message.guild.id)][i.lower()] != 'none':
+            if rawprefixes[str(message.guild.id)][i.lower()] != "none":
                 # Append the prefix to the prefixes var
                 prefixes.append(rawprefixes[str(message.guild.id)][i])
 
@@ -137,10 +142,10 @@ def get_prefix(bot, message):
 
 
 bot = Andromeda(
-    shards = SHARDS,
-    command_prefix = (get_prefix),
-    owner_ids = OWNER_IDS,
-    intents = discord.Intents.all(),
+    shards=SHARDS,
+    command_prefix=(get_prefix),
+    owner_ids=OWNER_IDS,
+    intents=discord.Intents.all(),
 )
 
 tree = bot.tree
@@ -149,7 +154,8 @@ tree = bot.tree
 # async def ping(interaction: discord.Interaction):
 #     await interaction.response.send_message(f"Pong! slash commands have a latency of {round(bot.latency * 1000)}ms")
 
-@tree.command(name = "prefixes", description = "Tells you what the bot's prefixes are")
+
+@tree.command(name="prefixes", description="Tells you what the bot's prefixes are")
 async def ping(interaction: discord.Interaction):
     with open("storage/guild_data/prefixes.json", "r") as f:
         prefixes = json.load(f)
@@ -158,8 +164,9 @@ async def ping(interaction: discord.Interaction):
     for i in prefixes[str(interaction.guild.id)]:
         prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
 
-    await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
-
+    await interaction.response.send_message(
+        f"My prefixes in this server are:\n{prefixesstr}"
+    )
 
 
 # Remove default help command
@@ -168,11 +175,13 @@ bot.remove_command("help")
 bot.ready = False
 bot.version = VERSION
 
+
 @bot.event
 async def on_autopost_success():
     """Event for when stats are successfully updated on top.gg"""
-    print(f"Posted server count ({bot.topggobj.guild_count}), shard count ({bot.shard_count})")
-
+    print(
+        f"Posted server count ({bot.topggobj.guild_count}), shard count ({bot.shard_count})"
+    )
 
 
 @bot.event
@@ -182,16 +191,16 @@ async def on_shard_ready(shard_id):
 
 @tasks.loop(hours=5, minutes=random.randint(0, 120))
 async def change_status_task():
-    #Set the status to a random status from the statuses list
+    # Set the status to a random status from the statuses list
     status = random.choice(statuses)
-    
+
     if "watching-" in status:
         status = status.replace("watching-", "")
         act = discord.ActivityType.watching
     elif "playing-" in status:
         status = status.replace("playing-", "")
         act = discord.ActivityType.playing
-    
+
     # Check if the status is "advanced"
     if "extra-" in status:
         advanced_statuses = {
@@ -215,15 +224,20 @@ async def load_cogs(bot):
     print("Loading cogs...")
     # loads cogs
     for filename in glob.iglob("./cogs/**", recursive=True):
-        if filename.endswith('.py'):
-            filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
-            await bot.load_extension(f'{filename[:-3]}') # removes the ".py" from the end of the filename, to make it into cogs.economy
-    
+        if filename.endswith(".py"):
+            filename = filename[2:].replace(
+                "/", "."
+            )  # goes from "./cogs/economy.py" to "cogs.economy.py"
+            await bot.load_extension(
+                f"{filename[:-3]}"
+            )  # removes the ".py" from the end of the filename, to make it into cogs.economy
+
 
 async def main():
     async with bot:
-        #await setup(bot)
+        # await setup(bot)
         await load_cogs(bot)
         await bot.start(TOKEN)
+
 
 asyncio.run(main())

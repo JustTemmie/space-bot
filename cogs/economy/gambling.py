@@ -4,7 +4,7 @@ import asyncio
 
 
 from libraries.economyLib import *
-import libraries.standardLib as SL 
+import libraries.standardLib as SL
 
 
 class ecogambling(commands.Cog):
@@ -21,17 +21,19 @@ class ecogambling(commands.Cog):
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")
             return
-        
+
         await open_account(self, ctx)
-        
+
         userNotExist = await check_if_not_exist(ctx.author)
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-        
+            return await ctx.send(
+                "i could not find an inventory for that user, they need to create an account first"
+            )
+
         bal = await update_bank_data(ctx.author)
-        
+
         if amount == "all":
             amount = bal[0]
 
@@ -79,24 +81,26 @@ class ecogambling(commands.Cog):
     )
     @cooldown(1, 5, BucketType.user)
     async def slot_machine_command(self, ctx, amount=None):
-        
+
         ##########################################################################
         ########## THIS CODE IS TERRIBLE AND NO I'M NOT FIXING IT SORRY ##########
         ##########################################################################
         await open_account(self, ctx)
-        
+
         userNotExist = await check_if_not_exist(ctx.author)
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
+            return await ctx.send(
+                "i could not find an inventory for that user, they need to create an account first"
+            )
 
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")
             return
-    
+
         bal = await update_bank_data(ctx.author)
-    
+
         if amount == "all":
             amount = bal[0]
 
@@ -118,7 +122,9 @@ class ecogambling(commands.Cog):
         slot2 = "<a:slots:849627985857871912>"
         slot3 = "<a:slots:849627985857871912>"
 
-        msg = await ctx.send(str(final)[:-2] + (str(slot1)) + (str(slot2)) + (str(slot3)))
+        msg = await ctx.send(
+            str(final)[:-2] + (str(slot1)) + (str(slot2)) + (str(slot3))
+        )
         await asyncio.sleep(2)
 
         slot1 = random.choice(
@@ -238,6 +244,7 @@ class ecogambling(commands.Cog):
             await msg.reply(
                 f"<:sadcat:849342846582390834> - {await SL.removeat(ctx.author.display_name)} lost {amount} <:beaverCoin:1019212566095986768>"
             )
+
 
 async def setup(bot):
     await bot.add_cog(ecogambling(bot))
