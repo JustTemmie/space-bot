@@ -40,6 +40,7 @@ class github(commands.Cog):
         for message in split_strings:
             await ctx.send(f"```{message}```")
 
+        
         if var.decode("utf-8") != "Already up to date.\n":
             if restart.lower() == "true":
                 await ctx.send("Restarting...")
