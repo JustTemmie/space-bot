@@ -51,9 +51,7 @@ class Owner(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="nickname")
-    async def change_nickname_admin(
-        self, ctx, member: discord.Member, *, nickname=None
-    ):
+    async def change_nickname_admin(self, ctx, member: discord.Member, *, nickname=None):
         message = ctx.message
         await self.bot.http.delete_message(message.channel.id, message.id)
 
@@ -74,9 +72,7 @@ class Owner(commands.Cog):
                 await ctx.send(f"{e}", delete_after=5)
 
     @commands.is_owner()
-    @commands.command(
-        name="mepurge", brief="Clears messages equal to the amount specified "
-    )
+    @commands.command(name="mepurge", brief="Clears messages equal to the amount specified ")
     @bot_has_permissions(manage_messages=True)
     async def purge(self, ctx, amount=0, shut="shutupplz"):
         if amount == 0:
@@ -120,9 +116,7 @@ class Owner(commands.Cog):
             for filename in glob.iglob("./cogs/**", recursive=True):
                 if filename.endswith(".py"):  # and "owner" not in filename:
                     try:
-                        filename = filename[2:].replace(
-                            "/", "."
-                        )  # goes from "./cogs/economy.py" to "cogs.economy.py"
+                        filename = filename[2:].replace("/", ".")  # goes from "./cogs/economy.py" to "cogs.economy.py"
                         await self.bot.reload_extension(filename[:-3])
                         await self.bot.dispatch("load", filename[:-3])
                     except Exception as e:
@@ -187,9 +181,7 @@ class Owner(commands.Cog):
         try:
             await self.bot.change_presence(
                 status=discord.Status.idle,
-                activity=discord.Activity(
-                    type=discord.ActivityType.watching, name=f"{input}"
-                ),
+                activity=discord.Activity(type=discord.ActivityType.watching, name=f"{input}"),
             )
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
@@ -245,25 +237,15 @@ class Owner(commands.Cog):
         with open("./storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(
-            f"banned user `{user.display_name}` until <t:{time.time()+bannedFor:R}>"
-        )
+        await ctx.send(f"banned user `{user.display_name}` until <t:{time.time()+bannedFor:R}>")
 
     @commands.is_owner()
     @commands.command(name="pip")
     async def pipe(self, ctx, action, *, pip):
         if action == "install":
-            await ctx.send(
-                subprocess.check_call(
-                    [sys.executable, "-m", "pip", f"{action}", f"{pip}"]
-                )
-            )
+            await ctx.send(subprocess.check_call([sys.executable, "-m", "pip", f"{action}", f"{pip}"]))
         elif action == "uninstall":
-            await ctx.send(
-                subprocess.check_call(
-                    [sys.executable, "-m", "pip", f"{action}", "-y", f"{pip}"]
-                )
-            )
+            await ctx.send(subprocess.check_call([sys.executable, "-m", "pip", f"{action}", "-y", f"{pip}"]))
         else:
             await ctx.send("invalid action")
             return
@@ -339,9 +321,7 @@ class Owner(commands.Cog):
         commandArray = command.split(" ")
         await ctx.send(f"are you sure you want to run the command `{command}`?")
         try:
-            response = await self.bot.wait_for(
-                "message", check=lambda m: m.author == ctx.author, timeout=30
-            )
+            response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=30)
         except asyncio.TimeoutError:
             return await ctx.send(f"**Timed out** cancelling")
 
@@ -486,13 +466,9 @@ class Owner(commands.Cog):
 
         sendtime = round(time.time() + seconds)
         embed = discord.Embed(
-            title=reminder,
-            description=f"i will remind {user.display_name} in <t:{sendtime}:R>",
-            color=user.colour,
+            title=reminder, description=f"i will remind {user.display_name} in <t:{sendtime}:R>", color=user.colour
         )
-        embed.set_footer(
-            text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url
-        )
+        embed.set_footer(text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url)
 
         with open("storage/reminders.json", "r") as f:
             data = json.load(f)

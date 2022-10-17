@@ -24,11 +24,7 @@ class zooHunt(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(
-        name="hunt",
-        aliases=["hu"],
-        brief="go look for some animals, perhaps even add them to your zoo",
-    )
+    @commands.command(name="hunt", aliases=["hu"], brief="go look for some animals, perhaps even add them to your zoo")
     @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
         await ecoLib.open_account(self, ctx)
@@ -38,9 +34,7 @@ class zooHunt(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_captcha(self, ctx, 1.2):
             return

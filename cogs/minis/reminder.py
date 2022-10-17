@@ -69,14 +69,8 @@ class reminder(commands.Cog):
             return await ctx.send(f"please set a time less than 1 year")
 
         sendtime = round(time.time() + seconds)
-        embed = Embed(
-            title=reminder,
-            description=f"i will remind you <t:{sendtime}:R>",
-            color=ctx.author.colour,
-        )
-        embed.set_footer(
-            text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url
-        )
+        embed = Embed(title=reminder, description=f"i will remind you <t:{sendtime}:R>", color=ctx.author.colour)
+        embed.set_footer(text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url)
 
         with open("storage/reminders.json", "r") as f:
             data = json.load(f)

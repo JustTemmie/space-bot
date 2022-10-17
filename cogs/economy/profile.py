@@ -11,9 +11,7 @@ class ecoprofile(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(
-        name="profile", brief="tells you some basic info about the person specified"
-    )
+    @commands.command(name="profile", brief="tells you some basic info about the person specified")
     @cooldown(3, 10, BucketType.user)
     async def generateprofile(self, ctx, user: discord.Member = None):
 
@@ -25,9 +23,7 @@ class ecoprofile(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         await ctx.channel.typing()
 
@@ -38,9 +34,7 @@ class ecoprofile(commands.Cog):
         current_damlevel = bankdata[str(user.id)]["dam"]["level"]
         current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"]
 
-        embed = discord.Embed(
-            title=f"", colour=user.colour, timestamp=datetime.utcnow()
-        )
+        embed = discord.Embed(title=f"", colour=user.colour, timestamp=datetime.utcnow())
         embed.add_field(
             name=f"{user.display_name}",
             value=f"\"{bankdata[str(user.id)]['quote']}\"",
@@ -105,9 +99,7 @@ class ecoprofile(commands.Cog):
     @cooldown(5, 60, BucketType.user)
     async def set_quote(self, ctx, *, quote):
         if len(quote) > 128:
-            await ctx.send(
-                "your quote is too long, please shorten it to a max of 128 characters"
-            )
+            await ctx.send("your quote is too long, please shorten it to a max of 128 characters")
             return
 
         await open_account(self, ctx)
@@ -116,9 +108,7 @@ class ecoprofile(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         data = await get_bank_data()
         data[str(ctx.author.id)]["quote"] = quote

@@ -58,9 +58,7 @@ class qrcodegenerator(commands.Cog):
         try:
             qr.make(fit=True)
         except Exception as e:
-            return await ctx.send(
-                f"Error: {e}\nThe string is likely too long, sorry about that"
-            )
+            return await ctx.send(f"Error: {e}\nThe string is likely too long, sorry about that")
 
         img = qr.make_image(fill_color="black", back_color="white").convert("RGB")
 

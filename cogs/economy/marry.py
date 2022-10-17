@@ -14,8 +14,7 @@ class ecomarry(commands.Cog):
 
     # this code doesn't use any else statements btw 😎 i find it more clean :shrug:
     @commands.command(
-        name="marry",
-        brief="marry someone! even though, they're probably not even going to be your friend",
+        name="marry", brief="marry someone! even though, they're probably not even going to be your friend"
     )
     @cooldown(20, 600, BucketType.user)
     @commands.guild_only()
@@ -29,9 +28,7 @@ class ecomarry(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_if_not_exist(member):
             return await ctx.send(
@@ -41,9 +38,7 @@ class ecomarry(commands.Cog):
         data = await get_bank_data()
 
         if data[str(ctx.author.id)]["dam"]["level"] < 1:
-            return await ctx.send(
-                f"you need to have a dam to marry someone\nbuild one using {ctx.prefix}!build dam"
-            )
+            return await ctx.send(f"you need to have a dam to marry someone\nbuild one using {ctx.prefix}!build dam")
 
         if ring == None:
             return await ctx.send(
@@ -51,13 +46,8 @@ class ecomarry(commands.Cog):
             )
 
         try:
-            if (
-                data[str(ctx.author.id)]["marriage"][str(member.id)]["ring"]
-                == ring.lower()
-            ):
-                await ctx.send(
-                    f"you're already married to {await SL.removeat(member.display_name)} with a {ring} ring"
-                )
+            if data[str(ctx.author.id)]["marriage"][str(member.id)]["ring"] == ring.lower():
+                await ctx.send(f"you're already married to {await SL.removeat(member.display_name)} with a {ring} ring")
                 return
         except:
             pass
@@ -77,39 +67,25 @@ class ecomarry(commands.Cog):
 
         try:
             if ring_object <= 0:
-                await ctx.send(
-                    f"you do not have any rings {ring_emoji} to give {member.mention}"
-                )
+                await ctx.send(f"you do not have any rings {ring_emoji} to give {member.mention}")
                 return
         except:
-            await ctx.send(
-                f"you do not have any rings {ring_emoji} to give {member.mention}"
-            )
+            await ctx.send(f"you do not have any rings {ring_emoji} to give {member.mention}")
             return
 
         await ctx.send(
             f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring {ring_emoji} will disentegrate if you do"
         )
-        response = await self.bot.wait_for(
-            "message", check=lambda m: m.author == ctx.author, timeout=20
-        )
+        response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         if response.content.lower() not in confirmations:
-            await ctx.send(
-                f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall"
-            )
+            await ctx.send(f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall")
             return
 
         if not member.bot:
-            await ctx.send(
-                f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?"
-            )
-            member_response = await self.bot.wait_for(
-                "message", check=lambda m: m.author == member, timeout=20
-            )
+            await ctx.send(f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?")
+            member_response = await self.bot.wait_for("message", check=lambda m: m.author == member, timeout=20)
             if member_response.content.lower() not in confirmations:
-                await ctx.send(
-                    f"{member.mention} did not want to marry {ctx.author.mention}, what a shame"
-                )
+                await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
                 return
 
         await ctx.send(
@@ -139,9 +115,7 @@ class ecomarry(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-    @commands.command(
-        name="divorce", brief="divorce one of your current partners, you hoe"
-    )
+    @commands.command(name="divorce", brief="divorce one of your current partners, you hoe")
     @cooldown(15, 600, BucketType.user)
     @commands.guild_only()
     async def divorce_someone(self, ctx, member: discord.Member):
@@ -155,9 +129,7 @@ class ecomarry(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_if_not_exist(member):
             return await ctx.send(
@@ -169,22 +141,14 @@ class ecomarry(commands.Cog):
         try:
             data[str(ctx.author.id)]["marriage"][str(member.id)]["married"]
         except:
-            await ctx.send(
-                f"you're not married to {await SL.removeat(member.display_name)}"
-            )
+            await ctx.send(f"you're not married to {await SL.removeat(member.display_name)}")
             return
 
-        await ctx.send(
-            f"are you sure you want to divorce {member.mention}?\nyour ring will be disentegrated"
-        )
-        response = await self.bot.wait_for(
-            "message", check=lambda m: m.author == ctx.author, timeout=20
-        )
+        await ctx.send(f"are you sure you want to divorce {member.mention}?\nyour ring will be disentegrated")
+        response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
 
         if response.content.lower() not in confirmations:
-            await ctx.send(
-                f"thankfully, {ctx.author.mention} did not want to divorce {member.mention}"
-            )
+            await ctx.send(f"thankfully, {ctx.author.mention} did not want to divorce {member.mention}")
             return
 
         data[str(ctx.author.id)]["marriage"][str(member.id)] = {

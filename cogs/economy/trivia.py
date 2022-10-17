@@ -74,12 +74,7 @@ Beavers - ID = 25 (does not have difficulties)
 
             question = quiz_data[f"question{random.randrange(0, len(quiz_data))}"]
 
-            answers = [
-                question["correct"],
-                question["ans0"],
-                question["ans1"],
-                question["ans2"],
-            ]
+            answers = [question["correct"], question["ans0"], question["ans1"], question["ans2"]]
 
             random.shuffle(answers)
 
@@ -91,11 +86,7 @@ Beavers - ID = 25 (does not have difficulties)
                     correct_answer = answer
                     break
 
-            embed = discord.Embed(
-                title="Trivia",
-                description=f"**Beavers || ID: 25**",
-                color=ctx.author.color,
-            )
+            embed = discord.Embed(title="Trivia", description=f"**Beavers || ID: 25**", color=ctx.author.color)
             embed.add_field(name="Question", value=question["title"], inline=False)
             embed.add_field(
                 name="is it?",
@@ -112,18 +103,11 @@ d) {answers[3]}
 
             response = await get_input(self, ctx, 25)
 
-            if (
-                response.content.lower() == correct_answer.lower()
-                or response.content.lower() == correct_answer_ID
-            ):
-                await ctx.send(
-                    f"{ctx.author.mention} you are correct! it was {correct_answer_ID}, {correct_answer}"
-                )
+            if response.content.lower() == correct_answer.lower() or response.content.lower() == correct_answer_ID:
+                await ctx.send(f"{ctx.author.mention} you are correct! it was {correct_answer_ID}, {correct_answer}")
                 return
 
-            await ctx.send(
-                f"sorry, the answer was {correct_answer_ID}, {correct_answer}"
-            )
+            await ctx.send(f"sorry, the answer was {correct_answer_ID}, {correct_answer}")
             return
 
         # if category is not beaver, continue as normal
@@ -196,41 +180,12 @@ d) {answers[3]}
             "Entertainment: Japanese Anime & Manga",
             "Entertainment: Cartoon & Animations",
         ]
-        category_ids = [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24,
-        ]
+        category_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
         random_categories = ["random", "rand", "r", "any", "a", "all"]
 
         if category.lower() not in random_categories:
             for z, x, y in zip(human_readable_categories, categories, category_ids):
-                if (
-                    category.lower() == z.lower()
-                    or category.lower() == x.lower()
-                    or category.lower() == str(y)
-                ):
+                if category.lower() == z.lower() or category.lower() == x.lower() or category.lower() == str(y):
                     req_str += f"&category={y+8}"
                     break
 
@@ -247,17 +202,13 @@ d) {answers[3]}
                     "**Code 2: Invalid Parameter** Contains an invalid parameter. Arguements passed in aren't valid."
                 )
             if questions["response_code"] == 3:
-                return await ctx.send(
-                    "**Code 3: Token Not Found** Session Token does not exist."
-                )
+                return await ctx.send("**Code 3: Token Not Found** Session Token does not exist.")
             if questions["response_code"] == 4:
                 return await ctx.send(
                     "**Code 4: Token Empty** Session Token has returned all possible questions for the specified query. Resetting the Token is necessary."
                 )
 
-            return await ctx.send(
-                f"error code {questions['response_code']}, please try again later"
-            )
+            return await ctx.send(f"error code {questions['response_code']}, please try again later")
 
         questions = questions["results"][0]
         answers = [
@@ -284,17 +235,11 @@ d) {answers[3]}
                 break
 
         embed = discord.Embed(
-            title="Trivia",
-            description=f"**{reslult_category} || ID: {result_category_id}**",
-            color=ctx.author.color,
+            title="Trivia", description=f"**{reslult_category} || ID: {result_category_id}**", color=ctx.author.color
         )
         embed.set_footer(text=f"Difficulty: {questions['difficulty']}")
 
-        embed.add_field(
-            name="Question:",
-            value=f"{html.unescape(questions['question'])}",
-            inline=False,
-        )
+        embed.add_field(name="Question:", value=f"{html.unescape(questions['question'])}", inline=False)
         embed.add_field(
             name="is it?",
             value=f"""
@@ -310,18 +255,13 @@ d) {answers[3]}
 
         response = await get_input(self, ctx, 25)
 
-        if (
-            response.content.lower() == questions["correct_answer"].lower()
-            or response.content.lower() == correct
-        ):
+        if response.content.lower() == questions["correct_answer"].lower() or response.content.lower() == correct:
             await ctx.send(
                 f"{ctx.author.mention} you are correct! it was {correct}, {html.unescape(questions['correct_answer'])}"
             )
             return
 
-        await ctx.send(
-            f"sorry, the answer was {correct}, {html.unescape(questions['correct_answer'])}"
-        )
+        await ctx.send(f"sorry, the answer was {correct}, {html.unescape(questions['correct_answer'])}")
 
 
 async def setup(bot):

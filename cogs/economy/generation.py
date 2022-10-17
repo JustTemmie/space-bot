@@ -20,9 +20,7 @@ class ecogeneration(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         bank = await get_bank_data()
         daily_info = bank[str(ctx.author.id)]["daily"]
@@ -36,18 +34,14 @@ class ecogeneration(commands.Cog):
                 await ctx.send(
                     f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(ctx.author.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?"
                 )
-                response = await self.bot.wait_for(
-                    "message", check=lambda m: m.author == ctx.author, timeout=45
-                )
+                response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=45)
 
                 if response.content.lower() in confirmations:
                     streak += f"**you used a totem, you have a {daily_info['streak']} day streak!**"
                     bank[str(ctx.author.id)]["inventory"]["insurance"] -= 1
 
                 else:
-                    streak += (
-                        f"**you lost your streak of {daily_info['streak']} days :(**"
-                    )
+                    streak += f"**you lost your streak of {daily_info['streak']} days :(**"
                     daily_info["streak"] = 1
             else:
                 streak += f"**you lost your streak of {daily_info['streak']} days :(**"
@@ -57,10 +51,7 @@ class ecogeneration(commands.Cog):
             daily_info["streak"] += 1
             streak += f"**{daily_info['streak']} day streak!**"
 
-        payout = round(
-            random.uniform(60, 120)
-            + round(random.uniform(3.5, 6) * daily_info["streak"])
-        )
+        payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
         if payout >= 500:
             payout = 500
 
@@ -81,9 +72,7 @@ class ecogeneration(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(bank, f)
 
-        await ctx.send(
-            f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}"
-        )
+        await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
 
     @commands.command(
         name="scavenge",
@@ -98,9 +87,7 @@ class ecogeneration(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_captcha(self, ctx, 0.7):
             return
@@ -149,9 +136,7 @@ class ecogeneration(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(
-            f"you scavenged for <:log:1019212550782599220>, and you found {payout} of them!"
-        )
+        await ctx.send(f"you scavenged for <:log:1019212550782599220>, and you found {payout} of them!")
 
 
 async def setup(bot):

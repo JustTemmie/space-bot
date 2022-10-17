@@ -81,15 +81,9 @@ Description: `{settings[category][child]['description']}`
                 inline=False,
             )
             embed.add_field(
-                name="Possible values:",
-                value="\n".join(settings[category][setting]["values"]),
-                inline=False,
+                name="Possible values:", value="\n".join(settings[category][setting]["values"]), inline=False
             )
-            embed.add_field(
-                name="Description:",
-                value=f"`{settings[category][setting]['description']}`",
-                inline=False,
-            )
+            embed.add_field(name="Description:", value=f"`{settings[category][setting]['description']}`", inline=False)
             await ctx.send(embed=embed)
             return
 

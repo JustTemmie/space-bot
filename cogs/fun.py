@@ -3,12 +3,7 @@ from discord import Embed
 from discord.errors import HTTPException
 from discord.ext import commands
 
-from discord.ext.commands import (
-    cooldown,
-    BucketType,
-    MissingRequiredArgument,
-    MissingRequiredArgument,
-)
+from discord.ext.commands import cooldown, BucketType, MissingRequiredArgument, MissingRequiredArgument
 
 from typing import Optional, Union
 from aiohttp import request
@@ -56,9 +51,7 @@ class fun(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(
-        name="rick", aliases=["rickroll"], brief="never gonna give you up"
-    )
+    @commands.command(name="rick", aliases=["rickroll"], brief="never gonna give you up")
     @cooldown(5, 10, BucketType.guild)
     async def dancin_man_rick(self, ctx):
         await ctx.send("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
@@ -78,25 +71,18 @@ class fun(commands.Cog):
 
         if search_term is not None:
             r = requests.get(
-                "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
-                % (search_term, tenor_api_key, int(value))
+                "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, tenor_api_key, int(value))
             )
 
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
                 # random_gif = random.choice(top_x_gifs)
-                realoutput = top_x_gifs["results"][random.randrange(0, (int(value)))][
-                    "itemurl"
-                ]
+                realoutput = top_x_gifs["results"][random.randrange(0, (int(value)))]["itemurl"]
                 await ctx.send(realoutput)
             else:
-                await ctx.send(
-                    f"i couldn't seem to find anything related to `{search_term}`"
-                )
+                await ctx.send(f"i couldn't seem to find anything related to `{search_term}`")
 
-    @commands.command(
-        name="shitpost", aliases=["funnyhaha"], brief="sends a funny haha commit moment"
-    )
+    @commands.command(name="shitpost", aliases=["funnyhaha"], brief="sends a funny haha commit moment")
     @cooldown(5, 20, BucketType.guild)
     async def shitpost_video(self, ctx, *, funny=None):
         with open("storage/shitpost.json", "r") as f:
@@ -110,15 +96,11 @@ class fun(commands.Cog):
         brief="sends the profile picture of a specified user",
     )
     @cooldown(5, 10, BucketType.guild)
-    async def avatarCommand(
-        self, ctx, user: Optional[Union[discord.Member, discord.User]]
-    ):
+    async def avatarCommand(self, ctx, user: Optional[Union[discord.Member, discord.User]]):
         if not user:
             user = ctx.author
 
-        av_button = discord.ui.Button(
-            label="download", url=user.display_avatar.url, emoji="📩"
-        )
+        av_button = discord.ui.Button(label="download", url=user.display_avatar.url, emoji="📩")
         view = discord.ui.View()
         view.add_item(av_button)
 
@@ -166,9 +148,7 @@ class fun(commands.Cog):
         for ch in input:
             output += alien_to_human.get(ch.lower(), ch)
 
-        embed = discord.Embed(
-            title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour
-        )
+        embed = discord.Embed(title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour)
         embed.add_field(name="input", value=f"{input}", inline=False)
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
@@ -195,9 +175,7 @@ class fun(commands.Cog):
         for ch in input:
             output += human_to_alien.get(ch.lower(), ch)
 
-        embed = discord.Embed(
-            title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour
-        )
+        embed = discord.Embed(title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour)
         embed.add_field(name="input", value=f"{input}", inline=False)
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
@@ -217,9 +195,7 @@ class fun(commands.Cog):
                 output += "<?>"
             output += "  "
 
-        embed = discord.Embed(
-            title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour
-        )
+        embed = discord.Embed(title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour)
         embed.add_field(name="input", value=f"{input}", inline=False)
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
@@ -285,9 +261,7 @@ class fun(commands.Cog):
     @cooldown(3, 5, BucketType.guild)
     async def tell_joke(self, ctx):
         await ctx.channel.typing()
-        req = requests.get(
-            "https://icanhazdadjoke.com", headers={"Accept": "text/plain"}
-        )
+        req = requests.get("https://icanhazdadjoke.com", headers={"Accept": "text/plain"})
         content = req.content.decode("UTF-8")
 
         await ctx.send(content)
@@ -296,9 +270,7 @@ class fun(commands.Cog):
     @cooldown(2, 4, BucketType.guild)
     async def fact_command(self, ctx):
         await ctx.channel.typing()
-        text = requests.get(
-            "https://uselessfacts.jsph.pl/random.json?language=en"
-        ).json()["text"]
+        text = requests.get("https://uselessfacts.jsph.pl/random.json?language=en").json()["text"]
         await ctx.send(text)
 
     @commands.command(

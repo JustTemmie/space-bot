@@ -87,11 +87,7 @@ class admin(Cog):
         for i, prefix in enumerate(prefixes[str(ctx.guild.id)]):
             if prefix.lower() == "none":
                 prefix = prefix.lower()
-            embed.add_field(
-                name=f"prefix {i+1}",
-                value=f"`{prefixes[str(ctx.guild.id)][prefix]}`",
-                inline=False,
-            )
+            embed.add_field(name=f"prefix {i+1}", value=f"`{prefixes[str(ctx.guild.id)][prefix]}`", inline=False)
 
         await ctx.send(embed=embed)
 
@@ -114,9 +110,7 @@ class admin(Cog):
         else:
             for target in targets:
                 await target.kick(reason=reason)
-                embed = Embed(
-                    title="Member kicked", colour=0xDD2222, timestamp=datetime.utcnow()
-                )
+                embed = Embed(title="Member kicked", colour=0xDD2222, timestamp=datetime.utcnow())
 
                 fields = [
                     ("Member", f"{target.mention} a.k.a. {target.display_name}", False),
@@ -189,9 +183,7 @@ class admin(Cog):
             for target in targets:
                 await target.ban(reason=reason)
 
-                embed = Embed(
-                    title="Member banned", colour=0xDD2222, timestamp=datetime.utcnow()
-                )
+                embed = Embed(title="Member banned", colour=0xDD2222, timestamp=datetime.utcnow())
 
                 fields = [
                     ("Member", f"{target.mention} a.k.a. {target.display_name}", False),
@@ -236,9 +228,7 @@ class admin(Cog):
         max_roles = 20
         funnystr = ""
 
-        deled = await ctx.send(
-            "What should the name of the role menu/embed be?", delete_after=45
-        )
+        deled = await ctx.send("What should the name of the role menu/embed be?", delete_after=45)
         response = await get_input(self, ctx, 45)
         embed = discord.Embed(title=response.content, color=0x00FF00)
         msg = await ctx.send(embed=embed)
@@ -281,16 +271,13 @@ class admin(Cog):
             await response.delete()
             if response.content.lower() in ["none", "n", "no"]:
                 return await ctx.send(
-                    "Role menu creation completed, users can now react to the message to get roles",
-                    delete_after=20,
+                    "Role menu creation completed, users can now react to the message to get roles", delete_after=20
                 )
             try:
                 role = await ctx.guild.create_role(name=response.content)
                 roleid = role.id
             except discord.Forbidden as e:
-                return await ctx.send(
-                    f"sorry that name triggered an error, please run the command again\nError: {e}"
-                )
+                return await ctx.send(f"sorry that name triggered an error, please run the command again\nError: {e}")
 
             deled = await ctx.send(
                 "and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis",
@@ -306,9 +293,7 @@ class admin(Cog):
             try:
                 await msg.add_reaction(response.content)
             except Exception as e:
-                return await ctx.send(
-                    f"sorry that emoji triggered an error, please run the command again\nError: {e}"
-                )
+                return await ctx.send(f"sorry that emoji triggered an error, please run the command again\nError: {e}")
             try:
                 await msg.edit(embed=embed)
             except Exception as e:
@@ -316,17 +301,13 @@ class admin(Cog):
                     f"sorry there was an error editing the message, please run the command again\nError: {e}"
                 )
 
-            data.append(
-                {"role_id": roleid, "emoji": response.content, "message_id": msg.id}
-            )
+            data.append({"role_id": roleid, "emoji": response.content, "message_id": msg.id})
 
             with open(f"storage/reactions/roles/{ctx.channel.id}.json", "w") as f:
                 json.dump(data, f)
 
     @commands.command(
-        name="nonimagepurge",
-        aliases=["ipurge"],
-        brief="clears all X last messages that don't have an image attatched",
+        name="nonimagepurge", aliases=["ipurge"], brief="clears all X last messages that don't have an image attatched"
     )
     @bot_has_permissions(manage_messages=True)
     # @has_permissions(manage_messages=True)
@@ -344,9 +325,7 @@ class admin(Cog):
             async for message in channel.history():
                 if len(message.attachments) == 0 and len(message.embeds) == 0:
                     # if the message is over 14 days old, don't
-                    if time.mktime(message.created_at.timetuple()) + 1209500 < int(
-                        time.time()
-                    ):
+                    if time.mktime(message.created_at.timetuple()) + 1209500 < int(time.time()):
                         break
                     messages.append(message)
                     if len(messages) >= amount + 1:
@@ -360,10 +339,7 @@ class admin(Cog):
                 delete_after=10,
             )
             if purged != amount + 1:
-                await ctx.send(
-                    "cannot delete messages that are more than 14 days old, sorry",
-                    delete_after=10,
-                )
+                await ctx.send("cannot delete messages that are more than 14 days old, sorry", delete_after=10)
 
         else:
             await ctx.send("The limit provided is not within acceptable bounds.")

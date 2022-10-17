@@ -30,9 +30,7 @@ class ecostats(commands.Cog):
                     """,
                 inline=False,
             )
-            embed.set_footer(
-                text=f"use {ctx.prefix}stats <stat> <amount> to upgrade your stats"
-            )
+            embed.set_footer(text=f"use {ctx.prefix}stats <stat> <amount> to upgrade your stats")
             await ctx.send(embed=embed)
             return
 

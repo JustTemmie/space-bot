@@ -59,15 +59,7 @@ print(cur.fetchone())
 # WHERE UserID=368423564229083137;
 # """)
 
-entries = [
-    "WALLET",
-    "XP",
-    "SPOKE_DAY",
-    "SPOKEN_TODAY",
-    "SPEAK_COOLDOWN",
-    "SCAVENGE_COOLDOWN",
-    "QUOTE",
-]
+entries = ["WALLET", "XP", "SPOKE_DAY", "SPOKEN_TODAY", "SPEAK_COOLDOWN", "SCAVENGE_COOLDOWN", "QUOTE"]
 f = json.load(open("./storage/playerInfo/bank.json"))
 for entry in f:
     # cur.execute("INSERT INTO playerData VALUES (?,?,?,?,?,?,?,?)",

@@ -15,12 +15,7 @@ async def generate_user_capcha(user):
     for i in range(1, 10):
         sizes.append(random.randint(80, 140))
 
-    image = ImageCaptcha(
-        fonts=["./storage/fonts/captchaFont.ttf"],
-        font_sizes=sizes,
-        width=500,
-        height=300,
-    )
+    image = ImageCaptcha(fonts=["./storage/fonts/captchaFont.ttf"], font_sizes=sizes, width=500, height=300)
 
     possibleLetters = "ABCEFGHJKLMNOPRSTUVWXYZ"
 
@@ -112,9 +107,7 @@ async def check_captcha_valid(self, ctx, captchaStr, loop=1):
         return False
 
     try:
-        response = await self.bot.wait_for(
-            "message", check=lambda m: m.author == ctx.author, timeout=600
-        )
+        response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=600)
     except asyncio.TimeoutError:
         await ctx.send(f"**Timed out** You took too long to answer the captcha!")
 

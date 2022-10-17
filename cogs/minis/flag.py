@@ -25,19 +25,8 @@ PFP_BLUR = 40
 PFP_BORDER = 50
 
 SEPARATORS = {
-    "vertical": (
-        (PFP_SIZE / 2, 0),
-        (PFP_SIZE, 0),
-        (PFP_SIZE, PFP_SIZE),
-        (PFP_SIZE / 2),
-        PFP_SIZE,
-    ),
-    "horizontal": (
-        (0, PFP_SIZE / 2),
-        (PFP_SIZE, PFP_SIZE / 2),
-        (PFP_SIZE, PFP_SIZE),
-        (0, PFP_SIZE),
-    ),
+    "vertical": ((PFP_SIZE / 2, 0), (PFP_SIZE, 0), (PFP_SIZE, PFP_SIZE), (PFP_SIZE / 2), PFP_SIZE),
+    "horizontal": ((0, PFP_SIZE / 2), (PFP_SIZE, PFP_SIZE / 2), (PFP_SIZE, PFP_SIZE), (0, PFP_SIZE)),
     "diagonal /": ((PFP_SIZE, 0), (PFP_SIZE, PFP_SIZE), (0, PFP_SIZE)),
     "diagonal \\": ((0, 0), (PFP_SIZE, 0), (PFP_SIZE, PFP_SIZE)),
 }
@@ -70,25 +59,14 @@ class Images(commands.Cog):
         brief="do you want a slighly more pridey pfp?\nfor more info, please initiate the command without any parameters",
     )
     @cooldown(2, 5, BucketType.user)
-    async def pride(
-        self,
-        ctx,
-        flag=None,
-        seperator=None,
-        flag_2=None,
-        blur="false",
-        user: discord.Member = None,
-    ):
+    async def pride(self, ctx, flag=None, seperator=None, flag_2=None, blur="false", user: discord.Member = None):
 
         if flag != None and seperator == None:
             image = Image.open(f"images/flags/{flag.title()}.png")
             output = BytesIO()
             image.save(output, format="png")
             output.seek(0)
-            await ctx.send(
-                f"{flag.title()}.png",
-                file=discord.File(output, filename=f"{flag.title()}.png"),
-            )
+            await ctx.send(f"{flag.title()}.png", file=discord.File(output, filename=f"{flag.title()}.png"))
             return
 
         if user == None:
@@ -96,9 +74,7 @@ class Images(commands.Cog):
 
         if flag == None:
             embed = discord.Embed()
-            embed.title = (
-                f"{ctx.prefix}{ctx.command}" + " [flag] [divider] [flag_2] {blur}"
-            )
+            embed.title = f"{ctx.prefix}{ctx.command}" + " [flag] [divider] [flag_2] {blur}"
             embed.description = """
 Generate a pride flag pfp
 Possible values are `progress`, `gay`, `bi`, `lesbian`, `sapphic`, `mlm`, `pan`, `polyamorous`, `polysexual`, `trans`, `agender`, `enby`, `aro`, `ace`, `french`, `genderfluid`, `genderqueer`, `maverique`, `bigender`, `demigender`, `demiboy`, and `demigirl`
@@ -115,29 +91,21 @@ Divider can be `-`, `|`, `/`, and `\` - this has to be done even if you only wan
 
         if seperator != None:
             if flag_2 == None:
-                await ctx.send(
-                    "You need to specify a second flag in order to use a seperator"
-                )
+                await ctx.send("You need to specify a second flag in order to use a seperator")
                 return
 
             try:
                 seperator = SEPARATORSLIST[seperator]
             except:
-                await ctx.send(
-                    "That doesn't seem to be a valid seperator, please try again"
-                )
+                await ctx.send("That doesn't seem to be a valid seperator, please try again")
                 return
 
             if flag_2.title() not in FLAGS:
-                await ctx.send(
-                    "That second flag doesn't seem to be a valid flag, please try again"
-                )
+                await ctx.send("That second flag doesn't seem to be a valid flag, please try again")
                 return
 
         if flag.title() not in FLAGS:
-            await ctx.send(
-                "That first flag doesn't seem to be a valid flag, please try again"
-            )
+            await ctx.send("That first flag doesn't seem to be a valid flag, please try again")
             return
 
         if blur.lower() in ["true", "blur", "1"]:
@@ -184,11 +152,7 @@ Divider can be `-`, `|`, `/`, and `\` - this has to be done even if you only wan
         pfp = circle_crop(pfp)
 
         # Combine images
-        background.paste(
-            pfp,
-            (PFP_BORDER, PFP_BORDER, PFP_SIZE - PFP_BORDER, PFP_SIZE - PFP_BORDER),
-            pfp,
-        )
+        background.paste(pfp, (PFP_BORDER, PFP_BORDER, PFP_SIZE - PFP_BORDER, PFP_SIZE - PFP_BORDER), pfp)
 
         # Save the byte stream and send in chat
         output = BytesIO()

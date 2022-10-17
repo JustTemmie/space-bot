@@ -1,12 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 from discord.errors import Forbidden
-from discord.ext.commands import (
-    CommandNotFound,
-    BadArgument,
-    MissingRequiredArgument,
-    CommandOnCooldown,
-)
+from discord.ext.commands import CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown
 from datetime import datetime
 
 import logging
@@ -122,9 +117,7 @@ class events(commands.Cog):
         if self.bot.is_ready():
             for file in os.listdir("temp/hourlyLogs"):
                 if file != f"{floor(time() / 3600)}.txt":
-                    await self.bot.get_channel(978695336048623713).send(
-                        file=discord.File(f"temp/hourlyLogs/{file}")
-                    )
+                    await self.bot.get_channel(978695336048623713).send(file=discord.File(f"temp/hourlyLogs/{file}"))
                     os.remove(f"temp/hourlyLogs/{file}")
 
 

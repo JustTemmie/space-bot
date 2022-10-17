@@ -47,9 +47,7 @@ class hw(commands.Cog):
                 value=f"{uname.processor} at {int(cpufreq.max)}MHz",
                 inline=False,
             )
-            Embed.add_field(
-                name="Memory", value=f"{get_size(svmem.total)}", inline=False
-            )
+            Embed.add_field(name="Memory", value=f"{get_size(svmem.total)}", inline=False)
             Embed.add_field(
                 name="Disk",
                 value=f"{get_size(psutil.disk_usage('/').total)}",
@@ -68,81 +66,47 @@ class hw(commands.Cog):
                 value=psutil.cpu_count(logical=False),
                 inline=False,
             )
-            Embed.add_field(
-                name="Total cores:", value=psutil.cpu_count(logical=True), inline=False
-            )
+            Embed.add_field(name="Total cores:", value=psutil.cpu_count(logical=True), inline=False)
 
             cpufreq = psutil.cpu_freq()
-            Embed.add_field(
-                name="Max Frequency", value=f"{cpufreq.max:.2f}Mhz", inline=False
-            )
-            Embed.add_field(
-                name="Min Frequency", value=f"{cpufreq.min:.2f}Mhz", inline=False
-            )
+            Embed.add_field(name="Max Frequency", value=f"{cpufreq.max:.2f}Mhz", inline=False)
+            Embed.add_field(name="Min Frequency", value=f"{cpufreq.min:.2f}Mhz", inline=False)
             Embed.add_field(
                 name="Current Frequency",
                 value=f"{(cpufreq.current):.2f}Mhz",
                 inline=False,
             )
 
-            Embed.add_field(
-                name="Total CPU Usage", value=f"{psutil.cpu_percent()}%", inline=False
-            )
+            Embed.add_field(name="Total CPU Usage", value=f"{psutil.cpu_percent()}%", inline=False)
             for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
                 Embed.add_field(name=f"Core {i}", value=f"{percentage}%")
 
         elif page == 3:
             page_info = "**Memory info**"
             svmem = psutil.virtual_memory()
-            Embed.add_field(
-                name="Total", value=f"{get_size(svmem.total)}", inline=False
-            )
-            Embed.add_field(
-                name="Available", value=f"{get_size(svmem.available)}", inline=False
-            )
+            Embed.add_field(name="Total", value=f"{get_size(svmem.total)}", inline=False)
+            Embed.add_field(name="Available", value=f"{get_size(svmem.available)}", inline=False)
             Embed.add_field(name="Used", value=f"{get_size(svmem.used)}", inline=False)
             Embed.add_field(name="Percentage", value=f"{svmem.percent}%", inline=False)
             # get the swap memory details (if exists)
             swap = psutil.swap_memory()
-            Embed.add_field(
-                name="Total Swap", value=f"{get_size(swap.total)}", inline=False
-            )
-            Embed.add_field(
-                name="Free Swap", value=f"{get_size(swap.free)}", inline=False
-            )
-            Embed.add_field(
-                name="Used Swap", value=f"{get_size(swap.used)}", inline=False
-            )
-            Embed.add_field(
-                name="Used Swap Percentage", value=f"{swap.percent}%", inline=False
-            )
+            Embed.add_field(name="Total Swap", value=f"{get_size(swap.total)}", inline=False)
+            Embed.add_field(name="Free Swap", value=f"{get_size(swap.free)}", inline=False)
+            Embed.add_field(name="Used Swap", value=f"{get_size(swap.used)}", inline=False)
+            Embed.add_field(name="Used Swap Percentage", value=f"{swap.percent}%", inline=False)
 
         elif page == 4:
             page_info = "**Misc info**"
             Embed.add_field(name="version", value=f"{self.bot.version}", inline=False)
-            Embed.add_field(
-                name="Guilds", value=f"{len(self.bot.guilds)}", inline=False
-            )
+            Embed.add_field(name="Guilds", value=f"{len(self.bot.guilds)}", inline=False)
             Embed.add_field(name="Users", value=f"{len(self.bot.users)}", inline=False)
-            Embed.add_field(
-                name="Shards", value=f"{self.bot.shard_count}", inline=False
-            )
-            Embed.add_field(
-                name="Current Shard", value=f"{ctx.guild.shard_id+1}", inline=False
-            )
-            Embed.add_field(
-                name="Ping", value=f"{round(self.bot.latency * 1000)}ms", inline=False
-            )
-            Embed.add_field(
-                name="Python", value=f"{platform.python_version()}", inline=False
-            )
-            Embed.add_field(
-                name="Discord.py", value=f"{discord.__version__}", inline=False
-            )
+            Embed.add_field(name="Shards", value=f"{self.bot.shard_count}", inline=False)
+            Embed.add_field(name="Current Shard", value=f"{ctx.guild.shard_id+1}", inline=False)
+            Embed.add_field(name="Ping", value=f"{round(self.bot.latency * 1000)}ms", inline=False)
+            Embed.add_field(name="Python", value=f"{platform.python_version()}", inline=False)
+            Embed.add_field(name="Discord.py", value=f"{discord.__version__}", inline=False)
             Embed.add_field(name="Cogs", value=f"{len(self.bot.cogs)}", inline=False)
-            Embed.add_field(
-                name="Commands", value=f"{len(self.bot.commands)}", inline=False
-            )
+            Embed.add_field(name="Commands", value=f"{len(self.bot.commands)}", inline=False)
             Embed.add_field(name="Owner", value=f"Temmie#0001", inline=False)
             Embed.add_field(
                 name="Github",

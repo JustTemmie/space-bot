@@ -69,17 +69,13 @@ async def update_zoo(user):
                     data[str(user.id)]["animals"][i][x]["moves"][move] = {}
                     data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
                     data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
-                    data[str(user.id)]["animals"][i][x]["moves"][move][
-                        "coinsSpent"
-                    ] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
 
                 for move in activeMoves:
                     data[str(user.id)]["animals"][i][x]["moves"][move] = {}
                     data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
                     data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
-                    data[str(user.id)]["animals"][i][x]["moves"][move][
-                        "coinsSpent"
-                    ] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
 
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
@@ -103,9 +99,7 @@ async def update_zoo(user):
             data[str(user.id)]["animals"][i][x]["xp"] = 0
             data[str(user.id)]["animals"][i][x]["coins"] = 0
 
-        animals = {
-            "legendary": ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"]
-        }
+        animals = {"legendary": ["beaver", "wolf", "penguin", "dragon", "unicorn", "snowman"]}
 
         moves = ["move1", "move2", "move3", "move4", "move5", "move6"]
         activeMoves = ["activeMove1", "activeMove2", "activeMove3"]
@@ -120,17 +114,13 @@ async def update_zoo(user):
                     data[str(user.id)]["animals"][i][x]["moves"][move] = {}
                     data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
                     data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
-                    data[str(user.id)]["animals"][i][x]["moves"][move][
-                        "coinsSpent"
-                    ] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
 
                 for move in activeMoves:
                     data[str(user.id)]["animals"][i][x]["moves"][move] = {}
                     data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
                     data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
-                    data[str(user.id)]["animals"][i][x]["moves"][move][
-                        "coinsSpent"
-                    ] = "None"
+                    data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
 
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
@@ -157,9 +147,7 @@ async def open_zoo(self, ctx):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
     data[str(user.id)] = {}
 
@@ -208,17 +196,13 @@ async def open_zoo(self, ctx):
                 data[str(user.id)]["animals"][i][x]["moves"][move] = {}
                 data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
                 data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
-                data[str(user.id)]["animals"][i][x]["moves"][move][
-                    "coinsSpent"
-                ] = "None"
+                data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
 
             for move in activeMoves:
                 data[str(user.id)]["animals"][i][x]["moves"][move] = {}
                 data[str(user.id)]["animals"][i][x]["moves"][move]["name"] = "None"
                 data[str(user.id)]["animals"][i][x]["moves"][move]["id"] = "None"
-                data[str(user.id)]["animals"][i][x]["moves"][move][
-                    "coinsSpent"
-                ] = "None"
+                data[str(user.id)]["animals"][i][x]["moves"][move]["coinsSpent"] = "None"
 
     ####################################################
 

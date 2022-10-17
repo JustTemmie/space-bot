@@ -15,9 +15,7 @@ class ecoeconomy(commands.Cog):
         brief="vote for the bot and get some rewards",
     )
     async def vote_command(self, ctx):
-        await ctx.send(
-            "voting is currently disabled, it will be back within the next ~1.5 - 2 months"
-        )
+        await ctx.send("voting is currently disabled, it will be back within the next ~1.5 - 2 months")
         # await ctx.send("vote for the bot on top.gg to earn some rewards!\nhttps://top.gg/bot/765222621779853312/vote")
 
     @commands.command(
@@ -104,9 +102,7 @@ class ecoeconomy(commands.Cog):
             )
 
         else:
-            embed.add_field(
-                name=f"entity not found", value="try a different page", inline=False
-            )
+            embed.add_field(name=f"entity not found", value="try a different page", inline=False)
 
         embed.set_footer(text=f"page {page} of 3")
         await ctx.send(embed=embed)
@@ -146,9 +142,7 @@ class ecoeconomy(commands.Cog):
                 icon = "<:stick:1005255854892781709>"
                 title_ending = "hungriest users"
                 for user in users:
-                    leaderboard.append(
-                        [user, users[user]["statistics"]["total_sticks_eaten"]]
-                    )
+                    leaderboard.append([user, users[user]["statistics"]["total_sticks_eaten"]])
             case ("marriage" | "marriages" | "married"):
                 icon = "<:colourless_ring:1009857626919665664>"
                 title_ending = "biggest hoes"
@@ -164,9 +158,7 @@ class ecoeconomy(commands.Cog):
                 for user in users:
                     leaderboard.append([user, users[user]["inventory"]["logs"]])
             case _:
-                await ctx.send(
-                    f"sorry, {category} does not seem to be a valid category"
-                )
+                await ctx.send(f"sorry, {category} does not seem to be a valid category")
                 return
 
         leaderboard.sort(key=lambda x: x[1], reverse=True)

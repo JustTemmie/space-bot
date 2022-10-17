@@ -29,9 +29,7 @@ class ecobuild(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         data = await get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
@@ -40,14 +38,9 @@ class ecobuild(commands.Cog):
 
         if building == "None":
             embed = discord.Embed(
-                title="Buildings",
-                description="Please specify what you want to build/upgrade",
-                color=ctx.author.color,
+                title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color
             )
-            embed.set_footer(
-                text=f"{ctx.author.name}\nLogs:{logs}",
-                icon_url=ctx.author.display_avatar.url,
-            )
+            embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.display_avatar.url)
 
             embed.add_field(
                 name=f"<:dam:1019212343760142387> `Beaver Dam`: LV {current_damlevel}",
@@ -66,9 +59,7 @@ class ecobuild(commands.Cog):
         # amount = 0
 
         if amount == 0:
-            bonus_string = (
-                "\nPlease specify how many logs you want to use in order to upgrade it"
-            )
+            bonus_string = "\nPlease specify how many logs you want to use in order to upgrade it"
 
         # await ctx.send(f"no.")
 
@@ -104,9 +95,7 @@ class ecobuild(commands.Cog):
 
             if spent >= next_level:
                 embed = discord.Embed(
-                    title=f"Dam",
-                    description=f"You have upgraded your dam to level {level+1}",
-                    color=ctx.author.color,
+                    title=f"Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color
                 )
                 if level != len(dam_levels) - 1:
                     embed.add_field(
@@ -116,9 +105,7 @@ class ecobuild(commands.Cog):
                     )
 
                 data[str(ctx.author.id)]["dam"]["level"] += 1
-                leftOverLogs = (
-                    data[str(ctx.author.id)]["dam"]["spent"]["logs"] - next_level
-                )
+                leftOverLogs = data[str(ctx.author.id)]["dam"]["spent"]["logs"] - next_level
 
                 data[str(ctx.author.id)]["dam"]["spent"]["logs"] = 0
                 data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
@@ -169,32 +156,17 @@ class ecobuild(commands.Cog):
 
             lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marry command"
             lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
-            lvl3 = (
-                f"╰ +2 skill points and + *something secret* ;) (good luck finding it!)"
-            )
+            lvl3 = f"╰ +2 skill points and + *something secret* ;) (good luck finding it!)"
             lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
             lvl5 = f"╰ +5 skill points and another + 25% logs from {ctx.prefix}scavenge"
 
-            embed.add_field(
-                name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False
-            )
+            embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
+            embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
+            embed.add_field(name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False)
+            embed.add_field(name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False)
+            embed.add_field(name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False)
 
-            embed.set_footer(
-                text=f"{ctx.author.name}{bonus_string}",
-                icon_url=ctx.author.display_avatar.url,
-            )
+            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.display_avatar.url)
 
             await ctx.send(embed=embed)
             return
@@ -237,9 +209,7 @@ class ecobuild(commands.Cog):
                     )
 
                 data[str(ctx.author.id)]["lodge"]["level"] += 1
-                leftOverLogs = (
-                    data[str(ctx.author.id)]["lodge"]["spent"]["logs"] - next_level
-                )
+                leftOverLogs = data[str(ctx.author.id)]["lodge"]["spent"]["logs"] - next_level
 
                 data[str(ctx.author.id)]["lodge"]["spent"]["logs"] = 0
                 data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
@@ -290,26 +260,13 @@ class ecobuild(commands.Cog):
             lvl4 = f"╰ +2 skill points and +1 brief sense of accomplishment"
             lvl5 = f"╰ +5 skill points and +1 long lasting sense of accomplishment"
 
-            embed.add_field(
-                name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False
-            )
-            embed.add_field(
-                name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False
-            )
+            embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
+            embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
+            embed.add_field(name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False)
+            embed.add_field(name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False)
+            embed.add_field(name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False)
 
-            embed.set_footer(
-                text=f"{ctx.author.name}{bonus_string}",
-                icon_url=ctx.author.display_avatar.url,
-            )
+            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.display_avatar.url)
 
             await ctx.send(embed=embed)
             return

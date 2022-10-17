@@ -46,16 +46,11 @@ class weather(Cog):
     @cooldown(5, 60, BucketType.user)
     async def check_weather(self, ctx, *, input=None):
         if input == None:
-            if (
-                ctx.guild.id != 918787074801401868
-                and ctx.guild.id != 885113462378876948
-            ):
+            if ctx.guild.id != 918787074801401868 and ctx.guild.id != 885113462378876948:
                 return await ctx.send("Please specify a location.")
             input = "tromsø"
 
-        r = requests.get(
-            f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}"
-        )
+        r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
         request = json.loads(r.content)
         realoutput = request[0]
         lat = realoutput["lat"]
@@ -88,9 +83,7 @@ class weather(Cog):
                         inline=True,
                     )
                 else:
-                    embed.add_field(
-                        name=x[0].replace("_", " "), value=x[1], inline=False
-                    )
+                    embed.add_field(name=x[0].replace("_", " "), value=x[1], inline=False)
 
         await ctx.send(embed=embed)
 

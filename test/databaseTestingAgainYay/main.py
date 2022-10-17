@@ -42,9 +42,7 @@ class MyBot(commands.Bot):
         if not bot.ready:
             async with aiosqlite.connect("main.db") as db:
                 async with db.cursor() as cursor:
-                    await cursor.execute(
-                        "CREATE TABLE IF NOT EXISTS users (id INTEGER, guild INTEGER)"
-                    )
+                    await cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER, guild INTEGER)")
 
                 await db.commit()
 
@@ -63,9 +61,7 @@ async def adduser(ctx, member: discord.Member):
     member = ctx.author
     async with aiosqlite.connect("main.db") as db:
         async with db.cursor() as cursor:
-            await cursor.execute(
-                "SELECT id FROM users WHERE guild = ?", (ctx.guild.id,)
-            )
+            await cursor.execute("SELECT id FROM users WHERE guild = ?", (ctx.guild.id,))
             data = await cursor.fetchone()
             if data:
                 await cursor.execute(
@@ -90,9 +86,7 @@ async def adduser(ctx, member: discord.Member):
 async def removeuser(ctx, member: discord.Member):
     async with aiosqlite.connect("main.db") as db:
         async with db.cursor() as cursor:
-            await cursor.execute(
-                "SELECT id FROM users WHERE guild = ?", (ctx.guild.id,)
-            )
+            await cursor.execute("SELECT id FROM users WHERE guild = ?", (ctx.guild.id,))
             data = await cursor.fetchone()
             if data:
                 await cursor.execute(
@@ -116,9 +110,7 @@ async def load_cogs(bot):
     # loads cogs
     for filename in glob.iglob("./cogs/**", recursive=True):
         if filename.endswith(".py"):
-            filename = filename[2:].replace(
-                "/", "."
-            )  # goes from "./cogs/economy.py" to "cogs.economy.py"
+            filename = filename[2:].replace("/", ".")  # goes from "./cogs/economy.py" to "cogs.economy.py"
             await bot.load_extension(
                 f"{filename[:-3]}"
             )  # removes the ".py" from the end of the filename, to make it into cogs.economy

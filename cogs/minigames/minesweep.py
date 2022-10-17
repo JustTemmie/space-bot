@@ -117,9 +117,7 @@ class test(commands.Cog):
             || {field08} || || {field18} || || {field28} || || {field38} || || {field48} || || {field58} || || {field68} || || {field78} || || {field88} ||
             """
         m = discord.Embed(color=ctx.author.color, description=minesweeper)
-        m.set_author(
-            name="Minesweeper"
-        )  # , url=botsetup.website, icon_url=links.minesweeper)
+        m.set_author(name="Minesweeper")  # , url=botsetup.website, icon_url=links.minesweeper)
         # m.set_footer(text=wm.footer)
         await ctx.send(embed=m)
 

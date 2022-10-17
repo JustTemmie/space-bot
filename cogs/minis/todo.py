@@ -34,9 +34,7 @@ class todo(commands.Cog):
 
         if todo != None:
             if len(data[str(ctx.author.id)]) > 15:
-                await ctx.send(
-                    f"you have too many todos, please delete some using {ctx.prefix}delete todo <number>"
-                )
+                await ctx.send(f"you have too many todos, please delete some using {ctx.prefix}delete todo <number>")
                 return
             data[str(ctx.author.id)].append(todo)
 
@@ -51,11 +49,7 @@ class todo(commands.Cog):
         end = ""
         if ctx.author.display_name[-1:] != "s":
             end = "s"
-        embed = Embed(
-            title=f"{ctx.author.display_name}'{end} Todo List",
-            description="",
-            color=ctx.author.color,
-        )
+        embed = Embed(title=f"{ctx.author.display_name}'{end} Todo List", description="", color=ctx.author.color)
         embed.set_footer(text=f"use {ctx.prefix}delete todo <index> to delete a todo")
 
         for i, reminder in enumerate(data[str(ctx.author.id)]):

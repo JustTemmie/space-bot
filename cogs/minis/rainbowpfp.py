@@ -42,9 +42,7 @@ class rainbowPFP(commands.Cog):
 
     @commands.command(name="rainbowpfp", aliases=["rpfp"])
     @cooldown(1, 30, BucketType.default)
-    async def rainpfp(
-        self, ctx, user: discord.Member = None, opacity=0.5, FrameDuration=100
-    ):
+    async def rainpfp(self, ctx, user: discord.Member = None, opacity=0.5, FrameDuration=100):
         if user == None:
             user = ctx.author
 
@@ -64,15 +62,9 @@ class rainbowPFP(commands.Cog):
                 thestr = ""
                 for rgb in range(0, 3):
                     try:
-                        differnce = (
-                            coloursDict[colourStr[x + 1]][rgb]
-                            - coloursDict[colourStr[x]][rgb]
-                        )
+                        differnce = coloursDict[colourStr[x + 1]][rgb] - coloursDict[colourStr[x]][rgb]
                     except:
-                        differnce = (
-                            coloursDict[colourStr[0]][rgb]
-                            - coloursDict[colourStr[x]][rgb]
-                        )
+                        differnce = coloursDict[colourStr[0]][rgb] - coloursDict[colourStr[x]][rgb]
                     differnceStep = differnce / devision
 
                     if rgb == 0:

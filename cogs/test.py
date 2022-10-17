@@ -15,12 +15,8 @@ class testcog(commands.Cog):
         select = Select(
             placeholder="choose your favorite weather",
             options=[
-                discord.SelectOption(
-                    label="sunny", emoji="☀", description="it's sunny", default=True
-                ),
-                discord.SelectOption(
-                    label="rainy", emoji="☁", description="it's rainy"
-                ),
+                discord.SelectOption(label="sunny", emoji="☀", description="it's sunny", default=True),
+                discord.SelectOption(label="rainy", emoji="☁", description="it's rainy"),
             ],
         )
 

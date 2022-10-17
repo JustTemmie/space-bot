@@ -23,11 +23,7 @@ class shipcog(commands.Cog):
             await ctx.send("Please don't give me two of the same user")
             return
 
-        random.seed(
-            person1.id
-            + person2.id
-            + floor((datetime.utcnow() - datetime(1970, 1, 1)).days / 20)
-        )
+        random.seed(person1.id + person2.id + floor((datetime.utcnow() - datetime(1970, 1, 1)).days / 20))
         result = random.randint(0, 100)
         if result <= 9:
             await ctx.send(
@@ -113,9 +109,7 @@ class shipcog(commands.Cog):
                 )
             )
         else:
-            await ctx.send(
-                "uhm... this shouldn't be possible but you somehow broke the command, uhm... sorry lmao"
-            )
+            await ctx.send("uhm... this shouldn't be possible but you somehow broke the command, uhm... sorry lmao")
 
         random.seed()
 

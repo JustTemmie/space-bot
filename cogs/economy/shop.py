@@ -30,9 +30,7 @@ class ecoshop(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         shop = await ecoLib.get_shop_data()
 
@@ -43,18 +41,12 @@ class ecoshop(commands.Cog):
             if shop[i][2] == page:
                 desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
 
-        embed = discord.Embed(
-            title="🛍 The Market", description=f"{desc}", colour=ctx.author.colour
-        )
-        embed.set_footer(
-            text=f"Use {ctx.prefix}buy <item> to buy something\npage {page}/{pages}"
-        )
+        embed = discord.Embed(title="🛍 The Market", description=f"{desc}", colour=ctx.author.colour)
+        embed.set_footer(text=f"Use {ctx.prefix}buy <item> to buy something\npage {page}/{pages}")
 
         await ctx.send(embed=embed)
 
-    @commands.command(
-        name="buy", aliases=["transact"], brief="pay for something, wouldya?"
-    )
+    @commands.command(name="buy", aliases=["transact"], brief="pay for something, wouldya?")
     @cooldown(5, 15, BucketType.user)
     async def buy_command(self, ctx, item, amount: Optional[int] = 1):
         await ecoLib.open_account(self, ctx)
@@ -63,9 +55,7 @@ class ecoshop(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if amount <= 0:
             return await ctx.send("hey! i'm not buying your junk!")
@@ -119,9 +109,7 @@ class ecoshop(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()
@@ -152,33 +140,19 @@ class ecoshop(commands.Cog):
                     for nick in range(0, len(animal["name"])):
                         if input == animal["name"][nick]:
                             animalName = animal["name"][0]
-                            if (
-                                data[str(user.id)]["animals"][tier][animalName]["count"]
-                                == 0
-                            ):
+                            if data[str(user.id)]["animals"][tier][animalName]["count"] == 0:
                                 await ctx.send("you don't have that animal")
                                 return
                             if amount == "all":
-                                selling[tier] += data[str(user.id)]["animals"][tier][
-                                    animalName
-                                ]["count"]
-                                data[str(user.id)]["animals"][tier][animalName][
-                                    "count"
-                                ] = 0
+                                selling[tier] += data[str(user.id)]["animals"][tier][animalName]["count"]
+                                data[str(user.id)]["animals"][tier][animalName]["count"] = 0
 
                             else:
-                                if (
-                                    data[str(user.id)]["animals"][tier][animalName][
-                                        "count"
-                                    ]
-                                    < amount
-                                ):
+                                if data[str(user.id)]["animals"][tier][animalName]["count"] < amount:
                                     await ctx.send("you don't have that many animals")
                                     return
                                 selling[tier] += amount
-                                data[str(user.id)]["animals"][tier][animalName][
-                                    "count"
-                                ] -= amount
+                                data[str(user.id)]["animals"][tier][animalName]["count"] -= amount
 
                             icon = animal["icon"]
                             break
@@ -190,23 +164,17 @@ class ecoshop(commands.Cog):
         if animal == "all":
             for tier in zoo:
                 for i in zoo[tier]["animals"]:
-                    selling[tier] += data[str(user.id)]["animals"][tier][
-                        zoo[tier]["animals"][i]["name"][0]
-                    ]["count"]
-                    data[str(user.id)]["animals"][tier][
-                        zoo[tier]["animals"][i]["name"][0]
-                    ]["count"] = 0
+                    selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"]
+                    data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"] = 0
 
         if animal in tiers:
             for tier in zoo:
                 if tier == animal:
                     for i in zoo[tier]["animals"]:
-                        selling[tier] += data[str(user.id)]["animals"][tier][
-                            zoo[tier]["animals"][i]["name"][0]
-                        ]["count"]
-                        data[str(user.id)]["animals"][tier][
-                            zoo[tier]["animals"][i]["name"][0]
-                        ]["count"] = 0
+                        selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]][
+                            "count"
+                        ]
+                        data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"] = 0
                     break
 
         tier_prices = {

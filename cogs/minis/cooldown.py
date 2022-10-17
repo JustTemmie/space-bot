@@ -25,9 +25,7 @@ class showCooldowns(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find your inventory, you need to create an account first"
-            )
+            return await ctx.send("i could not find your inventory, you need to create an account first")
 
         data = await EL.get_bank_data()
 
@@ -63,9 +61,7 @@ class showCooldowns(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find your inventory, you need to create an account first"
-            )
+            return await ctx.send("i could not find your inventory, you need to create an account first")
 
         embed = Embed(title="Cooldowns", color=ctx.author.color)
 
@@ -101,11 +97,7 @@ class showCooldowns(commands.Cog):
     # https://stackoverflow.com/questions/45986035/seconds-until-end-of-day-in-python
     async def time_until_end_of_day(self):
         dt = datetime.utcnow()
-        return (
-            ((24 - dt.hour - 1) * 60 * 60)
-            + ((60 - dt.minute - 1) * 60)
-            + (60 - dt.second)
-        )
+        return ((24 - dt.hour - 1) * 60 * 60) + ((60 - dt.minute - 1) * 60) + (60 - dt.second)
 
     # # unused lmao
     # async def time_conversion(self, sec):

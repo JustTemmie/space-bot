@@ -36,13 +36,7 @@ ALLIGNMENT_BOTTOM = 4
 
 
 def text_box(
-    text,
-    image_draw,
-    font,
-    box,
-    horizontal_allignment=ALLIGNMENT_LEFT,
-    vertical_allignment=ALLIGNMENT_TOP,
-    **kwargs
+    text, image_draw, font, box, horizontal_allignment=ALLIGNMENT_LEFT, vertical_allignment=ALLIGNMENT_TOP, **kwargs
 ):
     x = box[0]
     y = box[1]
@@ -64,9 +58,7 @@ def text_box(
             true_lines.append(current_line)
 
     x_offset = y_offset = 0
-    lineheight = (
-        font.getsize(true_lines[0])[1] * 1.2
-    )  # Give a margin of 0.2x the font height
+    lineheight = font.getsize(true_lines[0])[1] * 1.2  # Give a margin of 0.2x the font height
     if vertical_allignment == ALLIGNMENT_CENTER:
         y = int(y + height / 2)
         y_offset = -(len(true_lines) * lineheight) / 2
@@ -80,9 +72,7 @@ def text_box(
             x_offset = (width - linewidth) / 2
         elif horizontal_allignment == ALLIGNMENT_RIGHT:
             x_offset = width - linewidth
-        image_draw.text(
-            (int(x + x_offset), int(y + y_offset)), line, font=font, **kwargs
-        )
+        image_draw.text((int(x + x_offset), int(y + y_offset)), line, font=font, **kwargs)
         y_offset += lineheight
 
 

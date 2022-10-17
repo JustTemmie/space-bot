@@ -109,9 +109,7 @@ async def update_accounts():
 
             ###############################################################################
 
-            users[str(user)]["spoke_day"] = (
-                datetime.utcnow() - datetime(1970, 1, 1)
-            ).days - 1
+            users[str(user)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
             users[str(user)]["spoken_today"] = 0
 
             users[str(user)]["dam"] = {}
@@ -225,9 +223,7 @@ async def open_account(self, ctx):
 
     ###############################################################################
 
-    users[str(user.id)]["spoke_day"] = (
-        datetime.utcnow() - datetime(1970, 1, 1)
-    ).days - 1
+    users[str(user.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
     users[str(user.id)]["spoken_today"] = 0
 
     ###############################################################################

@@ -25,16 +25,9 @@ class ecoevents(commands.Cog):
         loaded_time = data[str(ctx.author.id)]["speak_cooldown"]
 
         if loaded_time < time.time():
-            data[str(ctx.author.id)]["speak_cooldown"] = (
-                time.time() + 450 + random.randint(0, 150)
-            )
-            if (
-                data[str(ctx.author.id)]["spoke_day"]
-                != (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
-            ):
-                data[str(ctx.author.id)]["spoke_day"] = (
-                    datetime.utcnow() - datetime(1970, 1, 1)
-                ).days - 1
+            data[str(ctx.author.id)]["speak_cooldown"] = time.time() + 450 + random.randint(0, 150)
+            if data[str(ctx.author.id)]["spoke_day"] != (datetime.utcnow() - datetime(1970, 1, 1)).days - 1:
+                data[str(ctx.author.id)]["spoke_day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days - 1
                 data[str(ctx.author.id)]["spoken_today"] = 0
 
             if data[str(ctx.author.id)]["spoken_today"] >= 28:
@@ -67,9 +60,7 @@ class ecoevents(commands.Cog):
         loaded_time = data[str(user.id)]["speak_cooldown"]
 
         if loaded_time < time.time():
-            data[str(user.id)]["speak_cooldown"] = (
-                time.time() + 450 + random.randint(0, 150)
-            )
+            data[str(user.id)]["speak_cooldown"] = time.time() + 450 + random.randint(0, 150)
             with open("storage/playerInfo/bank.json", "w") as f:
                 json.dump(data, f)
 

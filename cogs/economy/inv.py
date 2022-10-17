@@ -24,9 +24,7 @@ class ecoinv(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_if_not_exist(member):
             return await ctx.send(
@@ -34,9 +32,7 @@ class ecoinv(commands.Cog):
             )
 
         if amount == None:
-            await ctx.send(
-                "pleeeease enter the amount you wish to give <:shy:848650912636600320>"
-            )
+            await ctx.send("pleeeease enter the amount you wish to give <:shy:848650912636600320>")
             return
 
         bal = await update_bank_data(ctx.author)
@@ -47,9 +43,7 @@ class ecoinv(commands.Cog):
             return
 
         if amount < 0:
-            await ctx.send(
-                "sorry, you sadly can't give anyone a negative amount of money <:smh:848652740250828821>"
-            )
+            await ctx.send("sorry, you sadly can't give anyone a negative amount of money <:smh:848652740250828821>")
             return
 
         await update_bank_data(ctx.author, -1 * amount)
@@ -79,9 +73,7 @@ class ecoinv(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         users = await get_bank_data()
         items = await get_items_data()
@@ -91,9 +83,7 @@ class ecoinv(commands.Cog):
         except:
             inv = []
 
-        embed = discord.Embed(
-            title=f"{user.display_name}'s Inventory", color=user.color
-        )
+        embed = discord.Embed(title=f"{user.display_name}'s Inventory", color=user.color)
 
         for item in inv:
             for i in items:
@@ -129,17 +119,13 @@ class ecoinv(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         users = await get_bank_data()
 
         wallet_amount = users[str(user.id)]["wallet"]
 
-        embed = discord.Embed(
-            title=f"{user.display_name}'s balance", colour=user.colour
-        )
+        embed = discord.Embed(title=f"{user.display_name}'s balance", colour=user.colour)
         embed.add_field(
             name="wallet balance",
             value=f"{wallet_amount} <:beaverCoin:1019212566095986768>",

@@ -26,18 +26,14 @@ class zooTeam(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()
 
         if command.lower() in ["add", "set"]:
             if input is None:
-                await ctx.send(
-                    "you need to specify an animal to add or replace an existing one"
-                )
+                await ctx.send("you need to specify an animal to add or replace an existing one")
                 return
 
             names = []
@@ -60,36 +56,23 @@ class zooTeam(commands.Cog):
                 return await ctx.send(f"{input} was not found")
 
             for i in range(1, 6):
-                if (
-                    data[str(user.id)]["team"]["members"][f"animal{i}"]["name"]
-                    == names[0]
-                ):
+                if data[str(user.id)]["team"]["members"][f"animal{i}"]["name"] == names[0]:
                     await ctx.send(f"{input} is already on your team")
                     return
 
             if position >= 1 and position <= 5:
-                data[str(user.id)]["team"]["members"][f"animal{position}"][
-                    "name"
-                ] = names[0]
-                data[str(user.id)]["team"]["members"][f"animal{position}"][
-                    "icon"
-                ] = icon
+                data[str(user.id)]["team"]["members"][f"animal{position}"]["name"] = names[0]
+                data[str(user.id)]["team"]["members"][f"animal{position}"]["icon"] = icon
 
                 with open("storage/playerInfo/animals.json", "w") as f:
                     json.dump(data, f)
 
             elif position == 0:
                 for i in range(1, 6):
-                    team_member = data[str(user.id)]["team"]["members"][f"animal{i}"][
-                        "name"
-                    ]
+                    team_member = data[str(user.id)]["team"]["members"][f"animal{i}"]["name"]
                     if team_member == "None":
-                        data[str(user.id)]["team"]["members"][f"animal{i}"][
-                            "name"
-                        ] = names[0]
-                        data[str(user.id)]["team"]["members"][f"animal{i}"][
-                            "icon"
-                        ] = icon
+                        data[str(user.id)]["team"]["members"][f"animal{i}"]["name"] = names[0]
+                        data[str(user.id)]["team"]["members"][f"animal{i}"]["icon"] = icon
 
                         with open("storage/playerInfo/animals.json", "w") as f:
                             json.dump(data, f)
@@ -97,9 +80,7 @@ class zooTeam(commands.Cog):
                         break
 
                     if i == 5:
-                        return await ctx.send(
-                            "Sorry, your team is full please specify a position to replace"
-                        )
+                        return await ctx.send("Sorry, your team is full please specify a position to replace")
 
             else:
                 await ctx.send("please specify a position to replace, between 1 and 5")
@@ -130,9 +111,7 @@ class zooTeam(commands.Cog):
             if name == "None":
                 embed.add_field(name=f"{i+1} benched", value=f"None", inline=True)
             else:
-                embed.add_field(
-                    name=f"{i+1} benched", value=f"{icon} {name}", inline=True
-                )
+                embed.add_field(name=f"{i+1} benched", value=f"{icon} {name}", inline=True)
 
         await ctx.send(embed=embed)
 

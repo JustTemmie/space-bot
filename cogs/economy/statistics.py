@@ -30,17 +30,13 @@ class ecostatistics(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         await ctx.channel.typing()
 
         bankdata = await get_bank_data()
 
-        embed = Embed(
-            title="Statistics", description="from jul 25th 2022", color=user.color
-        )
+        embed = Embed(title="Statistics", description="from jul 25th 2022", color=user.color)
         embed.set_thumbnail(url=user.display_avatar.url)
 
         embed.add_field(

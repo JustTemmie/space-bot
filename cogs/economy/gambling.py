@@ -28,9 +28,7 @@ class ecogambling(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         bal = await update_bank_data(ctx.author)
 
@@ -91,9 +89,7 @@ class ecogambling(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to waste")
@@ -122,9 +118,7 @@ class ecogambling(commands.Cog):
         slot2 = "<a:slots:849627985857871912>"
         slot3 = "<a:slots:849627985857871912>"
 
-        msg = await ctx.send(
-            str(final)[:-2] + (str(slot1)) + (str(slot2)) + (str(slot3))
-        )
+        msg = await ctx.send(str(final)[:-2] + (str(slot1)) + (str(slot2)) + (str(slot3)))
         await asyncio.sleep(2)
 
         slot1 = random.choice(

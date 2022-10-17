@@ -55,14 +55,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
     ytdl = youtube_dl.YoutubeDL(YTDL_OPTIONS)
 
-    def __init__(
-        self,
-        ctx: commands.Context,
-        source: discord.FFmpegPCMAudio,
-        *,
-        data: dict,
-        volume: float = 0.5,
-    ):
+    def __init__(self, ctx: commands.Context, source: discord.FFmpegPCMAudio, *, data: dict, volume: float = 0.5):
         super().__init__(source, volume)
 
         self.requester = ctx.author
@@ -89,14 +82,10 @@ class YTDLSource(discord.PCMVolumeTransformer):
         return "**{0.title}** by **{0.uploader}**".format(self)
 
     @classmethod
-    async def create_source(
-        cls, ctx: commands.Context, search: str, *, loop: asyncio.BaseEventLoop = None
-    ):
+    async def create_source(cls, ctx: commands.Context, search: str, *, loop: asyncio.BaseEventLoop = None):
         loop = loop or asyncio.get_event_loop()
 
-        partial = functools.partial(
-            cls.ytdl.extract_info, search, download=False, process=False
-        )
+        partial = functools.partial(cls.ytdl.extract_info, search, download=False, process=False)
         data = await loop.run_in_executor(None, partial)
 
         if data is None:
@@ -112,9 +101,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
                     break
 
             if process_info is None:
-                raise YTDLError(
-                    "Couldn't find anything that matches `{}`".format(search)
-                )
+                raise YTDLError("Couldn't find anything that matches `{}`".format(search))
 
         webpage_url = process_info["webpage_url"]
         partial = functools.partial(cls.ytdl.extract_info, webpage_url, download=False)
@@ -131,13 +118,9 @@ class YTDLSource(discord.PCMVolumeTransformer):
                 try:
                     info = processed_info["entries"].pop(0)
                 except IndexError:
-                    raise YTDLError(
-                        "Couldn't retrieve any matches for `{}`".format(webpage_url)
-                    )
+                    raise YTDLError("Couldn't retrieve any matches for `{}`".format(webpage_url))
 
-        return cls(
-            ctx, discord.FFmpegPCMAudio(info["url"], **cls.FFMPEG_OPTIONS), data=info
-        )
+        return cls(ctx, discord.FFmpegPCMAudio(info["url"], **cls.FFMPEG_OPTIONS), data=info)
 
     @staticmethod
     def parse_duration(duration: int):
@@ -173,17 +156,10 @@ class Song:
                 color=discord.Color.blurple(),
             )
             .add_field(name="Requested by", value=self.requester.mention)
-            .add_field(
-                name="Uploader",
-                value=f"[{self.source.uploader}]({self.source.uploader_url})",
-            )
+            .add_field(name="Uploader", value=f"[{self.source.uploader}]({self.source.uploader_url})")
             .add_field(name="URL", value=f"[Click]({self.source.url})")
             .add_field(name="Duration", value=self.source.duration)
-            .add_field(
-                name="Time left",
-                value=f"<t:{self.source.playing_until}:R>",
-                inline=True,
-            )
+            .add_field(name="Time left", value=f"<t:{self.source.playing_until}:R>", inline=True)
             .set_thumbnail(url=self.source.thumbnail)
         )
 
@@ -315,9 +291,7 @@ class Music(commands.Cog):
 
     def cog_check(self, ctx: commands.Context):
         if not ctx.guild:
-            raise commands.NoPrivateMessage(
-                "This command can't be used in DM channels."
-            )
+            raise commands.NoPrivateMessage("This command can't be used in DM channels.")
 
         return True
 
@@ -329,14 +303,10 @@ class Music(commands.Cog):
         aliases=["summon", "connect"],
         brief="Summons the bot to a voice channel, If no channel was specified, it joins your channel.",
     )
-    async def _join(
-        self, ctx: commands.Context, *, channel: discord.VoiceChannel = None
-    ):
+    async def _join(self, ctx: commands.Context, *, channel: discord.VoiceChannel = None):
 
         if not channel and not ctx.author.voice:
-            raise VoiceError(
-                "You are neither connected to a voice channel nor specified a channel to join."
-            )
+            raise VoiceError("You are neither connected to a voice channel nor specified a channel to join.")
 
         destination = channel or ctx.author.voice.channel
         if ctx.voice_state.voice:
@@ -346,11 +316,7 @@ class Music(commands.Cog):
         ctx.voice_state.voice = await destination.connect()
         await ctx.me.edit(deafen=True)
 
-    @commands.command(
-        name="leave",
-        aliases=["disconnect"],
-        brief="Clears the queue and leaves the voice channel",
-    )
+    @commands.command(name="leave", aliases=["disconnect"], brief="Clears the queue and leaves the voice channel")
     async def _leave(self, ctx: commands.Context):
 
         if not ctx.voice_state.voice:
@@ -371,11 +337,7 @@ class Music(commands.Cog):
         ctx.voice_state.volume = volume / 100
         await ctx.send("Volume of the player set to {}%".format(volume))
 
-    @commands.command(
-        name="now",
-        aliases=["current", "playing"],
-        brief="Displays the currently playing song",
-    )
+    @commands.command(name="now", aliases=["current", "playing"], brief="Displays the currently playing song")
     async def _now(self, ctx):
         try:
             await ctx.send(embed=ctx.voice_state.current.create_embed())
@@ -427,9 +389,7 @@ class Music(commands.Cog):
                 await ctx.message.add_reaction("⏭")
                 ctx.voice_state.skip()
             else:
-                await ctx.send(
-                    "Skip vote added, currently at **{}/3**".format(total_votes)
-                )
+                await ctx.send("Skip vote added, currently at **{}/3**".format(total_votes))
 
         else:
             await ctx.send("You have already voted to skip this song.")
@@ -452,13 +412,11 @@ class Music(commands.Cog):
 
         queue = ""
         for i, song in enumerate(ctx.voice_state.songs[start:end], start=start):
-            queue += "`{0}.` [**{1.source.title}**]({1.source.url})\n".format(
-                i + 1, song
-            )
+            queue += "`{0}.` [**{1.source.title}**]({1.source.url})\n".format(i + 1, song)
 
-        embed = discord.Embed(
-            description="**{} tracks:**\n\n{}".format(len(ctx.voice_state.songs), queue)
-        ).set_footer(text="Viewing page {}/{}".format(page, pages))
+        embed = discord.Embed(description="**{} tracks:**\n\n{}".format(len(ctx.voice_state.songs), queue)).set_footer(
+            text="Viewing page {}/{}".format(page, pages)
+        )
         await ctx.send(embed=embed)
 
     @commands.command(name="shuffle", brief="Shuffles the queue")
@@ -470,9 +428,7 @@ class Music(commands.Cog):
         ctx.voice_state.songs.shuffle()
         await ctx.message.add_reaction("✅")
 
-    @commands.command(
-        name="remove", brief="Removes a song from the queue at a given index."
-    )
+    @commands.command(name="remove", brief="Removes a song from the queue at a given index.")
     async def _remove(self, ctx: commands.Context, index: int):
 
         if len(ctx.voice_state.songs) == 0:
@@ -487,9 +443,7 @@ class Music(commands.Cog):
         description="Invoke this command again to unloop the song.",
     )
     async def _loop(self, ctx: commands.Context):
-        return await ctx.send(
-            "This command has been temporarily disabled due to an issue with the YouTube API."
-        )
+        return await ctx.send("This command has been temporarily disabled due to an issue with the YouTube API.")
 
         if not ctx.voice_state.is_playing:
             return await ctx.send("Nothing being played at the moment.")
@@ -519,15 +473,9 @@ https://rg3.github.io/youtube-dl/supportedsites.html""",
         async with ctx.typing():
             try:
                 try:
-                    source = await YTDLSource.create_source(
-                        ctx, search, loop=self.bot.loop
-                    )
+                    source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
                 except YTDLError as e:
-                    await ctx.send(
-                        "An error occurred while processing this request: {}".format(
-                            str(e)
-                        )
-                    )
+                    await ctx.send("An error occurred while processing this request: {}".format(str(e)))
             except:
                 return await ctx.send(
                     "Could not find anything related to your search.\nit is most likely because the video is age restricted"
@@ -548,9 +496,7 @@ https://rg3.github.io/youtube-dl/supportedsites.html""",
             if ctx.voice_client.channel != ctx.author.voice.channel:
                 raise commands.CommandError("Bot is already in a voice channel.")
 
-    @commands.command(
-        name="lyrics", aliases=["category", "Search"], brief="lyrics [song name]"
-    )
+    @commands.command(name="lyrics", aliases=["category", "Search"], brief="lyrics [song name]")
     async def _lyrics(self, ctx, *, song=None):
         if song is None:
             try:

@@ -26,14 +26,9 @@ class search(commands.Cog):
     @cooldown(5, 20, BucketType.user)
     async def urbandictionary(self, ctx, *, search):
         await ctx.typing()
-        req = requests.get(
-            "http://api.urbandictionary.com/v0/define?term="
-            + urllib.parse.quote(search)
-        )
+        req = requests.get("http://api.urbandictionary.com/v0/define?term=" + urllib.parse.quote(search))
         if req.status_code == 404:
-            await ctx.send(
-                "No urban dictionary entry found for " + (await SL.removeat(search))
-            )
+            await ctx.send("No urban dictionary entry found for " + (await SL.removeat(search)))
             return
 
         entry = 0
@@ -118,9 +113,7 @@ class search(commands.Cog):
 
         post = await self.check_nsfw(ctx, json)
         if not post:
-            return await ctx.send(
-                f"Could not find a post in {search} that wasn't NSFW", delete_after=(15)
-            )
+            return await ctx.send(f"Could not find a post in {search} that wasn't NSFW", delete_after=(15))
 
         title = post["data"]["title"]
         author = "u/" + post["data"]["author"]

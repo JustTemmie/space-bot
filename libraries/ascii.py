@@ -21,9 +21,7 @@ def get_font(font_name):
 
 
 def get_size(text, font, spacing=0):
-    return ImageDraw.Draw(Image.new("1", (0, 0))).multiline_textsize(
-        text, font=font, spacing=spacing
-    )
+    return ImageDraw.Draw(Image.new("1", (0, 0))).multiline_textsize(text, font=font, spacing=spacing)
 
 
 def make_mapping(charset, font, invert):
@@ -40,9 +38,7 @@ def make_mapping(charset, font, invert):
     mn, mx = min(float_mapping), max(float_mapping)
     mapping = []
     for n in range(256):
-        total = min(
-            float_mapping.items(), key=lambda x: abs(n / 255 - (x[0] - mn) / (mx - mn))
-        )
+        total = min(float_mapping.items(), key=lambda x: abs(n / 255 - (x[0] - mn) / (mx - mn)))
         mapping.append(((total[0] - mn) / (mx - mn), total[1]))
     return mapping, (x, y)
 
@@ -78,15 +74,11 @@ def to_image(text, font, invert, spacing):
     size = get_size(text, font, spacing)
     im = Image.new("L", size, color=255 if invert else 0)
     draw = ImageDraw.Draw(im)
-    draw.multiline_text(
-        (0, 0), text, font=font, fill=0 if invert else 255, spacing=spacing
-    )
+    draw.multiline_text((0, 0), text, font=font, fill=0 if invert else 255, spacing=spacing)
     return im
 
 
-def full_convert(
-    im, *, invert, font, spacing, charset, out_text, dither, in_scale, out_scale
-):
+def full_convert(im, *, invert, font, spacing, charset, out_text, dither, in_scale, out_scale):
     width, height = im.size
     scaled_im = im.resize((int(width * in_scale), int(height * in_scale)))
     mapping, (fx, fy) = make_mapping(charset, font, invert)
@@ -96,15 +88,11 @@ def full_convert(
     else:
         out_im = to_image(text, font, invert, spacing)
         out_width, out_height = out_im.size
-        return out_im.resize(
-            (int(out_width * out_scale), int(out_height * out_scale)), Image.BILINEAR
-        )
+        return out_im.resize((int(out_width * out_scale), int(out_height * out_scale)), Image.BILINEAR)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Convert an image or sequence of images to text."
-    )
+    parser = argparse.ArgumentParser(description="Convert an image or sequence of images to text.")
     parser.add_argument("input_file", help="Image to convert to ASCII.")
     parser.add_argument("output_file", help="File to save the result to.")
     parser.add_argument(

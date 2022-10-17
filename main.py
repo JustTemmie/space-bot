@@ -102,18 +102,14 @@ class Andromeda(commands.AutoShardedBot):
 
             # If the bot userid matches Andromeda's userid then connect to top.gg
             if bot.user.id == 870019731527204875:
-                bot.topggobj = topgg.DBLClient(
-                    bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True
-                )
+                bot.topggobj = topgg.DBLClient(bot, TOP_GG_TOKEN, autopost=True, post_shard_count=True)
 
             guild_count = 0
             for guild in bot.guilds:
                 print(f"- {guild.id} (name: {guild.name})")
                 guild_count = guild_count + 1
 
-            print(
-                f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)"
-            )
+            print(f"{bot.user} is in {guild_count} guild(s).\nwith {bot.shard_count} shard(s)")
 
             bot.ready = True
 
@@ -164,9 +160,7 @@ async def ping(interaction: discord.Interaction):
     for i in prefixes[str(interaction.guild.id)]:
         prefixesstr += f"{i}: {prefixes[str(interaction.guild.id)][i]}\n"
 
-    await interaction.response.send_message(
-        f"My prefixes in this server are:\n{prefixesstr}"
-    )
+    await interaction.response.send_message(f"My prefixes in this server are:\n{prefixesstr}")
 
 
 # Remove default help command
@@ -179,9 +173,7 @@ bot.version = VERSION
 @bot.event
 async def on_autopost_success():
     """Event for when stats are successfully updated on top.gg"""
-    print(
-        f"Posted server count ({bot.topggobj.guild_count}), shard count ({bot.shard_count})"
-    )
+    print(f"Posted server count ({bot.topggobj.guild_count}), shard count ({bot.shard_count})")
 
 
 @bot.event
@@ -225,9 +217,7 @@ async def load_cogs(bot):
     # loads cogs
     for filename in glob.iglob("./cogs/**", recursive=True):
         if filename.endswith(".py"):
-            filename = filename[2:].replace(
-                "/", "."
-            )  # goes from "./cogs/economy.py" to "cogs.economy.py"
+            filename = filename[2:].replace("/", ".")  # goes from "./cogs/economy.py" to "cogs.economy.py"
             await bot.load_extension(
                 f"{filename[:-3]}"
             )  # removes the ".py" from the end of the filename, to make it into cogs.economy

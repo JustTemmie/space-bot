@@ -134,9 +134,7 @@ class images(commands.Cog):
         )
 
         if out_text:
-            await ctx.send(
-                file=discord.File(io.BytesIO(result.encode()), filename + ".txt")
-            )
+            await ctx.send(file=discord.File(io.BytesIO(result.encode()), filename + ".txt"))
         else:
             out_image = io.BytesIO()
             result.save(out_image, format="png")

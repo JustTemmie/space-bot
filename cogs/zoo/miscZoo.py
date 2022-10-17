@@ -23,9 +23,7 @@ class zooMisc(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         with open("storage/animals.json", "r") as f:
             zoo = json.load(f)
@@ -35,9 +33,7 @@ class zooMisc(commands.Cog):
         end = "s"
         if user.display_name[-1:] == "s":
             end = ""
-        message_str = (
-            f"||\n||                  🌲  **{user.display_name}'{end} zoo:**  🌲\n\n"
-        )
+        message_str = f"||\n||                  🌲  **{user.display_name}'{end} zoo:**  🌲\n\n"
 
         animalsInTiers = {
             "common": [],
@@ -74,9 +70,7 @@ class zooMisc(commands.Cog):
 
         for tier in animalsInTiers:
             if len(animalsInTiers[tier]) != 0:
-                message_str += (
-                    f"{zoo[tier]['icon']}    {' '.join(animalsInTiers[tier])}\n"
-                )
+                message_str += f"{zoo[tier]['icon']}    {' '.join(animalsInTiers[tier])}\n"
 
         print(zoo)
         message_str += "\n"
@@ -105,9 +99,7 @@ class zooMisc(commands.Cog):
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send(
-                "i could not find an inventory for that user, they need to create an account first"
-            )
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()

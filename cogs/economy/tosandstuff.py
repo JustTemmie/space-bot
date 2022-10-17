@@ -10,9 +10,7 @@ class rulesandstuff(commands.Cog):
     @commands.command(name="rules", aliases=["service", "tos"])
     @cooldown(4, 20, BucketType.user)
     async def show_rules_command(self, ctx):
-        embed = Embed(
-            title=f"{(self.bot.user.name).title()}'s rules", color=ctx.author.color
-        )
+        embed = Embed(title=f"{(self.bot.user.name).title()}'s rules", color=ctx.author.color)
 
         embed.add_field(
             name="Below are links to Andromeda's TOS, privacy policy, and rules",
