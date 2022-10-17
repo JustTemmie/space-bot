@@ -13,7 +13,6 @@ import imdb
 
 import libraries.standardLib as SL
 
-
 class search(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -24,28 +23,26 @@ class search(commands.Cog):
         brief="search up something using urban dictionary",
     )
     @cooldown(5, 20, BucketType.user)
-    async def urbandictionary(self, ctx, *, search):
+    async def urbandictionary(self, ctx, *, search):        
         await ctx.typing()
         req = requests.get(
-            "http://api.urbandictionary.com/v0/define?term="
-            + urllib.parse.quote(search)
+            "http://api.urbandictionary.com/v0/define?term=" + urllib.parse.quote(search)
         )
         if req.status_code == 404:
-            await ctx.send(
-                "No urban dictionary entry found for " + (await SL.removeat(search))
-            )
+            await ctx.send("No urban dictionary entry found for " + (await SL.removeat(search)))
             return
 
         entry = 0
         embed = discord.Embed(
             title=search.title(),
             description=req.json()["list"][entry]["definition"],
-            colour=ctx.author.colour,
+            colour=ctx.author.colour,            
         )
-        # embed.set_footer(text=f"page {entry+1} of {len(req.json()['list'])}")
+        #embed.set_footer(text=f"page {entry+1} of {len(req.json()['list'])}")
         embed.add_field(name="Example", value=req.json()["list"][entry]["example"])
         msg = await ctx.send(embed=embed)
-
+        
+    
     @commands.command(
         name="imdb",
         brief="search up a movie using imdb",
@@ -68,34 +65,39 @@ class search(commands.Cog):
                 "Plot": movieObj["plot"][0],
                 "Genres": ", ".join(movieObj["genres"]),
                 "Rating": rateStr,
-                "Cast": ", ".join([str(x) for x in movieObj["cast"]][:5]),
+                "Cast" : ", ".join([str(x) for x in movieObj["cast"]][:5]),
                 "Writer": ", ".join([str(x) for x in movieObj["writer"]]),
-                "Year": movieObj["year"],
+                "Year" : movieObj["year"]
             }
 
-            embed = Embed(title=movieObj["title"], color=ctx.author.colour)
+            embed = Embed(
+                title=movieObj["title"],
+                color=ctx.author.colour
+            )
 
             for i in dict:
                 embed.add_field(name=i, value=dict[i], inline=False)
-
+  
             await ctx.send(embed=embed)
         except Exception as e:
             print(e)
             await ctx.send(f"Error: {e}")
+            
+        
 
-    async def check_nsfw(self, ctx, json, loops=0):
+    async def check_nsfw(self, ctx, json, loops = 0):
         if loops > 5:
             return False
-
+        
         req_len = len(json["data"]["children"])
         rand = random.randrange(0, req_len)
         post = json["data"]["children"][rand]
-
+        
         if post["data"]["over_18"] and not ctx.channel.is_nsfw():
             return await self.check_nsfw(ctx, json, loops + 1)
-
+        
         return post
-
+    
     @commands.command(
         name="reddit",
         aliases=["red", "r/", "rslash", "r"],
@@ -106,7 +108,7 @@ class search(commands.Cog):
         await ctx.channel.typing()
         if search == "tra" or search == "traa":
             search = "traaaaaaannnnnnnnnns"
-
+        
         req = requests.get(
             "http://reddit.com/r/" + search + "/hot/.json?limit=50",
             headers={"User-agent": "Chrome"},
@@ -115,12 +117,11 @@ class search(commands.Cog):
         if "error" in json or json["data"]["after"] is None:
             await ctx.send('Subreddit "{}" not found'.format(search), delete_after=(15))
             return
-
+        
         post = await self.check_nsfw(ctx, json)
         if not post:
-            return await ctx.send(
-                f"Could not find a post in {search} that wasn't NSFW", delete_after=(15)
-            )
+            return await ctx.send(f"Could not find a post in {search} that wasn't NSFW", delete_after=(15))
+        
 
         title = post["data"]["title"]
         author = "u/" + post["data"]["author"]
@@ -177,7 +178,7 @@ class search(commands.Cog):
     )
     @cooldown(3, 10, BucketType.guild)
     async def wikipedia_search(self, ctx, *, search):
-
+                                  
         await ctx.channel.typing()
         search = wikipedia.search(search)
 
