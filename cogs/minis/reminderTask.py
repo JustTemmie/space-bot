@@ -7,7 +7,7 @@ import time
 class reminderTask(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        
+
         self.reminderTask.start()
         self.cleanReminders.start()
 
@@ -24,12 +24,10 @@ class reminderTask(commands.Cog):
                     data[user].pop(remindertime)
                     with open("storage/reminders.json", "w") as f:
                         json.dump(data, f)
-                
+
                     await self.reminderTask()
                     break
-    
-    
-    
+
     @tasks.loop(minutes=5)
     async def cleanReminders(self):
         with open("storage/reminders.json", "r") as f:
@@ -40,11 +38,10 @@ class reminderTask(commands.Cog):
                 data.pop(user)
                 with open("storage/reminders.json", "w") as f:
                     json.dump(data, f)
-                
+
                 await self.cleanReminders()
                 break
-                
-            
-            
+
+
 async def setup(bot):
     await bot.add_cog(reminderTask(bot))

@@ -1,6 +1,5 @@
-
 # Code by github user @Radiicall
- 
+
 # # Import necessary libraries
 from sys import platform, stdout
 import shutil
@@ -25,7 +24,9 @@ elif platform == "win32":
     dfilename = "RSmiscLib.pyd"
 else:
     # If platform is not supported, exit with error code 1
-    print(f"Create a bug report for your platform in the github repo\nPlatform: {platform}");
+    print(
+        f"Create a bug report for your platform in the github repo\nPlatform: {platform}"
+    )
     exit(101)
 
 print(f"found platform! {platform}")
