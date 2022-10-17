@@ -21,9 +21,7 @@ def get_font(font_name):
 
 
 def get_size(text, font, spacing=0):
-    return ImageDraw.Draw(Image.new("1", (0, 0))).multiline_textsize(
-        text, font=font, spacing=spacing
-    )
+    return ImageDraw.Draw(Image.new("1", (0, 0))).multiline_textsize(text, font=font, spacing=spacing)
 
 
 def make_mapping(charset, font, invert):
@@ -90,9 +88,7 @@ def full_convert(im, *, invert, font, spacing, charset, out_text, dither, in_sca
     else:
         out_im = to_image(text, font, invert, spacing)
         out_width, out_height = out_im.size
-        return out_im.resize(
-            (int(out_width * out_scale), int(out_height * out_scale)), Image.BILINEAR
-        )
+        return out_im.resize((int(out_width * out_scale), int(out_height * out_scale)), Image.BILINEAR)
 
 
 if __name__ == "__main__":

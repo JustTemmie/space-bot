@@ -16,11 +16,7 @@ class ecoshop(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(
-        name="shop",
-        aliases=["market"],
-        brief="buy something, wouldya?"
-    )
+    @commands.command(name="shop", aliases=["market"], brief="buy something, wouldya?")
     @cooldown(5, 12, BucketType.user)
     async def shop_command(self, ctx, page=1):
         pages = 2
@@ -29,13 +25,13 @@ class ecoshop(commands.Cog):
             return
 
         await ecoLib.open_account(self, ctx)
-        
+
         userNotExist = await ecoLib.check_if_not_exist(ctx.author)
         if userNotExist == "banned":
             return
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-        
+
         shop = await ecoLib.get_shop_data()
 
         page_bonus_string = {1: "", 2: "**Rings:**\nUse them to marry someone\n"}[page]
@@ -50,11 +46,7 @@ class ecoshop(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(
-        name="buy",
-        aliases=["transact"],
-        brief="pay for something, wouldya?"
-    )
+    @commands.command(name="buy", aliases=["transact"], brief="pay for something, wouldya?")
     @cooldown(5, 15, BucketType.user)
     async def buy_command(self, ctx, item, amount: Optional[int] = 1):
         await ecoLib.open_account(self, ctx)
@@ -64,7 +56,7 @@ class ecoshop(commands.Cog):
             return
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-        
+
         if amount <= 0:
             return await ctx.send("hey! i'm not buying your junk!")
 
@@ -94,23 +86,23 @@ class ecoshop(commands.Cog):
                 return
 
         await ctx.send("i could not find that item, sorry")
-        
-    
+
     @commands.command(
         name="sell",
-        brief="try selling your animals for money\nyou can sell a specific animal, an entire tier, or simly \"all\"")
+        brief='try selling your animals for money\nyou can sell a specific animal, an entire tier, or simly "all"',
+    )
     @cooldown(8, 60, BucketType.user)
-    async def sell_command(self, ctx, animal, amount = "1"):
+    async def sell_command(self, ctx, animal, amount="1"):
         if amount.lower() != "all":
             if not amount.isnumeric():
                 await ctx.send("that is not a valid amount")
                 return
             amount = int(amount)
-    
+
         input = animal.lower()
         await ecoLib.open_account(self, ctx)
         await aniLib.open_zoo(self, ctx)
-        
+
         user = ctx.author
 
         userNotExist = await aniLib.check_if_zoo_not_exist(user)
@@ -118,10 +110,10 @@ class ecoshop(commands.Cog):
             return
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-        
+
         zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()
-        
+
         tiers = [
             "common",
             "uncommon",
@@ -130,7 +122,7 @@ class ecoshop(commands.Cog):
             "mythical",
             "legendary",
         ]
-        
+
         selling = {
             "common": 0,
             "uncommon": 0,
@@ -139,7 +131,7 @@ class ecoshop(commands.Cog):
             "mythical": 0,
             "legendary": 0,
         }
-        
+
         if animal not in tiers and animal != "all":
             icon = ""
             for tier in zoo:
@@ -154,39 +146,36 @@ class ecoshop(commands.Cog):
                             if amount == "all":
                                 selling[tier] += data[str(user.id)]["animals"][tier][animalName]["count"]
                                 data[str(user.id)]["animals"][tier][animalName]["count"] = 0
-                            
+
                             else:
                                 if data[str(user.id)]["animals"][tier][animalName]["count"] < amount:
                                     await ctx.send("you don't have that many animals")
                                     return
                                 selling[tier] += amount
                                 data[str(user.id)]["animals"][tier][animalName]["count"] -= amount
-                                
 
-                                
                             icon = animal["icon"]
                             break
-            
+
             if icon == "":
                 await ctx.send(f"could not find any animal named {input}, sorry")
                 return
 
-        
         if animal == "all":
             for tier in zoo:
                 for i in zoo[tier]["animals"]:
                     selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"]
                     data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"] = 0
-                            
 
         if animal in tiers:
             for tier in zoo:
                 if tier == animal:
                     for i in zoo[tier]["animals"]:
-                        selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"]
+                        selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]][
+                            "count"
+                        ]
                         data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"] = 0
                     break
-
 
         tier_prices = {
             "common": 10,
@@ -196,15 +185,15 @@ class ecoshop(commands.Cog):
             "mythical": 5000,
             "legendary": 30000,
         }
-        
+
         merchant_colours = [
-            0xffb3ba,
-            0xffdfba,
-            0xffffba,
-            0xbaffc9,
-            0xbae1ff,
+            0xFFB3BA,
+            0xFFDFBA,
+            0xFFFFBA,
+            0xBAFFC9,
+            0xBAE1FF,
         ]
-        
+
         merchant_emojis = [
             "🧑‍🌾",
             "🧑🏻‍🌾",
@@ -213,10 +202,10 @@ class ecoshop(commands.Cog):
             "🧑🏾‍🌾",
             "🧑🏿‍🌾",
         ]
-        
+
         merchant = random.randrange(0, len(merchant_colours))
         merchant_emoji = random.choice(merchant_emojis)
-        
+
         soldstr = ""
         payout = 0
         differentTiersSold = 0
@@ -227,32 +216,30 @@ class ecoshop(commands.Cog):
                 if animalAmount[1] >= 2:
                     soldstr += f" each, for a total of {price[1]*animalAmount[1]} <:beaverCoin:1019212566095986768>"
                 soldstr += "\n"
-                
-                payout += price[1]*animalAmount[1]
-                
+
+                payout += price[1] * animalAmount[1]
+
                 differentTiersSold += 1
                 differentAnimalsSold += animalAmount[1]
-        
-        if floor(payout*(1+merchant*0.01))-payout > random.randint(15, 25):
+
+        if floor(payout * (1 + merchant * 0.01)) - payout > random.randint(15, 25):
             soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.01))-payout} <:beaverCoin:1019212566095986768>\n"
-            payout = floor(payout*(1+merchant*0.01))
-        
+            payout = floor(payout * (1 + merchant * 0.01))
+
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
         await ecoLib.update_bank_data(ctx.author, round(payout))
-        
+
         if differentTiersSold != 1:
             soldstr += f"\n\nI bought a total of {differentAnimalsSold} animals for {payout} <:beaverCoin:1019212566095986768>\nPlease come again!"
-            
-        
+
         embed = discord.Embed()
         embed.title = f"{merchant_emoji} Merchant"
         embed.colour = merchant_colours[merchant]
         embed.add_field(name="||\n||", value=soldstr)
-        
 
         await ctx.send(embed=embed)
-        
+
 
 async def setup(bot):
     await bot.add_cog(ecoshop(bot))

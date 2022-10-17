@@ -11,10 +11,7 @@ class ecoprofile(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(
-        name="profile",
-        brief="tells you some basic info about the person specified"
-    )
+    @commands.command(name="profile", brief="tells you some basic info about the person specified")
     @cooldown(3, 10, BucketType.user)
     async def generateprofile(self, ctx, user: discord.Member = None):
 
@@ -55,7 +52,7 @@ class ecoprofile(commands.Cog):
         )
         embed.add_field(
             name="Stats:",
-            value= f"""
+            value=f"""
 <:Strength:976244446595285032> Strength: **{bankdata[str(user.id)]["stats"]["strength"]}**
 <:Dexterity:976244452014301224> Dexterity: **{bankdata[str(user.id)]["stats"]["dexterity"]}**
 <:Intelligence:976244476710359171> Intelligence: **{bankdata[str(user.id)]["stats"]["intelligence"]}**
@@ -66,7 +63,7 @@ class ecoprofile(commands.Cog):
                     """,
             inline=False,
         )
-        
+
         married_to_data = bankdata[str(user.id)]["marriage"]
         married_to = ""
         n = 0
@@ -77,9 +74,9 @@ class ecoprofile(commands.Cog):
             if n < 10:
                 if i["married"]:
                     x = await self.bot.fetch_user(i["married_to"])
-                    ring = (i["ring"])
+                    ring = i["ring"]
                     ring_emoji = await get_ring_emoji(ring)
-                    
+
                     married_to += f"{ring_emoji}{x.display_name} - {datetime.utcfromtimestamp(i['time']).strftime('%Y-%m-%d %H:%M')} UTC\n"
                     n += 1
 
@@ -112,13 +109,14 @@ class ecoprofile(commands.Cog):
             return
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-        
+
         data = await get_bank_data()
         data[str(ctx.author.id)]["quote"] = quote
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
         await ctx.send(f'quote set to "{quote}"!')
-        
+
+
 async def setup(bot):
     await bot.add_cog(ecoprofile(bot))

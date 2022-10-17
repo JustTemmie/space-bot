@@ -1,7 +1,7 @@
 import json
 import sqlite3
 
-connection = sqlite3.connect('./storage/db/database.db')
+connection = sqlite3.connect("./storage/db/database.db")
 cur = connection.cursor()
 
 cur.execute("SELECT * FROM playerData")
@@ -59,16 +59,8 @@ print(cur.fetchone())
 # WHERE UserID=368423564229083137;
 # """)
 
-entries = [
-    "WALLET",
-    "XP",
-    "SPOKE_DAY",
-    "SPOKEN_TODAY",
-    "SPEAK_COOLDOWN",
-    "SCAVENGE_COOLDOWN",
-    "QUOTE"
-]
-f = json.load(open('./storage/playerInfo/bank.json'))
+entries = ["WALLET", "XP", "SPOKE_DAY", "SPOKEN_TODAY", "SPEAK_COOLDOWN", "SCAVENGE_COOLDOWN", "QUOTE"]
+f = json.load(open("./storage/playerInfo/bank.json"))
 for entry in f:
     # cur.execute("INSERT INTO playerData VALUES (?,?,?,?,?,?,?,?)",
     #         (entry,
@@ -85,29 +77,31 @@ for entry in f:
     # )
     for j, i in enumerate(entries):
         print(j, i)
-        
-        cur.execute(f"""
+
+        cur.execute(
+            f"""
         UPDATE playerData
         SET {i}='{f[entry][str(entries[j]).lower()]}'
         WHERE UserID={entry};
-        """)
+        """
+        )
         connection.commit()
-        
+
 #         print(i, f[entry][i.lower()])
-    # print(entry)
-    # print(f[entry]["version"])
-    
-    # print(f[entry]["wallet"])
-    # print(f[entry]["xp"])
+# print(entry)
+# print(f[entry]["version"])
+
+# print(f[entry]["wallet"])
+# print(f[entry]["xp"])
 #     print(f[entry]["spoke_day"])
 #     print(f[entry]["spoken_today"])
-    
+
 #     print(f[entry]["speak_cooldown"])
 #     print(f[entry]["scavenge_cooldown"])
-    
+
 #     print(f[entry]["quote"])
-    
-    
+
+
 #     print(f[entry]["marriage"])
 #     print(f[entry]["inventory"])
 #     print(f[entry]["daily"])

@@ -20,7 +20,6 @@ tenor_api_key = os.getenv("TENOR")
 deepai_key = os.getenv("DEEP_AI")
 
 
-
 class fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -52,12 +51,7 @@ class fun(commands.Cog):
 
         await ctx.send(embed=embed)
 
-
-    @commands.command(
-        name="rick",
-        aliases=["rickroll"],
-        brief="never gonna give you up"
-    )
+    @commands.command(name="rick", aliases=["rickroll"], brief="never gonna give you up")
     @cooldown(5, 10, BucketType.guild)
     async def dancin_man_rick(self, ctx):
         await ctx.send("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
@@ -77,8 +71,7 @@ class fun(commands.Cog):
 
         if search_term is not None:
             r = requests.get(
-                "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s"
-                % (search_term, tenor_api_key, int(value))
+                "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, tenor_api_key, int(value))
             )
 
             if r.status_code == 200:
@@ -89,11 +82,7 @@ class fun(commands.Cog):
             else:
                 await ctx.send(f"i couldn't seem to find anything related to `{search_term}`")
 
-    @commands.command(
-        name="shitpost",
-        aliases=["funnyhaha"],
-        brief="sends a funny haha commit moment"
-    )
+    @commands.command(name="shitpost", aliases=["funnyhaha"], brief="sends a funny haha commit moment")
     @cooldown(5, 20, BucketType.guild)
     async def shitpost_video(self, ctx, *, funny=None):
         with open("storage/shitpost.json", "r") as f:
@@ -110,15 +99,15 @@ class fun(commands.Cog):
     async def avatarCommand(self, ctx, user: Optional[Union[discord.Member, discord.User]]):
         if not user:
             user = ctx.author
-        
-        av_button = discord.ui.Button(label = "download", url = user.display_avatar.url, emoji = "📩" )
+
+        av_button = discord.ui.Button(label="download", url=user.display_avatar.url, emoji="📩")
         view = discord.ui.View()
         view.add_item(av_button)
-        
+
         embed = discord.Embed()
         embed.set_image(url=user.display_avatar.url)
         embed.color = user.colour
-        
+
         await ctx.send(embed=embed, view=view)
 
     @commands.command(
@@ -159,9 +148,7 @@ class fun(commands.Cog):
         for ch in input:
             output += alien_to_human.get(ch.lower(), ch)
 
-        embed = discord.Embed(
-            title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour
-        )
+        embed = discord.Embed(title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour)
         embed.add_field(name="input", value=f"{input}", inline=False)
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
@@ -188,9 +175,7 @@ class fun(commands.Cog):
         for ch in input:
             output += human_to_alien.get(ch.lower(), ch)
 
-        embed = discord.Embed(
-            title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour
-        )
+        embed = discord.Embed(title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour)
         embed.add_field(name="input", value=f"{input}", inline=False)
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
@@ -210,18 +195,12 @@ class fun(commands.Cog):
                 output += "<?>"
             output += "  "
 
-        embed = discord.Embed(
-            title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour
-        )
+        embed = discord.Embed(title=f"{ctx.author.display_name}'s translation", colour=ctx.author.colour)
         embed.add_field(name="input", value=f"{input}", inline=False)
         embed.add_field(name="output", value=f"{output}")
         await ctx.send(embed=embed)
 
-    @commands.command(
-        name="ping",
-        aliases=["pong", "latency"],
-        brief="P O N G"
-    )
+    @commands.command(name="ping", aliases=["pong", "latency"], brief="P O N G")
     @cooldown(3, 5, BucketType.guild)
     async def ping_pong(self, ctx):
         await ctx.send(f"Pong! latency of {round(self.bot.latency * 1000)}ms")
@@ -278,10 +257,7 @@ class fun(commands.Cog):
                 "No facts are available for that animal, The list of animals you can ask facts about are dog, cat, panda, fox, bird, koala."
             )
 
-    @commands.command(
-        name="joke",
-        brief="they're all horrible. Seriously"
-    )
+    @commands.command(name="joke", brief="they're all horrible. Seriously")
     @cooldown(3, 5, BucketType.guild)
     async def tell_joke(self, ctx):
         await ctx.channel.typing()
@@ -290,17 +266,12 @@ class fun(commands.Cog):
 
         await ctx.send(content)
 
-    @commands.command(
-        name="funfact",
-        aliases=["ff"],
-        brief="Fun fact. U gei"
-    )
+    @commands.command(name="funfact", aliases=["ff"], brief="Fun fact. U gei")
     @cooldown(2, 4, BucketType.guild)
     async def fact_command(self, ctx):
         await ctx.channel.typing()
         text = requests.get("https://uselessfacts.jsph.pl/random.json?language=en").json()["text"]
         await ctx.send(text)
-
 
     @commands.command(
         name="dice",
@@ -312,8 +283,10 @@ class fun(commands.Cog):
         try:
             dice, value = (int(value) for value in die_string.split("d"))
         except ValueError as e:
-            return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`")
-        
+            return await ctx.send(
+                f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`"
+            )
+
         if dice <= 100:
             rolls = [random.randrange(1, value) for i in range(dice)]
 

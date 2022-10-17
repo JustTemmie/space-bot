@@ -16,7 +16,6 @@ class images(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
     # @commands.command(
     #     name="wanted",
     #     aliases=["dead or alive"],
@@ -41,7 +40,6 @@ class images(commands.Cog):
 
     #     await ctx.send(file=discord.File("images/processed/wanted.png"))
 
-    
     @commands.command(name="squish", brief="haha person go *squish*")
     @cooldown(2, 5, BucketType.user)
     async def squish_command(self, ctx, user: discord.Member = None):

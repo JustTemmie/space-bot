@@ -10,6 +10,7 @@ import asyncio
 
 from libraries.RSmiscLib import str_replacer
 from libraries.economyLib import confirmations
+
 # this might be highlighted as a bug, but it's just a library written in rust lmao
 # it should be fine if you've ran the setup file
 
@@ -44,10 +45,10 @@ class Owner(commands.Cog):
         self.bot = bot
 
     @commands.is_owner()
-    @commands.command(name = "getstatus")
+    @commands.command(name="getstatus")
     async def getstatus(self, ctx):
         await ctx.send(ctx.author.activities)
-        
+
     @commands.is_owner()
     @commands.command(name="nickname")
     async def change_nickname_admin(self, ctx, member: discord.Member, *, nickname=None):
@@ -113,9 +114,9 @@ class Owner(commands.Cog):
         if cog == "all":
             errstr = ""
             for filename in glob.iglob("./cogs/**", recursive=True):
-                if filename.endswith('.py'):# and "owner" not in filename:
+                if filename.endswith(".py"):  # and "owner" not in filename:
                     try:
-                        filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
+                        filename = filename[2:].replace("/", ".")  # goes from "./cogs/economy.py" to "cogs.economy.py"
                         await self.bot.reload_extension(filename[:-3])
                         await self.bot.dispatch("load", filename[:-3])
                     except Exception as e:
@@ -123,10 +124,10 @@ class Owner(commands.Cog):
             if errstr == "":
                 await ctx.send("All cogs were reloaded")
                 return
-            
+
             await ctx.send("All cogs were reloaded")
             return
-        
+
         try:
             self.bot.reload_extension("cogs." + cog)
             self.bot.dispatch("load", cog)
@@ -148,9 +149,9 @@ class Owner(commands.Cog):
                 ),
             )
             await ctx.send("Restarting bot...")
-            #db.commit()
+            # db.commit()
             python = sys.executable
-            os.execl(python, python, * sys.argv)
+            os.execl(python, python, *sys.argv)
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return
@@ -168,7 +169,7 @@ class Owner(commands.Cog):
                 ),
             )
             await self.bot.close()
-            #db.commit()
+            # db.commit()
             print("closed using !shutdown command")
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
@@ -218,39 +219,33 @@ class Owner(commands.Cog):
     async def echoownercommand(self, ctx, *, messagecontent):
         await ctx.message.delete()
         await ctx.send(messagecontent)
-    
+
     @commands.is_owner()
     @commands.command(name="ecoban")
     async def ownerbaneconomy(self, ctx, user: discord.Member):
         with open("./storage/playerInfo/bank.json", "r") as f:
             data = json.load(f)
-        
+
         banNr = data[str(user.id)]["anti-cheat"]["banned_x_times"]
-        
+
         # 6 hours, 12 hours, 24 hours, 48 hours, so on
-        bannedFor = 21600*2**banNr
-        
+        bannedFor = 21600 * 2**banNr
+
         data[str(user.id)]["anti-cheat"]["banned_x_times"] = banNr + 1
         data[str(user.id)]["anti-cheat"]["banned_until"] = time.time() + bannedFor
-        
+
         with open("./storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
-        
+
         await ctx.send(f"banned user `{user.display_name}` until <t:{time.time()+bannedFor:R}>")
 
-
-    
     @commands.is_owner()
     @commands.command(name="pip")
     async def pipe(self, ctx, action, *, pip):
         if action == "install":
-            await ctx.send(
-                subprocess.check_call([sys.executable, "-m", "pip", f"{action}", f"{pip}"])
-            )
+            await ctx.send(subprocess.check_call([sys.executable, "-m", "pip", f"{action}", f"{pip}"]))
         elif action == "uninstall":
-            await ctx.send(
-                subprocess.check_call([sys.executable, "-m", "pip", f"{action}", "-y", f"{pip}"])
-            )
+            await ctx.send(subprocess.check_call([sys.executable, "-m", "pip", f"{action}", "-y", f"{pip}"]))
         else:
             await ctx.send("invalid action")
             return
@@ -258,14 +253,14 @@ class Owner(commands.Cog):
 
     @commands.command(name="repeat-embed")
     @commands.is_owner()
-    async def repeatembed(self, ctx, title, desc = "None", footer = "None", *fields):
-        embed = discord.Embed(title = title, description = desc, color = 0x00ff00)
+    async def repeatembed(self, ctx, title, desc="None", footer="None", *fields):
+        embed = discord.Embed(title=title, description=desc, color=0x00FF00)
         if footer != "None":
-            embed.set_footer(text = footer)
+            embed.set_footer(text=footer)
         if fields != ():
             i = 0
             while i < len(fields):
-                embed.add_field(name = fields[i], value = fields[i+1], inline = False)
+                embed.add_field(name=fields[i], value=fields[i + 1], inline=False)
                 i += 2
         await ctx.send(embed=embed)
 
@@ -320,18 +315,13 @@ class Owner(commands.Cog):
         except Exception as e:
             await ctx.send("```py\n>>> {}\n\n\n{}```".format(code, e))
 
-    
-    @commands.command(
-        name="bash"
-    )
+    @commands.command(name="bash")
     @commands.is_owner()
     async def run_bash(self, ctx, *, command):
-        commandArray = command.split(" ")        
+        commandArray = command.split(" ")
         await ctx.send(f"are you sure you want to run the command `{command}`?")
         try:
-            response = await self.bot.wait_for(
-                "message", check=lambda m: m.author == ctx.author, timeout=30
-            )
+            response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=30)
         except asyncio.TimeoutError:
             return await ctx.send(f"**Timed out** cancelling")
 
@@ -339,33 +329,30 @@ class Owner(commands.Cog):
             return await ctx.send("oh ok")
 
         output = subprocess.run([*commandArray], stdout=subprocess.PIPE, timeout=50)
-        output = output.stdout.decode('utf-8')
-        
-        
+        output = output.stdout.decode("utf-8")
+
         if len(output) + len(command) < 1975:
             await ctx.send(f"`{command}` returned output:\n```{output} ```")
             return
-        
+
         n = 1994
         split_strings = []
-        
+
         for index in range(0, len(output), n):
             split_strings.append(output[index : index + n])
 
-
         for message in split_strings:
             await ctx.send(f"```{message}```")
-        
 
     @commands.command(
         name="deletemsg",
     )
     @commands.is_owner()
     async def react_beaver_command(self, ctx, id: int = 0):
-        
+
         await ctx.message.delete()
-        #message = ctx.message
-       # await self.bot.http.delete_message(message.channel.id, message.id)
+        # message = ctx.message
+        # await self.bot.http.delete_message(message.channel.id, message.id)
 
         if ctx.message.reference:
             id = ctx.message.reference.message_id
@@ -381,12 +368,11 @@ class Owner(commands.Cog):
                 f"to use this command, reply to a message with {ctx.prefix}deletemsg",
                 delete_after=4,
             )
-            
-    
+
     @commands.command(name="ownerreact")
     @commands.is_owner()
-    async def ownerreact(self, ctx, msgid = None, emoji = None):
-        try:    
+    async def ownerreact(self, ctx, msgid=None, emoji=None):
+        try:
             message = await ctx.fetch_message(msgid)
             await message.add_reaction(emoji)
         except Exception as e:
@@ -397,39 +383,38 @@ class Owner(commands.Cog):
     async def download(self, ctx, url):
         await ctx.message.delete()
         ydl_opts = {
-            'format': 'mp4',
-            'outtmpl': 'storage/videos/%(id)s.%(ext)s',
+            "format": "mp4",
+            "outtmpl": "storage/videos/%(id)s.%(ext)s",
         }
         with YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=False)
-            name=info_dict.get("id", None)
-            extention=info_dict.get("ext", None)
-            
+            name = info_dict.get("id", None)
+            extention = info_dict.get("ext", None)
+
             ydl.download(url)
-            
+
         print(f"{name}.{extention} has been downloaded")
-        await ctx.send(f"hi", file = discord.File(f"storage/videos/{name}.{extention}"))    
-        #await ctx.send(ctx.content(), file = discord.File(f"storage/videos/{url}.mp4"))
-    
+        await ctx.send(f"hi", file=discord.File(f"storage/videos/{name}.{extention}"))
+        # await ctx.send(ctx.content(), file = discord.File(f"storage/videos/{url}.mp4"))
+
     @commands.command(name="youtube")
     @commands.is_owner()
     async def redirect_youtube(self, ctx, url):
         await ctx.message.delete()
 
         ydl_opts = {
-            'format': 'mp4',
+            "format": "mp4",
         }
         with YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=False)
-        
+
         await ctx.send(info_dict["url"])
-        
+
         # embed = discord.Embed(title = info_dict["title"], color = ctx.author.color, url = info_dict["url"])
         # embed.video.url = info_dict["url"]
         # print(embed.video.url)
-        
-        # await ctx.send(embed=embed)
 
+        # await ctx.send(embed=embed)
 
     @commands.command(
         name="ownerremind",
@@ -438,16 +423,14 @@ class Owner(commands.Cog):
     async def owner_remind_command(self, ctx, user: discord.Member, *, reminder):
         seconds = 0
         reminder, timing = (value for value in reminder.split(" in "))
-        
+
         ch = " "
         occurrence = 2
-        replacing_character = ','
-        
+        replacing_character = ","
 
-        #for i in range(ceil((timing.count(ch)))):
-        timing = str_replacer(timing, ch,
-            replacing_character, occurrence)
-        
+        # for i in range(ceil((timing.count(ch)))):
+        timing = str_replacer(timing, ch, replacing_character, occurrence)
+
         timing = timing.split(",")
         for i in timing:
             if "day" in i:
@@ -458,10 +441,9 @@ class Owner(commands.Cog):
                 seconds += float(i.split(" ")[0]) * 60
             elif "second" in i:
                 seconds += float(i.split(" ")[0])
-            
-            
+
             else:
-                single_letters = (i.split(" ")[1])
+                single_letters = i.split(" ")[1]
                 if single_letters == "d":
                     seconds += float(i.split(" ")[0]) * 86400
                 elif single_letters == "h" or single_letters == "hr":
@@ -470,34 +452,35 @@ class Owner(commands.Cog):
                     seconds += float(i.split(" ")[0]) * 60
                 elif single_letters == "s" or single_letters == "sec":
                     seconds += float(i.split(" ")[0])
-                
-                else:
-                    return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
 
-        
+                else:
+                    return await ctx.send(
+                        f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info"
+                    )
+
         if seconds < 30:
             return await ctx.send(f"please set a time greater than 30 seconds")
-        
+
         if seconds > 31536000:
             return await ctx.send(f"please set a time less than 1 year")
-        
 
         sendtime = round(time.time() + seconds)
-        embed = discord.Embed(title=reminder, description = f"i will remind {user.display_name} in <t:{sendtime}:R>", color=user.colour)
+        embed = discord.Embed(
+            title=reminder, description=f"i will remind {user.display_name} in <t:{sendtime}:R>", color=user.colour
+        )
         embed.set_footer(text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url)
-        
+
         with open("storage/reminders.json", "r") as f:
             data = json.load(f)
-        
-        
+
         if not str(user.id) in data:
             data[str(user.id)] = {}
-        
+
         data[str(user.id)][sendtime] = reminder
-        
+
         with open("storage/reminders.json", "w") as f:
             json.dump(data, f)
-        
+
         await ctx.send(embed=embed)
 
 

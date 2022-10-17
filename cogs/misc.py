@@ -6,6 +6,7 @@ from datetime import datetime
 
 import libraries.standardLib as SL
 
+
 class misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -16,25 +17,19 @@ class misc(commands.Cog):
         pass
         # print("hi there")
 
-        
-    @commands.command(
-        name="bugreport",
-        aliases=["bug"],
-        brief="report bugs so they can be fixed :D (hopefully)"
-    )
+    @commands.command(name="bugreport", aliases=["bug"], brief="report bugs so they can be fixed :D (hopefully)")
     @cooldown(5, 300, BucketType.user)
     async def report_command(self, ctx, *, input):
         try:
             embed = Embed(title="Report", colour=0xAF62EB, timestamp=datetime.utcnow())
             embed.set_author(name=f"{ctx.author.name} : {ctx.author.id}", icon_url=ctx.author.avatar.url)
-            
-            
-            embed.add_field(name="||\n||", value=input, inline=False)        
-            #await self.bot.report_out_public.send(embed = embed)
-            await ctx.send(embed = embed)
+
+            embed.add_field(name="||\n||", value=input, inline=False)
+            # await self.bot.report_out_public.send(embed = embed)
+            await ctx.send(embed=embed)
             msg = await ctx.fetch_message(ctx.message.id)
             await msg.add_reaction("✅")
-    
+
         except Exception as e:
             await ctx.send(f"{e}")
             msg = await ctx.fetch_message(ctx.message.id)

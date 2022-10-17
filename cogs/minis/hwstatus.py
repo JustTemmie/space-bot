@@ -118,9 +118,7 @@ class hw(commands.Cog):
             await ctx.send("Invalid page")
             return
 
-        Embed.description = (
-            f"information about the server {self.bot.user.name} is running on\n\n{page_info}"
-        )
+        Embed.description = f"information about the server {self.bot.user.name} is running on\n\n{page_info}"
         await ctx.send(embed=Embed)
 
 

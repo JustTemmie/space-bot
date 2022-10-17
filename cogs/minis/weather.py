@@ -33,6 +33,7 @@ yr_places = {
     "mo i rana": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-260276/Norge/Nordland/Rana/Mo%20i%20Rana",
 }
 
+
 class weather(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -49,10 +50,7 @@ class weather(Cog):
                 return await ctx.send("Please specify a location.")
             input = "tromsø"
 
-
-        r = requests.get(
-            f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}"
-        )
+        r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
         request = json.loads(r.content)
         realoutput = request[0]
         lat = realoutput["lat"]
@@ -88,20 +86,22 @@ class weather(Cog):
                     embed.add_field(name=x[0].replace("_", " "), value=x[1], inline=False)
 
         await ctx.send(embed=embed)
-        
+
         if input.lower() in yr_places:
-            response = requests.get(
-                yr_places[input.lower()]
-            )
-            
-            with open('temp/yr.pdf', 'wb') as f:
+            response = requests.get(yr_places[input.lower()])
+
+            with open("temp/yr.pdf", "wb") as f:
                 f.write(response.content)
-            convert_from_path('temp/yr.pdf')[0].save("temp/yr.jpg", 'JPEG')
-            
-            #yr = Image.open("images/processed/yr.jpg")
-            #yr = yr.resize((1653*2, 2339*2))
-            #yr.save("images/processed/yr.jpg")
-            av_button = discord.ui.Button(label = "Open Externally", url = "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8", emoji = "📩" )
+            convert_from_path("temp/yr.pdf")[0].save("temp/yr.jpg", "JPEG")
+
+            # yr = Image.open("images/processed/yr.jpg")
+            # yr = yr.resize((1653*2, 2339*2))
+            # yr.save("images/processed/yr.jpg")
+            av_button = discord.ui.Button(
+                label="Open Externally",
+                url="https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
+                emoji="📩",
+            )
             view = discord.ui.View()
             view.add_item(av_button)
 

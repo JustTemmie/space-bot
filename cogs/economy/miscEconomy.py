@@ -5,6 +5,7 @@ from discord.ext.commands import cooldown, BucketType
 
 from libraries.economyLib import *
 
+
 class ecoeconomy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -15,9 +16,8 @@ class ecoeconomy(commands.Cog):
     )
     async def vote_command(self, ctx):
         await ctx.send("voting is currently disabled, it will be back within the next ~1.5 - 2 months")
-        #await ctx.send("vote for the bot on top.gg to earn some rewards!\nhttps://top.gg/bot/765222621779853312/vote")
-        
-    
+        # await ctx.send("vote for the bot on top.gg to earn some rewards!\nhttps://top.gg/bot/765222621779853312/vote")
+
     @commands.command(
         name="tutorial",
         aliases=["start", "tut", "economy"],
@@ -106,7 +106,6 @@ class ecoeconomy(commands.Cog):
 
         embed.set_footer(text=f"page {page} of 3")
         await ctx.send(embed=embed)
-    
 
     @commands.command(
         name="leaderboard",
@@ -114,26 +113,25 @@ class ecoeconomy(commands.Cog):
         brief="checks the current leaderboard",
     )
     @cooldown(2, 10, BucketType.user)
-    async def leaderboard_command(self, ctx, user_count = "5", category = "money"):
+    async def leaderboard_command(self, ctx, user_count="5", category="money"):
         await ctx.channel.typing()
-        
+
         if not str(user_count).isdigit():
             if str(category).isdigit():
                 # switch the values of user_count and category
                 user_count, category = category, user_count
-            
+
             else:
                 category = user_count
                 user_count = 5
-            
-            
+
         user_count = int(user_count)
-        
+
         leaderboard = []
         users = await get_bank_data()
         if user_count > 10:
             user_count = 10
-        
+
         match category:
             case ("money" | "cash" | "coin"):
                 icon = "<:beaverCoin:1019212566095986768>"
@@ -153,18 +151,18 @@ class ecoeconomy(commands.Cog):
                     for marriage in users[user]["marriage"]:
                         if users[user]["marriage"][marriage]["married"]:
                             married_to += 1
-                    leaderboard.append([user, married_to]) 
+                    leaderboard.append([user, married_to])
             case ("logs" | "log"):
                 icon = "<:log:1019212550782599220>"
                 title_ending = "richest users in terms of logs"
                 for user in users:
-                    leaderboard.append([user, users[user]["inventory"]["logs"]])         
+                    leaderboard.append([user, users[user]["inventory"]["logs"]])
             case _:
                 await ctx.send(f"sorry, {category} does not seem to be a valid category")
                 return
 
         leaderboard.sort(key=lambda x: x[1], reverse=True)
-        
+
         embed = discord.Embed(colour=ctx.author.colour)
 
         for i in range(0, user_count):
@@ -183,11 +181,10 @@ class ecoeconomy(commands.Cog):
             except Exception as e:
                 await ctx.send(f"error: {e}")
                 break
-        
+
         embed.title = f"Top {i+1} {title_ending}"
 
         await ctx.reply(embed=embed, mention_author=False)
-
 
 
 async def setup(bot):

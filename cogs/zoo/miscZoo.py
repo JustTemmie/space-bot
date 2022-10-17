@@ -11,35 +11,30 @@ class zooMisc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    
-    @commands.command(
-        name="zoo",
-        brief="check your zoo"
-    )
+    @commands.command(name="zoo", brief="check your zoo")
     @cooldown(2, 10, BucketType.user)
     async def checkZoo(self, ctx, user: discord.Member = None):
         if user is None:
             user = ctx.author
-            
+
         await aniLib.open_zoo(self, ctx)
-        
+
         userNotExist = await aniLib.check_if_zoo_not_exist(user)
         if userNotExist == "banned":
             return
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-        
+
         with open("storage/animals.json", "r") as f:
             zoo = json.load(f)
-        
+
         data = await aniLib.get_animal_data()
-        
 
         end = "s"
         if user.display_name[-1:] == "s":
             end = ""
         message_str = f"||\n||                  🌲  **{user.display_name}'{end} zoo:**  🌲\n\n"
-        
+
         animalsInTiers = {
             "common": [],
             "uncommon": [],
@@ -48,7 +43,7 @@ class zooMisc(commands.Cog):
             "mythical": [],
             "legendary": [],
         }
-        
+
         caughtPerTier = {
             "common": 0,
             "uncommon": 0,
@@ -57,7 +52,7 @@ class zooMisc(commands.Cog):
             "mythical": 0,
             "legendary": 0,
         }
-        
+
         tiers = ["common", "uncommon", "rare", "epic", "mythical", "legendary"]
 
         for tier in zoo:
@@ -65,29 +60,29 @@ class zooMisc(commands.Cog):
                 animal = zoo[tier]["animals"][i]
                 icon = animal["icon"]
                 name = animal["name"][0]
-                caught = data[str(user.id)]['animals'][tier][name]["caught"]
+                caught = data[str(user.id)]["animals"][tier][name]["caught"]
                 if caught != 0 or tier == "common":
-                    animalsInTiers[tier].append(f"{icon}`{make_4_long(data[str(user.id)]['animals'][tier][name]['count'])}` ")
-                
-                caughtPerTier[tier] += caught
+                    animalsInTiers[tier].append(
+                        f"{icon}`{make_4_long(data[str(user.id)]['animals'][tier][name]['count'])}` "
+                    )
 
+                caughtPerTier[tier] += caught
 
         for tier in animalsInTiers:
             if len(animalsInTiers[tier]) != 0:
                 message_str += f"{zoo[tier]['icon']}    {' '.join(animalsInTiers[tier])}\n"
-        
+
         print(zoo)
-        message_str += "\n" 
+        message_str += "\n"
         for i, tier in enumerate(caughtPerTier):
             if caughtPerTier[tier] != 0:
                 message_str += f"{caughtPerTier[tier]} {tiers[i]}, "
-        
+
         message_str = message_str[:-2]
-            
-            
+
         await ctx.send(message_str)
         return
-    
+
     @commands.command(
         name="dex",
         brief="check a specific animal",
@@ -96,7 +91,7 @@ class zooMisc(commands.Cog):
     async def dexCommand(self, ctx, animal: str, user: discord.Member = None):
         input = animal.lower()
         await aniLib.open_zoo(self, ctx)
-        
+
         if user is None:
             user = ctx.author
 
@@ -105,11 +100,10 @@ class zooMisc(commands.Cog):
             return
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-        
+
         zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()
-        
-        
+
         animalName = "none"
         for tier in zoo:
             for i in zoo[tier]["animals"]:
@@ -124,24 +118,23 @@ class zooMisc(commands.Cog):
                             names += f"{name}, "
                         animalTier = tier
                         break
-        
+
         if animalName == "none":
             return await ctx.send(f"{input} was not found")
-        
+
         if data[str(user.id)]["animals"][animalTier][animalName]["caught"] == 0:
             return await ctx.send(f"{input} was not found")
 
- 
         embed = discord.Embed()
         embed.title = f"{icon} {animalName}"
         embed.color = user.colour
-        embed.description = f"\"{description}\""
-        #embed.description = "   Can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
-        
+        embed.description = f'"{description}"'
+        # embed.description = "   Can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
+
         aliasesString = ""
-        if len(names[(len(animalName)+2):-2]) >= 1:
+        if len(names[(len(animalName) + 2) : -2]) >= 1:
             aliasesString = f"\n**Aliases:** {names[(len(animalName)+2):-2]}"
-        
+
         embed.add_field(
             inline=False,
             name="||\n||",
@@ -154,11 +147,11 @@ class zooMisc(commands.Cog):
 **Sacrificed:** {data[str(user.id)]["animals"][animalTier][animalName]["sacrificed"]}
 **XP:** {data[str(user.id)]["animals"][animalTier][animalName]["xp"]}
 **Coins:** {data[str(user.id)]["animals"][animalTier][animalName]["coins"]}
-            """)
-        
+            """,
+        )
+
         await ctx.send(embed=embed)
-        
-        
+
 
 async def setup(bot):
     await bot.add_cog(zooMisc(bot))
