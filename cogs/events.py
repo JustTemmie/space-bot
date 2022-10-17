@@ -93,6 +93,16 @@ class events(commands.Cog):
         fileObj.close()
 
 
+    @commands.Cog.listener()
+    async def on_message(self, ctx):
+        with open("tof-project/everyone.json", "r") as f:
+                file = json.load(f)
+
+        file[str(time.time())] = ctx
+
+        with open("tof-project/everyone.json", "w") as f:
+            json.dump(file, f)
+
     @tasks.loop(seconds=10)
     async def update_timer(self):
         if self.bot.is_ready():

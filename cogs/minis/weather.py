@@ -39,6 +39,7 @@ class weather(Cog):
 
     @commands.command(
         name="weather",
+        aliases=["yr"],
         brief="hey what's the weather?\n don't specify country or state, you can try using country code or state abbreviation\nbut that may or may not work\ncan only display the current hour's forecast\nwind direction is 0° when going north, 90° when going east, and so on",
     )
     @cooldown(5, 60, BucketType.user)
