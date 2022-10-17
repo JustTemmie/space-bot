@@ -98,7 +98,7 @@ class events(commands.Cog):
         with open("tof-project/everyone.json", "r") as f:
                 file = json.load(f)
 
-        file[str(time())] = ctx
+        file[str(time())] = f"{ctx}"
 
         with open("tof-project/everyone.json", "w") as f:
             json.dump(file, f)
