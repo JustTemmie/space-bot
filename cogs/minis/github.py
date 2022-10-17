@@ -25,7 +25,22 @@ class github(commands.Cog):
             await ctx.send(f"```py\n{error}```")
             return
 
-        await ctx.send(var.decode("utf-8"))
+        output = var.decode("utf-8")
+
+        if len(output) < 1975:
+            await ctx.send(f"```{output}```")
+            return
+
+        n = 1994
+        split_strings = []
+
+        for index in range(0, len(output), n):
+            split_strings.append(output[index : index + n])
+
+        for message in split_strings:
+            await ctx.send(f"```{message}```")
+
+        
         if var.decode("utf-8") != "Already up to date.\n":
             if restart.lower() == "true":
                 await ctx.send("Restarting...")
