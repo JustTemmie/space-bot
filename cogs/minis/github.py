@@ -24,7 +24,7 @@ class github(commands.Cog):
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return
-        
+
         await ctx.send(var.decode("utf-8"))
         if var.decode("utf-8") != "Already up to date.\n":
             if restart.lower() == "true":
@@ -38,13 +38,15 @@ class github(commands.Cog):
                 )
                 os.execv(sys.executable, ["python3"] + sys.argv)
                 return
-            
+
             if restart.lower() == "all":
                 errstr = ""
                 for filename in glob.iglob("./cogs/**", recursive=True):
-                    if filename.endswith('.py') and "owner" not in filename:
+                    if filename.endswith(".py") and "owner" not in filename:
                         try:
-                            filename = filename[2:].replace("/", ".") # goes from "./cogs/economy.py" to "cogs.economy.py"
+                            filename = filename[2:].replace(
+                                "/", "."
+                            )  # goes from "./cogs/economy.py" to "cogs.economy.py"
                             self.bot.reload_extension(filename[:-3])
                             self.bot.dispatch("load", filename[:-3])
                         except Exception as e:
@@ -52,7 +54,7 @@ class github(commands.Cog):
                 if errstr == "":
                     await ctx.send("All cogs were reloaded")
                     return
-                
+
                 await ctx.send("All cogs were reloaded")
                 return
 
