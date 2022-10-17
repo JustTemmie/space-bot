@@ -6,54 +6,58 @@ import random
 import asyncio
 
 from libraries.standardLib import removeat
-   
+
 
 class tictactoe(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(
-        name = 'tictactoe',
-        aliases = ['ttt', 'tic', 'tick'],
-        brief = 'Play a game of tic tac toe with your friends!',
+        name="tictactoe",
+        aliases=["ttt", "tic", "tick"],
+        brief="Play a game of tic tac toe with your friends!",
     )
     @commands.max_concurrency(1, BucketType.channel)
     @cooldown(1, 5, BucketType.channel)
     async def tictactoeCommand(self, ctx, SelectedPlayer: Member):
-        await ctx.send(f"Starting game between {ctx.author.mention} and {SelectedPlayer.mention}")
-        
+        await ctx.send(
+            f"Starting game between {ctx.author.mention} and {SelectedPlayer.mention}"
+        )
+
         valid_placements = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-        board = [
-            "-", "-", "-",
-            "-", "-", "-",
-            "-", "-", "-"
-        ]
-        
+        board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"]
+
         gamestr = "```"
         for i in range(3):
             for j in range(3):
-                gamestr += board[i*3+j] + "   "
+                gamestr += board[i * 3 + j] + "   "
             gamestr += "\n"
         gamestr += "```"
-        
+
         reference = [
-            "1️⃣", "2️⃣", "3️⃣",
-            "4️⃣", "5️⃣", "6️⃣",
-            "7️⃣", "8️⃣", "9️⃣",
+            "1️⃣",
+            "2️⃣",
+            "3️⃣",
+            "4️⃣",
+            "5️⃣",
+            "6️⃣",
+            "7️⃣",
+            "8️⃣",
+            "9️⃣",
         ]
-        
+
         referencestr = ""
         for i in range(3):
             for j in range(3):
-                referencestr += reference[i*3+j]
+                referencestr += reference[i * 3 + j]
             referencestr += "\n"
 
         player1 = ctx.author
         player2 = SelectedPlayer
         piece = "X"
-        
+
         turn = random.randint(0, 1)
-        
+
         if turn % 2 == 0:
             player = player2
             otherPlayer = player1
@@ -62,53 +66,60 @@ class tictactoe(commands.Cog):
             player = player1
             otherPlayer = player2
             piece = "X"
-            
-        embed = Embed(title="Tic Tac Toe", description="", color=0xe91e63)
-        embed.add_field(name="||\n||", value=f"{gamestr}\n\n{referencestr}", inline=False)
-        
+
+        embed = Embed(title="Tic Tac Toe", description="", color=0xE91E63)
+        embed.add_field(
+            name="||\n||", value=f"{gamestr}\n\n{referencestr}", inline=False
+        )
+
         embedMsg = await ctx.send(embed=embed)
-            
+
         oldMsg = await ctx.send(f"{player.mention}'s turn")
-        
-        
-        
+
         while True:
-            
+
             move = await self.get_move(ctx, valid_placements, board, player, piece)
 
             if move == "exit":
-                await ctx.send(f"{player.mention} took too long to make a move, {otherPlayer.mention} wins!")
+                await ctx.send(
+                    f"{player.mention} took too long to make a move, {otherPlayer.mention} wins!"
+                )
                 break
                 return
-            
+
             board[move] = piece
-            
-            
+
             gamestr = "```"
             for i in range(3):
                 for j in range(3):
-                    gamestr += board[i*3+j] + "   "
+                    gamestr += board[i * 3 + j] + "   "
                 gamestr += "\n"
             gamestr += "```"
-            
+
             embed.clear_fields()
-            embed.add_field(name="||\n||", value=f"{gamestr}\n\n{referencestr}", inline=False)
-        
+            embed.add_field(
+                name="||\n||", value=f"{gamestr}\n\n{referencestr}", inline=False
+            )
+
             await embedMsg.edit(embed=embed)
             await oldMsg.delete()
-            
+
             valid_placements.remove(move)
-            
+
             if await self.check_win(ctx, board, piece):
                 await ctx.send(f"{player.mention} wins!")
                 return
-            
+
             if await self.check_draw(ctx, board):
                 await ctx.send("It's a tie!")
                 return
-            
-            oldMsg = await ctx.send((f"{player.display_name} chose {move + 1}\nit's now {otherPlayer.mention}'s turn"))
-            
+
+            oldMsg = await ctx.send(
+                (
+                    f"{player.display_name} chose {move + 1}\nit's now {otherPlayer.mention}'s turn"
+                )
+            )
+
             turn += 1
             if turn % 2 == 0:
                 player = player2
@@ -118,21 +129,27 @@ class tictactoe(commands.Cog):
                 player = player1
                 otherPlayer = player2
                 piece = "X"
-    
+
     @commands.Cog.listener()
     async def check_win(self, ctx, board, piece):
-        
+
         for i in range(3):
             # check horizontal rows
-            if board[i*3] == piece and board[i*3+1] == piece and board[i*3+2] == piece:
+            if (
+                board[i * 3] == piece
+                and board[i * 3 + 1] == piece
+                and board[i * 3 + 2] == piece
+            ):
                 return True
-        
+
             # check vertical columns
-            if board[i] == piece and board[i+3] == piece and board[i+6] == piece:
+            if board[i] == piece and board[i + 3] == piece and board[i + 6] == piece:
                 return True
-        
+
         # check diagonal
-        if (board[0] == piece and board[4] == piece and board[8] == piece) or (board[2] == piece and board[4] == piece and board[6] == piece):
+        if (board[0] == piece and board[4] == piece and board[8] == piece) or (
+            board[2] == piece and board[4] == piece and board[6] == piece
+        ):
             return True
 
         return False
@@ -141,15 +158,14 @@ class tictactoe(commands.Cog):
     async def check_draw(self, ctx, board):
         if "-" not in board:
             return True
-        
+
         return False
-    
-    
+
     @commands.Cog.listener()
     async def get_move(self, ctx, valid_placements, board, player, piece):
         message = None
         for i in range(5):
-            try:    
+            try:
                 message = await self.bot.wait_for(
                     "message", check=lambda m: m.author == player, timeout=120
                 )
@@ -161,30 +177,48 @@ class tictactoe(commands.Cog):
                     pass
             except asyncio.TimeoutError:
                 return "exit"
-        
+
         if message is None:
             return "exit"
 
-        #await ctx.send(board)
-        
+        # await ctx.send(board)
+
         if move not in range(0, 9):
-            await ctx.send(await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10)
+            await ctx.send(
+                await removeat(
+                    f"{player.display_name} didn't choose a valid placement, try again"
+                ),
+                delete_after=10,
+            )
             return await self.get_move(ctx, valid_placements, board, player, piece)
-        
+
         elif board[move] != "-":
-            await ctx.send(await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10)
+            await ctx.send(
+                await removeat(
+                    f"{player.display_name} didn't choose a valid placement, try again"
+                ),
+                delete_after=10,
+            )
             return await self.get_move(ctx, valid_placements, board, player, piece)
-        
+
         else:
             try:
                 if type(move) != int:
-                    return await self.get_move(ctx, valid_placements, board, player, piece)
-                #await ctx.send(valid_placements)
+                    return await self.get_move(
+                        ctx, valid_placements, board, player, piece
+                    )
+                # await ctx.send(valid_placements)
                 return move
             except Exception as e:
                 print(e)
-                await ctx.send(await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10)
+                await ctx.send(
+                    await removeat(
+                        f"{player.display_name} didn't choose a valid placement, try again"
+                    ),
+                    delete_after=10,
+                )
                 return await self.get_move(ctx, valid_placements, board, player, piece)
+
 
 async def setup(bot):
     await bot.add_cog(tictactoe(bot))
