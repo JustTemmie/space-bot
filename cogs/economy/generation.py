@@ -74,7 +74,7 @@ class ecogeneration(commands.Cog):
 
         await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
 
-    @commands.command(
+    @commands.hybrid_command(
         name="scavenge",
         aliases=["scav", "find", "loot"],
         brief="go scavenge for some l ö g <:log:1019212550782599220>",
