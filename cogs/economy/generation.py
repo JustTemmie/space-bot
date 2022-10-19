@@ -29,7 +29,7 @@ class ecogeneration(commands.Cog):
             return await ctx.send("you already got your daily, come back tomorrow")
 
         streak = ""
-        if daily_info["day"] < (datetime.utcnow() - datetime(1970, 1, 1)).days - 1:
+        if daily_info["day"]+2 < (datetime.utcnow() - datetime(1970, 1, 1)).days - 1:
             if bank[str(ctx.author.id)]["inventory"]["insurance"] >= 1:
                 await ctx.send(
                     f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(ctx.author.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?"
