@@ -194,13 +194,9 @@ d) {answers[3]}
         questions = json.loads(r.content)
         if questions["response_code"] != 0:
             if questions["response_code"] == 1:
-                return await ctx.send(
-                    "**Code 1: No Results** Could not return results. The API doesn't have enough questions for your query."
-                )
+                return await ctx.send("**Code 1: No Results** Could not return results. The API doesn't have enough questions for your query.")
             if questions["response_code"] == 2:
-                return await ctx.send(
-                    "**Code 2: Invalid Parameter** Contains an invalid parameter. Arguements passed in aren't valid."
-                )
+                return await ctx.send("**Code 2: Invalid Parameter** Contains an invalid parameter. Arguements passed in aren't valid.")
             if questions["response_code"] == 3:
                 return await ctx.send("**Code 3: Token Not Found** Session Token does not exist.")
             if questions["response_code"] == 4:
@@ -234,9 +230,7 @@ d) {answers[3]}
                 result_category_id = y
                 break
 
-        embed = discord.Embed(
-            title="Trivia", description=f"**{reslult_category} || ID: {result_category_id}**", color=ctx.author.color
-        )
+        embed = discord.Embed(title="Trivia", description=f"**{reslult_category} || ID: {result_category_id}**", color=ctx.author.color)
         embed.set_footer(text=f"Difficulty: {questions['difficulty']}")
 
         embed.add_field(name="Question:", value=f"{html.unescape(questions['question'])}", inline=False)
@@ -256,9 +250,7 @@ d) {answers[3]}
         response = await get_input(self, ctx, 25)
 
         if response.content.lower() == questions["correct_answer"].lower() or response.content.lower() == correct:
-            await ctx.send(
-                f"{ctx.author.mention} you are correct! it was {correct}, {html.unescape(questions['correct_answer'])}"
-            )
+            await ctx.send(f"{ctx.author.mention} you are correct! it was {correct}, {html.unescape(questions['correct_answer'])}")
             return
 
         await ctx.send(f"sorry, the answer was {correct}, {html.unescape(questions['correct_answer'])}")

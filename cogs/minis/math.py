@@ -21,9 +21,7 @@ class mathCommands(commands.Cog):
         try:
             with timeout(5, exception=RuntimeError):
                 if set(mathEquation).difference(set(allowedCharacters)):
-                    return await ctx.send(
-                        f"invalid characters used, please only use the following symbols: `{allowedCharacters}`"
-                    )
+                    return await ctx.send(f"invalid characters used, please only use the following symbols: `{allowedCharacters}`")
 
                 await ctx.send(f"{equation }= {eval(mathEquation)}")
         except Exception as e:

@@ -13,9 +13,7 @@ class ecomarry(commands.Cog):
         self.bot = bot
 
     # this code doesn't use any else statements btw 😎 i find it more clean :shrug:
-    @commands.command(
-        name="marry", brief="marry someone! even though, they're probably not even going to be your friend"
-    )
+    @commands.command(name="marry", brief="marry someone! even though, they're probably not even going to be your friend")
     @cooldown(20, 600, BucketType.user)
     @commands.guild_only()
     async def marry_someone(self, ctx, member: discord.Member, ring=None):
@@ -31,9 +29,7 @@ class ecomarry(commands.Cog):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_if_not_exist(member):
-            return await ctx.send(
-                f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first"
-            )
+            return await ctx.send(f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first")
 
         data = await get_bank_data()
 
@@ -73,9 +69,7 @@ class ecomarry(commands.Cog):
             await ctx.send(f"you do not have any rings {ring_emoji} to give {member.mention}")
             return
 
-        await ctx.send(
-            f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring {ring_emoji} will disentegrate if you do"
-        )
+        await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring {ring_emoji} will disentegrate if you do")
         response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
         if response.content.lower() not in confirmations:
             await ctx.send(f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall")
@@ -88,9 +82,7 @@ class ecomarry(commands.Cog):
                 await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
                 return
 
-        await ctx.send(
-            f"it's a match! {ctx.author.mention} and {member.mention} are now married!! 🥳🥳\nyour marriage will now appear on both of your profiles"
-        )
+        await ctx.send(f"it's a match! {ctx.author.mention} and {member.mention} are now married!! 🥳🥳\nyour marriage will now appear on both of your profiles")
 
         try:
             timer = data[str(ctx.author.id)]["marriage"][str(member.id)]["time"]
@@ -132,9 +124,7 @@ class ecomarry(commands.Cog):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_if_not_exist(member):
-            return await ctx.send(
-                f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first"
-            )
+            return await ctx.send(f"{await SL.removeat(member.display_name)} does not have an account, they need to create an account first")
 
         data = await get_bank_data()
 

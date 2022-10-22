@@ -218,9 +218,7 @@ async def load_cogs(bot):
     for filename in glob.iglob("./cogs/**", recursive=True):
         if filename.endswith(".py"):
             filename = filename[2:].replace("/", ".")  # goes from "./cogs/economy.py" to "cogs.economy.py"
-            await bot.load_extension(
-                f"{filename[:-3]}"
-            )  # removes the ".py" from the end of the filename, to make it into cogs.economy
+            await bot.load_extension(f"{filename[:-3]}")  # removes the ".py" from the end of the filename, to make it into cogs.economy
 
 
 async def main():

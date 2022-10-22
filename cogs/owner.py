@@ -454,9 +454,7 @@ class Owner(commands.Cog):
                     seconds += float(i.split(" ")[0])
 
                 else:
-                    return await ctx.send(
-                        f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info"
-                    )
+                    return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
 
         if seconds < 30:
             return await ctx.send(f"please set a time greater than 30 seconds")
@@ -465,9 +463,7 @@ class Owner(commands.Cog):
             return await ctx.send(f"please set a time less than 1 year")
 
         sendtime = round(time.time() + seconds)
-        embed = discord.Embed(
-            title=reminder, description=f"i will remind {user.display_name} in <t:{sendtime}:R>", color=user.colour
-        )
+        embed = discord.Embed(title=reminder, description=f"i will remind {user.display_name} in <t:{sendtime}:R>", color=user.colour)
         embed.set_footer(text=f"{ctx.author.name}", icon_url=ctx.author.display_avatar.url)
 
         with open("storage/reminders.json", "r") as f:

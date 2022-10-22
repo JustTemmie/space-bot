@@ -477,9 +477,7 @@ https://rg3.github.io/youtube-dl/supportedsites.html""",
                 except YTDLError as e:
                     await ctx.send("An error occurred while processing this request: {}".format(str(e)))
             except:
-                return await ctx.send(
-                    "Could not find anything related to your search.\nit is most likely because the video is age restricted"
-                )
+                return await ctx.send("Could not find anything related to your search.\nit is most likely because the video is age restricted")
             else:
                 song = Song(source)
 

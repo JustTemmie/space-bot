@@ -98,22 +98,14 @@ class ecogeneration(commands.Cog):
 
         try:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"] - 300
-            payout = (
-                (strength * 0.0004 + 0.008) * temporal**0.8
-                + random.randrange(8, 11)
-                + random.uniform(0.3, 0.8) * strength
-            )
+            payout = (strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength
             if payout >= 20000:
                 payout = 20000
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             # await ctx.send("you have to wait 5 minutes before you can do this again")
             payout = (
-                (
-                    ((perception / 4) * strength * 0.0004 + 0.008) * temporal**0.8
-                    + random.randrange(8, 11)
-                    + random.uniform(0.3, 0.8) * strength
-                )
+                (((perception / 4) * strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength)
                 / 300
                 * temporal
                 * 0.8

@@ -80,9 +80,7 @@ class ecoshop(commands.Cog):
                 with open("storage/playerInfo/bank.json", "w") as f:
                     json.dump(bank, f)
 
-                await ctx.send(
-                    f"You just bought {amount} {shop[i][1]} for {shop[i][0] * amount} <:beaverCoin:1019212566095986768>"
-                )
+                await ctx.send(f"You just bought {amount} {shop[i][1]} for {shop[i][0] * amount} <:beaverCoin:1019212566095986768>")
                 return
 
         await ctx.send("i could not find that item, sorry")
@@ -171,9 +169,7 @@ class ecoshop(commands.Cog):
             for tier in zoo:
                 if tier == animal:
                     for i in zoo[tier]["animals"]:
-                        selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]][
-                            "count"
-                        ]
+                        selling[tier] += data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"]
                         data[str(user.id)]["animals"][tier][zoo[tier]["animals"][i]["name"][0]]["count"] = 0
                     break
 

@@ -58,9 +58,7 @@ class github(commands.Cog):
                 for filename in glob.iglob("./cogs/**", recursive=True):
                     if filename.endswith(".py") and "owner" not in filename:
                         try:
-                            filename = filename[2:].replace(
-                                "/", "."
-                            )  # goes from "./cogs/economy.py" to "cogs.economy.py"
+                            filename = filename[2:].replace("/", ".")  # goes from "./cogs/economy.py" to "cogs.economy.py"
                             self.bot.reload_extension(filename[:-3])
                             self.bot.dispatch("load", filename[:-3])
                         except Exception as e:

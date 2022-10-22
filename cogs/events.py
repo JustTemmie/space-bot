@@ -38,9 +38,7 @@ class events(commands.Cog):
             pass
 
         elif isinstance(exc, MissingRequiredArgument):
-            await ctx.send(
-                f"One or more of the required arguments are missing, perhaps the help command could help you out? `{ctx.prefix}help {ctx.command}`"
-            )
+            await ctx.send(f"One or more of the required arguments are missing, perhaps the help command could help you out? `{ctx.prefix}help {ctx.command}`")
 
         elif isinstance(exc, CommandOnCooldown):
 
@@ -87,13 +85,9 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
         logging.info(f"{ctx.command.name} was successfully invoked by {ctx.author}")
-        print(
-            f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}"
-        )
+        print(f"{ctx.command.name} was successfully invoked by {ctx.author} {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}")
         fileObj = open(f"temp/hourlyLogs/{floor(time()/3600)}.txt", "a")
-        fileObj.write(
-            f"{ctx.command.name} was successfully invoked by {ctx.author} at {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}\n"
-        )
+        fileObj.write(f"{ctx.command.name} was successfully invoked by {ctx.author} at {datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}\n")
         fileObj.close()
 
     @commands.Cog.listener()

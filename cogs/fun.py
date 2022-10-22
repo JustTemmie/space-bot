@@ -70,9 +70,7 @@ class fun(commands.Cog):
             return
 
         if search_term is not None:
-            r = requests.get(
-                "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, tenor_api_key, int(value))
-            )
+            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, tenor_api_key, int(value)))
 
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
@@ -253,9 +251,7 @@ class fun(commands.Cog):
                     await ctx.send(f"API returned a {response.status} status.")
 
         else:
-            await ctx.send(
-                "No facts are available for that animal, The list of animals you can ask facts about are dog, cat, panda, fox, bird, koala."
-            )
+            await ctx.send("No facts are available for that animal, The list of animals you can ask facts about are dog, cat, panda, fox, bird, koala.")
 
     @commands.command(name="joke", brief="they're all horrible. Seriously")
     @cooldown(3, 5, BucketType.guild)

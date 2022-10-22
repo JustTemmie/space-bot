@@ -62,9 +62,7 @@ class zooMisc(commands.Cog):
                 name = animal["name"][0]
                 caught = data[str(user.id)]["animals"][tier][name]["caught"]
                 if caught != 0 or tier == "common":
-                    animalsInTiers[tier].append(
-                        f"{icon}`{make_4_long(data[str(user.id)]['animals'][tier][name]['count'])}` "
-                    )
+                    animalsInTiers[tier].append(f"{icon}`{make_4_long(data[str(user.id)]['animals'][tier][name]['count'])}` ")
 
                 caughtPerTier[tier] += caught
 

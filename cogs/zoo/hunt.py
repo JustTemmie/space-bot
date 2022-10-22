@@ -88,9 +88,7 @@ class zooHunt(commands.Cog):
             if peak_rarity != "":
                 bonusStr = f"\nwoah, that {peak_animal}... it's {animals[peak_rarity]['aoran']} {peak_rarity}{animals[peak_rarity]['icon']}animal"
 
-            await ctx.send(
-                f"{await removeat(ctx.author.display_name)} went on a hunt\nThey found: {animalIcons}{bonusStr}"
-            )
+            await ctx.send(f"{await removeat(ctx.author.display_name)} went on a hunt\nThey found: {animalIcons}{bonusStr}")
 
         data = await aniLib.get_animal_data()
 

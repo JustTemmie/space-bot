@@ -27,9 +27,7 @@ class ecoinv(commands.Cog):
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
         if await check_if_not_exist(member):
-            return await ctx.send(
-                f"{await SL.removeat(member.display_name)} doesn't have an account, they need to create one first"
-            )
+            return await ctx.send(f"{await SL.removeat(member.display_name)} doesn't have an account, they need to create one first")
 
         if amount == None:
             await ctx.send("pleeeease enter the amount you wish to give <:shy:848650912636600320>")
@@ -51,9 +49,7 @@ class ecoinv(commands.Cog):
 
         auth = ctx.author.display_name
 
-        await ctx.send(
-            f"{await SL.removeat(auth)} gave {amount} <:beaverCoin:1019212566095986768> to {await SL.removeat(member.display_name)}"
-        )
+        await ctx.send(f"{await SL.removeat(auth)} gave {amount} <:beaverCoin:1019212566095986768> to {await SL.removeat(member.display_name)}")
 
     @commands.command(
         name="inventory",

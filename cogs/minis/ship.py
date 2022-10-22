@@ -51,9 +51,7 @@ class shipcog(commands.Cog):
             )
         elif result <= 49:
             await ctx.send(
-                await SL.removeat(
-                    f"a ship between {person1.display_name} and {person2.display_name} seems like it *might* possible... {result} / 100"
-                )
+                await SL.removeat(f"a ship between {person1.display_name} and {person2.display_name} seems like it *might* possible... {result} / 100")
             )
         elif result <= 59:
             await ctx.send(
@@ -62,11 +60,7 @@ class shipcog(commands.Cog):
                 )
             )
         elif result < 69:
-            await ctx.send(
-                await SL.removeat(
-                    f"i give a ship between {person1.display_name} and {person2.display_name} a solid {result} / 100"
-                )
-            )
+            await ctx.send(await SL.removeat(f"i give a ship between {person1.display_name} and {person2.display_name} a solid {result} / 100"))
         elif result == 69:
             await ctx.send(
                 await SL.removeat(
@@ -98,9 +92,7 @@ class shipcog(commands.Cog):
             )
         elif result <= 99:
             await ctx.send(
-                await SL.removeat(
-                    f"the bond between {person1.display_name} and {person2.display_name} seems so strong, i'm rating it a {result} / 100"
-                )
+                await SL.removeat(f"the bond between {person1.display_name} and {person2.display_name} seems so strong, i'm rating it a {result} / 100")
             )
         elif result == 100:
             await ctx.send(

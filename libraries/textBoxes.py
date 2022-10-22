@@ -38,9 +38,7 @@ ALLIGNMENT_TOP = 3
 ALLIGNMENT_BOTTOM = 4
 
 
-def text_box(
-    text, image_draw, font, box, horizontal_allignment=ALLIGNMENT_LEFT, vertical_allignment=ALLIGNMENT_TOP, **kwargs
-):
+def text_box(text, image_draw, font, box, horizontal_allignment=ALLIGNMENT_LEFT, vertical_allignment=ALLIGNMENT_TOP, **kwargs):
     x = box[0]
     y = box[1]
     width = box[2]

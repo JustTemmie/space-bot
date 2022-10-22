@@ -43,9 +43,7 @@ class qrcodegenerator(commands.Cog):
             return
 
         if input == None:
-            await ctx.send(
-                "Please give me a string to generate a qr code for\nOr attach a qr code in your message and i'll decode it for you"
-            )
+            await ctx.send("Please give me a string to generate a qr code for\nOr attach a qr code in your message and i'll decode it for you")
 
         qr = qrcode.QRCode(
             version=1,
