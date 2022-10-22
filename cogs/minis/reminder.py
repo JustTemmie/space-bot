@@ -27,8 +27,8 @@ class reminder(commands.Cog):
     async def reminder_command(self, ctx, *, reminder):
         seconds = 0
         arraything = reminder.split(" in ")
-        
-        timing = arraything[len(arraything)-1]        
+
+        timing = arraything[len(arraything) - 1]
         reminder.join(arraything)
 
         ch = " "
