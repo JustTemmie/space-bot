@@ -123,7 +123,7 @@ class social(commands.Cog):
             targets,
         )
 
-    @commands.command(name="kiss", aliases=["smooch"], brief="awwweee :D")
+    @commands.command(name="kiss", aliases=["smooch", "mwah"], brief="awwweee :D")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def smooches(self, ctx, targets: Greedy[Member] = None):
