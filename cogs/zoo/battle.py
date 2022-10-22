@@ -1,6 +1,6 @@
 import discord
 from discord.ui import Button, View, Select
-from discord.ext import commands, Embed
+from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 from io import BytesIO
