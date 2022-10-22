@@ -29,16 +29,17 @@ class github(commands.Cog):
 
         if len(output) < 1975:
             await ctx.send(f"```{output}```")
-            return
+        
+        else:
 
-        n = 1994
-        split_strings = []
+            n = 1994
+            split_strings = []
 
-        for index in range(0, len(output), n):
-            split_strings.append(output[index : index + n])
+            for index in range(0, len(output), n):
+                split_strings.append(output[index : index + n])
 
-        for message in split_strings:
-            await ctx.send(f"```{message}```")
+            for message in split_strings:
+                await ctx.send(f"```{message}```")
 
         if var.decode("utf-8") != "Already up to date.\n":
             if restart.lower() == "true":
