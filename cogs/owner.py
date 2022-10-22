@@ -328,7 +328,7 @@ class Owner(commands.Cog):
         if response.content not in confirmations:
             return await ctx.send("oh ok")
 
-        output = subprocess.run([*commandArray], stdout=subprocess.PIPE, timeout=50)
+        output = subprocess.run([*commandArray], stdout=subprocess.PIPE, timeout=180)
         output = output.stdout.decode("utf-8")
 
         if len(output) + len(command) < 1975:

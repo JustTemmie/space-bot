@@ -26,7 +26,10 @@ class reminder(commands.Cog):
     @cooldown(5, 10, BucketType.user)
     async def reminder_command(self, ctx, *, reminder):
         seconds = 0
-        reminder, timing = (value for value in reminder.split(" in "))
+        arraything = reminder.split(" in ")
+        
+        timing = arraything[len(arraything)-1]        
+        reminder.join(arraything)
 
         ch = " "
         occurrence = 2
