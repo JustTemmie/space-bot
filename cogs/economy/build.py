@@ -37,9 +37,7 @@ class ecobuild(commands.Cog):
         current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
 
         if building == "None":
-            embed = discord.Embed(
-                title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color
-            )
+            embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
             embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.display_avatar.url)
 
             embed.add_field(
@@ -94,9 +92,7 @@ class ecobuild(commands.Cog):
                 bar = await progress_bar(spent, next_level, 25)
 
             if spent >= next_level:
-                embed = discord.Embed(
-                    title=f"Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color
-                )
+                embed = discord.Embed(title=f"Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color)
                 if level != len(dam_levels) - 1:
                     embed.add_field(
                         name="Logs needed for next level",

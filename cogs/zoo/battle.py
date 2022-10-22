@@ -97,9 +97,7 @@ class zooBattle(commands.Cog):
             for animal in animals:
                 if len(decidedMoves[animal]) == 0:
                     await sentMsg.reply(
-                        await SL.removeat(
-                            f"you haven't decided on a move for {teamMembers[animals.index(animal)]} yet"
-                        ),
+                        await SL.removeat(f"you haven't decided on a move for {teamMembers[animals.index(animal)]} yet"),
                         delete_after=5,
                     )
                     await interaction.response.defer()
@@ -153,15 +151,11 @@ class zooBattle(commands.Cog):
         }
 
         async def add_to_dropdown(nr, emoji, label, desc, ID, amount, cost):
-            options[f"options{nr}"].append(
-                discord.SelectOption(emoji=emoji, label=label, description=desc, value=f"{label},{ID},{amount},{cost}")
-            )
+            options[f"options{nr}"].append(discord.SelectOption(emoji=emoji, label=label, description=desc, value=f"{label},{ID},{amount},{cost}"))
 
         damage = 5
         cost = 3
-        await add_to_dropdown(
-            1, "⚔️", "Sting", f"charge in at the enemy, dealing {damage} damage | cost: {cost}", "attack", damage, cost
-        )
+        await add_to_dropdown(1, "⚔️", "Sting", f"charge in at the enemy, dealing {damage} damage | cost: {cost}", "attack", damage, cost)
 
         await add_to_dropdown(2, "⚔️", "Attack", "Attack", "attack", 5, 2)
 

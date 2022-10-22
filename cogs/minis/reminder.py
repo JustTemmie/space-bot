@@ -58,9 +58,7 @@ class reminder(commands.Cog):
                     seconds += float(i.split(" ")[0])
 
                 else:
-                    return await ctx.send(
-                        f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info"
-                    )
+                    return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
 
         if seconds < 30:
             return await ctx.send(f"please set a time greater than 30 seconds")

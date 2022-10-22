@@ -41,9 +41,7 @@ class todo(commands.Cog):
             with open("storage/todo.json", "w") as f:
                 json.dump(data, f)
 
-            await ctx.send(
-                f"{ctx.author.mention} your todo has been added to the list with index {len(data[str(ctx.author.id)])}\n```{todo}```"
-            )
+            await ctx.send(f"{ctx.author.mention} your todo has been added to the list with index {len(data[str(ctx.author.id)])}\n```{todo}```")
             return
 
         end = ""
@@ -66,9 +64,7 @@ class todo(commands.Cog):
     @cooldown(5, 10, BucketType.user)
     async def deleteTodo(self, ctx, todo, index):
         if todo != "todo":
-            await ctx.send(
-                f"as of now, you need to use `todo` as the first argument\n`{ctx.prefix}delete todo <index>`"
-            )
+            await ctx.send(f"as of now, you need to use `todo` as the first argument\n`{ctx.prefix}delete todo <index>`")
             return
 
         if await check_if_not_exist(ctx.author):

@@ -270,9 +270,7 @@ class admin(Cog):
             await deled.delete()
             await response.delete()
             if response.content.lower() in ["none", "n", "no"]:
-                return await ctx.send(
-                    "Role menu creation completed, users can now react to the message to get roles", delete_after=20
-                )
+                return await ctx.send("Role menu creation completed, users can now react to the message to get roles", delete_after=20)
             try:
                 role = await ctx.guild.create_role(name=response.content)
                 roleid = role.id
@@ -297,18 +295,14 @@ class admin(Cog):
             try:
                 await msg.edit(embed=embed)
             except Exception as e:
-                return await ctx.send(
-                    f"sorry there was an error editing the message, please run the command again\nError: {e}"
-                )
+                return await ctx.send(f"sorry there was an error editing the message, please run the command again\nError: {e}")
 
             data.append({"role_id": roleid, "emoji": response.content, "message_id": msg.id})
 
             with open(f"storage/reactions/roles/{ctx.channel.id}.json", "w") as f:
                 json.dump(data, f)
 
-    @commands.command(
-        name="nonimagepurge", aliases=["ipurge"], brief="clears all X last messages that don't have an image attatched"
-    )
+    @commands.command(name="nonimagepurge", aliases=["ipurge"], brief="clears all X last messages that don't have an image attatched")
     @bot_has_permissions(manage_messages=True)
     # @has_permissions(manage_messages=True)
     async def nonimagepurge(self, ctx, amount=0):

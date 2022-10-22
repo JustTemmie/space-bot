@@ -131,9 +131,7 @@ class tictactoe(commands.Cog):
                 return True
 
         # check diagonal
-        if (board[0] == piece and board[4] == piece and board[8] == piece) or (
-            board[2] == piece and board[4] == piece and board[6] == piece
-        ):
+        if (board[0] == piece and board[4] == piece and board[8] == piece) or (board[2] == piece and board[4] == piece and board[6] == piece):
             return True
 
         return False
@@ -166,15 +164,11 @@ class tictactoe(commands.Cog):
         # await ctx.send(board)
 
         if move not in range(0, 9):
-            await ctx.send(
-                await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10
-            )
+            await ctx.send(await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10)
             return await self.get_move(ctx, valid_placements, board, player, piece)
 
         elif board[move] != "-":
-            await ctx.send(
-                await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10
-            )
+            await ctx.send(await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10)
             return await self.get_move(ctx, valid_placements, board, player, piece)
 
         else:
@@ -185,9 +179,7 @@ class tictactoe(commands.Cog):
                 return move
             except Exception as e:
                 print(e)
-                await ctx.send(
-                    await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10
-                )
+                await ctx.send(await removeat(f"{player.display_name} didn't choose a valid placement, try again"), delete_after=10)
                 return await self.get_move(ctx, valid_placements, board, player, piece)
 
 

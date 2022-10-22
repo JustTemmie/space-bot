@@ -48,9 +48,7 @@ class settings(commands.Cog):
 
         if setting not in settings[category]:
             embed = Embed(title=f"{category} settings", color=ctx.author.color)
-            embed.set_footer(
-                text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} vote reminder true"
-            )
+            embed.set_footer(text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} vote reminder true")
             for child in settings[category]:
                 possible_values = ""
                 for value in settings[category][child]["values"]:
@@ -80,9 +78,7 @@ Description: `{settings[category][child]['description']}`
                 value=f"`{str(data[str(ctx.author.id)][category][setting]).lower()}`",
                 inline=False,
             )
-            embed.add_field(
-                name="Possible values:", value="\n".join(settings[category][setting]["values"]), inline=False
-            )
+            embed.add_field(name="Possible values:", value="\n".join(settings[category][setting]["values"]), inline=False)
             embed.add_field(name="Description:", value=f"`{settings[category][setting]['description']}`", inline=False)
             await ctx.send(embed=embed)
             return

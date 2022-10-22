@@ -55,22 +55,16 @@ class ecogambling(commands.Cog):
 
         bal = await update_bank_data(ctx.author)
         if amount > bal[0]:
-            await msg.edit(
-                content=f"{msg.content} it... didn't land??!\n{ctx.author.display_name} won {amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.edit(content=f"{msg.content} it... didn't land??!\n{ctx.author.display_name} won {amount} <:beaverCoin:1019212566095986768>")
             return
 
         if result.lower() == side.lower():
             await update_bank_data(ctx.author, amount, "wallet")
-            await msg.edit(
-                content=f"{msg.content} it landed on {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.edit(content=f"{msg.content} it landed on {result}!\n{ctx.author.display_name} won {2*amount} <:beaverCoin:1019212566095986768>")
             return
 
         await update_bank_data(ctx.author, -amount, "wallet")
-        await msg.edit(
-            content=f"{msg.content} it landed on  {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:1019212566095986768>"
-        )
+        await msg.edit(content=f"{msg.content} it landed on  {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:1019212566095986768>")
 
     @commands.command(
         name="slot",
@@ -167,77 +161,37 @@ class ecogambling(commands.Cog):
             await msg.reply("nice try ||beaver||")
             return
 
-        if (
-            final[0] == "<:Diamond:848602702132019210>"
-            and final[1] == "<:Diamond:848602702132019210>"
-            and final[2] == "<:Diamond:848602702132019210>"
-        ):
+        if final[0] == "<:Diamond:848602702132019210>" and final[1] == "<:Diamond:848602702132019210>" and final[2] == "<:Diamond:848602702132019210>":
             await update_bank_data(ctx.author, 19 * amount, "wallet")
-            await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {20*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"{await SL.removeat(ctx.author.display_name)} won {20*amount} <:beaverCoin:1019212566095986768>")
 
-        elif (
-            final[0] == "<:Emerald:848602691337060412>"
-            and final[1] == "<:Emerald:848602691337060412>"
-            and final[2] == "<:Emerald:848602691337060412>"
-        ):
+        elif final[0] == "<:Emerald:848602691337060412>" and final[1] == "<:Emerald:848602691337060412>" and final[2] == "<:Emerald:848602691337060412>":
             await update_bank_data(ctx.author, 9 * amount, "wallet")
-            await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {10*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"{await SL.removeat(ctx.author.display_name)} won {10*amount} <:beaverCoin:1019212566095986768>")
 
-        elif (
-            final[0] == "<:Gold:848602678031548427>"
-            and final[1] == "<:Gold:848602678031548427>"
-            and final[2] == "<:Gold:848602678031548427>"
-        ):
+        elif final[0] == "<:Gold:848602678031548427>" and final[1] == "<:Gold:848602678031548427>" and final[2] == "<:Gold:848602678031548427>":
             await update_bank_data(ctx.author, 13 * amount, "wallet")
-            await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {14*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"{await SL.removeat(ctx.author.display_name)} won {14*amount} <:beaverCoin:1019212566095986768>")
 
-        elif (
-            final[0] == "<:Iron:848602645207842846>"
-            and final[1] == "<:Iron:848602645207842846>"
-            and final[2] == "<:Iron:848602645207842846>"
-        ):
+        elif final[0] == "<:Iron:848602645207842846>" and final[1] == "<:Iron:848602645207842846>" and final[2] == "<:Iron:848602645207842846>":
             await update_bank_data(ctx.author, 6 * amount, "wallet")
-            await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {7*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"{await SL.removeat(ctx.author.display_name)} won {7*amount} <:beaverCoin:1019212566095986768>")
 
-        elif (
-            final[0] == "<:Redstone:848604340658241576>"
-            and final[1] == "<:Redstone:848604340658241576>"
-            and final[2] == "<:Redstone:848604340658241576>"
-        ):
+        elif final[0] == "<:Redstone:848604340658241576>" and final[1] == "<:Redstone:848604340658241576>" and final[2] == "<:Redstone:848604340658241576>":
             await update_bank_data(ctx.author, 5 * amount, "wallet")
-            await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {6*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"{await SL.removeat(ctx.author.display_name)} won {6*amount} <:beaverCoin:1019212566095986768>")
 
-        elif (
-            final[0] == "<:Coal:848602311659618315>"
-            and final[1] == "<:Coal:848602311659618315>"
-            and final[2] == "<:Coal:848602311659618315>"
-        ):
+        elif final[0] == "<:Coal:848602311659618315>" and final[1] == "<:Coal:848602311659618315>" and final[2] == "<:Coal:848602311659618315>":
             await update_bank_data(ctx.author, 4 * amount, "wallet")
-            await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {5*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"{await SL.removeat(ctx.author.display_name)} won {5*amount} <:beaverCoin:1019212566095986768>")
 
         elif final[0] == final[1] or final[0] == final[2] or final[1] == final[2]:
             await update_bank_data(ctx.author, 0.5 * amount, "wallet")
-            await msg.reply(
-                f"{await SL.removeat(ctx.author.display_name)} won {1.5*amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"{await SL.removeat(ctx.author.display_name)} won {1.5*amount} <:beaverCoin:1019212566095986768>")
 
         else:
             await update_bank_data(ctx.author, -1 * amount, "wallet")
-            await msg.reply(
-                f"<:sadcat:849342846582390834> - {await SL.removeat(ctx.author.display_name)} lost {amount} <:beaverCoin:1019212566095986768>"
-            )
+            await msg.reply(f"<:sadcat:849342846582390834> - {await SL.removeat(ctx.author.display_name)} lost {amount} <:beaverCoin:1019212566095986768>")
 
 
 async def setup(bot):

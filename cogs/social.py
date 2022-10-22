@@ -35,9 +35,7 @@ class social(commands.Cog):
             return
 
         gif_count = top_x_gifs
-        r = requests.get(
-            "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime {search}", tenor_api_key, gif_count)
-        )
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime {search}", tenor_api_key, gif_count))
         actees = []
         for member in targets:
             # if member.id not in actees:
@@ -78,9 +76,7 @@ class social(commands.Cog):
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def ticklecommand(self, ctx, targets: Greedy[Member] = None):
-        await self.social_commands(
-            ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets
-        )
+        await self.social_commands(ctx, "tickle", 30, "just tickled", "", "just tickled themselves... pretty impressive", "teehee", targets)
 
     @commands.command(name="stare", aliases=["look"], brief="okay, creep")
     @cooldown(8, 25, BucketType.guild)
@@ -163,17 +159,13 @@ class social(commands.Cog):
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def boopcommand(self, ctx, targets: Greedy[Member] = None):
-        await self.social_commands(
-            ctx, "boop", 20, "just forced", " to go bleep", "decided to bleep themselves, just cuz", "uwu", targets
-        )
+        await self.social_commands(ctx, "boop", 20, "just forced", " to go bleep", "decided to bleep themselves, just cuz", "uwu", targets)
 
     @commands.command(name="punch", aliases=["hit"], brief="bit rude but o k")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def punchcommand(self, ctx, targets: Greedy[Member] = None):
-        await self.social_commands(
-            ctx, "punch", 25, "hit", " ", "is punching, wait, why?", "at least it's not murder", targets
-        )
+        await self.social_commands(ctx, "punch", 25, "hit", " ", "is punching, wait, why?", "at least it's not murder", targets)
 
     @commands.command(name="steal", aliases=["joink"], brief="mine now")
     @cooldown(8, 25, BucketType.guild)
@@ -207,9 +199,7 @@ class social(commands.Cog):
             if userNotExist == "banned":
                 return
             if userNotExist:
-                return await ctx.send(
-                    f"i could not find an inventory for {await SL.removeat(user.display_name)}, they need to create an account first"
-                )
+                return await ctx.send(f"i could not find an inventory for {await SL.removeat(user.display_name)}, they need to create an account first")
 
         bank = await get_bank_data()
 
@@ -217,9 +207,7 @@ class social(commands.Cog):
             await self.social_commands(ctx, "bonk", 25, "bonked", " in their head", "ow", "bonk!", targets)
             return
 
-        await ctx.send(
-            f"you don't have a stick, you need to buy one in order to bonk someone in their head\nsee {ctx.prefix}shop for more info"
-        )
+        await ctx.send(f"you don't have a stick, you need to buy one in order to bonk someone in their head\nsee {ctx.prefix}shop for more info")
 
     @commands.command(name="fuck", brief="hi there, you found a hidden command")
     @cooldown(5, 25, BucketType.guild)
@@ -230,16 +218,12 @@ class social(commands.Cog):
             try:
                 response = await self.bot.wait_for("message", check=lambda m: m.author == person, timeout=30)
             except asyncio.TimeoutError:
-                return await ctx.send(
-                    await SL.removeat(f"**Timed out** {person.display_name} took too long to answer, cancelling")
-                )
+                return await ctx.send(await SL.removeat(f"**Timed out** {person.display_name} took too long to answer, cancelling"))
             if response.content.lower() not in confirmations:
                 await ctx.send(f"yeah no, sorry {ctx.author.mention}, i'm not doing that :p")
                 return
 
-        await self.social_commands(
-            ctx, "blush", 40, "did uh... something with", "", "is... enjoying themselves?!?", "woahwoahwaoh", targets
-        )
+        await self.social_commands(ctx, "blush", 40, "did uh... something with", "", "is... enjoying themselves?!?", "woahwoahwaoh", targets)
 
     @commands.command(name="kill", aliases=["murder"], brief="that's an official oisann moment")
     @cooldown(8, 25, BucketType.guild)

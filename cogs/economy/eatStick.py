@@ -34,17 +34,13 @@ class stickyummy(commands.Cog):
 
         if bank[str(ctx.author.id)]["inventory"]["stick"] >= 1:
 
-            r = requests.get(
-                "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime eating chopsticks", tenor_api_key, 40)
-            )
+            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime eating chopsticks", tenor_api_key, 40))
 
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
                 realoutput = top_x_gifs["results"][random.randrange(0, 30)]["media"][0]["gif"]["url"]
                 # print(realoutput)
-                embed = Embed(
-                    title=f"{ctx.author.display_name} ate a stick", description="nomch", colour=ctx.author.colour
-                )
+                embed = Embed(title=f"{ctx.author.display_name} ate a stick", description="nomch", colour=ctx.author.colour)
                 if realoutput is not None:
                     embed.set_image(url=realoutput)
 
@@ -88,9 +84,7 @@ class stickyummy(commands.Cog):
 
         if bank[str(ctx.author.id)]["inventory"]["stick"] >= 1:
 
-            r = requests.get(
-                "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime feeding", tenor_api_key, 40)
-            )
+            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime feeding", tenor_api_key, 40))
 
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
@@ -119,9 +113,7 @@ class stickyummy(commands.Cog):
             await ctx.send("an error occured, sorry about that")
             return
 
-        await ctx.send(
-            f"you don't have any sticks to feed {SL.removeat(target.display_name)} with, get some by looking into the `{ctx.prefix}shop`"
-        )
+        await ctx.send(f"you don't have any sticks to feed {SL.removeat(target.display_name)} with, get some by looking into the `{ctx.prefix}shop`")
 
 
 async def setup(bot):

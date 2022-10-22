@@ -14,9 +14,7 @@ class help(commands.Cog, name="Help command"):
     async def setup_help_pag(self, ctx, entity=None):
         embed = discord.Embed()
         embed.title = f"{entity.name}"
-        embed.description = (
-            "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
-        )
+        embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
 
         embed.add_field(name="usage:", value=f"{ctx.prefix}{entity.name} {entity.signature}", inline=False)
 
@@ -41,18 +39,14 @@ class help(commands.Cog, name="Help command"):
         embed = discord.Embed()
         embed.title = "Default Commands"
         embed.color = ctx.author.colour
-        embed.description = (
-            "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
-        )
+        embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
         embed.set_footer(text=f"{ctx.prefix}help <command/category> for more info on that command or category")
 
         with open(f"storage/help_pages/Default.json", "r") as f:
             data = json.load(f)
 
         for entry in data:
-            embed.add_field(
-                name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False
-            )
+            embed.add_field(name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False)
 
         options = [
             discord.SelectOption(
@@ -92,9 +86,7 @@ class help(commands.Cog, name="Help command"):
                 data = json.load(f)
 
             for entry in data:
-                embed.add_field(
-                    name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False
-                )
+                embed.add_field(name=f"{data[entry]['icon']} {data[entry]['name']}", value=data[entry]["description"], inline=False)
 
             await msg.edit(embed=embed)
             await interaction.response.defer()
@@ -108,9 +100,7 @@ class help(commands.Cog, name="Help command"):
     async def help_category(self, ctx, data, entity):
         embed = discord.Embed()
         embed.title = f"{data['icon']} {data['name']}"
-        embed.description = (
-            "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
-        )
+        embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
 
         commands = data["description"]
         commands = commands.split(" ")
