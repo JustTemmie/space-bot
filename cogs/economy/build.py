@@ -171,7 +171,12 @@ class ecobuild(commands.Cog):
             if logs < amount:
                 return await ctx.send("you don't have that many logs")
 
-            lodge_levels = [5000, 10000, 15000, 25000, 35000]
+            lodge_levels = [
+                5000,
+                12000,
+                20000,
+                30000,
+                45000]
 
             level = current_lodgelevel
 
