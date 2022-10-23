@@ -56,9 +56,7 @@ class todo(commands.Cog):
         try:
             await ctx.send(embed=embed)
         except Exception as e:
-            await ctx.send(
-                f"{ctx.author.mention} your todo list is too long to be displayed in a embed, please use {ctx.prefix}delete todo <index> to delete a todo"
-            )
+            await ctx.send(f"{ctx.author.mention} your todo list is too long to be displayed in a embed, please use {ctx.prefix}delete todo <index> to delete a todo")
 
     @commands.command(name="delete", brief="delete a todo from your todo list")
     @cooldown(5, 10, BucketType.user)

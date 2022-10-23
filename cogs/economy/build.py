@@ -85,9 +85,7 @@ class ecobuild(commands.Cog):
                 bar = await progress_bar(25, 25, 25)
 
             else:
-                next_level = dam_levels[
-                    level
-                ]  # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
+                next_level = dam_levels[level]  # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
                 next_level_str = f"{spent}/{next_level}"
                 bar = await progress_bar(spent, next_level, 25)
 
@@ -171,7 +169,7 @@ class ecobuild(commands.Cog):
             if logs < amount:
                 return await ctx.send("you don't have that many logs")
 
-            lodge_levels = [5000, 10000, 15000, 25000, 35000]
+            lodge_levels = [5000, 12000, 20000, 30000, 45000]
 
             level = current_lodgelevel
 
@@ -185,9 +183,7 @@ class ecobuild(commands.Cog):
                 bar = await progress_bar(25, 25, 25)
 
             else:
-                next_level = lodge_levels[
-                    level
-                ]  # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
+                next_level = lodge_levels[level]  # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
                 next_level_str = f"{spent}/{next_level}"
                 bar = await progress_bar(spent, next_level, 25)
 

@@ -64,9 +64,7 @@ class fun(commands.Cog):
     @cooldown(2, 5, BucketType.guild)
     async def tenor_search(self, ctx, value=str(0), *, search_term=None):
         if search_term is None or value == str(0):
-            await ctx.send(
-                f"please specify what you want to search up, and how many of the top results you want to look thru\n\nfor exmaple: {ctx.prefix}tenor 6 dog\nwill pick one of the top `6` results for `dog` and send it"
-            )
+            await ctx.send(f"please specify what you want to search up, and how many of the top results you want to look thru\n\nfor exmaple: {ctx.prefix}tenor 6 dog\nwill pick one of the top `6` results for `dog` and send it")
             return
 
         if search_term is not None:
@@ -116,9 +114,7 @@ class fun(commands.Cog):
     @cooldown(50, 600, BucketType.user)
     async def mocksomeoneidk(self, ctx, mockee=None, *, makefunof_input=None):
         if mockee == None or makefunof_input == None:
-            await ctx.send(
-                f"give me an input, fool - for example **{ctx.prefix}mock <person you want to mock, either use a single word - or tag someone> <what the idiot said>**"
-            )
+            await ctx.send(f"give me an input, fool - for example **{ctx.prefix}mock <person you want to mock, either use a single word - or tag someone> <what the idiot said>**")
             return
 
         makefunof_output = ""
@@ -279,9 +275,7 @@ class fun(commands.Cog):
         try:
             dice, value = (int(value) for value in die_string.split("d"))
         except ValueError as e:
-            return await ctx.send(
-                f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`"
-            )
+            return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`")
 
         if dice <= 100:
             rolls = [random.randrange(1, value) for i in range(dice)]

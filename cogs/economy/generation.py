@@ -31,9 +31,7 @@ class ecogeneration(commands.Cog):
         streak = ""
         if daily_info["day"] + 2 < (datetime.utcnow() - datetime(1970, 1, 1)).days - 1:
             if bank[str(ctx.author.id)]["inventory"]["insurance"] >= 1:
-                await ctx.send(
-                    f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(ctx.author.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?"
-                )
+                await ctx.send(f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(ctx.author.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?")
                 response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=45)
 
                 if response.content.lower() in confirmations:
@@ -104,17 +102,7 @@ class ecogeneration(commands.Cog):
         except:
             temporal = time.time() - data[str(ctx.author.id)]["scavenge_cooldown"]
             # await ctx.send("you have to wait 5 minutes before you can do this again")
-            payout = (
-                (
-                    ((perception / 4) * strength * 0.0004 + 0.008)
-                        * temporal**0.8
-                        + random.randrange(8, 11)
-                        + random.uniform(0.3, 0.8) * strength
-                )
-                / 300
-                * temporal
-                * 0.8
-            )
+            payout = (((perception / 4) * strength * 0.0004 + 0.008) * temporal**0.8 + random.randrange(8, 11) + random.uniform(0.3, 0.8) * strength) / 300 * temporal * 0.8
 
         # skills
         if data[str(ctx.author.id)]["dam"]["level"] >= 2:

@@ -200,9 +200,7 @@ d) {answers[3]}
             if questions["response_code"] == 3:
                 return await ctx.send("**Code 3: Token Not Found** Session Token does not exist.")
             if questions["response_code"] == 4:
-                return await ctx.send(
-                    "**Code 4: Token Empty** Session Token has returned all possible questions for the specified query. Resetting the Token is necessary."
-                )
+                return await ctx.send("**Code 4: Token Empty** Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.")
 
             return await ctx.send(f"error code {questions['response_code']}, please try again later")
 

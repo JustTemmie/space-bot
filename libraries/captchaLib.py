@@ -100,9 +100,7 @@ async def check_captcha_valid(self, ctx, captchaStr, loop=1):
         with open("./storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(
-            f"You have been **banned** for {round(bannedFor/60/60)} hours due to suspicious activity. This ban will last until <t:{bannedFor + round(time.time())}>\nIf you think this is a mistake, please contact our support server <https://discord.gg/8MdVe6NgVy>"
-        )
+        await ctx.send(f"You have been **banned** for {round(bannedFor/60/60)} hours due to suspicious activity. This ban will last until <t:{bannedFor + round(time.time())}>\nIf you think this is a mistake, please contact our support server <https://discord.gg/8MdVe6NgVy>")
 
         return False
 
@@ -125,9 +123,7 @@ async def check_captcha_valid(self, ctx, captchaStr, loop=1):
         with open("./storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(
-            f"You have been **banned** for {round(bannedFor/60/60)} hours due to suspicious activity. This ban will last until <t:{bannedFor + round(time.time())}>\nIf you think this is a mistake, please contact our support server <https://discord.gg/8MdVe6NgVy>"
-        )
+        await ctx.send(f"You have been **banned** for {round(bannedFor/60/60)} hours due to suspicious activity. This ban will last until <t:{bannedFor + round(time.time())}>\nIf you think this is a mistake, please contact our support server <https://discord.gg/8MdVe6NgVy>")
 
         return False
 

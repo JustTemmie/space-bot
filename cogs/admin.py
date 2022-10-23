@@ -63,9 +63,7 @@ class admin(Cog):
                         break
 
             if index > 5:
-                await ctx.send(
-                    f"There are only 5 prefixes available\nPlease use a prefix that is not already in use, or overwrite an existing one {ctx.prefix}{ctx.invoked_with} 2 {prefix}"
-                )
+                await ctx.send(f"There are only 5 prefixes available\nPlease use a prefix that is not already in use, or overwrite an existing one {ctx.prefix}{ctx.invoked_with} 2 {prefix}")
 
             elif prefix == "clear":
                 prefixes[str(ctx.guild.id)]["prefix1"] = "a!"
