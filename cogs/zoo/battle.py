@@ -43,20 +43,16 @@ class zooBattle(commands.Cog):
         for pet in team:
             teamMembers.append(team[pet]["name"])
 
-        #await ctx.send(teamMembers)
+        # await ctx.send(teamMembers)
         await ctx.send(f'{team["animal1"]["icon"]} {team["animal1"]["name"]}')
-        
+
         embed = Embed()
-        embed.set_author(name = "test", icon_url = ctx.author.display_avatar.url)
-        
-        embed.add_field(
-            inline = True,
-            name = f"{await SL.removeat(ctx.author.display_name)}'s team",
-            value = "a"
-        )
-        
+        embed.set_author(name="test", icon_url=ctx.author.display_avatar.url)
+
+        embed.add_field(inline=True, name=f"{await SL.removeat(ctx.author.display_name)}'s team", value="a")
+
         await ctx.send(embed=embed)
-        
+
 
 async def setup(bot):
     await bot.add_cog(zooBattle(bot))
