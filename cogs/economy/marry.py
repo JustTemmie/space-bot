@@ -37,9 +37,7 @@ class ecomarry(commands.Cog):
             return await ctx.send(f"you need to have a dam to marry someone\nbuild one using {ctx.prefix}!build dam")
 
         if ring == None:
-            return await ctx.send(
-                f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2"
-            )
+            return await ctx.send(f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2")
 
         try:
             if data[str(ctx.author.id)]["marriage"][str(member.id)]["ring"] == ring.lower():

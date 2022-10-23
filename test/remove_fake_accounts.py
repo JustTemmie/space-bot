@@ -11,13 +11,7 @@ if __name__ == "__main__":
     what = []
     for user in data:
         try:
-            if (
-                round(data[user]["wallet"]) <= 100
-                and round(data[user]["inventory"]["logs"]) < 1
-                and round(data[user]["dam"]["spent"]["logs"]) < 1
-                and round(data[user]["dam"]["level"]) == 0
-                and data[user]["marriage"] == {}
-            ):
+            if round(data[user]["wallet"]) <= 100 and round(data[user]["inventory"]["logs"]) < 1 and round(data[user]["dam"]["spent"]["logs"]) < 1 and round(data[user]["dam"]["level"]) == 0 and data[user]["marriage"] == {}:
                 removes.append(user)
         except:
             try:

@@ -32,9 +32,7 @@ class settings(commands.Cog):
                 title="Categories",
                 color=ctx.author.colour,
             )
-            embed.set_footer(
-                text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} vote <Setting> <Value>"
-            )
+            embed.set_footer(text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} vote <Setting> <Value>")
 
             for entry in settings:
                 fieldDesc = ""
@@ -69,9 +67,7 @@ Description: `{settings[category][child]['description']}`
 
         if value == "none":
             embed = Embed(title=f"`{category}` `{setting}`", color=ctx.author.color)
-            embed.set_footer(
-                text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} {category} {setting} true"
-            )
+            embed.set_footer(text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} {category} {setting} true")
 
             embed.add_field(
                 name="Current value:",
@@ -84,9 +80,7 @@ Description: `{settings[category][child]['description']}`
             return
 
         if value not in settings[category][setting]["values"]:
-            await ctx.send(
-                f"`{value}` is not a valid value for `{category}` `{setting}`\ntry `{ctx.prefix}{ctx.invoked_with} {category} {setting}` to see all possible values"
-            )
+            await ctx.send(f"`{value}` is not a valid value for `{category}` `{setting}`\ntry `{ctx.prefix}{ctx.invoked_with} {category} {setting}` to see all possible values")
             return
 
         if value == "true":

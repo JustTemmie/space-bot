@@ -29,7 +29,7 @@ class github(commands.Cog):
 
         if len(output) < 1975:
             await ctx.send(f"```{output}```")
-        
+
         else:
 
             n = 1994

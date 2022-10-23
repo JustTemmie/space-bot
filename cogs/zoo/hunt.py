@@ -64,9 +64,7 @@ class zooHunt(commands.Cog):
             caughttier.append(tier)
 
         if len(caught) == 1:
-            await ctx.send(
-                f"{await removeat(ctx.author.display_name)} went on a hunt and caught a {caught[0]['name'][0]} {caught[0]['icon']}, it's {animals[caughttier[0]]['aoran']} {caughttier[0]}{animals[caughttier[0]]['icon']} animal"
-            )
+            await ctx.send(f"{await removeat(ctx.author.display_name)} went on a hunt and caught a {caught[0]['name'][0]} {caught[0]['icon']}, it's {animals[caughttier[0]]['aoran']} {caughttier[0]}{animals[caughttier[0]]['icon']} animal")
         else:
             peak_rarity = ""
             peak_animal = ""
