@@ -47,12 +47,16 @@ class zooBattle(commands.Cog):
         await ctx.send(f'{team["animal1"]["icon"]} {team["animal1"]["name"]}')
         
         embed = Embed()
-        embed.set_author(name = "test", icon_url = ctx.author.display_avatar.url)
+        embed.set_author(name = f"{ctx.author.display_name} runs into battle!", icon_url = ctx.author.display_avatar.url)
+        
+        animal1 = ""
+        animal2 = ""
+        animal3 = ""
         
         embed.add_field(
             inline = True,
             name = f"{await SL.removeat(ctx.author.display_name)}'s team",
-            value = "a"
+            value = f"{animal1}\n{animal2}\n{animal3}"
         )
         
         await ctx.send(embed=embed)
