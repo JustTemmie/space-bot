@@ -3,10 +3,6 @@ from discord.ui import Button, View, Select
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
-from io import BytesIO
-import PIL
-
-import libraries.standardLib as SL
 import libraries.animalLib as aniLib
 from libraries.economyLib import *
 from libraries.textBoxes import *
@@ -52,10 +48,11 @@ class zooBattle(commands.Cog):
         animal1 = f'{team["animal1"]["icon"]} {team["animal1"]["name"]}'
         animal2 = f'{team["animal2"]["icon"]} {team["animal2"]["name"]}'
         animal3 = f'{team["animal3"]["icon"]} {team["animal3"]["name"]}'
+        print(data[str(ctx.author.id)])
         
         embed.add_field(
             inline = True,
-            name = f"{await SL.removeat(ctx.author.display_name)}'s team",
+            name = f"{ctx.author.display_name}'s team",
             value = f"{animal1}\n{animal2}\n{animal3}"
         )
         
