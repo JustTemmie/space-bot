@@ -49,9 +49,9 @@ class zooBattle(commands.Cog):
         embed = Embed()
         embed.set_author(name = f"{ctx.author.display_name} runs into battle!", icon_url = ctx.author.display_avatar.url)
         
-        animal1 = ""
-        animal2 = ""
-        animal3 = ""
+        animal1 = f'{team["animal1"]["icon"]} {team["animal1"]["name"]}'
+        animal2 = f'{team["animal2"]["icon"]} {team["animal2"]["name"]}'
+        animal3 = f'{team["animal3"]["icon"]} {team["animal3"]["name"]}'
         
         embed.add_field(
             inline = True,
