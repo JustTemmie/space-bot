@@ -204,7 +204,7 @@ class social(commands.Cog):
         bank = await get_bank_data()
 
         if bank[str(ctx.author.id)]["inventory"]["stick"] >= 1:
-            await self.social_commands(ctx, "bonk", 25, "bonked", " in their head", "ow", "bonk!", targets)
+            await self.social_commands(ctx, "bonk", 15, "bonked", " in their head", "ow", "bonk!", targets)
             return
 
         await ctx.send(f"you don't have a stick, you need to buy one in order to bonk someone in their head\nsee {ctx.prefix}shop for more info")

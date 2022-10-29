@@ -160,7 +160,7 @@
             "2": {
                 "icon": "🐒",
                 "name": ["monkey"],
-                "description": ""
+                "description": "It see, it do"
             },
             "3": {
                 "icon": "🦒",
@@ -180,7 +180,7 @@
             "6": {
                 "icon": "🐍",
                 "name": ["snake"],
-                "description": ""
+                "description": "Eat... like snaaaaakeee!"
             }
         }
     },
