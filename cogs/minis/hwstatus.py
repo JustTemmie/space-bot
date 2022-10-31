@@ -107,7 +107,7 @@ class hw(commands.Cog):
             Embed.add_field(name="Discord.py", value=f"{discord.__version__}", inline=False)
             Embed.add_field(name="Cogs", value=f"{len(self.bot.cogs)}", inline=False)
             Embed.add_field(name="Commands", value=f"{len(self.bot.commands)}", inline=False)
-            Embed.add_field(name="Owner", value=f"Temmie#0001", inline=False)
+            Embed.add_field(name="Owner", value=f"<@725539745572323409>", inline=False)
             Embed.add_field(
                 name="Github",
                 value=f"https://github.com/JustTemmie/space-bot",
