@@ -18,8 +18,10 @@ def get_size(bytes, suffix="B"):
 with open("config.json") as config:
     funnyjson = json.load(config)
     print(funnyjson)
-    owner = funnyjson["OWNER_IDS"][0]
-    print(owner)
+    owners = funnyjson["OWNER_IDS"]
+    ownerstr = ""
+    for owner in owners:
+        ownerstr += f"<@{owner}> "
 
 class hw(commands.Cog):
     def __init__(self, bot):
@@ -89,7 +91,7 @@ class hw(commands.Cog):
             Embed.add_field(name="Discord.py", value=f"{discord.__version__}", inline=False)
             Embed.add_field(name="Cogs", value=f"{len(self.bot.cogs)}", inline=False)
             Embed.add_field(name="Commands", value=f"{len(self.bot.commands)}", inline=False)
-            Embed.add_field(name="Owner", value=f"<@{owner}>", inline=False)
+            Embed.add_field(name="Owner", value=ownerstr, inline=False)
             Embed.add_field(name="Github", value=f"https://github.com/JustTemmie/space-bot", inline=False)
 
         else:
