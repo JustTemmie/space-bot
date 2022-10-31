@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
+import json
 import psutil
 import platform
 from datetime import datetime
@@ -14,6 +15,11 @@ def get_size(bytes, suffix="B"):
             return f"{bytes:.2f}{unit}{suffix}"
         bytes /= factor
 
+with open("config.json") as config:
+    funnyjson = json.load(config)
+    print(funnyjson)
+    owner = funnyjson["OWNER_IDS"][0]
+    print(owner)
 
 class hw(commands.Cog):
     def __init__(self, bot):
@@ -37,45 +43,21 @@ class hw(commands.Cog):
             uname = platform.uname()
             cpufreq = psutil.cpu_freq()
             svmem = psutil.virtual_memory()
-            Embed.add_field(
-                name="System",
-                value=f"{uname.node} {uname.system} {uname.release}",
-                inline=False,
-            )
-            Embed.add_field(
-                name="Processor",
-                value=f"{uname.processor} at {int(cpufreq.max)}MHz",
-                inline=False,
-            )
+            Embed.add_field(name="System", value=f"{uname.node} {uname.system} {uname.release}", inline=False)
+            Embed.add_field(name="Processor", value=f"{uname.processor} at {int(cpufreq.max)}MHz", inline=False)
             Embed.add_field(name="Memory", value=f"{get_size(svmem.total)}", inline=False)
-            Embed.add_field(
-                name="Disk",
-                value=f"{get_size(psutil.disk_usage('/').total)}",
-                inline=False,
-            )
-            Embed.add_field(
-                name="Uptime",
-                value=f"{datetime.now() - datetime.fromtimestamp(psutil.boot_time())}",
-                inline=False,
-            )
+            Embed.add_field(name="Disk", value=f"{get_size(psutil.disk_usage('/').total)}", inline=False)
+            Embed.add_field(name="Uptime", value=f"{datetime.now() - datetime.fromtimestamp(psutil.boot_time())}", inline=False)
 
         elif page == 2:
             page_info = "**CPU info**"
-            Embed.add_field(
-                name="Physical cores",
-                value=psutil.cpu_count(logical=False),
-                inline=False,
-            )
+            Embed.add_field(name="Physical cores", value=psutil.cpu_count(logical=False), inline=False)
             Embed.add_field(name="Total cores:", value=psutil.cpu_count(logical=True), inline=False)
 
             cpufreq = psutil.cpu_freq()
             Embed.add_field(name="Max Frequency", value=f"{cpufreq.max:.2f}Mhz", inline=False)
             Embed.add_field(name="Min Frequency", value=f"{cpufreq.min:.2f}Mhz", inline=False)
-            Embed.add_field(
-                name="Current Frequency",
-                value=f"{(cpufreq.current):.2f}Mhz",
-                inline=False,
-            )
+            Embed.add_field(name="Current Frequency", value=f"{(cpufreq.current):.2f}Mhz", inline=False)
 
             Embed.add_field(name="Total CPU Usage", value=f"{psutil.cpu_percent()}%", inline=False)
             for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
@@ -107,12 +89,8 @@ class hw(commands.Cog):
             Embed.add_field(name="Discord.py", value=f"{discord.__version__}", inline=False)
             Embed.add_field(name="Cogs", value=f"{len(self.bot.cogs)}", inline=False)
             Embed.add_field(name="Commands", value=f"{len(self.bot.commands)}", inline=False)
-            Embed.add_field(name="Owner", value=f"<@725539745572323409>", inline=False)
-            Embed.add_field(
-                name="Github",
-                value=f"https://github.com/JustTemmie/space-bot",
-                inline=False,
-            )
+            Embed.add_field(name="Owner", value=f"<@{owner}>", inline=False)
+            Embed.add_field(name="Github", value=f"https://github.com/JustTemmie/space-bot", inline=False)
 
         else:
             await ctx.send("Invalid page")
