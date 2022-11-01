@@ -207,7 +207,7 @@ async def open_account(self, ctx):
     await ctx.send(embed=embed)
     input = await get_input(self, ctx, 30, "please try again")
 
-    if input.content not in confirmations:
+    if input.content.lower() != "yes":
         await ctx.send("okay, cancelling")
         return
 
