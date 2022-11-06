@@ -171,22 +171,32 @@ class social(commands.Cog):
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def stealcommand(self, ctx, targets: Greedy[Member] = None):
-        await self.social_commands(
-            ctx,
-            "steal",
-            25,
-            "just stole something from",
-            "",
-            "is trying to cheat the system",
-            "don't steal my beavers >:(",
-            targets,
-        )
+        await self.social_commands(ctx, "steal", 25, "just stole something from", "", "is trying to cheat the system", "don't steal my beavers >:(", targets)
 
     @commands.command(name="hug", aliases=["hugs"], brief="hugs :)")
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def hugss(self, ctx, targets: Greedy[Member] = None):
         await self.social_commands(ctx, "hug", 25, "hugged", "", "do you need a hug? :(", "hugs :)", targets)
+
+    @commands.command(name="werty", brief="EWWWWW qwerty!!")
+    @cooldown(8, 25, BucketType.guild)
+    @commands.guild_only()
+    async def hugss(self, ctx):
+        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime bonk", tenor_api_key, 20))
+
+        title_string = f"{ctx.author.display_name} just mentioned qwerty! BONK!"
+        description = f"switch to colemak :)"
+
+        if r.status_code == 200:
+            top_x_gifs = json.loads(r.content)
+            realoutput = top_x_gifs["results"][random.randrange(0, 20)]["media"][0]["gif"]["url"]
+            # print(realoutput)
+            embed = Embed(title=title_string, colour=ctx.author.colour)
+            if realoutput is not None:
+                embed.set_image(url=realoutput)
+
+            await ctx.send(embed=embed)
 
     @commands.command(name="bonk", brief="bonk someone in their head")
     @cooldown(1, 5, BucketType.user)
