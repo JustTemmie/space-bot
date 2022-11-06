@@ -192,7 +192,7 @@ class social(commands.Cog):
             top_x_gifs = json.loads(r.content)
             realoutput = top_x_gifs["results"][random.randrange(0, 20)]["media"][0]["gif"]["url"]
             # print(realoutput)
-            embed = Embed(title=title_string, colour=ctx.author.colour)
+            embed = Embed(title=title_string, description=description, colour=ctx.author.colour)
             if realoutput is not None:
                 embed.set_image(url=realoutput)
 
