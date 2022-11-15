@@ -21,8 +21,8 @@ class pdfConversion(commands.Cog):
         aliases=["pdf2png", "pdf2jpg"],
         brief="converts your pdf into a png",
     )
-    @cooldown(2, 5, BucketType.user)
-    async def calendar(self, ctx, dpi=200):
+    @cooldown(1, 5, BucketType.user)
+    async def calendar(self, ctx, dpi=450):
         if dpi >= 450 and 725539745572323409 != ctx.author.id:
             await ctx.send("lowering dpi to 450")
             dpi = 450
@@ -33,8 +33,13 @@ class pdfConversion(commands.Cog):
         else:
             return await ctx.send("You forgot the image.")
 
-        convert_from_path(data, dpi = dpi)[0].save("temp/filename.png", "PNG")
-        
+        async with ctx.typing():
+            with open(f"temp/{ctx.author.id}-{filename}.pdf", "wb") as f:
+                f.write(data)
+            convert_from_path(f"temp/{ctx.author.id}-{filename}.pdf", dpi=dpi)[0].save(f"temp/{ctx.author.id}-{filename}.png", "PNG")
+
+            await ctx.reply(file=discord.File(f"temp/{ctx.author.id}-{filename}.png"))
+            
     
 
 async def setup(bot):
