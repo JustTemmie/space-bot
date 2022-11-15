@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`pdf2png`"
+        "description": "`pdf2image`"
     },
     "10th": {
         "icon": "🤗",
@@ -22,7 +22,7 @@
     "6th": {
         "icon": "🛠️",
         "name": "Utility",
-        "description": "`help` `info` `ping` `poll` `serverinfo` `userinfo` `weather` `remindme` `todo` `delete`"
+        "description": "`help` `pdf2image` `info` `ping` `poll` `serverinfo` `userinfo` `weather` `remindme` `todo` `delete`"
     },
     "7th": {
         "icon": "⚖️",
