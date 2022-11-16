@@ -138,6 +138,7 @@ def get_prefix(bot, message):
 bot = Andromeda(
     shards=SHARDS,
     command_prefix=(get_prefix),
+    case_insensitive=True,
     owner_ids=OWNER_IDS,
     intents=discord.Intents.all(),
 )
