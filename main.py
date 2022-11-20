@@ -72,10 +72,6 @@ class Andromeda(commands.AutoShardedBot):
 
         # if andromeda is the bot, sync the command tree (slash command stuff)
         if bot.user.id == 870019731527204875:
-            try:
-                await bot.get_guild(899655475912671253).leave()
-            except:
-                pass
             await tree.sync()  # guild = discord.Object(id = 628212961218920477))
 
             print("Slash commands successfully synced")
