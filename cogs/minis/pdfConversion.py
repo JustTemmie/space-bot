@@ -18,12 +18,12 @@ class pdfConversion(commands.Cog):
     
     @commands.command(
         name="pdf2image",
-        aliases=["pdf2png", "pdf2jpg"],
+        aliases=["pdf2png", "pdf2jpg", "pdftoimage"],
         brief="converts your pdf into a png",
     )
     @cooldown(1, 5, BucketType.user)
     async def calendar(self, ctx, dpi=450):
-        if dpi >= 450 and 725539745572323409 != ctx.author.id:
+        if dpi > 450 and 725539745572323409 != ctx.author.id:
             await ctx.send("lowering dpi to 450")
             dpi = 450
         if ctx.message.attachments:
