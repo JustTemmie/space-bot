@@ -1,22 +1,20 @@
-wikipedia           # searches up things on wikipedia, used for the wiki command
-gitpython           # used for the update and push commands
-python-dotenv       # used for loading the .env files
-psutil              # used for info command for getting cpu usage and things
-apscheduler         
-pillow              # image processing library - used for a lot of things
-metno_locationforecast # for weather forecast
-pdf2image           # used by the weather command
-youtube-dl          # required for music player
-PyNaCl              # required for music player
-yt-dlp              # handles downloading youtube vidoes
-topggpy             # handles top.gg integration
-captcha             # generates captcha images for the economy commands
-IMDbPY              # fetches IMDB data to check info about movies and TV shows
-qrcode              # handles generation of QR codes
-opencv-python       # handles the processing of QR codes
-numpy==1.22.1       # used in the QR command, never imported but it's required lmao
+wikipedia
+gitpython
+python-dotenv
+psutil
+apscheduler
+pillow
+metno_locationforecast
+pdf2image
+youtube-dl
+PyNaCl
+yt-dlp
+topggpy
+captcha
+IMDbPY
+qrcode
+opencv-python
+numpy==1.22.1
 Image
-interruptingcow     # used in the math command
-
-discord.py          # the main discord.py library    
-#git+https://github.com/Rapptz/discord.py # discord py beta - main library for handling commands and such
+interruptingcow
+discord.py
