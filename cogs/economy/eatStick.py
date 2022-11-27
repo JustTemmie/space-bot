@@ -91,7 +91,7 @@ class stickyummy(commands.Cog):
                 realoutput = top_x_gifs["results"][random.randrange(0, 30)]["media"][0]["gif"]["url"]
                 # print(realoutput)
                 embed = Embed(
-                    title=f"{ctx.author.display_name} feed {target.display_name} a stick",
+                    title=f"{ctx.author.display_name} fed {target.display_name} a stick",
                     description="yum :)",
                     colour=target.colour,
                 )
