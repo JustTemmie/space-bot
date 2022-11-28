@@ -262,7 +262,7 @@ class admin(Cog):
         for i in range(max_roles):
             deled = await ctx.send(
                 "What's should the role be called? This will create a new role, even if one with the same name already exists\nIf you don't want to create a new role, just type 'none'",
-                delete_after=150,
+                delete_after=600,
             )
             response = await get_input(self, ctx, 150)
             await deled.delete()
@@ -277,7 +277,7 @@ class admin(Cog):
 
             deled = await ctx.send(
                 "and the emoji for that role?\nfor nitro users: this will only work for emojis in this server, or default emojis",
-                delete_after=150,
+                delete_after=600,
             )
             response = await get_input(self, ctx, 150)
             await deled.delete()
