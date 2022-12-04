@@ -48,7 +48,7 @@ VERSION = config["VERSION"]
 # Logging
 logging.basicConfig(
     level=logging.INFO,
-    filename=f"logs/{time()}.log",
+    filename=f"logs/{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log",
     filemode="w",
     format="%(asctime)s:%(levelname)s:%(name)s:%(message)s",
 )
