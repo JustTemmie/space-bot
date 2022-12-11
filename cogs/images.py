@@ -46,9 +46,9 @@ class images(commands.Cog):
         if squish_percent > 99:
             return await ctx.send("squish percentage can't be greater than 99")
         
-        if squish_percent < -200:
-            return await ctx.send("squish percentage can't be less than -200")
-        
+        if squish_percent < -2000:
+            return await ctx.send("squish percentage can't be less than -2000")
+
         if user == None and not ctx.message.attachments:
             user = ctx.author
             
