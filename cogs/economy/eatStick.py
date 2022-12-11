@@ -113,7 +113,7 @@ class stickyummy(commands.Cog):
             await ctx.send("an error occured, sorry about that")
             return
 
-        await ctx.send(f"you don't have any sticks to feed {SL.removeat(target.display_name)} with, get some by looking into the `{ctx.prefix}shop`")
+        await ctx.send(f"you don't have any sticks to feed {await SL.removeat(target.display_name)} with, get some by looking into the `{ctx.prefix}shop`")
 
 
 async def setup(bot):
