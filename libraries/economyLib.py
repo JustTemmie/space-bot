@@ -32,6 +32,7 @@ confirmations = [
     "🦫",
     "🥺",
     "😊",
+    "so true",
 ]
 
 

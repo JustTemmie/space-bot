@@ -34,7 +34,7 @@ class ecomarry(commands.Cog):
         data = await get_bank_data()
 
         if data[str(ctx.author.id)]["dam"]["level"] < 1:
-            return await ctx.send(f"you need to have a dam to marry someone\nbuild one using {ctx.prefix}!build dam")
+            return await ctx.send(f"you need to have a dam to marry someone\nbuild one using {ctx.prefix}build dam")
 
         if ring == None:
             return await ctx.send(f"please tell me what ring you want to use\nCommon\nUncommon\nRare\nEpic\n\nyou can buy rings from the shop using {ctx.prefix}shop 2")
