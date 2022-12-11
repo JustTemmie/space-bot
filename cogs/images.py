@@ -45,8 +45,13 @@ class images(commands.Cog):
     async def squish_command(self, ctx, user: discord.Member = None):
         if user == None:
             user = ctx.author
+        
+        if ctx.message.attachments:
+            asset = ctx.message.attachments[0]
 
-        asset = user.display_avatar.replace(size=512)
+        else:
+            asset = user.display_avatar.replace(size=512)
+    
         data = io.BytesIO(await asset.read())
         pfp = Image.open(data)
 
