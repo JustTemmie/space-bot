@@ -69,14 +69,14 @@ class ecomarry(commands.Cog):
 
         await ctx.send(f"alright, {ctx.author.mention}, are you sure you want to marry {member.mention}? your ring {ring_emoji} will disentegrate if you do")
         response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
-        if response.content.lower() not in confirmations:
+        if response.content.lower() not in confirmations and "yes" not in response.content.lower():
             await ctx.send(f"apparently {ctx.author.mention} doesn't want to marry {member.mention} afterall")
             return
 
         if not member.bot:
             await ctx.send(f"alright then, {member.mention}, do you wish to marry {ctx.author.mention}?")
             member_response = await self.bot.wait_for("message", check=lambda m: m.author == member, timeout=20)
-            if member_response.content.lower() not in confirmations:
+            if member_response.content.lower() not in confirmations and "yes" not in member_response.content.lower():
                 await ctx.send(f"{member.mention} did not want to marry {ctx.author.mention}, what a shame")
                 return
 
