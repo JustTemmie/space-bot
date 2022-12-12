@@ -42,31 +42,26 @@ class images(commands.Cog):
 
     @commands.command(name="squish", brief="haha person go *squish*")
     @cooldown(2, 5, BucketType.user)
-    async def squish_command(self, ctx, user: discord.Member = None):
-        if user == None:
-            user = ctx.author
+    async def squish_command(self, ctx, squish_percent = 30, user: discord.Member = None):
+        if squish_percent > 99:
+            return await ctx.send("squish percentage can't be greater than 99")
+        
+        if squish_percent < -2000:
+            return await ctx.send("squish percentage can't be less than -2000")
 
-        asset = user.display_avatar.replace(size=512)
+        if user == None and not ctx.message.attachments:
+            user = ctx.author
+            
+        if ctx.message.attachments:
+            asset = ctx.message.attachments[0]
+
+        else:
+            asset = user.display_avatar.replace(size=512)
+    
         data = io.BytesIO(await asset.read())
         pfp = Image.open(data)
-
-        pfp = pfp.resize((512, 300), 0)
-
-        pfp.save("images/processed/thicc.png")
-
-        await ctx.send(file=discord.File("images/processed/thicc.png"))
-
-    @commands.command(name="squishy", brief="haha person go even more squish :)")
-    @cooldown(2, 5, BucketType.user)
-    async def squishy_command(self, ctx, user: discord.Member = None):
-        if user == None:
-            user = ctx.author
-
-        asset = user.display_avatar.replace(size=512)
-        data = io.BytesIO(await asset.read())
-        pfp = Image.open(data)
-
-        pfp = pfp.resize((512, 100), 0)
+        
+        pfp = pfp.resize((pfp.width, round(pfp.height*(1-(squish_percent/100)))), 0)
 
         pfp.save("images/processed/thicc.png")
 

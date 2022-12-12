@@ -61,25 +61,34 @@ class stickyummy(commands.Cog):
             return
 
         await ctx.send(f"you don't have any sticks to eat, get some by looking into the `{ctx.prefix}shop`")
+        self.eatcommand.reset_cooldown(ctx)
 
     @commands.command(name="feed", brief="feed someone a stick 🥺")
     @cooldown(1, 900, BucketType.user)
     @commands.guild_only()
     async def feedcommand(self, ctx, target: Member):
-        if target == ctx.author:
-            return await ctx.send("you can't feed yourself sadly, sorry about that")
-        await open_account(self, ctx)
+        try:
+            if target == ctx.author:
+                self.feedcommand.reset_cooldown(ctx)
+                return await ctx.send("you can't feed yourself sadly, sorry about that")
+            await open_account(self, ctx)
 
-        userNotExist = await check_if_not_exist(ctx.author)
-        if userNotExist == "banned":
+            userNotExist = await check_if_not_exist(ctx.author)
+            if userNotExist == "banned":
+                return
+            if userNotExist:
+                self.feedcommand.reset_cooldown(ctx)
+                return await ctx.send(f"i could not find your inventory, you need to create an account first")
+
+            userNotExist = await check_if_not_exist(target)
+            if userNotExist or userNotExist == "banned":
+                self.feedcommand.reset_cooldown(ctx)
+                return await ctx.send(f"i could not find that person's inventory, they need to create an account first")
+        except Exception as e:
+            await ctx.send(f"oopise woopise! uwu we made a fucky wucky!! a wittle fucko boingo!!!\n{e}")
+            self.feedcommand.reset_cooldown(ctx)
             return
-        if userNotExist:
-            return await ctx.send(f"i could not find your inventory, you need to create an account first")
-
-        userNotExist = await check_if_not_exist(target)
-        if userNotExist or userNotExist == "banned":
-            return await ctx.send(f"i could not find that person's inventory, they need to create an account first")
-
+        
         bank = await get_bank_data()
 
         if bank[str(ctx.author.id)]["inventory"]["stick"] >= 1:
@@ -113,7 +122,8 @@ class stickyummy(commands.Cog):
             await ctx.send("an error occured, sorry about that")
             return
 
-        await ctx.send(f"you don't have any sticks to feed {SL.removeat(target.display_name)} with, get some by looking into the `{ctx.prefix}shop`")
+        await ctx.send(f"you don't have any sticks to feed {await SL.removeat(target.display_name)} with, get some by looking into the `{ctx.prefix}shop`")
+        self.feedcommand.reset_cooldown(ctx)
 
 
 async def setup(bot):
