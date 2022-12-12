@@ -31,6 +31,7 @@ yr_places = {
     "molde": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-189277/Norge/M%C3%B8re%20og%20Romsdal/Molde/Molde",
     "horten": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-508394/Norge/Vestfold%20og%20Telemark/Horten/Horten",
     "mo i rana": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-260276/Norge/Nordland/Rana/Mo%20i%20Rana",
+    "buenos aires": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/2-3435910/Argentina/Ciudad%20Aut%C3%B3noma%20de%20Buenos%20Aires/Buenos%20Aires",
 }
 
 
