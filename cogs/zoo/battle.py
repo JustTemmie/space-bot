@@ -52,11 +52,25 @@ class zooBattle(commands.Cog):
         animal1 = f'{team["animal1"]["icon"]} {team["animal1"]["name"]}'
         animal2 = f'{team["animal2"]["icon"]} {team["animal2"]["name"]}'
         animal3 = f'{team["animal3"]["icon"]} {team["animal3"]["name"]}'
+        animal4 = f'{team["animal4"]["icon"]} {team["animal4"]["name"]}'
+        animal5 = f'{team["animal5"]["icon"]} {team["animal5"]["name"]}'
+        
+        # embed.add_field(
+        #     inline = False,
+        #     name = f"{await SL.removeat(ctx.author.display_name)}'s team",
+        #     value = f"||\n||"
+        # )
         
         embed.add_field(
             inline = True,
-            name = f"{await SL.removeat(ctx.author.display_name)}'s team",
+            name = f"Main Team",
             value = f"{animal1}\n{animal2}\n{animal3}"
+        )
+        
+        embed.add_field(
+            inline = True,
+            name = f"Benched Team",
+            value = f"{animal4}\n{animal5}"
         )
         
         await ctx.send(embed=embed)
