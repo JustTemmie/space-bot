@@ -114,7 +114,7 @@ class weather(Cog):
                 isIDStored = True
 
         if not isIDStored:
-            r = requests.get(f"https://www.yr.no/nb/s%C3%B8k?q={input}")
+            r = requests.get(f"https://www.yr.no/en/search?q={input}")
             
             soup = BeautifulSoup(r.content, "html.parser")
             soup = soup.find("ol", class_="search-results-list")
@@ -137,7 +137,7 @@ class weather(Cog):
             
             
         
-        response = requests.get(f"https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/{ID}/")
+        response = requests.get(f"https://www.yr.no/en/print/forecast/{ID}/")
 
         with open(f"temp/yr-{ctx.author.id}.pdf", "wb") as f:
             f.write(response.content)
