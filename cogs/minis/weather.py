@@ -106,11 +106,14 @@ class weather(Cog):
             yr_places = json.load(f)
         
         # check if we already have the ID stored
+        isIDStored = False
         if input.lower() in yr_places:
-            print("short yay")
-            ID = yr_places[input.lower()]
-        
-        else:
+            # + seconds in 2 months, to make sure the ID up to date in case it ever changes
+            if yr_places[input.lower()][1] + 5184000 > time.time():
+                ID = yr_places[input.lower()][0]
+                isIDStored = True
+
+        if not isIDStored:
             r = requests.get(f"https://www.yr.no/nb/s%C3%B8k?q={input}")
             
             soup = BeautifulSoup(r.content, "html.parser")
@@ -127,7 +130,7 @@ class weather(Cog):
             link = result.find("a", class_="search-results-list__item-anchor").get("href")
             ID = link.split("/")[4]
             
-            yr_places[input.lower()] = ID
+            yr_places[input.lower()] = [ID, time.time()]
             
             with open("data/yrIDs.json", "w") as f:
                 json.dump(yr_places, f)
