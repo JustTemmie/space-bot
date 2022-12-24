@@ -146,7 +146,7 @@ class weather(Cog):
 
         av_button = discord.ui.Button(
             label="Open Externally",
-            url=f"https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/{ID}/",
+            url=f"https://www.yr.no/en/print/forecast/{ID}/",
             emoji="📩",
         )
         view = discord.ui.View()
