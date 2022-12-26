@@ -52,12 +52,25 @@ class ecogeneration(commands.Cog):
         payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
         if payout >= 500:
             payout = 500
-
+        
+        
+        # if the user claimed the daily within 2 hours of midnight, give some extra coins some of the time 
+        random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
+        if random.randint(0, 12) == 2:
+            n = datetime.datetime.now()
+            seconds_since_midnight = 86400 - (((24 - n.hour - 1) * 60 * 60) + ((60 - n.minute - 1) * 60) + (60 - n.second))
+            
+            if 7200 > seconds_since_midnight:
+                payout += 3
+                streak += "\nwow, it just hit midnight and i'm feeling quite generous today, here's a three cent nickle"
+        random.seed()
+        
         # skills
         if bank[str(ctx.author.id)]["dam"]["level"] >= 4:
             payout *= 2
             streak += "\n**you got double coins for having a lvl 4+ dam**"
 
+        # henw
         if ctx.author.id == 411536312961597440:
             payout -= 1
 
