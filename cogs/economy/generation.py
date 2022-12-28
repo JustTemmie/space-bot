@@ -58,13 +58,14 @@ class ecogeneration(commands.Cog):
         random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
         if random.randint(0, 150) == 2:
             n = datetime.utcnow()
-            seconds_since_midnight = 86400 - (((24 - n.hour - 1) * 60 * 60) + ((60 - n.minute - 1) * 60) + (60 - n.second))
             
-            if 7200 > seconds_since_midnight:
+            if n.hour < 2:
                 payout += 3
-                streak += "\nwow, it just hit midnight and i'm feeling quite generous today, here's a three cent nickle"
+                streak += "\nwow, it just hit midnight and i'm feeling quite generous today, here's a three cent nickle (+3 <:beaverCoin:1019212566095986768>)"
+            
         random.seed()
-        
+
+
         # skills
         if bank[str(ctx.author.id)]["dam"]["level"] >= 4:
             payout *= 2
