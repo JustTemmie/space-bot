@@ -56,7 +56,7 @@ class ecogeneration(commands.Cog):
         
         # if the user claimed the daily within 2 hours of midnight, give some extra coins some of the time 
         random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
-        if random.randint(0, 12) == 2:
+        if random.randint(0, 150) == 2:
             n = datetime.utcnow()
             seconds_since_midnight = 86400 - (((24 - n.hour - 1) * 60 * 60) + ((60 - n.minute - 1) * 60) + (60 - n.second))
             
