@@ -67,28 +67,28 @@ class ecogeneration(commands.Cog):
         if today.day == 1 and today.month == 1:
             payout *= 3
             payout += 5000
-            streak += "\nHappy new years!"
+            streak += "\n\nHappy new years!"
         
         # international beaver day
         if today.day == 7 and today.month == 4:
             payout *= 1.5
             payout += 1000
-            streak += "\nHappy international beaver day!"
+            streak += "\n\nHappy international beaver day!"
         
         # minecraft birthday
         if today.day == 17 and today.month == 5:
             payout *= 1.5
-            streak += "\nHappy Minecraft aniversary!"
+            streak += "\n\nHappy Minecraft aniversary!"
         
         # friendship day :blush:
         if today.day == 6 and today.month == 8:
             payout *= 2
-            streak += "\nHappy international friendship day everyone!"
+            streak += "\n\nHappy international friendship day everyone!"
         
         # halloween
         if today.day == 31 and today.month == 10:
             payout += 5000
-            streak += "\nHappy hall-owee-n!\nhttps://youtu.be/PFrPrIxluWk"
+            streak += "\n\nHappy hall-owee-n!\nhttps://www.youtube.com/watch?v=PFrPrIxluWk"
         
         
     
