@@ -176,13 +176,14 @@ class Owner(commands.Cog):
             return
 
     @commands.is_owner()
-    @commands.command(name="change_status")
+    @commands.command(name="change_status", aliases=["setstatus", "set_status", "ownerstatus", "changestatus"])
     async def change_status_owner(self, ctx, *, input):
         try:
             await self.bot.change_presence(
                 status=discord.Status.idle,
                 activity=discord.Activity(type=discord.ActivityType.watching, name=f"{input}"),
             )
+            await ctx.send(f"status set to ```{input}```")
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
 
