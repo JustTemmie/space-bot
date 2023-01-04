@@ -164,16 +164,21 @@ bot.remove_command("help")
 bot.ready = False
 bot.version = VERSION
 
+@bot.event
+async def on_shard_ready(shard_id):
+    print(f"Shard {shard_id} Ready!")
+    logging.critical(f"SHARD {shard_id} is ready!")
+
+@bot.event
+async def on_shard_resumed(shard_id):
+    print("hello")
+    logging.critical(f"SHARD {shard_id} was resumed")
 
 @bot.event
 async def on_autopost_success():
     """Event for when stats are successfully updated on top.gg"""
     print(f"Posted server count ({bot.topggobj.guild_count}), shard count ({bot.shard_count})")
-
-
-@bot.event
-async def on_shard_ready(shard_id):
-    print(f"Shard {shard_id} Ready!")
+    
 
 
 @tasks.loop(hours=5, minutes=random.randint(0, 120))
