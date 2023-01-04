@@ -52,14 +52,63 @@ class ecogeneration(commands.Cog):
         payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
         if payout >= 500:
             payout = 500
-
+        
+        
+        
         # skills
         if bank[str(ctx.author.id)]["dam"]["level"] >= 4:
             payout *= 2
             streak += "\n**you got double coins for having a lvl 4+ dam**"
 
+
+        today = datetime.utcnow()
+        
+        # 1st of january
+        if today.day == 1 and today.month == 1:
+            payout *= 3
+            payout += 5000
+            streak += "\n\nHappy new years!"
+        
+        # international beaver day
+        if today.day == 7 and today.month == 4:
+            payout *= 1.5
+            payout += 1000
+            streak += "\n\nHappy international beaver day!"
+        
+        # minecraft birthday
+        if today.day == 17 and today.month == 5:
+            payout *= 1.5
+            streak += "\n\nHappy Minecraft aniversary!"
+        
+        # friendship day :blush:
+        if today.day == 6 and today.month == 8:
+            payout *= 2
+            streak += "\n\nHappy international friendship day everyone!"
+        
+        # halloween
+        if today.day == 31 and today.month == 10:
+            payout += 5000
+            streak += "\n\nHappy hall-owee-n!\nhttps://www.youtube.com/watch?v=PFrPrIxluWk"
+        
+        
+    
+    
+        # if the user claimed the daily within 2 hours of midnight, give some extra coins some of the time 
+        random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
+        if random.randint(0, 150) == 2:            
+            if today.hour < 2:
+                payout += 3
+                streak += "\nwow, it just hit midnight and i'm feeling quite generous today, here's a three cent nickle (+3 <:beaverCoin:1019212566095986768>)"
+            
+        random.seed()
+
+
+        # henw
         if ctx.author.id == 411536312961597440:
             payout -= 1
+
+        payout = round(payout)
+
 
         bank[str(ctx.author.id)]["wallet"] += payout
         daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
@@ -69,6 +118,19 @@ class ecogeneration(commands.Cog):
 
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(bank, f)
+
+
+        # 1st of april
+        if today.day == 1 and today.month == 4:
+            # henwee code
+            if ctx.author.id == 411536312961597440:
+                payout += 1
+            
+            payout *= 1000
+            
+            # more henwee code
+            if ctx.author.id == 411536312961597440:
+                payout -= 1
 
         await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
 

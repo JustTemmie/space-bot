@@ -59,7 +59,7 @@ class hw(commands.Cog):
             cpufreq = psutil.cpu_freq()
             Embed.add_field(name="Max Frequency", value=f"{cpufreq.max:.2f}Mhz", inline=False)
             Embed.add_field(name="Min Frequency", value=f"{cpufreq.min:.2f}Mhz", inline=False)
-            Embed.add_field(name="Current Frequency", value=f"{(cpufreq.current):.2f}Mhz", inline=False)
+            Embed.add_field(name="Current Frequency", value=f"{(cpufreq.current*1000):.2f}Mhz", inline=False)
 
             Embed.add_field(name="Total CPU Usage", value=f"{psutil.cpu_percent()}%", inline=False)
             for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):

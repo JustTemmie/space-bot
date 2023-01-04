@@ -3,6 +3,9 @@ from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, Cog
 import json
+import time
+
+from bs4 import BeautifulSoup
 import requests
 
 from metno_locationforecast import Place, Forecast
@@ -13,27 +16,6 @@ from dotenv import load_dotenv
 
 load_dotenv("keys.env")
 weather_key = os.getenv("OPENWEATHER")
-
-yr_places = {
-    "oslo": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-72837/Noreg/Oslo/Oslo/Oslo",
-    "trondheim": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-211102/Norge/Tr%C3%B8ndelag/Trondheim/Trondheim",
-    "stavanger": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-15183/Norge/Rogaland/Stavanger/Stavanger",
-    "sandnes": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-15452/Norge/Rogaland/Sandnes/Sandnes",
-    "bergen": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-92416/Norge/Vestland/Bergen/Bergen",
-    "drammen": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-58733/Norge/Viken/Drammen/Drammen",
-    "fredrikstad": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-33600/Norge/Viken/Fredrikstad/Fredrikstad",
-    "porsgrunn": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-31680/Norge/Vestfold%20og%20Telemark/Porsgrunn/Porsgrunn",
-    "kristiansand": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-2376/Norge/Agder/Kristiansand/Kristiansand",
-    "moss": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-46556/Norge/Viken/Moss/Moss",
-    "tromso": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
-    "tromsø": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
-    "harstad": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-294022/Norge/Troms%20og%20Finnmark/Harstad/Harstad",
-    "molde": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-189277/Norge/M%C3%B8re%20og%20Romsdal/Molde/Molde",
-    "horten": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-508394/Norge/Vestfold%20og%20Telemark/Horten/Horten",
-    "mo i rana": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-260276/Norge/Nordland/Rana/Mo%20i%20Rana",
-    "buenos aires": "https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/2-3435910/Argentina/Ciudad%20Aut%C3%B3noma%20de%20Buenos%20Aires/Buenos%20Aires",
-}
-
 
 class weather(Cog):
     def __init__(self, bot):
@@ -50,12 +32,42 @@ class weather(Cog):
             if ctx.guild.id != 918787074801401868 and ctx.guild.id != 885113462378876948:
                 return await ctx.send("Please specify a location.")
             input = "tromsø"
-
-        r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
-        request = json.loads(r.content)
-        realoutput = request[0]
-        lat = realoutput["lat"]
-        lon = realoutput["lon"]
+            
+        
+        with open("data/weatherLocations.json", "r") as f:
+            existingLocations = json.load(f)
+        
+        foundLocally = False
+        if input.lower() in existingLocations:
+            # + seconds in 2 months, to make sure the coordinates are at least somewhat up to date
+            if existingLocations[input.lower()][4] + 5184000 > time.time():
+                data = existingLocations[input.lower()] 
+                lat = data[0]
+                lon = data[1]
+                locationName = data[2]
+                locationCountry = data[3]
+                foundLocally = True
+        
+        if not foundLocally:
+            r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
+            request = json.loads(r.content)
+            
+            if r.status_code != 200:
+                await ctx.send(f"error {request['cod']} occured: {request['message']}")
+                return
+        
+            await ctx.send("downloading coordinates to cache...")
+                
+            realoutput = request[0]
+            lat = realoutput["lat"]
+            lon = realoutput["lon"]
+            locationName = realoutput["name"]
+            locationCountry = realoutput["country"]
+            
+            existingLocations[input.lower()] = [lat, lon, locationName, locationCountry, time.time()]
+            
+            with open("data/weatherLocations.json", "w") as f:
+                json.dump(existingLocations, f)
 
         place = Place(input, lat, lon)
 
@@ -68,7 +80,7 @@ class weather(Cog):
         forecast = str(my_forecast.data.intervals[0]).split("\n")
 
         embed = Embed(
-            title=f"{forecast[0][:-1]}\nUTC, in {realoutput['name']}, {realoutput['country']}",
+            title=f"{forecast[0][:-1]}\nUTC, in {locationName}, {locationCountry}",
             description="",
             color=0x00FF00,
         )
@@ -88,25 +100,59 @@ class weather(Cog):
 
         await ctx.send(embed=embed)
 
+
+
+        with open("data/yrIDs.json", "r") as f:
+            yr_places = json.load(f)
+        
+        # check if we already have the ID stored
+        isIDStored = False
         if input.lower() in yr_places:
-            response = requests.get(yr_places[input.lower()])
+            # + seconds in 2 months, to make sure the ID up to date in case it ever changes
+            if yr_places[input.lower()][1] + 5184000 > time.time():
+                ID = yr_places[input.lower()][0]
+                isIDStored = True
 
-            with open("temp/yr.pdf", "wb") as f:
-                f.write(response.content)
-            convert_from_path("temp/yr.pdf")[0].save("temp/yr.jpg", "JPEG")
+        if not isIDStored:
+            r = requests.get(f"https://www.yr.no/en/search?q={input}")
+            
+            soup = BeautifulSoup(r.content, "html.parser")
+            soup = soup.find("ol", class_="search-results-list")
+            
+            try:
+                result = soup.find_all("li")[0]
+            except Exception as e:
+                await ctx.send(f"Could not find the location in YRs database: {e}")
+                return
+            
+            await ctx.send("downloading yr ID to cache...")
+            
+            link = result.find("a", class_="search-results-list__item-anchor").get("href")
+            ID = link.split("/")[4]
+            
+            yr_places[input.lower()] = [ID, time.time()]
+            
+            with open("data/yrIDs.json", "w") as f:
+                json.dump(yr_places, f)
+            
+            
+        
+        response = requests.get(f"https://www.yr.no/en/print/forecast/{ID}/")
 
-            # yr = Image.open("images/processed/yr.jpg")
-            # yr = yr.resize((1653*2, 2339*2))
-            # yr.save("images/processed/yr.jpg")
-            av_button = discord.ui.Button(
-                label="Open Externally",
-                url="https://www.yr.no/nb/utskrift/v%C3%A6rvarsel/1-305409/Norge/Troms%20og%20Finnmark/Troms%C3%B8/Troms%C3%B8",
-                emoji="📩",
-            )
-            view = discord.ui.View()
-            view.add_item(av_button)
+        with open(f"temp/yr-{ctx.author.id}.pdf", "wb") as f:
+            f.write(response.content)
 
-            await ctx.send(file=discord.File("temp/yr.jpg"), view=view)
+        convert_from_path(f"temp/yr-{ctx.author.id}.pdf", dpi=150)[0].save(f"temp/yr-{ctx.author.id}.png", "PNG")
+
+        av_button = discord.ui.Button(
+            label="Open Externally",
+            url=f"https://www.yr.no/en/print/forecast/{ID}/",
+            emoji="📩",
+        )
+        view = discord.ui.View()
+        view.add_item(av_button)
+
+        await ctx.send(file=discord.File(f"temp/yr-{ctx.author.id}.png"), view=view)
 
 
 async def setup(bot):
