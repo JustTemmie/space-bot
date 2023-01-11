@@ -15,6 +15,7 @@ from discord.ext import tasks, commands
 
 import topgg
 
+print("HI")
 # import libraries.database as db
 
 from dotenv import load_dotenv
