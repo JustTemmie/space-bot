@@ -40,6 +40,7 @@ class reminder(commands.Cog):
 
         timing = timing.split(",")
         for i in timing:
+            i = i.replace(" ", "")
             if "day" in i:
                 seconds += float(i.split(" ")[0]) * 86400
             elif "hour" in i:
