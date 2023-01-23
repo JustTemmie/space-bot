@@ -40,26 +40,26 @@ class reminder(commands.Cog):
 
         timing = timing.split(",")
         for i in timing:
-            i = i.replace(" ", "")
+            duration = float(i.split(" ")[0])
             if "day" in i:
-                seconds += float(i.split(" ")[0]) * 86400
+                seconds += duration * 86400
             elif "hour" in i:
-                seconds += float(i.split(" ")[0]) * 3600
+                seconds += duration * 3600
             elif "minute" in i:
-                seconds += float(i.split(" ")[0]) * 60
+                seconds += duration * 60
             elif "second" in i:
-                seconds += float(i.split(" ")[0])
+                seconds += duration
 
             else:
-                single_letters = i.split(" ")[1]
+                single_letters = i.split(" ")[1].replace(" ", "")
                 if single_letters == "d":
-                    seconds += float(i.split(" ")[0]) * 86400
+                    seconds += duration * 86400
                 elif single_letters == "h" or single_letters == "hr":
-                    seconds += float(i.split(" ")[0]) * 3600
+                    seconds += duration * 3600
                 elif single_letters == "m" or single_letters == "min":
-                    seconds += float(i.split(" ")[0]) * 60
+                    seconds += duration * 60
                 elif single_letters == "s" or single_letters == "sec":
-                    seconds += float(i.split(" ")[0])
+                    seconds += duration
 
                 else:
                     return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
