@@ -64,7 +64,7 @@ class ecogambling(commands.Cog):
             return
 
         await update_bank_data(ctx.author, -amount, "wallet")
-        await msg.edit(content=f"{msg.content} it landed on  {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:1019212566095986768>")
+        await msg.edit(content=f"{msg.content} it landed on {result}!\n{ctx.author.display_name} lost {amount} <:beaverCoin:1019212566095986768>")
 
     @commands.command(
         name="slot",
