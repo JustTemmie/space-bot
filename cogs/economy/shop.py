@@ -39,7 +39,12 @@ class ecoshop(commands.Cog):
         desc = f"Buy something, wouldya?\n\n{page_bonus_string}\n"
         for i in shop:
             if shop[i][2] == page:
-                desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
+                # fake sale for rings
+                if shop[i][0] in [2500000, 25000000, 250000000]:
+                    desc += f"{shop[i][1]} `{i}` {shop[i][4]}| SALE ~~{shop[i][0]}~~ {shop[i][0]/2} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
+                else:
+                    desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
+                    
 
         embed = discord.Embed(title="🛍 The Market", description=f"{desc}", colour=ctx.author.colour)
         embed.set_footer(text=f"Use {ctx.prefix}buy <item> to buy something\npage {page}/{pages}")
