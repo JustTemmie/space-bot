@@ -9,6 +9,7 @@ from typing import Optional, Union
 from aiohttp import request
 import requests
 import json
+import datetime
 
 import random
 import os
@@ -198,6 +199,11 @@ class fun(commands.Cog):
     @cooldown(3, 5, BucketType.guild)
     async def ping_pong(self, ctx):
         await ctx.send(f"Pong! latency of {round(self.bot.latency * 1000)}ms")
+    
+    @commands.command(name="uptime", description="how long have i been awake again?")
+    @cooldown(3, 5, BucketType.user)
+    async def uptime(self, ctx):
+        await ctx.send(f"Tick tock! Bot uptime: `{datetime.datetime.now() - self.bot.start_time}`")
 
     @commands.command(
         name="fact",
