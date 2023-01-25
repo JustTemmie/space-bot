@@ -63,6 +63,7 @@ class Andromeda(commands.AutoShardedBot):
         super().__init__(*args, **kwargs)
 
         self.scheduler = AsyncIOScheduler()
+        self.start_time = datetime.now()
         # db.autosave(self.scheduler)
 
     async def on_ready(self):
