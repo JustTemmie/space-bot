@@ -31,7 +31,7 @@ class shipcog(commands.Cog):
         if result <= 9:
             messageStr = random.choice([
                 (f"sorry but.. the ship between {person1.display_name} and {person2.display_name} is as likely as a mango tree growing on a glacier, giving it a {result} / 100"),
-                (f"{person1.display_name} and {person2.display_name} should just give up and instead commit")
+                (f"{person1.display_name} and {person2.display_name} should just give up, it's not happening, {result} / 100")
             ])
         elif result <= 19:
             messageStr = random.choice([
@@ -67,8 +67,8 @@ class shipcog(commands.Cog):
             ])
         elif result <= 89:
             messageStr = random.choice([
-                (await SL.removeat(f"the love between {person1.display_name} and {person2.display_name} burns as hot as the sun, scoring a {result} / 100")),
-                (await SL.removeat(f"the love of {person1.display_name} and {person2.display_name} is as strong as the love between a cat and a cardboard box, scoring a {result} / 100")),
+                (f"the love between {person1.display_name} and {person2.display_name} burns as hot as the sun, scoring a {result} / 100")
+                (f"the love of {person1.display_name} and {person2.display_name} is as strong as the love between a cat and a cardboard box, scoring a {result} / 100"),
             ])
         elif result <= 99:
             messageStr = random.choice([
@@ -76,7 +76,7 @@ class shipcog(commands.Cog):
             ])
         elif result == 100:
             messageStr = random.choice([
-                (await SL.removeat(f"wow.. {person1.display_name} and {person2.display_name} seem to be perfect for eachother getting an incredible {result} / 100 on my test")),
+                (f"wow.. {person1.display_name} and {person2.display_name} seem to be perfect for eachother getting an incredible {result} / 100 on my test"),
             ])
         else:
             messageStr = ("uhm... this shouldn't be possible but you somehow broke the command, uhm... sorry lmao")

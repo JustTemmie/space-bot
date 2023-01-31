@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`uptime`"
+        "description": "`uptime` `air`"
     },
     "10th": {
         "icon": "🤗",
@@ -22,7 +22,7 @@
     "6th": {
         "icon": "🛠️",
         "name": "Utility",
-        "description": "`help` `pdf2image` `info` `uptime` `ping` `poll` `serverinfo` `userinfo` `weather` `remindme` `todo` `delete`"
+        "description": "`help` `pdf2image` `info` `uptime` `ping` `poll` `serverinfo` `userinfo` `remindme` `todo` `delete`"
     },
     "7th": {
         "icon": "⚖️",
@@ -32,7 +32,7 @@
     "8th": {
         "icon": "🔍",
         "name": "Search",
-        "description": "`reddit` `imdb` `tenor` `urban` `wikipedia`"
+        "description": "`reddit` `imdb` `tenor` `urban` `wikipedia` `weather` `air`"
     },
     "13th": {
         "icon": "❓",
