@@ -39,11 +39,7 @@ class ecoshop(commands.Cog):
         desc = f"Buy something, wouldya?\n\n{page_bonus_string}\n"
         for i in shop:
             if shop[i][2] == page:
-                # sale for rings
-                if shop[i][0] in [2500000, 25000000, 250000000]:
-                    desc += f"{shop[i][1]} `{i}` {shop[i][4]}| SALE ~~{shop[i][0]}~~ {round(shop[i][0]/2)} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
-                else:
-                    desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
+                desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
                     
 
         embed = discord.Embed(title="🛍 The Market", description=f"{desc}", colour=ctx.author.colour)
@@ -72,10 +68,6 @@ class ecoshop(commands.Cog):
         for i in shop:
             if item.lower() == i.lower():
                 price = shop[i][0]
-                
-                # sale
-                if price in [2500000, 25000000, 250000000]:
-                    price = price/2
 
                 if wallet < price * amount:
                     await ctx.send("you don't have enough money to buy that many")
