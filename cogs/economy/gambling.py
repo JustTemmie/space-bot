@@ -197,9 +197,10 @@ class ecogambling(commands.Cog):
 
     @commands.command(
         name="blackjack",
-        aliases=["bj"]
+        aliases=["bj"],
+        description="gamble with cards!"
     )
-    async def blackjack(self, ctx, amount=None):
+    async def blackjack(self, ctx, amount=1):
         await open_account(self, ctx)
 
         userNotExist = await check_if_not_exist(ctx.author)
@@ -207,10 +208,6 @@ class ecogambling(commands.Cog):
             return
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
-
-        if amount == None:
-            await ctx.send("pleeeease enter the amount you wish to waste")
-            return
 
         bal = await update_bank_data(ctx.author)
 
@@ -223,10 +220,6 @@ class ecogambling(commands.Cog):
 
         if amount > bal[0]:
             await ctx.send("you don't have THAT much money")
-            return
-
-        if amount < 3:
-            await ctx.send("please bet at leaaaast 3 <:beaverCoin:1019212566095986768>")
             return
 
         await update_bank_data(ctx.author, -amount, "wallet")
@@ -250,24 +243,22 @@ class ecogambling(commands.Cog):
         
         if player_score == 21:
             if self.get_hand_value(dealer_hand) == 21:
-                await ctx.send("Both got blackjacks, it's a tie!")
+                embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+                embed.description = "Both got blackjacks, it's a tie!"
+                await embedMessage.edit(embed=embed)
                 await update_bank_data(ctx.author, amount, "wallet")
                 return
 
-            await ctx.send(f"Woah! Blackjack, you won {amount*3} <:beaverCoin:1019212566095986768>!")
+            embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+            embed.description = f"Woah! Blackjack, you won {amount*3} <:beaverCoin:1019212566095986768>!"
+            await embedMessage.edit(embed=embed)
             await update_bank_data(ctx.author, amount*3, "wallet")
             
 
         # Player turn
         while player_score < 21:
-            embed = self.render_message(ctx, player_hand, dealer_hand, embed)
-            embedMessage.edit(embed=embed)
-
-            message = f"Your hand: {player_hand} (total: {player_score})\n"
-            message += f"Dealer's face-up card: {dealer_hand[0]} (total: {dealer_score})\n"
-            message += "Do you want to hit or stand?"
-
-            await ctx.send(message)
+            embed = self.render_message(ctx, player_hand, dealer_hand, False, embed)
+            await embedMessage.edit(embed=embed)
 
             # Wait for player's response, only accepting hit and stand
             def check(m):
@@ -281,7 +272,9 @@ class ecogambling(commands.Cog):
                 player_hand.append(self.get_random_card())
                 player_score = self.get_hand_value(player_hand)
                 if player_score > 21:
-                    await ctx.send("You bust! Better luck next time.")
+                    embed = self.render_message(ctx, player_hand, dealer_hand, False, embed)
+                    embed.description = "You bust! Better luck next time"
+                    await embedMessage.edit(embed=embed)
                     return
             else:
                 break
@@ -291,19 +284,27 @@ class ecogambling(commands.Cog):
             dealer_hand.append(self.get_random_card())
             dealer_score = self.get_hand_value(dealer_hand)
             if dealer_score > 21:
-                await ctx.send(f"Dealer busts! You win {2*amount} <:beaverCoin:1019212566095986768>!")
+                embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+                embed.description = f"Dealer busts! You win {2*amount} <:beaverCoin:1019212566095986768>!"
+                await embedMessage.edit(embed=embed)
                 await update_bank_data(ctx.author, 2*amount, "wallet")
                 return
 
         # Compare scores
         if player_score > dealer_score:
             await update_bank_data(ctx.author, 2*amount, "wallet")
-            await ctx.send(f"You win {2*amount} <:beaverCoin:1019212566095986768>! Congratulations.")
+            embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+            embed.description = f"You win {2*amount} <:beaverCoin:1019212566095986768>!"
+            await embedMessage.edit(embed=embed)
         elif player_score <= dealer_score:
-            await ctx.send("You lose. Better luck next time.")
+            embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+            embed.description = "You lose. Better luck next time"
+            await embedMessage.edit(embed=embed)
         else:
             await update_bank_data(ctx.author, amount, "wallet")
-            await ctx.send("It's somehow a tie?")
+            embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+            embed.description = f"error occured: this should be unreachable"
+            await embedMessage.edit(embed=embed)
 
     def get_random_card(self):
         return random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"])
@@ -316,7 +317,6 @@ class ecogambling(commands.Cog):
             elif card == "A":
                 value += 11
             else:
-                print(card)
                 value += int(card)
 
         for card in hand:
@@ -325,18 +325,19 @@ class ecogambling(commands.Cog):
 
         return value
     
-    def render_message(self, ctx, player_hand, dealer_hand, embed = None):
+    def render_message(self, ctx, player_hand, dealer_hand, reveal_dealer = False, embed = None):
         if embed == None:
             embed = Embed(title="Blackjack!")
             embed.colour = ctx.author.colour
         
         embed.clear_fields()
         
-        print(player_hand)
+        embed.add_field(name="Your Hand", value=f"{', '.join(player_hand)} (total: {self.get_hand_value(player_hand)})", inline=False)
         
-        embed.add_field(name="Your Hand", value=", ".join(player_hand), inline=False)
-        
-        embed.add_field(name="Dealer Hand", value=", ".join(dealer_hand), inline=False)
+        if reveal_dealer:
+            embed.add_field(name="Dealer's Hand", value=f"{', '.join(dealer_hand)} (total: {self.get_hand_value(dealer_hand)})", inline=False)
+        else:
+            embed.add_field(name="Dealer's face-up card", value=f"{dealer_hand[0]} (total: {self.get_hand_value(dealer_hand[0])})", inline=False)
         
         return embed
 
