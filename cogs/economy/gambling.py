@@ -257,8 +257,9 @@ class ecogambling(commands.Cog):
 
         # Player turn
         while player_score < 21:
-            embed = self.render_message(ctx, player_hand, dealer_hand, False, embed)
-            await embedMessage.edit(embed=embed)
+            if len(player_hand) != 2:
+                embed = self.render_message(ctx, player_hand, dealer_hand, False, embed)
+                await embedMessage.edit(embed=embed)
 
             # Wait for player's response, only accepting hit and stand
             def check(m):
