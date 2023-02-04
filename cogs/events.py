@@ -94,7 +94,7 @@ class events(commands.Cog):
     async def update_timer(self):
         if self.bot.is_ready():
             with open("storage/misc/time.json", "w") as f:
-                json.dump((datetime.utcnow() - datetime(1970, 1, 1)).seconds, f)
+                json.dump(time(), f)
 
     @tasks.loop(seconds=30)
     async def send_hourly_log(self):
