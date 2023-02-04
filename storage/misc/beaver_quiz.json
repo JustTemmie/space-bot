@@ -41,6 +41,13 @@
         "ans1": "8",
         "ans2": "12"
     },
+    "question6": {
+        "title": "Whats the beaver's favourite video game?",
+        "correct": "Beaver Clicker",
+        "ans0": "Timberborn",
+        "ans1": "Beavers Be Dammed",
+        "ans2": "Super Mario 64"
+    },
     "question7": {
         "title": "A Beaver's diet consists mainly of bark and twigs, but what else do beavers eat?",
         "correct": "All of these",
@@ -166,12 +173,5 @@
         "ans0": "Brackish",
         "ans1": "Salt",
         "ans2": "Estuarine"
-    },
-    "question25": {
-        "title": "Whats the beaver's favourite video game?",
-        "correct": "Beaver Clicker",
-        "ans0": "Timberborn",
-        "ans1": "Beavers Be Dammed",
-        "ans2": "Super Mario 64"
-    }   
+    }
 }
