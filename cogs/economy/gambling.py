@@ -221,6 +221,10 @@ class ecogambling(commands.Cog):
         if amount > bal[0]:
             await ctx.send("you don't have THAT much money")
             return
+        
+        if amount <= 0:
+            await ctx.send("hey! that's not allowed")
+            return
 
         await update_bank_data(ctx.author, -amount, "wallet")
     
