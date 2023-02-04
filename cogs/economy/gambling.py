@@ -194,5 +194,152 @@ class ecogambling(commands.Cog):
             await msg.reply(f"<:sadcat:849342846582390834> - {await SL.removeat(ctx.author.display_name)} lost {amount} <:beaverCoin:1019212566095986768>")
 
 
+
+    @commands.command(
+        name="blackjack",
+        aliases=["bj"]
+    )
+    async def blackjack(self, ctx, amount=None):
+        await open_account(self, ctx)
+
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
+
+        if amount == None:
+            await ctx.send("pleeeease enter the amount you wish to waste")
+            return
+
+        bal = await update_bank_data(ctx.author)
+
+        if amount == "all":
+            amount = bal[0]
+
+        amount = int(float(amount))
+        if amount > 50000:
+            amount = 50000
+
+        if amount > bal[0]:
+            await ctx.send("you don't have THAT much money")
+            return
+
+        if amount < 3:
+            await ctx.send("please bet at leaaaast 3 <:beaverCoin:1019212566095986768>")
+            return
+
+        await update_bank_data(ctx.author, -amount, "wallet")
+    
+        player_hand = []
+        dealer_hand = []
+
+        # Deal the initial cards
+        player_hand.append(self.get_random_card())
+        player_hand.append(self.get_random_card())
+        dealer_hand.append(self.get_random_card())
+        dealer_hand.append(self.get_random_card())
+
+        # Calculate the initial scores
+        player_score = self.get_hand_value(player_hand)
+        dealer_score = self.get_hand_value(dealer_hand[0])
+        
+        embed = self.render_message(ctx, player_hand, dealer_hand)
+        
+        embedMessage = await ctx.send(embed=embed)
+        
+        if player_score == 21:
+            if self.get_hand_value(dealer_hand) == 21:
+                await ctx.send("Both got blackjacks, it's a tie!")
+                await update_bank_data(ctx.author, amount, "wallet")
+                return
+
+            await ctx.send(f"Woah! Blackjack, you won {amount*3} <:beaverCoin:1019212566095986768>!")
+            await update_bank_data(ctx.author, amount*3, "wallet")
+            
+
+        # Player turn
+        while player_score < 21:
+            embed = self.render_message(ctx, player_hand, dealer_hand, embed)
+            embedMessage.edit(embed=embed)
+
+            message = f"Your hand: {player_hand} (total: {player_score})\n"
+            message += f"Dealer's face-up card: {dealer_hand[0]} (total: {dealer_score})\n"
+            message += "Do you want to hit or stand?"
+
+            await ctx.send(message)
+
+            # Wait for player's response, only accepting hit and stand
+            def check(m):
+                return m.author == ctx.author and m.content.lower() in ["hit", "stand"]
+            try:
+                response = await self.bot.wait_for("message", check=check, timeout = 180)
+            except asyncio.TimeoutError:
+                return await ctx.send(f"**Timed out** {SL.removeat(ctx.author.display_name)} took too long to chose, you lose")
+
+            if response.content.lower() == "hit":
+                player_hand.append(self.get_random_card())
+                player_score = self.get_hand_value(player_hand)
+                if player_score > 21:
+                    await ctx.send("You bust! Better luck next time.")
+                    return
+            else:
+                break
+
+        # Dealer turn
+        while dealer_score < 17:
+            dealer_hand.append(self.get_random_card())
+            dealer_score = self.get_hand_value(dealer_hand)
+            if dealer_score > 21:
+                await ctx.send(f"Dealer busts! You win {2*amount} <:beaverCoin:1019212566095986768>!")
+                await update_bank_data(ctx.author, 2*amount, "wallet")
+                return
+
+        # Compare scores
+        if player_score > dealer_score:
+            await update_bank_data(ctx.author, 2*amount, "wallet")
+            await ctx.send(f"You win {2*amount} <:beaverCoin:1019212566095986768>! Congratulations.")
+        elif player_score <= dealer_score:
+            await ctx.send("You lose. Better luck next time.")
+        else:
+            await update_bank_data(ctx.author, amount, "wallet")
+            await ctx.send("It's somehow a tie?")
+
+    def get_random_card(self):
+        return random.choice(["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"])
+
+    def get_hand_value(self, hand):
+        value = 0
+        for card in hand:
+            if card == "J" or card == "Q" or card == "K":
+                value += 10
+            elif card == "A":
+                value += 11
+            else:
+                print(card)
+                value += int(card)
+
+        for card in hand:
+            if value > 21 and card == "A":
+                value -= 10
+
+        return value
+    
+    def render_message(self, ctx, player_hand, dealer_hand, embed = None):
+        if embed == None:
+            embed = Embed(title="Blackjack!")
+            embed.colour = ctx.author.colour
+        
+        embed.clear_fields()
+        
+        print(player_hand)
+        
+        embed.add_field(name="Your Hand", value=", ".join(player_hand), inline=False)
+        
+        embed.add_field(name="Dealer Hand", value=", ".join(dealer_hand), inline=False)
+        
+        return embed
+
+
 async def setup(bot):
     await bot.add_cog(ecogambling(bot))
