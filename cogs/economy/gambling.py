@@ -198,7 +198,7 @@ class ecogambling(commands.Cog):
     @commands.command(
         name="blackjack",
         aliases=["bj"],
-        description="hit or stand, i guess they never stand huh?"
+        brief="hit or stand, i guess they never stand huh?"
     )
     async def blackjack(self, ctx, amount=1):
         await open_account(self, ctx)
