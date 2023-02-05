@@ -137,7 +137,7 @@ class ecoeconomy(commands.Cog):
                 icon = "<:beaverCoin:1019212566095986768>"
                 title_ending = "richest people"
                 for user in users:
-                    leaderboard.append([user, users[user]["wallet"]])
+                    leaderboard.append(round([user, users[user]["wallet"]]))
             case ("stick" | "sticks" | "eat"):
                 icon = "<:stick:1005255854892781709>"
                 title_ending = "hungriest users"
@@ -156,9 +156,9 @@ class ecoeconomy(commands.Cog):
                 icon = "<:log:1019212550782599220>"
                 title_ending = "richest users in terms of logs"
                 for user in users:
-                    leaderboard.append([user, users[user]["inventory"]["logs"]])
+                    leaderboard.append(round([user, users[user]["inventory"]["logs"]]))
             case _:
-                await ctx.send(f"sorry, {category} does not seem to be a valid category")
+                await ctx.send(f"sorry, `{category}` does not seem to be a valid category")
                 return
 
         leaderboard.sort(key=lambda x: x[1], reverse=True)
