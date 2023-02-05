@@ -294,7 +294,7 @@ class ecogambling(commands.Cog):
             dealer_hand.append(self.get_random_card())
             dealer_score, dealerHasA = self.get_hand_value(dealer_hand)
             if dealer_score > 21:
-                embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+                embed = self.render_message(ctx, player_hand, dealer_hand, True, embed, dealerHasA)
                 embed.description = f"Dealer busts! You win {2*amount} <:beaverCoin:1019212566095986768>!"
                 await embedMessage.edit(embed=embed)
                 await update_bank_data(ctx.author, 2*amount, "wallet")
@@ -338,7 +338,7 @@ class ecogambling(commands.Cog):
 
         return value, hasA
     
-    def render_message(self, ctx, player_hand, dealer_hand, reveal_dealer = False, embed = None):
+    def render_message(self, ctx, player_hand, dealer_hand, reveal_dealer = False, embed = None, tempThing = None):
         if embed == None:
             embed = Embed(title="Blackjack!")
             embed.colour = ctx.author.colour
@@ -352,6 +352,9 @@ class ecogambling(commands.Cog):
         else:
             embed.add_field(name="Dealer's face-up card", value=f"{dealer_hand[0]} (total: {self.get_hand_value(dealer_hand[0])[0]})", inline=False)
         
+        if tempThing != None:
+            embed.add_field(name="temp debug", value=f"{tempThing}")
+
         return embed
 
 
