@@ -290,7 +290,7 @@ class ecogambling(commands.Cog):
                 break
 
         # Dealer turn
-        while (dealer_score < 17) or (dealer_score < 20 and int(dealerHasA) > 0):
+        while ((dealer_score < 17) or (dealer_score < 20 and int(dealerHasA) > 0)) and (dealer_score < player_score):
             print(dealer_score, dealerHasA, player_score)
             dealer_hand.append(self.get_random_card())
             dealer_score, dealerHasA = self.get_hand_value(dealer_hand)
