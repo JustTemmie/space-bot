@@ -6,7 +6,7 @@ import json
 import random
 from math import floor
 from typing import Optional
-
+from datetime import datetime
 
 import libraries.economyLib as ecoLib
 import libraries.animalLib as aniLib
@@ -39,7 +39,19 @@ class ecoshop(commands.Cog):
         desc = f"Buy something, wouldya?\n\n{page_bonus_string}\n"
         for i in shop:
             if shop[i][2] == page:
-                desc += f"{shop[i][1]} `{i}` {shop[i][4]}| {shop[i][0]} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
+                price = shop[i][0]
+                itemID = shop[i][1]
+                bonusName = shop[i][4]
+                
+                
+                # ring sale on valentines
+                today = datetime.utcnow()
+                if (today.day == 14 and today.month == 2) and bonusName.lower() == "ring":
+                    # the top two rings aren't on sale
+                    if price < 25000000:
+                        price = f"~~{price}~~ {round(price/2)}"
+
+                desc += f"{itemID} `{i}` {bonusName}| {price} <:beaverCoin:1019212566095986768>\n{shop[i][3]}"
                     
 
         embed = discord.Embed(title="🛍 The Market", description=f"{desc}", colour=ctx.author.colour)
@@ -68,6 +80,14 @@ class ecoshop(commands.Cog):
         for i in shop:
             if item.lower() == i.lower():
                 price = shop[i][0]
+                bonusName = shop[i][4]
+                
+                # ring sale on valentines
+                today = datetime.utcnow()
+                if (today.day == 14 and today.month == 2) and bonusName.lower() == "ring":
+                    # the top two rings aren't on sale
+                    if price < 25000000:
+                        price = round(price/2)
 
                 if wallet < price * amount:
                     await ctx.send("you don't have enough money to buy that many")

@@ -19,21 +19,21 @@
         "<:common_ring:1019212572832047185>",
         2,
         "",
-        "Ring "
+        "Ring"
     ],
     "Uncommon": [
         25000,
         "<:uncommon_ring:1019212584647413801>",
         2,
         "",
-        "Ring "
+        "Ring"
     ],
     "Rare": [
         250000,
         "<:rare_ring:1019212592713060352>",
         2,
         "",
-        "Ring "
+        "Ring"
     ],
     "Epic": [
         2500000,
@@ -54,6 +54,6 @@
         "<:legendary_ring:1019212617295876167>",
         2,
         "╰All rings can be used to marry people, differences are entirely visual!",
-        "Ring "
+        "Ring"
     ]
 }
