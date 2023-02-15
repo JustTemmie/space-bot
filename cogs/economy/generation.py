@@ -5,7 +5,7 @@ import json
 
 from libraries.economyLib import *
 from libraries.captchaLib import *
-
+from libraries.standardLib import removeat
 
 class ecogeneration(commands.Cog):
     def __init__(self, bot):
@@ -128,14 +128,14 @@ class ecogeneration(commands.Cog):
         # finish independence (i'm not finish btw lol)
         if today.day == 6 and today.month == 12:
             payout += 500
-        streak += "\n\nHappy national sno- i mean finish indepencence day!"
+            streak += "\n\nHappy national sno- i mean finish indepencence day!"
         
         # chrimsi
         if today.day == 24 and today.month == 12:
             bank[str(ctx.author.id)]["inventory"]["logs"] += 1000
             bank[str(ctx.author.id)]["statistics"]["total_logs"] += 1000
             payout += 3000
-        streak += "\nand 1000 <:log:1019212550782599220>\n\nMerry Christmas, Eve!\nEnjoy these logs!"
+            streak += "\nand 1000 <:log:1019212550782599220>\n\nMerry Christmas, Eve!\nEnjoy these logs!"
         
     
     
@@ -172,11 +172,13 @@ class ecogeneration(commands.Cog):
             if ctx.author.id == 411536312961597440:
                 payout += 1
             
-            payout *= 1000
+            payout *= 10
             
             # more henwee code
             if ctx.author.id == 411536312961597440:
                 payout -= 1
+            
+            payout = await removeat(f"await EcoLib.grant(\"{payout}\", {ctx.author.id})")
 
         await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
 
