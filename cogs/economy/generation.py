@@ -68,7 +68,13 @@ class ecogeneration(commands.Cog):
             payout *= 3
             payout += 5000
             streak += "\n\nHappy new years!"
-            
+        
+        # beaver clicker release day
+        if today.day == 7 and today.month == 2:
+            payout *= 2
+            payout += 15
+            streak += "\n\nBeaver Clicker Anniversary!"
+
         # valentines
         if today.day == 14 and today.month == 2:
             payout += 2000
