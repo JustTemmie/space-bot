@@ -248,19 +248,19 @@ class ecogambling(commands.Cog):
         
         embedMessage = await ctx.send(embed=embed)
     
-        # bj logic, if enabled gives player an advantage        
-        # if player_score == 21:
-        #     if self.get_hand_value(dealer_hand) == 21:
-        #         embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
-        #         embed.description = "Both got blackjacks, it's a tie!"
-        #         await embedMessage.edit(embed=embed)
-        #         await update_bank_data(ctx.author, amount, "wallet")
-        #         return
+        # bj logic     
+        if player_score == 21:
+            if self.get_hand_value(dealer_hand) == 21:
+                embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+                embed.description = "Both got blackjacks, it's a tie!"
+                await embedMessage.edit(embed=embed)
+                await update_bank_data(ctx.author, amount, "wallet")
+                return
 
-        #     embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
-        #     embed.description = f"Woah! Blackjack, you won {amount*3} <:beaverCoin:1019212566095986768>!"
-        #     await embedMessage.edit(embed=embed)
-        #     await update_bank_data(ctx.author, amount*3, "wallet")
+            embed = self.render_message(ctx, player_hand, dealer_hand, True, embed)
+            embed.description = f"Woah! Blackjack, you won {amount*3} <:beaverCoin:1019212566095986768>!"
+            await embedMessage.edit(embed=embed)
+            await update_bank_data(ctx.author, amount*3, "wallet")
             
 
         # Player turn

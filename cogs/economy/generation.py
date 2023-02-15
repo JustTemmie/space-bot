@@ -68,12 +68,42 @@ class ecogeneration(commands.Cog):
             payout *= 3
             payout += 5000
             streak += "\n\nHappy new years!"
-            
+        
+        # beaver clicker release day
+        if today.day == 7 and today.month == 2:
+            payout *= 2
+            payout += 15
+            streak += "\n\nBeaver Clicker Anniversary!"
+
         # valentines
         if today.day == 14 and today.month == 2:
             payout += 2000
-            streak += "\n\Love you!\nrings are on sale today!"
+            streak += "\n\nLove you!\nrings are on sale today!"
         
+        # pancake day
+        if today.day == 25 and today.month == 3:
+            random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
+            payout += random.randint(400, 600)
+            random.seed()
+            streak += "\n\nwould you look at that, it's the best day of the year\npancake day!"
+            
+        # math day
+        if today.day == 14 and today.month == 3:
+            payout += 314
+            streak += "\n\nMATH DAY!"
+            
+        # St. Patrick's Day 
+        if today.day == 17 and today.month == 3:
+            payout += 314
+            streak += "\n\nHappy gay pot of gold Day "
+            
+        # waffle day
+        if today.day == 25 and today.month == 3:
+            random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
+            payout += random.randint(400, 600)
+            random.seed()
+            streak += "\n\nholyshit guys it's the best day of the year, it's waffle day!"
+            
         # international beaver day
         if today.day == 7 and today.month == 4:
             payout *= 1.5
@@ -95,6 +125,17 @@ class ecogeneration(commands.Cog):
             payout += 5000
             streak += "\n\nHappy hall-owee-n!\nhttps://www.youtube.com/watch?v=PFrPrIxluWk"
         
+        # finish independence (i'm not finish btw lol)
+        if today.day == 6 and today.month == 12:
+            payout += 500
+        streak += "\n\nHappy national sno- i mean finish indepencence day!"
+        
+        # chrimsi
+        if today.day == 24 and today.month == 12:
+            bank[str(ctx.author.id)]["inventory"]["logs"] += 1000
+            bank[str(ctx.author.id)]["statistics"]["total_logs"] += 1000
+            payout += 3000
+        streak += "\nand 1000 <:log:1019212550782599220>\n\nMerry Christmas, Eve!\nEnjoy these logs!"
         
     
     
