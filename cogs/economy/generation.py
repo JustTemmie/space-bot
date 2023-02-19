@@ -66,7 +66,7 @@ class ecogeneration(commands.Cog):
         # 1st of january
         if today.day == 1 and today.month == 1:
             payout *= 3
-            payout += 5000
+            payout += 4000
             streak += "\n\nHappy new years!"
         
         # beaver clicker release day
@@ -106,15 +106,28 @@ class ecogeneration(commands.Cog):
             
         # international beaver day
         if today.day == 7 and today.month == 4:
+            bank[str(ctx.author.id)]["inventory"]["logs"] += 2500
+            bank[str(ctx.author.id)]["statistics"]["total_logs"] += 2500
             payout *= 1.5
             payout += 1000
-            streak += "\n\nHappy international beaver day!"
+            streak += "\n\nHappy international beaver day!\nThe beavers just so happen to have collected 2500 <:log:1019212550782599220> for you!"
         
         # minecraft birthday
         if today.day == 17 and today.month == 5:
             payout *= 1.5
             streak += "\n\nHappy Minecraft aniversary!"
         
+        # ice cream day
+        if today.day == 1 and today.month == 7:
+            payout += 500
+            streak += "\n\noh wow, would you look at that\nit's the national creative ice cream flavours day!\n\n(go get yourself some ice cream with funky flavours)"
+        
+        # fuck mangos
+        if today.day == 22 and today.month == 7:
+            payout *= 0.6
+            payout = round(payout)
+            streak += "\n\nomg it's mango da- wait?! MANGO?!\nI **HATE** MANGOS!\n\ni'm lashing out on your then >:("
+            
         # friendship day :blush:
         if today.day == 6 and today.month == 8:
             payout *= 2
@@ -122,8 +135,11 @@ class ecogeneration(commands.Cog):
         
         # halloween
         if today.day == 31 and today.month == 10:
+            bank[str(ctx.author.id)]["inventory"]["logs"] += 2000
+            bank[str(ctx.author.id)]["statistics"]["total_logs"] += 2000
+            payout *= 3
             payout += 5000
-            streak += "\n\nHappy hall-owee-n!\nhttps://www.youtube.com/watch?v=PFrPrIxluWk"
+            streak += "\nand 2000 <:log:1019212550782599220>\n\nHappy hall-owee-n!\nhttps://www.youtube.com/watch?v=PFrPrIxluWk"
         
         # finish independence (i'm not finish btw lol)
         if today.day == 6 and today.month == 12:
