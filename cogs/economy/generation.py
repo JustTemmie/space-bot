@@ -197,6 +197,39 @@ class ecogeneration(commands.Cog):
             payout = await removeat(f"await EcoLib.grant(\"{payout}\", {ctx.author.id})")
 
         await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
+    
+    @commands.command(
+        name="finds",
+        brief="heh, nice typo"
+    )
+    @cooldown(1, 900, BucketType.user)
+    async def finds_command(self, ctx):
+        if random.randint(0, 10) != 2:
+            return
+
+        await open_account(self, ctx)
+
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
+
+        if await check_captcha(self, ctx, 0.5):
+            return
+
+        payout = 1
+
+        data = await get_bank_data()
+
+        data = await get_bank_data()
+        data[str(ctx.author.id)]["inventory"]["logs"] += payout
+        data[str(ctx.author.id)]["statistics"]["total_logs"] += payout
+
+        with open("storage/playerInfo/bank.json", "w") as f:
+            json.dump(data, f)
+
+        await ctx.send("heh, finds,, enjoy this 1 log")
 
     @commands.hybrid_command(
         name="scavenge",
