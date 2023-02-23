@@ -13,7 +13,7 @@ class help(commands.Cog, name="Help command"):
 
     async def setup_help_pag(self, ctx, entity=None):
         embed = discord.Embed()
-        embed.title = f"{entity.name}"
+        embed.set_author(name = f"{entity.name}", icon_url = ctx.author.display_avatar.url)
         embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
 
         embed.add_field(name="usage:", value=f"{ctx.prefix}{entity.name} {entity.signature}", inline=False)
@@ -37,7 +37,7 @@ class help(commands.Cog, name="Help command"):
 
     async def help_no_entity(self, ctx):
         embed = discord.Embed()
-        embed.title = "Default Commands"
+        embed.set_author(name = f"Default Commands", icon_url = ctx.author.display_avatar.url)
         embed.color = ctx.author.colour
         embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
         embed.set_footer(text=f"{ctx.prefix}help <command/category> for more info on that command or category")
@@ -80,7 +80,7 @@ class help(commands.Cog, name="Help command"):
                 return False
 
             embed.clear_fields()
-            embed.title = f"{page} Commands"
+            embed.set_author(name = f"{page} Commands", icon_url = ctx.author.display_avatar.url)
 
             with open(f"storage/help_pages/{page}.json", "r") as f:
                 data = json.load(f)
@@ -99,7 +99,7 @@ class help(commands.Cog, name="Help command"):
 
     async def help_category(self, ctx, data, entity):
         embed = discord.Embed()
-        embed.title = f"{data['icon']} {data['name']}"
+        embed.set_author(name = f"{data['icon']} {data['name']}", icon_url = ctx.author.display_avatar.url)
         embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
 
         commands = data["description"]
