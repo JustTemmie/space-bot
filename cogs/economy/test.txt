@@ -13,6 +13,7 @@ def get_hand_value(hand):
         elif card == "A":
             hasA += 1
             value += 11
+        else:
             value += int(card)
 
     for card in hand:
