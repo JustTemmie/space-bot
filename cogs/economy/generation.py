@@ -2,14 +2,33 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 import json
 
+from datetime import timedelta
 
 from libraries.economyLib import *
 from libraries.captchaLib import *
 from libraries.standardLib import removeat
-
+        
 class ecogeneration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    def get_easter(self, year):
+        y = year
+        g = y % 19
+        e = 0
+
+        c = y//100
+        h = (c - c//4 - (8*c + 13)//25 + 19*g + 15) % 30
+        i = h - (h//28)*(1 - (h//28)*(29//(h + 1))*((21 - g)//11))
+        j = (y + y//4 + i + 2 - c + c//4) % 7
+
+        # p can be from -6 to 56 corresponding to dates 22 March to 23 May
+        # (later dates apply to method 2, although 23 May never actually occurs)
+        p = i - j + e
+        d = 1 + (p + 27 + (p + 6)//40) % 31
+        m = 3 + (p + 26)//30
+        return [d, m]
+    
 
     @commands.command(name="daily", brief="get your daily beaver coins here!")
     @cooldown(3, 15, BucketType.user)
@@ -63,6 +82,23 @@ class ecogeneration(commands.Cog):
 
         today = datetime.utcnow()
         
+        easterDate = self.get_easter(today.year)
+        
+        pancakeOffset = timedelta(days = 47)
+        pancakeDay = datetime(today.year, easterDate[1], easterDate[0]) - pancakeOffset
+        
+        # easter
+        if today.day == easterDate[0] and today.month == easterDate[1]:
+            payout *= 2.5
+            payout = round(payout)
+            streak += "\n\nHappy Easter!"
+        
+        if today.day == pancakeDay.day and today.month == pancakeDay.month:
+            random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
+            payout += random.randint(400, 600)
+            random.seed()
+            streak += "\n\nwould you look at that, it's the best day of the year\npancake day!"
+
         # 1st of january
         if today.day == 1 and today.month == 1:
             payout *= 3
@@ -80,13 +116,6 @@ class ecogeneration(commands.Cog):
             payout += 2000
             streak += "\n\nLove you!\nrings are on sale today!"
         
-        # pancake day
-        if today.day == 25 and today.month == 3:
-            random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
-            payout += random.randint(400, 600)
-            random.seed()
-            streak += "\n\nwould you look at that, it's the best day of the year\npancake day!"
-            
         # math day
         if today.day == 14 and today.month == 3:
             payout += 314
@@ -122,11 +151,17 @@ class ecogeneration(commands.Cog):
             payout += 500
             streak += "\n\noh wow, would you look at that\nit's the national creative ice cream flavours day!\n\n(go get yourself some ice cream with funky flavours)"
         
+        # belerussian independence day
+        if today.day == 3 and today.month == 7:
+            payout += 200
+            streak += "\n\Happy belerussian indpendence day"
+            
+        
         # fuck mangos
         if today.day == 22 and today.month == 7:
             payout *= 0.6
             payout = round(payout)
-            streak += "\n\nomg it's mango da- wait?! MANGO?!\nI **HATE** MANGOS!\n\ni'm lashing out on your then >:("
+            streak += "\n\nomg it's mango da- wait?! MANGO?!\nI **HATE** MANGOS!\n\nfuck it, i'm lashing out on you >:("
             
         # friendship day :blush:
         if today.day == 6 and today.month == 8:
