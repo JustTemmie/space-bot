@@ -287,7 +287,7 @@ class fun(commands.Cog):
             return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`")
 
         if dice <= 100:
-            rolls = [random.randrange(1, value) for i in range(dice)]
+            rolls = [random.randint(1, value) for i in range(dice)]
 
             await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
             return
