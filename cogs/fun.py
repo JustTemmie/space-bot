@@ -198,7 +198,10 @@ class fun(commands.Cog):
     @commands.command(name="ping", aliases=["pong", "latency"], brief="P O N G")
     @cooldown(3, 5, BucketType.guild)
     async def ping_pong(self, ctx):
-        await ctx.send(f"Pong! latency of {round(self.bot.latency * 1000)}ms")
+        if ctx.author.is_owner():
+            await ctx.send(f"at least like, {random.randint(6, 8)}")
+        else:
+            await ctx.send(f"Pong! latency of {round(self.bot.latency * 1000)}ms")
     
     @commands.command(name="uptime", description="how long have i been awake again?")
     @cooldown(3, 5, BucketType.user)
@@ -284,7 +287,7 @@ class fun(commands.Cog):
             return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`")
 
         if dice <= 100:
-            rolls = [random.randrange(1, value) for i in range(dice)]
+            rolls = [random.randint(1, value) for i in range(dice)]
 
             await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
             return

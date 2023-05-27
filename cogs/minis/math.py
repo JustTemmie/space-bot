@@ -11,7 +11,7 @@ allowedCharacters = "1234567890/*-+()!. "
 
 class mathCommands(commands.Cog):
     def __init__(self, bot):
-        self.bot = bot
+        self.bot = bot 
 
     @commands.command(name="math", brief="i can do math too!")
     @cooldown(120, 1800, BucketType.user)
@@ -23,7 +23,7 @@ class mathCommands(commands.Cog):
                 if set(mathEquation).difference(set(allowedCharacters)):
                     return await ctx.send(f"invalid characters used, please only use the following symbols: `{allowedCharacters}`")
 
-                await ctx.send(f"{equation }= {eval(mathEquation)}")
+                await ctx.send(f"{equation } = {eval(mathEquation)}")
         except Exception as e:
             await ctx.send(f"Error: {e}")
 

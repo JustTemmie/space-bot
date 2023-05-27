@@ -28,8 +28,11 @@ class role_menu(commands.Cog):
             for x in data:
                 # print(x["emoji"], payload.emoji.name)
                 if x["emoji"] == payload.emoji.name:
-                    role = payload.member.guild.get_role(x["role_id"])
-                    await payload.member.add_roles(role)
+                    try:
+                        role = payload.member.guild.get_role(x["role_id"])
+                        await payload.member.add_roles(role)
+                    except:
+                        pass
 
         except Exception as e:
             print(f"no role found, line 40ish roles.py {e}")
@@ -50,8 +53,11 @@ class role_menu(commands.Cog):
 
         for x in data:
             if x["emoji"] == payload.emoji.name:
-                role = discord.utils.get(self.bot.get_guild(payload.guild_id).roles, id=x["role_id"])
-                await member.remove_roles(role)
+                try:
+                    role = discord.utils.get(self.bot.get_guild(payload.guild_id).roles, id=x["role_id"])
+                    await member.remove_roles(role)
+                except:
+                    pass
 
 
 async def setup(bot):

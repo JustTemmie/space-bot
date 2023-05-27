@@ -22,11 +22,7 @@ class pdfConversion(commands.Cog):
         brief="converts your image into a pdf, supported formats? idk",
     )
     @cooldown(1, 5, BucketType.user)
-    async def image2pdf(self, ctx, dpi=400):
-        if dpi > 400 and not ctx.is_owner():
-            await ctx.send("lowering dpi to 400")
-            dpi = 400
-        
+    async def image2pdf(self, ctx):
         if ctx.message.attachments:
             await ctx.send("downloading images...")
             if not os.path.exists(f"temp/{ctx.author.id}"):
@@ -36,27 +32,32 @@ class pdfConversion(commands.Cog):
                 for i, attachment in enumerate(ctx.message.attachments):
                     data = await attachment.read()
                     filename = attachment.filename
-                    with open(f"temp/{ctx.author.id}/{filename}-{i}.png", "wb") as f:
+                    with open(f"temp/{ctx.author.id}/{filename}-{i}.png ", "wb") as f:
                         f.write(data)
         else:
             return await ctx.send("You forgot the image.")
 
         await ctx.send("converting...")
         async with ctx.typing():
-            images = []
-            for i, file in enumerate(os.listdir(f"temp/{ctx.author.id}")):
-                if i == 0:
-                    image1 = Image.open(f"temp/{ctx.author.id}/{file}").convert("RGB")
-                else:
-                    images.append(Image.open(f"temp/{ctx.author.id}/{file}").convert("RGB"))
+            try:
+                images = []
+                for i, file in enumerate(os.listdir(f"temp/{ctx.author.id}")):
+                    if i == 0:
+                        image1 = Image.open(f"temp/{ctx.author.id}/{file}").convert("RGB")
+                    else:
+                        images.append(Image.open(f"temp/{ctx.author.id}/{file}").convert("RGB"))
+                
+                image1.save(f"temp/{ctx.author.id}-output.pdf", save_all=True, append_images=images)
             
-            image1.save(f"temp/{ctx.author.id}-output.pdf", save_all=True, append_images=images)
+                await ctx.reply(file=discord.File(f"temp/{ctx.author.id}-output.pdf"))
 
-            await ctx.reply(file=discord.File(f"temp/{ctx.author.id}-output.pdf"))
-            
+            except Exception as e:
+                await ctx.send(f"an error occured: {e}")
+                
             for file in os.listdir(f"temp/{ctx.author.id}"):
                 os.remove(f"temp/{ctx.author.id}/{file}")
             os.removedirs(f"temp/{ctx.author.id}")
+            os.remove(f"temp/{ctx.author.id}-output.pdf")
             
     @commands.command(
         name="pdf2image",
