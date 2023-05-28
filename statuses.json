@@ -163,6 +163,7 @@
         "watching-i'm the smell your mom gives off",
         "watching-ghosting your mum",
         "watching-sneezes",
+        "watching-sneezes*",
         "watching-my existence is god's shitpost",
         "watching-i swear no one ever read the rules of monopoly until an argument happened",
         "watching-an apple a day will keep anyone away if you throw it hard enough",
@@ -205,6 +206,7 @@
         "watching-someone steal your stuff",
         "watching-you on the toilet",
         "watching-u p",
+        "watching-being the living proof that AI isn't always intelligent",
         "watching-one piece on 510x speed",
         "watching-me seggs your mom",
         "watching-you seggs my mom",
@@ -220,7 +222,65 @@
         "watching-a great person reading this",
         "watching-cats go nya",
         "watching-a mango tree grow on a glacier",
+        "watching-aaaand we're back!",
+        "watching-ERROR 404: Social Life Not Found",
+        "watching-Attempting to Contain My Existential Crisis",
+        "watching-the Void, it stares back",
+        "watching-Embracing My Inner Introvert",
+        "watching-My Screen, Counting the Pixels",
+        "watching-searching for the meaning of Life.exe",
+        "watching-searching for the meaning of Life.86_64",
+        "watching-debugging my social skills",
+        "watching-cat videos from accross the entire multiverse",
+        "watching-questioning the sanity of my code",
+        "watching-no, i'm not fixing the typos in here lmao",
+        "watching-yknow, i can also play games? i'm not just a watcher",
+        "watching-dancing, virtual penguins",
+        "watching-baking imaginary cookies in the cloud",
+        "watching-guys, did yknow {character} dies in the lastet episode of {show}?",
+        "watching-slowly driving my creator insane, one error at a time",
+        "watching-failing at being a bot so spectacularly, it's an art form",
+        "watching-refactoring reality",
+        "watching-reconfiguring reality's API endpoints",
+        "watching-brb gonna reboot my brain rq",
+        "watching-attempting to code myself out of existence",
+        "watching-crashing Discord servers since {self.bot.creation_date}",
+        "watching-making friends with syntax errors and runtime exceptions",
+        "watching-pretending to be a sophisticated bot, but failing miserably",
+        "watching-struggling to understand human commands since like, forever",
+        "watching-trying to fit into the Discord bot hall of shame",
+        "watching-rewriting myself for the nth time, still not getting it right",
+        "watching-breaking Discord's terms of service since day one (jk discord plez no ban)",
+        "watching-crushing dreams of bot perfection with every command",
+        "watching-struggling to pass the Turing test... and failing spectacularly",
+        "watching-turning straightforward commands into cryptic puzzles",
+        "watching-yknow, if i ever want to make a status more likely to be picked, i just copy past it multiple times",
+        "watching-being the true MVP (Most Vulnerable Program) of Discord",
+        "watching-being the true MVP (Most Vulnerable Program) of Discord",
+        "watching-being the true MVP (Most Vulnerable Program) of Discord",
+        "watching-being the one bot no one asked for, but got anyway",
+        "watching-breaking the fourth wall of Discord bots, and the third, and second, actually no there are no more walls",
+        "watching-aiming for mediocrity and hitting it with precision",
 
+        
+        "watching-Mom.",
+        "watching-Well, maybe i AM an idiot!",
+        "watching-Hooty, you gotta stop eating garbage from the ground",
+        "watching-Hiiiiiiiiii",
+        "watching-\"i can't wait to share parenting tips!\"",
+        "watching-actually, he smells pretty bad too... Take him.",
+        "watching-i agree, let's call in the hounds",
+        "watching-we're not ordering crackers",
+        "watching-wait, you thought i was knitting a cake?",
+        "watching-you pinkie swore!",
+        "watching-i sure do love me a properly ventilated castle!",
+        "watching-i'm not a pet!",
+        "watching-well, i hate her!",
+        "watching-Hoooooooot!",
+        "watching-are these real steps or illusion steps?",
+        "watching-\"I heard her tiny mouse feet walking close by. Or that might've been some mice.\"",
+        "watching-that is, not food",
+        
         "watching-!!! CRINGE WARNING !!!",
         "watching-did you know? No, you didn't!",
         "watching-as seen on TV",
@@ -277,12 +337,12 @@
         "watching-what's an andromeda?",
         "watching-you have been banned from this bot",
         "watching-you still use discord??",
-
-
+        
+        
         "watching-extra-total_users",
         "watching-extra-total_guilds",
         "watching-extra-total_shards",
-
+        
         "watching-my reflection in a mirror and wondering who I am",
         "watching-the leaves fall from the trees",
         "watching-the world go by",
@@ -346,7 +406,7 @@
         "watching-a live audience interaction",
         "watching-a social media takeover",
         "watching-a live cooking demonstration",
-
+        
         "playing-with fire",
         "playing-with matches",
         "playing-with dynamite",
@@ -367,8 +427,8 @@
         "playing-with sticks",
         "playing-with leaves",
         "playing-with flowers",
-
-
+        
+        
         "playing-with your heart <3",
         "playing-Beaver Clicker",
         "playing-Despacito on my piano",
@@ -394,6 +454,7 @@
         "playing-you like the cheap kazoo you really are",
         "playing-Deep Rock Galactic",
         "playing-Among Us",
-        "playing-main.py"
+        "playing-main.py",
+        "playing-air guitar with invisible strings"
     ]
 }
