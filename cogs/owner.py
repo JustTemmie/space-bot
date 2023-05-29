@@ -8,11 +8,11 @@ import glob
 from yt_dlp import YoutubeDL
 import asyncio
 
+# this might be highlighted as a bug, but it's just a library written in rust lmao
+# it should be fine if you've ran the setup file
 from libraries.RSmiscLib import str_replacer
 from libraries.economyLib import confirmations
 
-# this might be highlighted as a bug, but it's just a library written in rust lmao
-# it should be fine if you've ran the setup file
 
 # These imports are just for the run command, for convenience
 import subprocess

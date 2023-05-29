@@ -42,7 +42,7 @@ class images(commands.Cog):
 
     @commands.command(name="squish", brief="haha person go *squish*")
     @cooldown(2, 5, BucketType.user)
-    async def squish_command(self, ctx, squish_percent = 30, user: discord.Member = None):
+    async def squish_command(self, ctx, user: discord.Member = None, squish_percent = 30):
         if squish_percent > 99:
             return await ctx.send("squish percentage can't be greater than 99")
         
