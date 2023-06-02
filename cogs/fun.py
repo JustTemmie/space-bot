@@ -198,7 +198,7 @@ class fun(commands.Cog):
     @commands.command(name="ping", aliases=["pong", "latency"], brief="P O N G")
     @cooldown(3, 5, BucketType.guild)
     async def ping_pong(self, ctx):
-        if ctx.author.is_owner():
+        if ctx.author.is_owner == True:
             await ctx.send(f"at least like, {random.randint(6, 8)}")
         else:
             await ctx.send(f"Pong! latency of {round(self.bot.latency * 1000)}ms")
