@@ -8,8 +8,7 @@ from libraries.economyLib import *
 from libraries.captchaLib import *
 from libraries.standardLib import removeat
 
-# 60 days
-gracePeriod = 60
+gracePeriod = 1
         
 class ecogeneration(commands.Cog):
     def __init__(self, bot):
@@ -70,6 +69,9 @@ class ecogeneration(commands.Cog):
         else:
             daily_info["streak"] += 1
             streak += f"**{daily_info['streak']} day streak!**"
+        
+        if daily_info["streak"] == 365:
+            streak = "**you lost your streak of 364 days :(**"
 
         payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
         if payout >= 500:
