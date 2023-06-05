@@ -8,7 +8,7 @@ from libraries.economyLib import *
 from libraries.captchaLib import *
 from libraries.standardLib import removeat
 
-gracePeriod = 1
+gracePeriod = 10
         
 class ecogeneration(commands.Cog):
     def __init__(self, bot):
