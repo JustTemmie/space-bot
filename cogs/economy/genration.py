@@ -3,6 +3,7 @@ from discord.ext.commands import cooldown, BucketType
 import json
 
 from datetime import timedelta
+import time
 
 from libraries.economyLib import *
 from libraries.captchaLib import *
@@ -71,7 +72,15 @@ class ecogeneration(commands.Cog):
             streak += f"**{daily_info['streak']} day streak!**"
         
         if daily_info["streak"] == 365:
-            streak = "**you lost your streak of 364 days :(**"
+            await ctx.send("**you lost your streak of 364 days :(**")
+            time.sleep(3)
+            await ctx.send("nah jk bro")
+            payout += 10000
+            streak += "\n\nyay streak!!!!\n+10000 coins :)\n\nadditionally all future dailies will reward 2 extra coins"
+            time.sleep(3)
+            
+        if daily_info["streak"] > 365:
+            payout += 2
 
         payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
         if payout >= 500:
