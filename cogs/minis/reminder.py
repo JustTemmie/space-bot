@@ -36,7 +36,7 @@ class reminder(commands.Cog):
         replacing_character = ","
 
         # calls funny function from rust library that does some wacky shit
-        timing = str_replacer(timing, ch, replacing_character, occurrence)
+        timing = await str_replacer(timing, ch, replacing_character, occurrence)
 
         timing = timing.split(",")
         for i in timing:
