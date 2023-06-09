@@ -73,7 +73,12 @@ class ecogeneration(commands.Cog):
         
         
         payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
-                
+        
+        
+        if payout >= 500:
+            payout = 500
+        
+        
         if daily_info["streak"] == 365:
             await ctx.send("**you lost your streak of 364 days :(**")
             time.sleep(3)
@@ -84,9 +89,6 @@ class ecogeneration(commands.Cog):
             
         if daily_info["streak"] > 365:
             payout += 2
-        
-        if payout >= 500:
-            payout = 500
         
         
         
