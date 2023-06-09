@@ -15,7 +15,7 @@ from libraries.miscLib import str_replacer
 from libraries.economyLib import confirmations
 
 
-# These imports are just for the run command, for convenience
+# These imports are just for the run command, for convenienceq
 import subprocess
 import datetime
 import re
@@ -263,7 +263,7 @@ class Owner(commands.Cog):
             i = 0
             while i < len(fields):
                 embed.add_field(name=fields[i], value=fields[i + 1], inline=False)
-                i += 2qownerremind dog in 55 m -30 m
+                i += 2
         await ctx.send(embed=embed)
 
     @commands.command()
