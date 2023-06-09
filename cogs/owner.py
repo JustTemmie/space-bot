@@ -263,7 +263,7 @@ class Owner(commands.Cog):
             i = 0
             while i < len(fields):
                 embed.add_field(name=fields[i], value=fields[i + 1], inline=False)
-                i += 2
+                i += 2qownerremind dog in 55 m -30 m
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -431,7 +431,7 @@ class Owner(commands.Cog):
         replacing_character = ","
 
         # for i in range(ceil((timing.count(ch)))):
-        timing = str_replacer(timing, ch, replacing_character, occurrence)
+        timing = await str_replacer(timing, ch, replacing_character, occurrence)
 
         timing = timing.split(",")
         for i in timing:
