@@ -88,8 +88,7 @@ class ecogeneration(commands.Cog):
             time.sleep(3)
             
         if daily_info["streak"] > 365:
-            payout += 2
-        
+            payout += 2    
         
         
         # skills
