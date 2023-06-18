@@ -1,1 +1,0 @@
-debian package python3-poppler-qt5
