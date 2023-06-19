@@ -21,19 +21,9 @@
 ##  Setup
 `NOTE: This is only for self hosting`
 
-you can skip the top.gg steps but it will likely throw an error :p
+you can skip the top.gg steps if disired
 
-First, install the requirements.txt file with pip.
-
-`pip3 install -r requirements.txt`
-
-Read through setup.txt and do everything in there.
-
-Run build.py in order to get a library.
-
-`NOTE: build.py requries rust to be installed https://rustup.rs/`
-
-lastly fill in the these entries in a file named keys.env
+fill in the these entries in a file named keys.env
 
 ```
 DISCORD=
@@ -46,9 +36,9 @@ TOP_GG_TOKEN=
 TOP_GG_PORT= you need to port forward your sever with a port i don't remember the exact ports but keep it between 5000 and 45000 and you should be good
 TOP_GG_ENCRYPTION_KEY= the "Authorization" field
 ```
-
-
 then on top.gg add "http://yourIPAddress:port/dblwebhook" to the wekbook field.
+
+## the keys can be obtained from:
 
 discord key from https://discord.com/developers/applications
 
@@ -61,3 +51,16 @@ tenor key from https://tenor.com/developer/keyregistration
 open weather from https://home.openweathermap.org/api_keys
 
 top.gg from https://top.gg/bot/YOURBOTIDHERE/webhooks
+
+
+
+and lastly, just build the docker container using
+
+`sudo docker-compose build`
+
+
+now, whenever you want to start the bot just run
+
+`sudo docker-compose up`
+
+and it should theoretically work

@@ -67,7 +67,7 @@ class shipcog(commands.Cog):
             ])
         elif result <= 89:
             messageStr = random.choice([
-                (f"the love between {person1.display_name} and {person2.display_name} burns as hot as the sun, scoring a {result} / 100")
+                (f"the love between {person1.display_name} and {person2.display_name} burns as hot as the sun, scoring a {result} / 100"),
                 (f"the love of {person1.display_name} and {person2.display_name} is as strong as the love between a cat and a cardboard box, scoring a {result} / 100"),
             ])
         elif result <= 99:
