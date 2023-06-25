@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # install dependencies
-RUN pip install -r requirements.txt
+RUN pip install --default-timeout=900 -r requirements.txt
 
 # install libgl1, required for openCV
 RUN apt-get update && apt-get install -y libgl1-mesa-glx

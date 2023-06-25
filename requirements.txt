@@ -1,3 +1,4 @@
+opencv-python
 wikipedia
 gitpython
 python-dotenv
@@ -13,7 +14,6 @@ topggpy
 captcha
 IMDbPY
 qrcode
-opencv-python
 numpy
 Image
 interruptingcow
