@@ -48,7 +48,7 @@ class Owner(commands.Cog):
     
     @commands.is_owner()
     @commands.command(name="ownerdaily", brief="get your daily beaver coins here!")
-    async def daily_command(self, ctx, target):
+    async def daily_command(self, ctx, target: discord.Member):
         await open_account(self, target)
 
         userNotExist = await check_if_not_exist(target)
