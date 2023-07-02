@@ -12,7 +12,8 @@ import asyncio
 # it should be fine if you've ran the setup file
 #from libraries.RSmiscLib import str_replacer
 from libraries.miscLib import str_replacer
-from libraries.economyLib import confirmations
+from libraries.economyLib import *
+from libraries.captchaLib import *
 
 
 # These imports are just for the run command, for convenienceq
@@ -44,6 +45,76 @@ def insert_returns(body):
 class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.is_owner()
+    @commands.command(name="ownerdaily", brief="get your daily beaver coins here!")
+    async def daily_command(self, ctx, target):
+        await open_account(self, target)
+
+        userNotExist = await check_if_not_exist(target)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
+
+        bank = await get_bank_data()
+        daily_info = bank[str(target.id)]["daily"]
+
+        if daily_info["day"] == (datetime.utcnow() - datetime(1970, 1, 1)).days:
+            return await ctx.send("they already got their daily, come back tomorrow")
+
+        streak = ""
+        if daily_info["day"] + 365 < (datetime.utcnow() - datetime(1970, 1, 1)).days - 1:
+            if bank[str(target.id)]["inventory"]["insurance"] >= 1:
+                await ctx.send(f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(target.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?")
+                response = await self.bot.wait_for("message", check=lambda m: m.author == target, timeout=45)
+
+                if response.content.lower() in confirmations:
+                    streak += f"**you used a totem, you have a {daily_info['streak']} day streak!**"
+                    bank[str(target.id)]["inventory"]["insurance"] -= 1
+
+                else:
+                    streak += f"**you lost your streak of {daily_info['streak']} days :(**"
+                    daily_info["streak"] = 1
+            else:
+                streak += f"**you lost your streak of {daily_info['streak']} days :(**"
+                daily_info["streak"] = 1
+
+        else:
+            daily_info["streak"] += 1
+            streak += f"**{daily_info['streak']} day streak!**"
+        
+        
+        payout = round(random.uniform(60, 120) + round(random.uniform(3.5, 6) * daily_info["streak"]))
+        
+        
+        if payout >= 500:
+            payout = 500
+            
+        if daily_info["streak"] > 365:
+            payout += 2    
+        
+        # skills
+        if bank[str(target.id)]["dam"]["level"] >= 4:
+            payout *= 2
+            streak += "\n**you got double coins for having a lvl 4+ dam**"
+
+        # henw
+        if target.id == 411536312961597440:
+            payout -= 1
+
+        payout = round(payout)
+
+        bank[str(target.id)]["wallet"] += payout
+        daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
+        bank[str(target.id)]["daily"] = daily_info
+
+        bank[str(target.id)]["statistics"]["total_coins"] += payout
+
+        with open("storage/playerInfo/bank.json", "w") as f:
+            json.dump(bank, f)
+
+        await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
 
     @commands.is_owner()
     @commands.command(name="getstatus")
