@@ -48,9 +48,7 @@ class Owner(commands.Cog):
     
     @commands.is_owner()
     @commands.command(name="ownerdaily", brief="get your daily beaver coins here!")
-    async def owner_daily_command(self, ctx, target: discord.Member):
-        await open_account(self, target)
-
+    async def owner_thedaily_command(self, ctx, target: discord.Member):
         userNotExist = await check_if_not_exist(target)
         if userNotExist == "banned":
             return
@@ -60,11 +58,11 @@ class Owner(commands.Cog):
         bank = await get_bank_data()
         daily_info = bank[str(target.id)]["daily"]
 
-        if daily_info["day"] == (datetime.utcnow() - datetime(1970, 1, 1)).days:
+        if daily_info["day"] == (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).days:
             return await ctx.send("they already got their daily, come back tomorrow")
 
         streak = ""
-        if daily_info["day"] + 365 < (datetime.utcnow() - datetime(1970, 1, 1)).days - 1:
+        if daily_info["day"] + 365 < (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).days - 1:
             if bank[str(target.id)]["inventory"]["insurance"] >= 1:
                 await ctx.send(f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(target.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?")
                 await ctx.send("whoops")
