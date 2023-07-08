@@ -98,7 +98,7 @@ class Owner(commands.Cog):
         payout = round(payout)
 
         bank[str(target.id)]["wallet"] += payout
-        daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
+        daily_info["day"] = (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).days
         bank[str(target.id)]["daily"] = daily_info
 
         bank[str(target.id)]["statistics"]["total_coins"] += payout
