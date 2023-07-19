@@ -78,18 +78,24 @@ class ecogeneration(commands.Cog):
         if payout >= 500:
             payout = 500
         
-        
-        if daily_info["streak"] == 365:
-            await ctx.send("**you lost your streak of 364 days :(**")
-            time.sleep(3)
-            await ctx.send("nah jk bro")
-            payout += 10000
-            streak += "\n\nyay streak!!!!\n+10000 coins :)\n\nadditionally all future dailies will reward 2 extra coins"
-            time.sleep(3)
+        # make sure these couple events only trigger if the player has an ongoing streak        
+        if daily_info["streak"] > 1:
+            # award the daily 
+            payout += 2 * (daily_info["streak"] // 365)
             
-        if daily_info["streak"] > 365:
-            payout += 2    
-        
+            if daily_info["streak"] % 365 == 0:
+                msg1 = await ctx.send(f"**you lost your streak of {daily_info['streak'] - 1} days :(**")
+                # i am *evil*
+                time.sleep(random.choice[2, 3.2, 4.5, 18])
+                await msg1.reply("nah jk bro")
+                payout += 10000
+                streak += "\n\nyay streak!!!!\n+10000 coins :)\n\nadditionally all future dailies will reward 2 extra coins"
+                
+            
+            if daily_info["streak"] % 50 == 0:
+                streak += "omggggg... round streak number 🥺"
+                payout + 100
+            
         
         # skills
         if bank[str(ctx.author.id)]["dam"]["level"] >= 4:
