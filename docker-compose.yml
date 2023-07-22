@@ -1,9 +1,11 @@
 version: '3'
 services:
   app:
+    image: space-bot
     build:
       context: .
       dockerfile: Dockerfile
+    hostname: Docker Container
     # ports:
       # - 8000:8000
     volumes:
@@ -11,4 +13,5 @@ services:
       # - ./requirements.txt:/app/requirements.txt
     environment:
       - PYTHONUNBUFFERED=1
+    restart: always
     command: bash -c "python setup.py && python main.py"

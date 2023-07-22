@@ -15,6 +15,19 @@ class ecogeneration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
+    def get_red_panda_day(self, year):
+        # Start with the first day of September in the given year
+        date = datetime(year, 9, 1)
+
+        # Find the first Sunday in September
+        while date.weekday() != 6:  # Sunday has weekday index 6 (0 is Monday)
+            date += timedelta(days=1)
+
+        # Move to the third Sunday (add 14 days twice)
+        date += timedelta(weeks=2)
+
+        return [date.day, date.month]
+
     def get_easter(self, year):
         y = year
         g = y % 19
@@ -106,6 +119,7 @@ class ecogeneration(commands.Cog):
         today = datetime.utcnow()
         
         easterDate = self.get_easter(today.year)
+        redpandaDate = self.get_red_panda_day(today.year)
         
         pancakeOffset = timedelta(days = 47)
         pancakeDay = datetime(today.year, easterDate[1], easterDate[0]) - pancakeOffset
@@ -115,6 +129,12 @@ class ecogeneration(commands.Cog):
             payout *= 2.5
             payout = round(payout)
             streak += "\n\nHappy Easter!"
+        
+        # red panda, 3rd sunday of september
+        if today.day == redpandaDate[0] and today.month == redpandaDate[1]:
+            payout += random.randint(300, 800)
+            payout = round(payout)
+            streak += "\n\nom g.. it is red panda day:))\ni like those thingies, they cute!!"
         
         if today.day == pancakeDay.day and today.month == pancakeDay.month:
             random.seed((datetime.utcnow() - datetime(1970, 1, 1)).days)
@@ -146,7 +166,7 @@ class ecogeneration(commands.Cog):
             
         # St. Patrick's Day 
         if today.day == 17 and today.month == 3:
-            payout += 314
+            payout += random.randint(500, 700)
             streak += "\n\nHappy gay pot of gold Day "
             
         # waffle day
@@ -176,7 +196,7 @@ class ecogeneration(commands.Cog):
         
         # belerussian independence day
         if today.day == 3 and today.month == 7:
-            payout += 200
+            payout += 300
             streak += "\n\Happy belerussian indpendence day"
             
         
@@ -185,6 +205,12 @@ class ecogeneration(commands.Cog):
             payout *= 0.6
             payout = round(payout)
             streak += "\n\nomg it's mango da- wait?! MANGO?!\nI **HATE** MANGOS!\n\nfuck it, i'm lashing out on you >:("
+        
+        # sorry for fucking mangos
+        if today.day == 23 and today.month == 7:
+            payout *= 1.4
+            payout = round(payout)
+            streak += "\n\nsorry for yesterday 😔\ni don't know what came onto me.."
             
         # friendship day :blush:
         if today.day == 6 and today.month == 8:
@@ -201,7 +227,7 @@ class ecogeneration(commands.Cog):
         
         # finish independence (i'm not finish btw lol)
         if today.day == 6 and today.month == 12:
-            payout += 500
+            payout += 300
             streak += "\n\nHappy national sno- i mean finish indepencence day!"
         
         # chrimsi

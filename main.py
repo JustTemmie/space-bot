@@ -30,13 +30,17 @@ TOP_GG_ENCRYPTION_KEY = os.getenv("TOP_GG_ENCRYPTION_KEY")
 with open("config.json", "r") as f:
     config = json.load(f)
 
-# Load status file
-with open("statuses.json", "r") as f:
-    statusjson = json.load(f)
+try:
+    # Load status file
+    with open("statuses.json", "r") as f:
+        statusjson = json.load(f)
 
+    # Grab statuses from statuses.json
+    statuses = statusjson["statuses"]
+    
+except:
+    statuses = ["oh no the statuses did a fucky wucky O//w//O pleas fix :)"]
 
-# Grab statuses from statuses.json
-statuses = statusjson["statuses"]
 
 # Grab vars from config.json
 DEFAULT_PREFIX = config["DEFAULT_PREFIX"]
