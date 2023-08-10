@@ -69,8 +69,12 @@ class fun(commands.Cog):
             return
 
         if search_term is not None:
-            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, tenor_api_key, int(value)))
-
+            try:
+                r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, tenor_api_key, int(value)))
+            except:
+                await ctx.send("whoops, timed out or somthn")
+                return
+            
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
                 # random_gif = random.choice(top_x_gifs)

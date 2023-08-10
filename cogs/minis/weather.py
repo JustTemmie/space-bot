@@ -49,7 +49,12 @@ class weather(Cog):
                 foundLocally = True
         
         if not foundLocally:
-            r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
+            try:
+                r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
+            except:
+                await ctx.send("whoops, timed out or somthn")
+                return
+            
             request = json.loads(r.content)
             
             if r.status_code != 200:

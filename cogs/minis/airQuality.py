@@ -40,7 +40,11 @@ class airquality(Cog):
                 foundLocally = True
         
         if not foundLocally:
-            r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
+            try:
+                r = requests.get(f"https://api.openweathermap.org/geo/1.0/direct?q={input}&limit=1&appid={weather_key}")
+            except:
+                await ctx.send("whoops, timed out or somthn")
+                return
             request = json.loads(r.content)
             
             if r.status_code != 200:
@@ -65,7 +69,11 @@ class airquality(Cog):
         
         url = f"https://api.airvisual.com/v2/nearest_city?lat={lat}&lon={lon}&key={air_api}"
         
-        r = requests.get(url)
+        try:
+            r = requests.get(url)
+        except:
+            await ctx.send("whoops, timed out or somthn")
+            return
         data = json.loads(r.content)
         
         embed = Embed(

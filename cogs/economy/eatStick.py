@@ -33,9 +33,11 @@ class stickyummy(commands.Cog):
         bank = await get_bank_data()
 
         if bank[str(ctx.author.id)]["inventory"]["stick"] >= 1:
-
-            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime eating chopsticks", tenor_api_key, 40))
-
+            try:
+                r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime eating chopsticks", tenor_api_key, 40))
+            except:
+                await ctx.send("whoops, timed out or somthn")
+                return
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
                 realoutput = top_x_gifs["results"][random.randrange(0, 30)]["media"][0]["gif"]["url"]
@@ -92,9 +94,12 @@ class stickyummy(commands.Cog):
         bank = await get_bank_data()
 
         if bank[str(ctx.author.id)]["inventory"]["stick"] >= 1:
-
-            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime feeding", tenor_api_key, 40))
-
+            try:
+                r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime feeding", tenor_api_key, 40))
+            except:
+                await ctx.send("whoops, timed out or somthn")
+                return
+            
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
                 realoutput = top_x_gifs["results"][random.randrange(0, 30)]["media"][0]["gif"]["url"]

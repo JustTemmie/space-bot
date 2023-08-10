@@ -35,7 +35,11 @@ class social(commands.Cog):
             return
 
         gif_count = top_x_gifs
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime {search}", tenor_api_key, gif_count))
+        try:
+            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime {search}", tenor_api_key, gif_count))
+        except:
+            await ctx.send("whoops, timed out or somthn")
+            return
         actees = []
         for member in targets:
             # if member.id not in actees:
@@ -183,8 +187,11 @@ class social(commands.Cog):
     @cooldown(8, 25, BucketType.guild)
     @commands.guild_only()
     async def hugss(self, ctx):
-        r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime bonk", tenor_api_key, 20))
-
+        try:
+            r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (f"anime bonk", tenor_api_key, 20))
+        except:
+            await ctx.send("whoops, timed out or somthn")
+            return
         title_string = f"{ctx.author.display_name} just mentioned qwerty! BONK!"
         description = f"switch to colemak :)"
 
