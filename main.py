@@ -227,10 +227,10 @@ async def load_cogs(bot):
 
 
 async def main():
+    await asyncio.sleep(50)
     async with bot:
         # await setup(bot)
         await load_cogs(bot)
         await bot.start(TOKEN)
-
 
 asyncio.run(main())
