@@ -28,7 +28,7 @@ class zooHunt(commands.Cog):
     @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
         await ecoLib.open_account(self, ctx)
-        await aniLibq.open_zoo(self, ctx)
+        await aniLib.open_zoo(self, ctx)
 
         userNotExist = await aniLib.check_if_zoo_not_exist(ctx.author)
         if userNotExist == "banned":
