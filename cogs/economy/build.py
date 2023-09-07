@@ -169,7 +169,16 @@ class ecobuild(commands.Cog):
             if logs < amount:
                 return await ctx.send("you don't have that many logs")
 
-            lodge_levels = [5000, 12000, 20000, 30000, 45000]
+            lodge_levels = [
+                5000,
+                12000,
+                25000,
+                40000,
+                55000,
+                70000,
+                85000,
+                100000,
+            ]
 
             level = current_lodgelevel
 
@@ -217,7 +226,13 @@ class ecobuild(commands.Cog):
                 if newlvl == 4:
                     data[str(ctx.author.id)]["stats"]["points"] += 2
                 if newlvl == 5:
+                    data[str(ctx.author.id)]["stats"]["points"] += 2
+                if newlvl == 6:
+                    data[str(ctx.author.id)]["stats"]["points"] += 3
+                if newlvl == 7:
                     data[str(ctx.author.id)]["stats"]["points"] += 5
+                if newlvl == 8:
+                    data[str(ctx.author.id)]["stats"]["points"] += 10
 
             else:
                 embed = discord.Embed(
@@ -233,7 +248,7 @@ class ecobuild(commands.Cog):
             with open("storage/playerInfo/bank.json", "w") as f:
                 json.dump(data, f)
 
-            lvl1bold = lvl2bold = lvl3bold = lvl4bold = lvl5bold = ""
+            lvl1bold = lvl2bold = lvl3bold = lvl4bold = lvl5bold = lvl6bold = lvl7bold = lvl8bold = ""
 
             if level >= 1:
                 lvl1bold = "**"
@@ -245,18 +260,30 @@ class ecobuild(commands.Cog):
                 lvl4bold = "**"
             if level >= 5:
                 lvl5bold = "**"
+            if level >= 6:
+                lvl6bold = "**"
+            if level >= 7:
+                lvl7bold = "**"
+            if level >= 8:
+                lvl8bold = "**"
 
             lvl1 = f"╰ +2 skill points and a 20% chance to get a second animals from {ctx.prefix}hunt"
-            lvl2 = f"╰ +2 skill points another 30% chance to get a second animal from {ctx.prefix}hunt"
-            lvl3 = f"╰ +2 skill points guarantee a second animal from {ctx.prefix}hunt"
+            lvl2 = f"╰ +2 skill points and another 30% chance to get a second animal from {ctx.prefix}hunt"
+            lvl3 = f"╰ +2 skill points and guarantee a second animal from {ctx.prefix}hunt"
             lvl4 = f"╰ +2 skill points and +1 brief sense of accomplishment"
-            lvl5 = f"╰ +5 skill points and +1 long lasting sense of accomplishment"
+            lvl5 = f"╰ +2 skill points and +1 long lasting sense of accomplishment"
+            lvl6 = f"╰ +3 skill points and a third animal from {ctx.prefix}hunt"
+            lvl7 = f"╰ +5 skill points and +20% to the animal selling price"
+            lvl8 = f"╰ +10 skill points and increase the chance of non-common animals by 20%"
 
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
             embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
             embed.add_field(name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False)
             embed.add_field(name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False)
             embed.add_field(name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False)
+            embed.add_field(name="Level 6:", value=f"{lvl6bold}{lvl6}{lvl6bold}", inline=False)
+            embed.add_field(name="Level 7:", value=f"{lvl7bold}{lvl7}{lvl7bold}", inline=False)
+            embed.add_field(name="Level 8:", value=f"{lvl8bold}{lvl8}{lvl8bold}", inline=False)
 
             embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.display_avatar.url)
 

@@ -9,7 +9,7 @@ import libraries.economyLib as ecoLib
 from libraries.captchaLib import *
 from libraries.standardLib import removeat
 
-tiers = {
+baseTiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
     "legendary": 0.0001,
     "mythical": 0.001,
@@ -54,12 +54,22 @@ class zooHunt(commands.Cog):
             chance_for_bonus += 0.3
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 3:
             chance_for_bonus += 0.5
-
+        if bank[str(ctx.author.id)]["lodge"]["level"] >= 6:
+            chance_for_bonus += 1
+        
+        if bank[str(ctx.author.id)]["lodge"]["level"] >= 8:
+            tiers = baseTiers.copy()
+            for i in tiers:
+                tiers[i] *= 1.2
+        else:
+            tiers = baseTiers.copy()
+        print(tiers)
+            
         if random.random() <= chance_for_bonus:
             animals_to_get += 1
 
         for i in range(0, animals_to_get):
-            animal, tier = await self.roll_animal(ctx, animals)
+            animal, tier = await self.roll_animal(ctx, animals, tiers)
             caught.append(animal)
             caughttier.append(tier)
 
@@ -98,7 +108,7 @@ class zooHunt(commands.Cog):
             with open("storage/playerInfo/animals.json", "w") as f:
                 json.dump(data, f)  # , indent=4)
 
-    async def roll_animal(self, ctx, animals):
+    async def roll_animal(self, ctx, animals, tiers):
         roll = random.random()
         discarded_roll = 0
         for tier in tiers:
