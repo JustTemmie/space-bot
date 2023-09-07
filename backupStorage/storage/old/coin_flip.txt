@@ -1,0 +1,59 @@
+    @commands.command(name="coin", aliases=["flip"], brief="flip a coin! if you win you doulbe your bet, if you lose you don\'t")
+    @cooldown(1, 2, BucketType.user)
+    async def coinflip(self, ctx, amount = None, side: str = "heads"):
+        await self.open_account(ctx.author)
+
+        bal = await self.update_bank_data(ctx.author)
+
+        if amount == None:
+            await ctx.send("pleeeease enter the amount you wish to waste")
+            return
+
+        amount = int(amount)
+        if amount > 50000:
+            amount = 50000
+
+        if amount > bal[0]:
+            await ctx.send("you don\'t have THAT much money")
+            return
+
+        if amount < 5:
+            await ctx.send("please bet at leaaaast 5 <a:spinningspacecoin:891686810328125502>")
+            return
+                
+        if amount < 0:
+            await ctx.send("sorry, you have to gamble a positive amount of money")
+            return
+        
+        coinsides = ["heads", "tails"]
+        if side not in coinsides:
+            return await ctx.send("Please only use `heads` or `tails`!")
+
+        headslist = ["heads"]
+
+        result = random.choice(coinsides)
+
+        msg = await ctx.send("the coin landed and...")
+        await asyncio.sleep(1.5)
+
+        if result == side:
+            await self.update_bank_data(ctx.author, 1*amount, "wallet")
+            
+            if side in headslist:
+                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} won {2*amount} <a:spinningspacecoin:891686810328125502>")
+
+            else:
+                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} won {2*amount} <a:spinningspacecoin:891686810328125502>")
+
+
+
+        else:
+            await self.update_bank_data(ctx.author, -1*amount, "wallet")
+
+            if side in headslist:
+                await msg.edit(content=f"{msg.content} it was Tails!\n{ctx.author.display_name} lost {amount} <a:spinningspacecoin:891686810328125502>")
+
+            else:
+                await msg.edit(content=f"{msg.content} it was Heads!\n{ctx.author.display_name} lost {amount} <a:spinningspacecoin:891686810328125502>")
+                
+

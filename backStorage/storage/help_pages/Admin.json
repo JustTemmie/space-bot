@@ -1,0 +1,12 @@
+{
+    "admn1st": {
+        "icon": "🛡️",
+        "name": "Moderation",
+        "description": "`ban` `kick` `clear`"
+    },
+    "admn2nd":{
+        "icon": "🛡️",
+        "name": "Misc Mod Commands",
+        "description": "`rolemenu` `react` `prefix`"
+    }
+}

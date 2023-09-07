@@ -1,0 +1,12 @@
+{
+    "vote": {
+        "reminder": {
+            "display_name": "Vote Reminder",
+            "description": "Sends you a DM reminding you to vote 12 hours after your last vote",
+            "values": [
+                "true",
+                "false"
+            ]
+        }
+    }
+}

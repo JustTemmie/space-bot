@@ -1,0 +1,52 @@
+{   
+    "logs": [
+        "Logs",
+        "<:log:1019212550782599220>"
+    ],
+
+    "insurance": [
+        "Insurance",
+        "<:totem:970122712192274513>"
+    ],
+
+    "stick": [
+        "Stick",
+        "<:stick:1005255854892781709>"
+    ],
+
+    "common": [
+        "Common Ring",
+        "<:common_ring:1019212572832047185>"
+    ],
+    "uncommon": [
+        "Uncommon Ring",
+        "<:uncommon_ring:1019212584647413801>"
+    ],
+    "rare": [
+        "Rare Ring",
+        "<:rare_ring:1019212592713060352>"
+    ],
+    "epic": [
+        "Epic Ring",
+        "<:epic_ring:1019212603131711498>"
+    ],
+    "mythical": [
+        "Mythical Ring",
+        "<:mythical_ring:1019212609603510302>"
+    ],
+    "legendary": [
+        "Legendary Ring",
+        "<:legendary_ring:1019212617295876167>"
+    ],
+    
+    
+    
+    "ring": [
+        "Ring",
+        "💍 (this shouldn't be optainable wth)"
+    ],
+    "test": [
+        "Testing item teehee ",
+        "uwu"
+    ]
+}

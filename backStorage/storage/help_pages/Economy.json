@@ -1,0 +1,47 @@
+{
+    "recent": {
+        "icon": "✨",
+        "name": "New Commands",
+        "description": "`blackjack`"
+    },
+    "1st": {
+        "icon": "<:beaverCoin:1019212566095986768>",
+        "name": "Economy",
+        "description": "`daily` `scavenge` `balance` `build` `inventory` `send` `tutorial`"
+    },
+    "animals": {
+        "icon": "🐕",
+        "name": "Animals",
+        "description": "`hunt` `zoo` `dex`"
+    },
+    "2nd": {
+        "icon": "👤",
+        "name": "User",
+        "description": "`stats` `statistics` `profile` `quote`"
+    },
+    "3rd": {
+        "icon": "🛍",
+        "name": "Trade",
+        "description": "`buy` `sell` `market`"
+    },
+    "12th": {
+        "icon": "🎲",
+        "name": "Gambling",
+        "description": "`coinflip` `slot` `blackjack`"
+    },
+    "11th": {
+        "icon": "🏅",
+        "name": "Rankings",
+        "description": "`leaderboard`"
+    },
+    "9th": {
+        "icon": "🫂",
+        "name": "Social",
+        "description": "`marry` `divorce`"
+    },
+    "other": {
+        "icon": "🛠️",
+        "name": "Other",
+        "description": "`cooldowns` `calendar` `eat` `feed` `rules`"
+    }
+}

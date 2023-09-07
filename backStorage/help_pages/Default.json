@@ -1,0 +1,42 @@
+{
+    "recent": {
+        "icon": "✨",
+        "name": "New Commands",
+        "description": "`uptime` `air`"
+    },
+    "10th": {
+        "icon": "🤗",
+        "name": "Actions",
+        "description": "`bite` `boop` `cuddle` `hug` `kill` `kiss` `hold` `pat` `stare` `punch` `steal`"
+    },
+    "4th": {
+        "icon": "🖼️",
+        "name": "Images",
+        "description": "`flag` `squish` `ascii` `avatar` `qr` `texttoimage`"
+    },
+    "5th": {
+        "icon": "🎱",
+        "name": "Fun",
+        "description": "`tictactoe/ttt` `8ball` `fact` `funfact` `joke` `shitpost` `trivia` `ship` `mock`"
+    },
+    "6th": {
+        "icon": "🛠️",
+        "name": "Utility",
+        "description": "`help` `pdf2image` `info` `uptime` `ping` `poll` `serverinfo` `userinfo` `remindme` `todo` `delete`"
+    },
+    "7th": {
+        "icon": "⚖️",
+        "name": "Units",
+        "description": "`celsius` `fahrenheit` `kg` `pound`"
+    },
+    "8th": {
+        "icon": "🔍",
+        "name": "Search",
+        "description": "`reddit` `imdb` `tenor` `urban` `wikipedia` `weather` `air`"
+    },
+    "13th": {
+        "icon": "❓",
+        "name": "Misc",
+        "description": "`settings` `alientohuman` `humantoalien` `morse` `dice` `bugreport` `rick` `beaver` `unbeaver`"
+    }
+}

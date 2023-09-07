@@ -1,0 +1,177 @@
+{
+    "question0": {
+        "title": "How long can beaver hold thier breath?",
+        "correct": "15 min",
+        "ans0": "10 min",
+        "ans1": "20 min",
+        "ans2": "5 min"
+    },
+    "question1": {
+        "title": "How long do beavers hibernate for?",
+        "correct": "They don't",
+        "ans0": "8 weeks",
+        "ans1": "14 weeks",
+        "ans2": "18 weeks"
+    },
+    "question2": {
+        "title": "Which of these things do beavers NOT eat?",
+        "correct": "Mice",
+        "ans0": "Clovers",
+        "ans1": "Water liles",
+        "ans2": "Apples"
+    },
+    "question3": {
+        "title": "Beavers belong to their own genus: Castor. Why were they given this name?",
+        "correct": "It comes from the name of an oily substance that beavers produce",
+        "ans0": "It's a Latin word meaning \"teeth\"",
+        "ans1": "It's a Latin word meaning \"large rodent\"",
+        "ans2": "The biologist that named the beaver liked the constellation Gemini"
+    },
+    "question4": {
+        "title": "Casteroides is the name given to the prehistoric beaver that swam the freshwater lakes of North America long ago. How large was this beaver ancestor?",
+        "correct": "About the size of an adult black bear",
+        "ans0": "About the size of an adult elephant",
+        "ans1": "About the size of modern beavers",
+        "ans2": "About twice the size of modern beavers"
+    },
+    "question5": {
+        "title": "How many incisors/teeth does a beaver have?",
+        "correct": "4",
+        "ans0": "6",
+        "ans1": "8",
+        "ans2": "12"
+    },
+    "question6": {
+        "title": "Whats the beaver's favourite video game?",
+        "correct": "Beaver Clicker",
+        "ans0": "Timberborn",
+        "ans1": "Beavers Be Dammed",
+        "ans2": "Super Mario 64"
+    },
+    "question7": {
+        "title": "A Beaver's diet consists mainly of bark and twigs, but what else do beavers eat?",
+        "correct": "All of these",
+        "ans0": "Berries",
+        "ans1": "Grass",
+        "ans2": "Skunk Cabbage"
+    },
+    "question8": {
+        "title": "A beaver's tail is one of its most recognizable characteristics. Which of the following is NOT a way beavers use their tails?",
+        "correct": "Towing Sticks, Mud, or Rocks",
+        "ans0": "Fat Storage",
+        "ans1": "Rudder when Swimming",
+        "ans2": "Helps with Balance while Standing"
+    },
+    "question9": {
+        "title": "What color is the enamel on Beaver's teeth?",
+        "correct": "Orange",
+        "ans0": "White",
+        "ans1": "Yellow",
+        "ans2": "Clear"
+    },
+    "question10": {
+        "title": "What happens when beavers turn two years old?",
+        "correct": "They leave",
+        "ans0": "They have their own litter",
+        "ans1": "They are full grown",
+        "ans2": "They make their own dam"
+    },
+    "question11": {
+        "title": "What kind of tree are Beaver's favorites for eating?",
+        "correct": "Aspen",
+        "ans0": "We can't know",
+        "ans1": "Redwood",
+        "ans2": "Birch"
+    },
+    "question12": {
+        "title": "What are their eyelids like?",
+        "correct": "Clear",
+        "ans0": "Brown, furry",
+        "ans1": "A thin layer of fur over double eyelids",
+        "ans2": "Triple Eyelids"
+    },
+    "question13": {
+        "title": "How long does it take for a Kit (baby Beaver) to swim?",
+        "correct": "One Week",
+        "ans0": "Three weeks",
+        "ans1": "Two Months",
+        "ans2": "First few days"
+    },
+    "question14": {
+        "title": "What are the babies called?",
+        "correct": "Kits",
+        "ans0": "Beavlets",
+        "ans1": "Fawns",
+        "ans2": "Kittens"
+    },
+    "question15": {
+        "title": "What is the approximate weight range of a beaver?",
+        "correct": "11-30kg (24-66 lb)",
+        "ans0": "31-45kg (68-100 lb)",
+        "ans1": "22-38kg (48-84 lb)",
+        "ans2": "19-51kg (15-112 lb)"
+    },
+    "question16": {
+        "title": "What is the beaver's home called?",
+        "correct": "Lodge",
+        "ans0": "Dam",
+        "ans1": "Nest",
+        "ans2": "Nursery"
+    },
+    "question17": {
+        "title": "How do beavers warn each other of danger?",
+        "correct": "By slapping their tails on the water",
+        "ans0": "By growling",
+        "ans1": "By slapping their tails on land",
+        "ans2": "By diving under the water"
+    },
+    "question18": {
+        "title": "At what age do beavers become sexually mature?",
+        "correct": "2-3 years",
+        "ans0": "5-6 years",
+        "ans1": "6-12 months",
+        "ans2": "12-36 months"
+    },
+    "question19": {
+        "title": "What is the mating season for beavers?",
+        "correct": "January to February",
+        "ans0": "Year round",
+        "ans1": "March to April",
+        "ans2": "December to January"
+    },
+    "question20": {
+        "title": "What is the gestation period of beavers?",
+        "correct": "105 days",
+        "ans0": "95 days",
+        "ans1": "110 days",
+        "ans2": "100 days"
+    },
+    "question21": {
+        "title": "What is the lifespan of a beaver living in the wild?",
+        "correct": "15 - 21 years",
+        "ans0": "12 - 18 years",
+        "ans1": "13 - 30 years",
+        "ans2": "8 - 15 years"
+    },
+    "question22": {
+        "title": "A group of beavers is known as what?",
+        "correct": "A colony",
+        "ans0": "A pod",
+        "ans1": "A mob",
+        "ans2": "A pride"
+    },
+    "question23": {
+        "title": "What is the purpose of a beavers lodge?",
+        "correct": "all the others",
+        "ans0": "to protect them",
+        "ans1": "to give them a warm place for winter",
+        "ans2": "to store food for the winter"
+    },
+    "question24": {
+        "title": "In what type of water do beavers live?",
+        "correct": "Fresh",
+        "ans0": "Brackish",
+        "ans1": "Salt",
+        "ans2": "Estuarine"
+    }
+}
