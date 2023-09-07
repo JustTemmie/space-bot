@@ -134,6 +134,7 @@ class ecoshop(commands.Cog):
 
         zoo = await aniLib.get_zoo_data()
         data = await aniLib.get_animal_data()
+        bank = await ecoLib.get_bank_data()
 
         tiers = [
             "common",
@@ -244,9 +245,14 @@ class ecoshop(commands.Cog):
         if floor(payout * (1 + merchant * 0.01)) - payout > random.randint(15, 25):
             soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.01))-payout} <:beaverCoin:1019212566095986768>\n"
             payout = floor(payout * (1 + merchant * 0.01))
+            
+        if bank[str(ctx.author.id)]["lodge"]["level"] >= 7:
+            payout = floor(payout * 1.2)
+            soldstr += f"\nSince you had a lodge level 7 or above, i gave you an extra 20% payout!\n"
 
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
+            
         await ecoLib.update_bank_data(ctx.author, round(payout))
 
         if differentTiersSold != 1:
