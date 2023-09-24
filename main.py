@@ -19,6 +19,7 @@ from discord.ext import tasks, commands
 
 from dotenv import load_dotenv
 
+print("loading config file...")
 # Load dotenv file
 load_dotenv("keys.env")
 TOKEN = os.getenv("DISCORD")  # _STABLE")
@@ -61,7 +62,7 @@ logging.warning("warning")
 logging.error("error")
 logging.critical("critical")
 
-
+print("defining andromeda")
 class Andromeda(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
