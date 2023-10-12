@@ -55,7 +55,7 @@ class zooHunt(commands.Cog):
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 3:
             chance_for_bonus += 0.5
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 6:
-            chance_for_bonus += 1
+            animals_to_get += 1
         
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 8:
             tiers = baseTiers.copy()
