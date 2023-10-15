@@ -55,7 +55,7 @@ class zooHunt(commands.Cog):
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 3:
             chance_for_bonus += 0.5
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 6:
-            animals_to_get += 1
+            chance_for_bonus += 1
         
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 8:
             tiers = baseTiers.copy()
@@ -64,9 +64,12 @@ class zooHunt(commands.Cog):
         else:
             tiers = baseTiers.copy()
         print(tiers)
+        
+        while chance_for_bonus > 0:
+            if random.random() <= chance_for_bonus % 1:
+                animals_to_get += 1
             
-        if random.random() <= chance_for_bonus:
-            animals_to_get += 1
+            chance_for_bonus =- 1
 
         for i in range(0, animals_to_get):
             animal, tier = await self.roll_animal(ctx, animals, tiers)
