@@ -63,7 +63,6 @@ class zooHunt(commands.Cog):
                 tiers[i] *= 1.2
         else:
             tiers = baseTiers.copy()
-        print(tiers)
         
         while chance_for_bonus >= 1:
             animals_to_get += 1
