@@ -273,7 +273,7 @@ class ecobuild(commands.Cog):
             lvl4 = f"╰ +2 skill points and +1 brief sense of accomplishment"
             lvl5 = f"╰ +2 skill points and +1 long lasting sense of accomplishment"
             lvl6 = f"╰ +3 skill points and a third animal from {ctx.prefix}hunt"
-            lvl7 = f"╰ +5 skill points and +20% to the animal selling price"
+            lvl7 = f"╰ +5 skill points and +10% to the animal selling price"
             lvl8 = f"╰ +10 skill points and increase the chance of non-common animals by 20%"
 
             embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)

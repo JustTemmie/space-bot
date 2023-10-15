@@ -247,8 +247,8 @@ class ecoshop(commands.Cog):
             payout = floor(payout * (1 + merchant * 0.01))
             
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 7:
-            payout = floor(payout * 1.2)
-            soldstr += f"\nSince you had a lodge level 7 or above, i gave you an extra 20% payout!\n"
+            payout = floor(payout * 1.1)
+            soldstr += f"\nSince you had a lodge level 7 or above, i gave you an extra 10% payout!\n"
 
         with open("storage/playerInfo/animals.json", "w") as f:
             json.dump(data, f)
