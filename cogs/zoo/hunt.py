@@ -69,7 +69,7 @@ class zooHunt(commands.Cog):
             if random.random() <= chance_for_bonus % 1:
                 animals_to_get += 1
             
-            chance_for_bonus =- 1
+            chance_for_bonus -= 1
 
         for i in range(0, animals_to_get):
             animal, tier = await self.roll_animal(ctx, animals, tiers)
