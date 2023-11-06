@@ -13,6 +13,7 @@ baseTiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
     "legendary": 0.0001,
     "mythical": 0.001,
+    "anomaly": 0.005,
     "epic": 0.01,
     "rare": 0.05,
     "uncommon": 0.2,
@@ -117,7 +118,12 @@ class zooHunt(commands.Cog):
         discarded_roll = 0
         for tier in tiers:
             if tiers[tier] + discarded_roll > roll:
-                break
+                # if the tier is anomaly, ensure the player have them unlocked
+                if tiers[tier] == "anomaly":
+                    if await ecoLib.get_bank_data()[str(ctx.author.id)]["dam"]["level"] >= 10000000000:
+                        break
+                else:
+                    break
             discarded_roll += round(tiers[tier], 3)
 
         ID = random.randint(1, 6)

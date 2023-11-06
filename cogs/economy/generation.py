@@ -223,7 +223,21 @@ class ecogeneration(commands.Cog):
             bank[str(ctx.author.id)]["statistics"]["total_logs"] += 2000
             payout *= 3
             payout += 5000
-            streak += "\nand 2000 <:log:1019212550782599220>\n\nHappy hall-owee-n!\nhttps://www.youtube.com/watch?v=PFrPrIxluWk"
+            videos = [
+                "https://www.youtube.com/watch?v=YGRUorVR79U",
+                "https://www.youtube.com/watch?v=PFrPrIxluWk",
+                "https://www.youtube.com/watch?v=ZVuToMilP0A",
+                "https://www.youtube.com/watch?v=vOGhAV-84iI"
+            ]
+            streak += f"\nand 2000 <:log:1019212550782599220>\n\nHappy hall-owee-n!\n{random.choice(videos)}"
+        
+        # area code day (idfk what it is)
+        if today.day == 10 and today.month == 11:
+            bank[str(ctx.author.id)]["inventory"]["logs"] += 3000
+            bank[str(ctx.author.id)]["statistics"]["total_logs"] += 3000
+            payout = 0
+            
+            streak += f"\nhappy area code d- wait no this can't be right?\nwhat the fuck would an \"area code day\" even be?\n\noh well my notes say it's a thing so uh- here have 3000 <:log:1019212550782599220>\ngo construct something to fill the area codes ig\np.s i'm confiscating your beaver coins today, this timer is already super expensive"
         
         # finish independence (i'm not finish btw lol)
         if today.day == 6 and today.month == 12:
