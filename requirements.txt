@@ -18,3 +18,4 @@ numpy
 Image
 interruptingcow
 discord.py
+lyricsgenius

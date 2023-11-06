@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`uptime` `air`"
+        "description": "`lyrics``"
     },
     "10th": {
         "icon": "🤗",
@@ -32,7 +32,7 @@
     "8th": {
         "icon": "🔍",
         "name": "Search",
-        "description": "`reddit` `imdb` `tenor` `urban` `wikipedia` `weather` `air`"
+        "description": "`reddit` `imdb` `tenor` `urban` `wikipedia` `weather` `air` `lyrics`"
     },
     "13th": {
         "icon": "❓",
