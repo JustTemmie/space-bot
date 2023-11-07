@@ -121,9 +121,9 @@ class zooHunt(commands.Cog):
                 # if the tier is anomaly, ensure the player have them unlocked
                 if tiers[tier] == "anomaly":
                     if await ecoLib.get_bank_data()[str(ctx.author.id)]["dam"]["level"] >= 10000000000:
-                        break
+                        continue
                 else:
-                    break
+                    continue
             discarded_roll += round(tiers[tier], 3)
 
         ID = random.randint(1, 6)
