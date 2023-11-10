@@ -237,7 +237,7 @@ class ecogeneration(commands.Cog):
             bank[str(ctx.author.id)]["statistics"]["total_logs"] += 3000
             payout = 0
             
-            streak += f"\nhappy area code d- wait no this can't be right?\nwhat the fuck would an \"area code day\" even be?\n\noh well my notes say it's a thing so uh- here have 3000 <:log:1019212550782599220>\ngo construct something to fill the area codes ig\np.s i'm confiscating your beaver coins today, this timer is already super expensive"
+            streak += f"\nhappy area code d- wait no this can't be right?\nwhat the fuck would an \"area code day\" even be?\n\noh well my notes say it's a thing so uh- here have 3000 <:log:1019212550782599220>\ngo construct something to fill the area codes ig\np.s i'm confiscating your beaver coins today, this timber is already super expensive"
         
         # finish independence (i'm not finish btw lol)
         if today.day == 6 and today.month == 12:
