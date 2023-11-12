@@ -99,7 +99,7 @@ d) {answers[3]}
                 inline=False,
             )
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
             response = await get_input(self, ctx, 25)
 
@@ -107,7 +107,7 @@ d) {answers[3]}
                 await ctx.send(f"{ctx.author.mention} you are correct! it was {correct_answer_ID}, {correct_answer}")
                 return
 
-            await ctx.send(f"sorry, the answer was {correct_answer_ID}, {correct_answer}")
+            await ctx.send(f"sorry {ctx.author.mention}, the answer was {correct_answer_ID}, {correct_answer}")
             return
 
         # if category is not beaver, continue as normal
@@ -243,7 +243,7 @@ d) {answers[3]}
             inline=False,
         )
 
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
         response = await get_input(self, ctx, 25)
 
@@ -251,7 +251,7 @@ d) {answers[3]}
             await ctx.send(f"{ctx.author.mention} you are correct! it was {correct}, {html.unescape(questions['correct_answer'])}")
             return
 
-        await ctx.send(f"sorry, the answer was {correct}, {html.unescape(questions['correct_answer'])}")
+        await ctx.send(f"sorry {ctx.author.mention}, the answer was {correct}, {html.unescape(questions['correct_answer'])}")
 
 
 async def setup(bot):
