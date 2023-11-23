@@ -108,7 +108,53 @@ class ecomarry(commands.Cog):
     @commands.command(name="divorce", brief="divorce one of your current partners, you hoe")
     @cooldown(15, 600, BucketType.user)
     @commands.guild_only()
-    async def divorce_someone(self, ctx, member: discord.Member):
+    async def divorce_someone(self, ctx, user: discord.User):
+        # if user is in a different server
+        member = ctx.guild.get_member(user.id)
+        if member == None and user != None:
+            await open_account(self, ctx)
+            userNotExist = await check_if_not_exist(ctx.author)
+            if userNotExist == "banned":
+                return
+            if userNotExist:
+                return await ctx.send("i could not find an inventory for that user, they need to create an account first")
+            
+            if await check_if_not_exist(user):
+                return await ctx.send(f"{await SL.removeat(user)} does not have an account, they need to create an account first")
+            
+            
+            print('hi3')
+            data = await get_bank_data()
+            try:
+                data[str(ctx.author.id)]["marriage"][str(user.id)]["married"]
+            except:
+                await ctx.send(f"you're not married to {await SL.removeat(user)}")
+                return
+            print("hi2")
+            
+            await ctx.send(f"are you sure you want to divorce {await SL.removeat(user.display_name)}?\nyour ring will be disentegrated")
+            response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=20)
+
+            if response.content.lower() not in confirmations:
+                await ctx.send(f"thankfully, {ctx.author.mention} did not want to divorce {await SL.removeat(user.display_name)}")
+                return
+            print("hi")
+            data[str(ctx.author.id)]["marriage"][str(user.id)] = {
+                "married": False,
+                "married_to": None,
+                "time": 0,
+            }
+            data[str(user.id)]["marriage"][str(ctx.author.id)] = {
+                "married": False,
+                "married_to": None,
+                "time": 0,
+            }
+            with open("storage/playerInfo/bank.json", "w") as f:
+                json.dump(data, f)
+
+            await ctx.send(f"{ctx.author.mention} divorced {await SL.removeat(user.display_name)} 💔")
+            return
+        
         if member == None or member == ctx.author or member.bot:
             await ctx.send("please tell me who you wish to divorce")
             return
