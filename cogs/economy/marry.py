@@ -120,7 +120,7 @@ class ecomarry(commands.Cog):
                 return await ctx.send("i could not find an inventory for that user, they need to create an account first")
             
             if await check_if_not_exist(user):
-                return await ctx.send(f"{await SL.removeat(user)} does not have an account, they need to create an account first")
+                return await ctx.send(f"{await SL.removeat(user.display_name)} does not have an account, they need to create an account first")
             
             
             print('hi3')
@@ -128,7 +128,7 @@ class ecomarry(commands.Cog):
             try:
                 data[str(ctx.author.id)]["marriage"][str(user.id)]["married"]
             except:
-                await ctx.send(f"you're not married to {await SL.removeat(user)}")
+                await ctx.send(f"you're not married to {await SL.removeat(user.display_name)}")
                 return
             print("hi2")
             
