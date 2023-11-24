@@ -40,14 +40,22 @@ class stickyummy(commands.Cog):
                 return
             if r.status_code == 200:
                 top_x_gifs = json.loads(r.content)
-                realoutput = top_x_gifs["results"][random.randrange(0, 30)]["media"][0]["gif"]["url"]
-                # print(realoutput)
-                embed = Embed(title=f"{ctx.author.display_name} ate a stick", description="nomch", colour=ctx.author.colour)
-                if realoutput is not None:
-                    embed.set_image(url=realoutput)
-
+                realoutput = top_x_gifs["results"][random.randrange(0, 40)]["media"][0]["gif"]["url"]
+                
                 with open("./storage/playerInfo/bank.json", "r") as f:
                     data = json.load(f)
+                    
+                if random.random() > 0.98:
+                    description = f"ow, you got a splinter, wonder if you could use this for anything useful?\nYou got 1 <:log:1019212550782599220>"
+                    data[str(ctx.author.id)]["inventory"]["logs"] += 1
+                    data[str(ctx.author.id)]["statistics"]["total_logs"] += 1
+                else:
+                    description = "nomch"
+
+                # print(realoutput)
+                embed = Embed(title=f"{ctx.author.display_name} ate a stick", description=description, colour=ctx.author.colour)
+                if realoutput is not None:
+                    embed.set_image(url=realoutput)
 
                 data[str(ctx.author.id)]["inventory"]["stick"] -= 1
                 data[str(ctx.author.id)]["statistics"]["total_sticks_eaten"] += 1
