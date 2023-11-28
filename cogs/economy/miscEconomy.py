@@ -110,7 +110,7 @@ class ecoeconomy(commands.Cog):
     @commands.command(
         name="leaderboard",
         aliases=["lb", "top"],
-        brief="checks the current leaderboard",
+        brief="checks the current leaderboard, possiblie categories are `money`, `stick`, `marriage`, and `logs`",
     )
     @cooldown(2, 10, BucketType.user)
     async def leaderboard_command(self, ctx, user_count="5", category="money"):
