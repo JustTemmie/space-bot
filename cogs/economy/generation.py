@@ -246,10 +246,14 @@ class ecogeneration(commands.Cog):
         
         # chrimsi
         if today.day == 24 and today.month == 12:
-            bank[str(ctx.author.id)]["inventory"]["logs"] += 1000
-            bank[str(ctx.author.id)]["statistics"]["total_logs"] += 1000
+            bank[str(ctx.author.id)]["inventory"]["logs"] += 1500
+            bank[str(ctx.author.id)]["statistics"]["total_logs"] += 1500
             payout += 3000
-            streak += "\nand 1000 <:log:1019212550782599220>\n\nMerry Christmas, Eve!\nEnjoy these logs!"
+            streak += "\nand 1500 <:log:1019212550782599220>\n\nMarry Christmas, Eve!\nEnjoy these logs!"
+
+        if today.day == 25 and today.month == 12:
+            bank[str(ctx.author.id)]["inventory"]["logs"] -= 100
+            streak += "\nHEY, you didn't marry Christmas yesterday, wtf\nI'm confiscating 100 of your <:log:1019212550782599220> as retaliation"
         
     
     
