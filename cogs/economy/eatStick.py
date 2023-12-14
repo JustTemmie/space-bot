@@ -45,7 +45,7 @@ class stickyummy(commands.Cog):
                 with open("./storage/playerInfo/bank.json", "r") as f:
                     data = json.load(f)
                     
-                if random.random() > 0.98:
+                if random.random() > 0.998:
                     description = f"ow, you got a splinter, wonder if you could use this for anything useful?\nYou got 1 <:log:1019212550782599220>"
                     data[str(ctx.author.id)]["inventory"]["logs"] += 1
                     data[str(ctx.author.id)]["statistics"]["total_logs"] += 1
