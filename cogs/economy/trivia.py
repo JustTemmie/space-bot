@@ -101,7 +101,7 @@ d) {answers[3]}
 
             await ctx.reply(embed=embed)
 
-            response = await get_input(self, ctx, 25)
+            response = await get_input(self, ctx, 30)
 
             if response.content.lower() == correct_answer.lower() or response.content.lower() == correct_answer_ID:
                 await ctx.send(f"{ctx.author.mention} you are correct! it was {correct_answer_ID}, {correct_answer}")

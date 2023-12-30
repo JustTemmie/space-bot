@@ -243,8 +243,13 @@ class ecoshop(commands.Cog):
                 differentAnimalsSold += animalAmount[1]
 
         if floor(payout * (1 + merchant * 0.01)) - payout > random.randint(15, 25):
-            soldstr += f"\nSince i'm feeling generous, i gave you an extra {floor(payout*(1+merchant*0.01))-payout} <:beaverCoin:1019212566095986768>\n"
-            payout = floor(payout * (1 + merchant * 0.01))
+            extraProfit = floor(payout*(1+merchant*0.01))-payout
+            payout = floor(payout + extraProfit)
+            # if earned more than 100 extra coins
+            if extraProfit > 100:
+                soldstr += f"\nYou bargained with the merchant for an extra {extraProfit}! <:beaverCoin:1019212566095986768>\n"
+            else:
+                soldstr += f"\nSince i'm feeling generous, i gave you an extra {extraProfit} <:beaverCoin:1019212566095986768>\n"
             
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 7:
             payout = floor(payout * 1.15)
