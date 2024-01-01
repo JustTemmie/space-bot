@@ -116,7 +116,7 @@ class ecogeneration(commands.Cog):
             streak += "\n**you got double coins for having a lvl 4+ dam**"
 
 
-        today = datetime.utcnow() - timedelta(hours=1)
+        today = datetime.utcnow()
         
         easterDate = self.get_easter(today.year)
         redpandaDate = self.get_red_panda_day(today.year)
