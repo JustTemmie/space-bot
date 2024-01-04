@@ -374,12 +374,12 @@ class ecogeneration(commands.Cog):
             
         payout = round(payout)
         
-        if "loot" in ctx.content:
+        if "loot" in ctx.message.content:
             payout -= 2
             
         message = f"you scavenged for <:log:1019212550782599220>, and you found {payout} of them!"
         
-        if "loot" in ctx.content:
+        if "loot" in ctx.message.content:
             if random.random() > 0.95:
                 bonus_payout = random.randint(30, 50)
                 payout += bonus_payout
