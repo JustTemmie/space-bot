@@ -371,7 +371,20 @@ class ecogeneration(commands.Cog):
 
         if data[str(ctx.author.id)]["dam"]["level"] >= 5:
             payout *= 1.25
-
+            
+        payout = round(payout)
+        
+        if "loot" in ctx.content:
+            payout -= 2
+            
+        message = f"you scavenged for <:log:1019212550782599220>, and you found {payout} of them!"
+        
+        if "loot" in ctx.content:
+            if random.random() > 0.95:
+                bonus_payout = random.randint(30, 50)
+                payout += bonus_payout
+                message += f"\nnwait, what's this? you found a lootcrate with {bonus_payout} logs in it!"
+        
         payout = round(payout)
 
         data = await get_bank_data()
@@ -382,7 +395,7 @@ class ecogeneration(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(f"you scavenged for <:log:1019212550782599220>, and you found {payout} of them!")
+        await ctx.send(message)
 
 
 async def setup(bot):
