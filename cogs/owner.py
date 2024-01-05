@@ -382,7 +382,7 @@ class Owner(commands.Cog):
         except Exception as e:
             await ctx.send("```py\n>>> {}\n\n\n{}```".format(code, e))
 
-    @commands.command(name="bash")
+    @commands.command(name="bash", aliases=["sh", "./"])
     @commands.is_owner()
     async def run_bash(self, ctx, *, command):
         await ctx.send(f"are you sure you want to run the command `{command}`?")

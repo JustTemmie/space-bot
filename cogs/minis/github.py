@@ -30,7 +30,7 @@ class github(commands.Cog):
 
         output = var.decode("utf-8")
         
-        await ctx.send(git_commit.decode("utf-8"))
+        await ctx.send(git_commit.decode("utf-8"), suppress=True)
 
         if len(output) < 1975:
             await ctx.send(f"```{output}```")
