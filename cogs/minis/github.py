@@ -21,11 +21,15 @@ class github(commands.Cog):
     async def update_git_pull(self, ctx, restart="False"):
         try:
             var = subprocess.check_output(["git", "pull"])
+            git_commit = subprocess.check_output(["git", "log", "--name-status", "HEAD^..HEAD"])
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return
+        
 
         output = var.decode("utf-8")
+        
+        await ctx.send(github.decode("utf-8"))
 
         if len(output) < 1975:
             await ctx.send(f"```{output}```")

@@ -247,7 +247,7 @@ class ecoshop(commands.Cog):
             payout = floor(payout + extraProfit)
             # if earned more than 100 extra coins
             if extraProfit > 100:
-                soldstr += f"\nYou bargained with the merchant for an extra {extraProfit} <:beaverCoin:1019212566095986768>\n"
+                soldstr += f"\nYou bargained with the merchant for an extra {extraProfit} <:beaverCoin:1019212566095986768>!\n"
             else:
                 soldstr += f"\nSince i'm feeling generous, i gave you an extra {extraProfit} <:beaverCoin:1019212566095986768>\n"
             
