@@ -7,6 +7,7 @@ import glob
 import random
 
 from git import Repo
+import re
 
 
 class github(commands.Cog):
@@ -21,16 +22,16 @@ class github(commands.Cog):
     @commands.is_owner()
     async def update_git_pull(self, ctx, restart="False"):
         try:
-            var = subprocess.check_output(["git", "pull"])
-            git_commit = subprocess.check_output(["git", "log", "--name-status", "HEAD^..HEAD"])
+            output = subprocess.check_output(["git", "pull"]).decode("utf-8")
+            git_commit = subprocess.check_output(["git", "log", "--name-status", "HEAD^..HEAD"]).decode("utf-8")
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return
         
+        pattern = r'(https?://\S+)'
 
-        output = var.decode("utf-8")
-        
-        await ctx.send(git_commit.decode("utf-8"), suppress=True)
+        git_commit = re.sub(pattern, r'<\1>', git_commit)
+        await ctx.send(git_commit)
 
         if len(output) < 1975:
             await ctx.send(f"```{output}```")
