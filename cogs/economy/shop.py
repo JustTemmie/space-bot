@@ -249,7 +249,7 @@ class ecoshop(commands.Cog):
             if extraProfit > 100:
                 soldstr += f"\nYou bargained with the merchant for an extra {extraProfit} <:beaverCoin:1019212566095986768>!\n"
             else:
-                soldstr += f"\nSince i'm feeling generous, i gave you an extra {extraProfit} <:beaverCoin:1019212566095986768>\n"
+                soldstr += f"\nSince i'm feeling generous, i gave you an extra {extraProfit} <:beaverCoin:1019212566095986768> :3\n"
             
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 7:
             payout = floor(payout * 1.15)
