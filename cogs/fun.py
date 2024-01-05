@@ -28,7 +28,7 @@ class fun(commands.Cog):
     @commands.command(
         name="texttoimage",
         aliases=["tti"],
-        brief="takes a string of text and converts it to an image, don't ask",
+        brief="Takes a string of text and converts it to an image. Don't ask. It simply works. Thanks, DeepAI.",
     )
     @cooldown(5, 10, BucketType.user)
     async def texttoimageapi(self, ctx, *, content):
@@ -65,14 +65,14 @@ class fun(commands.Cog):
     @cooldown(2, 5, BucketType.guild)
     async def tenor_search(self, ctx, value=str(0), *, search_term=None):
         if search_term is None or value == str(0):
-            await ctx.send(f"please specify what you want to search up, and how many of the top results you want to look thru\n\nfor exmaple: {ctx.prefix}tenor 6 dog\nwill pick one of the top `6` results for `dog` and send it")
+            await ctx.send(f"Specify what you want to search up, and how many of the top results you want to look through.\n\nFor example: {ctx.prefix}tenor 6 dog\nwill pick one of the top `6` results for `dog` and send it.")
             return
 
         if search_term is not None:
             try:
                 r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, tenor_api_key, int(value)))
             except:
-                await ctx.send("whoops, timed out or somthn")
+                await ctx.send("Whoops, timed out or smthn")
                 return
             
             if r.status_code == 200:
@@ -81,9 +81,9 @@ class fun(commands.Cog):
                 realoutput = top_x_gifs["results"][random.randrange(0, (int(value)))]["itemurl"]
                 await ctx.send(realoutput)
             else:
-                await ctx.send(f"i couldn't seem to find anything related to `{search_term}`")
+                await ctx.send(f"I couldn't find anything related to `{search_term}`.")
 
-    @commands.command(name="shitpost", aliases=["funnyhaha"], brief="sends a funny haha commit moment")
+    @commands.command(name="shitpost", aliases=["funnyhaha"], brief="Sends a funny haha commit moment")
     @cooldown(5, 20, BucketType.guild)
     async def shitpost_video(self, ctx, *, funny=None):
         with open("storage/shitpost.json", "r") as f:
@@ -94,7 +94,7 @@ class fun(commands.Cog):
     @commands.command(
         name="avatar",
         aliases=["pfp"],
-        brief="sends the profile picture of a specified user",
+        brief="Sends the profile picture of a specified user.",
     )
     @cooldown(5, 10, BucketType.guild)
     async def avatarCommand(self, ctx, user: Optional[Union[discord.Member, discord.User]]):
@@ -114,12 +114,12 @@ class fun(commands.Cog):
     @commands.command(
         name="mock",
         aliases=["taunt", "tease", "scoff", "makefunof"],
-        brief="bully a user, anyone, not me though, please",
+        brief="Bully a user! Not me though, please!",
     )
     @cooldown(50, 600, BucketType.user)
     async def mocksomeoneidk(self, ctx, mockee=None, *, makefunof_input=None):
         if mockee == None or makefunof_input == None:
-            await ctx.send(f"give me an input, fool - for example **{ctx.prefix}mock <person you want to mock, either use a single word - or tag someone> <what the idiot said>**")
+            await ctx.send(f"Give me an input, fool. For example: **{ctx.prefix}mock <person you want to mock, either use a single word - or tag someone> <what the idiot said>**")
             return
 
         makefunof_output = ""
@@ -133,12 +133,12 @@ class fun(commands.Cog):
     @commands.command(
         name="alientohuman",
         aliases=["ath"],
-        brief="translates alien characters into latin ones",
+        brief="Translates the alien alphabet into the latin alphabet.",
     )
     @cooldown(10, 45, BucketType.user)
     async def translatealien(self, ctx, *, input=None):
         if input == None:
-            await ctx.send("give me an input, fool")
+            await ctx.send("Give me an input, fool.")
             return
         human = "abcdefghijklmnopqrstuvwxyz"
         alien = "⏃⏚☊⎅⟒⎎☌⊑⟟⟊☍⌰⋔⋏⍜⌿⍾⍀⌇⏁⎍⎐⍙⌖⊬⋉"
@@ -155,7 +155,7 @@ class fun(commands.Cog):
     @commands.command(
         name="humantoalien",
         aliases=["hta"],
-        brief="translates the latin alphabet into alien",
+        brief="Translates the latin alphabet into the alien alphabet.",
     )
     @cooldown(10, 45, BucketType.user)
     async def translatehuman(self, ctx, *, input=None):
@@ -181,7 +181,7 @@ class fun(commands.Cog):
 
     @commands.command(
         name="morse",
-        brief="translates the latin alphabet into morse code",
+        brief="Translates latin alphabet into morse code.",
     )
     @cooldown(10, 45, BucketType.user)
     async def human_to_morse(self, ctx, *, input: str):
@@ -203,9 +203,9 @@ class fun(commands.Cog):
     @cooldown(3, 5, BucketType.guild)
     async def ping_pong(self, ctx):
         if ctx.author.is_owner == True:
-            await ctx.send(f"at least like, {random.randint(6, 8)}")
+            await ctx.send(f"At least like, {random.randint(6, 8)}")
         else:
-            await ctx.send(f"Pong! latency of {round(self.bot.latency * 1000)}ms")
+            await ctx.send(f"Pong! Latency: {round(self.bot.latency * 1000)}ms")
     
     @commands.command(name="uptime", description="how long have i been awake again?")
     @cooldown(3, 5, BucketType.user)
@@ -215,8 +215,8 @@ class fun(commands.Cog):
     @commands.command(
         name="fact",
         aliases=["animal"],
-        brief="Tells you a random fact about the specified animal",
-        description="The list of animals you can ask facts about are, dog, cat, panda, fox, bird, koala",
+        brief="Tells you a random fact about a specified animal.",
+        description="The list of animals you can ask facts about are: dog, cat, panda, fox, bird, koala.",
     )
     @cooldown(3, 5, BucketType.guild)
     async def animal_fact(self, ctx, animal: str):
@@ -252,7 +252,7 @@ class fun(commands.Cog):
                         embed.set_image(url=image_link)
                     embed.add_field(
                         name="note",
-                        value="these are taken from the internet, take them with a grain of salt",
+                        value="These are taken from the internet, take them with a grain of salt",
                     )
                     await ctx.send(embed=embed)
 
@@ -260,9 +260,9 @@ class fun(commands.Cog):
                     await ctx.send(f"API returned a {response.status} status.")
 
         else:
-            await ctx.send("No facts are available for that animal, The list of animals you can ask facts about are dog, cat, panda, fox, bird, koala.")
+            await ctx.send("No facts are available for that animal. The list of animals you can ask facts about is: dog, cat, panda, fox, bird, koala.")
 
-    @commands.command(name="joke", brief="they're all horrible. Seriously")
+    @commands.command(name="joke", brief="They're all horrible. Seriously.")
     @cooldown(3, 5, BucketType.guild)
     async def tell_joke(self, ctx):
         await ctx.channel.typing()
@@ -288,7 +288,7 @@ class fun(commands.Cog):
         try:
             dice, value = (int(value) for value in die_string.split("d"))
         except ValueError as e:
-            return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>, for example: `{ctx.prefix}dice 2d6`")
+            return await ctx.send(f"Invalid dice string.{e}\nA vaild dice string is <amount of dice>d<wanted sides on dice>. For example: `{ctx.prefix}dice 2d6`")
 
         if dice <= 100:
             rolls = [random.randint(1, value) for i in range(dice)]
