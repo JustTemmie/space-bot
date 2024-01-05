@@ -4,6 +4,7 @@ import sys
 import os
 import subprocess
 import glob
+import random
 
 from git import Repo
 
@@ -84,7 +85,7 @@ class github(commands.Cog):
         except Exception as e:
             await ctx.send(e)
 
-    @tasks.loop(hours=24)
+    @tasks.loop(hours=random.randint(99,400))
     async def update_git_push(self):
         # check that N is more than 0 because this function will run on startup, and i only want it to push every 24 hours so that i don't completely clog up my github commit history
         if self.n > 0:
