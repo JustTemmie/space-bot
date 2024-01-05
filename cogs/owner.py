@@ -24,6 +24,8 @@ import json
 import time
 import requests
 import random
+import contextlib
+import io
 
 
 def insert_returns(body):
@@ -383,7 +385,6 @@ class Owner(commands.Cog):
     @commands.command(name="bash")
     @commands.is_owner()
     async def run_bash(self, ctx, *, command):
-        commandArray = command.split(" ")
         await ctx.send(f"are you sure you want to run the command `{command}`?")
         try:
             response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=30)
@@ -393,8 +394,14 @@ class Owner(commands.Cog):
         if response.content not in confirmations:
             return await ctx.send("oh ok")
 
-        output = subprocess.run([*commandArray], stdout=subprocess.PIPE, timeout=180)
-        output = output.stdout.decode("utf-8")
+        str_obj = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(str_obj):
+                exec(command)
+        except Exception as e:
+            return await ctx.send(f"```{e.__class__.__name__}: {e}```")
+        
+        output = str_obj.getvalue()
 
         if len(output) + len(command) < 1975:
             await ctx.send(f"`{command}` returned output:\n```{output} ```")
