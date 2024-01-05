@@ -394,14 +394,7 @@ class Owner(commands.Cog):
         if response.content not in confirmations:
             return await ctx.send("oh ok")
 
-        str_obj = io.StringIO()
-        try:
-            with contextlib.redirect_stdout(str_obj):
-                exec(command)
-        except Exception as e:
-            return await ctx.send(f"```{e.__class__.__name__}: {e}```")
-        
-        output = str_obj.getvalue()
+        output = subprocess.getoutput(command)
 
         if len(output) + len(command) < 1975:
             await ctx.send(f"`{command}` returned output:\n```{output} ```")
