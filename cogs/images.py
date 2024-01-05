@@ -44,10 +44,10 @@ class images(commands.Cog):
     @cooldown(2, 5, BucketType.user)
     async def squish_command(self, ctx, user: discord.Member = None, squish_percent = 30):
         if squish_percent > 99:
-            return await ctx.send("squish percentage can't be greater than 99")
+            return await ctx.send("Squish percentage can't be greater than 99.")
         
         if squish_percent < -2000:
-            return await ctx.send("squish percentage can't be less than -2000")
+            return await ctx.send("Squish percentage can't be lower than -2000.")
 
         if user == None and not ctx.message.attachments:
             user = ctx.author
@@ -72,7 +72,7 @@ class images(commands.Cog):
     @commands.command(
         name="ascii",
         invoke_without_command=True,
-        brief=f"convert image to ascii art\n\nNote how True, False, and None are all case sensitive\nusage: a!ascii (how many characters wide it is) (output to text file True or False) (swap black and white True of False) (url for the image, None if you're uploading directly) (what font you want, default is Inconsolata) (a list of all the allowed characters)",
+        brief=f"Convert image to ASCII art.\n\nNote that True, False, and None are all case sensitive.\nUsage: a!ascii <image width (characters)> <output to text file (True/False)> <swap black and white (True/False)> <image url, None if uploading directly> <font, default: Inconsolata> <list of allowed characters>",
     )
     async def _ascii(
         self,
@@ -87,7 +87,7 @@ class images(commands.Cog):
     ):
         font = ascii.get_font(font)
         if resolution > 512 and ctx.author.id != 725539745572323409:
-            await ctx.send("to prevent abuse, your resolution has been changed to 512")
+            await ctx.send("To prevent abuse, your resolution has been changed to 512.")
             resolution = 512
         elif resolution > 2048:
             resolution = 2048

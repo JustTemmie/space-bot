@@ -49,29 +49,29 @@ class Owner(commands.Cog):
         self.bot = bot
     
     @commands.is_owner()
-    @commands.command(name="ownerdaily", brief="get your daily beaver coins here!")
+    @commands.command(name="ownerdaily", brief="Get your daily beaver coins here!")
     async def owner_thedaily_command(self, ctx, target: discord.Member):
         userNotExist = await check_if_not_exist(target)
         if userNotExist == "banned":
             return
         if userNotExist:
-            return await ctx.send("i could not find an inventory for that user, they need to create an account first")
+            return await ctx.send("I could not find an inventory for that user. They need to create an account first.")
 
         bank = await get_bank_data()
         daily_info = bank[str(target.id)]["daily"]
 
         if daily_info["day"] == (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).days:
-            return await ctx.send("they already got their daily, come back tomorrow")
+            return await ctx.send("They already claimed their daily!")
 
         streak = ""
         if daily_info["day"] + 365 < (datetime.datetime.utcnow() - datetime.datetime(1970, 1, 1)).days - 1:
             if bank[str(target.id)]["inventory"]["insurance"] >= 1:
-                await ctx.send(f"you had a streak of {daily_info['streak']}\n\nbut you own {bank[str(target.id)]['inventory']['insurance']} insurance totems\ndo you wish to spend a totem in order to mentain your streak or do you want to restart from 0?")
+                await ctx.send(f"You had a streak of {daily_info['streak']}\n\nYou own {bank[str(target.id)]['inventory']['insurance']} insurance totems.\nDo you wish to spend a totem in order to recover your streak? (y)\nOr do you want to reset your streak? (n)")
                 await ctx.send("whoops")
                 return
 
             else:
-                streak += f"**you lost your streak of {daily_info['streak']} days :(**"
+                streak += f"**You lost your streak of {daily_info['streak']} days :(**"
                 daily_info["streak"] = 1
 
         else:
@@ -91,7 +91,7 @@ class Owner(commands.Cog):
         # skills
         if bank[str(target.id)]["dam"]["level"] >= 4:
             payout *= 2
-            streak += "\n**you got double coins for having a lvl 4+ dam**"
+            streak += "\n**You got double coins for having a lvl 4+ dam!**"
 
         # henw
         if target.id == 411536312961597440:
@@ -108,7 +108,7 @@ class Owner(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(bank, f)
 
-        await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
+        await ctx.send(f"You got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
 
     @commands.is_owner()
     @commands.command(name="getstatus")
@@ -122,7 +122,7 @@ class Owner(commands.Cog):
         await self.bot.http.delete_message(message.channel.id, message.id)
 
         if nickname == None:
-            await ctx.send("please give me a nickname to change it to")
+            await ctx.send("Please give me a nickname to change it to.")
             return
 
         else:
@@ -130,7 +130,7 @@ class Owner(commands.Cog):
                 member = ctx.guild.get_member(int(member.id))
                 await member.edit(nick=nickname)
                 await ctx.send(
-                    f"Nickname was changed to {nickname}\nbtw if anyone is wondering blame Avery for coming up with the idea for this :))))",
+                    f"Nickname was changed to {nickname}\nBlame Avery for coming up with the idea for this :)",
                     delete_after=3,
                 )
 
@@ -138,11 +138,11 @@ class Owner(commands.Cog):
                 await ctx.send(f"{e}", delete_after=5)
 
     @commands.is_owner()
-    @commands.command(name="mepurge", brief="Clears messages equal to the amount specified ")
+    @commands.command(name="mepurge", brief="Clears messages equal to the amount specified.")
     @bot_has_permissions(manage_messages=True)
     async def purge(self, ctx, amount=0, shut="shutupplz"):
         if amount == 0:
-            await ctx.send("please specifiy an amount")
+            await ctx.send("Please specifiy an amount.")
             return
         if 0 < amount <= 250:
             channel = ctx.message.channel
@@ -153,7 +153,7 @@ class Owner(commands.Cog):
             await channel.delete_messages(messages)
             if shut == "shutupplz":
                 await ctx.send(
-                    f"{amount} messages have been purged by {ctx.message.author.mention}",
+                    f"{amount} messages have been purged by {ctx.message.author.mention}.",
                     delete_after=10,
                 )
             else:
@@ -188,10 +188,10 @@ class Owner(commands.Cog):
                     except Exception as e:
                         errstr += f"{e}\n"
             if errstr == "":
-                await ctx.send("All cogs were reloaded")
+                await ctx.send("All cogs have been reloaded.")
                 return
 
-            await ctx.send("All cogs were reloaded")
+            await ctx.send("All cogs have been reloaded.")
             return
 
         try:
@@ -201,7 +201,7 @@ class Owner(commands.Cog):
             await ctx.send(f"```py\n{error}```")
             return
         await ctx.send("✅")
-        print(f"------------Reloaded {cog}------------")
+        print(f"------------Reloaded {cog}.------------")
 
     @commands.is_owner()
     @commands.command(name="restart", aliases=["reboot"])
@@ -211,7 +211,7 @@ class Owner(commands.Cog):
                 status=discord.Status.idle,
                 activity=discord.Activity(
                     type=discord.ActivityType.watching,
-                    name="restarting - won't respond",
+                    name="Restarting - won't respond!",
                 ),
             )
             await ctx.send("Restarting bot...")
@@ -226,17 +226,17 @@ class Owner(commands.Cog):
     @commands.command(name="shutdown", aliases=["poweroff", "turnoff"])
     async def shutdown(self, ctx):
         try:
-            await ctx.send("turning off the bot...")
+            await ctx.send("Turning off the bot...")
             await self.bot.change_presence(
                 status=discord.Status.idle,
                 activity=discord.Activity(
                     type=discord.ActivityType.watching,
-                    name="turning offline - won't respond",
+                    name="About to go offline - won't respond!",
                 ),
             )
             await self.bot.close()
             # db.commit()
-            print("closed using !shutdown command")
+            print("Terminated using !shutdown command.")
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
             return
@@ -249,7 +249,7 @@ class Owner(commands.Cog):
                 status=discord.Status.idle,
                 activity=discord.Activity(type=discord.ActivityType.watching, name=f"{input}"),
             )
-            await ctx.send(f"status set to ```{input}```")
+            await ctx.send(f"Status set to ```{input}```.")
         except Exception as error:
             await ctx.send(f"```py\n{error}```")
 
@@ -264,19 +264,19 @@ class Owner(commands.Cog):
             "jsonadd",
             "addjson",
         ],
-        brief="adds the specified thing to shitpost.json",
+        brief="Adds the specified thing to shitpost.json.",
     )
     async def addtofunnylist(ctx, *, funny=None):
         with open("./storage/shitpost.json", "r") as f:
             shitposts = json.load(f)
 
         if funny is None:
-            print("funny is None")
-            await ctx.send("funny is `None`")
+            print("Funny is None")
+            await ctx.send("Funny is `None`")
 
         shitposts["list"].append(f"{funny}")
         await ctx.send(f"added {funny} to list")
-        print(f"added {funny} to shitpost index")
+        print(f"Added {funny} to shitpost index.")
 
         with open("./storage/shitpost.json", "w") as f:
             json.dump(shitposts, f)
@@ -304,7 +304,7 @@ class Owner(commands.Cog):
         with open("./storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send(f"banned user `{user.display_name}` until <t:{time.time()+bannedFor:R}>")
+        await ctx.send(f"Banned user `{user.display_name}` until <t:{time.time()+bannedFor:R}>.")
 
     @commands.is_owner()
     @commands.command(name="pip")
@@ -385,7 +385,7 @@ class Owner(commands.Cog):
     @commands.command(name="bash", aliases=["sh", "./"])
     @commands.is_owner()
     async def run_bash(self, ctx, *, command):
-        await ctx.send(f"are you sure you want to run the command `{command}`?")
+        await ctx.send(f"Are you sure you want to run the command `{command}`?")
         try:
             response = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author, timeout=30)
         except asyncio.TimeoutError:
@@ -430,7 +430,7 @@ class Owner(commands.Cog):
 
         else:
             await ctx.send(
-                f"to use this command, reply to a message with {ctx.prefix}deletemsg",
+                f"To use this command, reply to a message with {ctx.prefix}deletemsg",
                 delete_after=4,
             )
 
@@ -519,13 +519,13 @@ class Owner(commands.Cog):
                     seconds += float(i.split(" ")[0])
 
                 else:
-                    return await ctx.send(f"{timing} is an invalid time format, please use a valid time format - use `{ctx.prefix}help remindme` for more info")
+                    return await ctx.send(f"{timing} is an invalid time format. Type `{ctx.prefix}help remindme` for more info.")
 
         if seconds < 30:
-            return await ctx.send(f"please set a time greater than 30 seconds")
+            return await ctx.send(f"Please set a time greater than 30 seconds.")
 
         if seconds > 31536000:
-            return await ctx.send(f"please set a time less than 1 year")
+            return await ctx.send(f"Please set a time less than 1 year.")
 
         sendtime = round(time.time() + seconds)
         embed = discord.Embed(title=reminder, description=f"i will remind {user.display_name} in <t:{sendtime}:R>", color=user.colour)

@@ -21,14 +21,14 @@ class search(commands.Cog):
     @commands.command(
         name="urban",
         aliases=["what", "meaning"],
-        brief="search up something using urban dictionary",
+        brief="Search up something using Urban Dictionary.",
     )
     @cooldown(5, 20, BucketType.user)
     async def urbandictionary(self, ctx, *, search):
         await ctx.typing()
         req = requests.get("http://api.urbandictionary.com/v0/define?term=" + urllib.parse.quote(search))
         if req.status_code == 404:
-            await ctx.send("No urban dictionary entry found for " + (await SL.removeat(search)))
+            await ctx.send("No urban dictionary entry found for " + (await SL.removeat(search)).)
             return
 
         entry = 0
@@ -43,7 +43,7 @@ class search(commands.Cog):
 
     @commands.command(
         name="imdb",
-        brief="search up a movie using imdb",
+        brief="Search up a movie on IMDB.",
     )
     @cooldown(5, 20, BucketType.user)
     async def imdb_command(self, ctx, *, movie):
@@ -94,7 +94,7 @@ class search(commands.Cog):
     @commands.command(
         name="reddit",
         aliases=["red", "r/", "rslash", "r"],
-        brief="get a random reddit post from the specified subreddit",
+        brief="Sends a random post from the specified subreddit.",
     )
     @cooldown(1, 2, BucketType.guild)
     async def reddit_search(self, ctx, search):
@@ -108,12 +108,12 @@ class search(commands.Cog):
         )
         json = req.json()
         if "error" in json or json["data"]["after"] is None:
-            await ctx.send('Subreddit "{}" not found'.format(search), delete_after=(15))
+            await ctx.send('Subreddit "{}" was not found.'.format(search), delete_after=(15))
             return
 
         post = await self.check_nsfw(ctx, json)
         if not post:
-            return await ctx.send(f"Could not find a post in {search} that wasn't NSFW", delete_after=(15))
+            return await ctx.send(f"Could not find a post on {search} that wasn't NSFW.", delete_after=(15))
 
         title = post["data"]["title"]
         author = "u/" + post["data"]["author"]
@@ -166,7 +166,7 @@ class search(commands.Cog):
     @commands.command(
         name="wikipedia",
         aliases=["wiki"],
-        brief="Find a Wikipedia page on a given topic - does not work on all pages as some may be too short, sorry - note - this uses wikipedia.org so it's only capable to search up questions on the english page, not other languages",
+        brief="Find a Wikipedia page on a given topic. Does not work on all pages as some may be too short. Note: This uses wikipedia.org, so it can only search in English.",
     )
     @cooldown(3, 10, BucketType.guild)
     async def wikipedia_search(self, ctx, *, search):
@@ -175,8 +175,8 @@ class search(commands.Cog):
         search = wikipedia.search(search)
 
         if not search:
-            await ctx.send("No page was found for the search term" + (search))
-            return
+            await ctx.send("No page was found for the search term." + (search))
+            returnet
 
         page = wikipedia.page(search[0])
         title = page.title
@@ -195,7 +195,7 @@ class search(commands.Cog):
     @commands.command(
         name="minecraftchampionship",
         aliases=["mcc", "linkmcc"],
-        brief="links the mcc page of the week",
+        brief="Links the current MCC page.",
     )
     @cooldown(2, 120, BucketType.guild)
     async def mcc(self, ctx):

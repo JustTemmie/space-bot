@@ -35,7 +35,7 @@ class role_menu(commands.Cog):
                         pass
 
         except Exception as e:
-            print(f"no role found, line 40ish roles.py {e}")
+            print(f"No role found, line 40ish roles.py {e}")
 
     @commands.Cog.listener()
     @commands.guild_only()

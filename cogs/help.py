@@ -39,7 +39,7 @@ class help(commands.Cog, name="Help command"):
         embed = discord.Embed()
         embed.set_author(name = f"Default Commands", icon_url = ctx.author.display_avatar.url)
         embed.color = ctx.author.colour
-        embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
+        embed.description = "Can't find what you're looking for? Join our [support server](https://discord.gg/8MdVe6NgVy) for help!"
         embed.set_footer(text=f"{ctx.prefix}help <command/category> for more info on that command or category")
 
         with open(f"storage/help_pages/Default.json", "r") as f:
@@ -52,17 +52,17 @@ class help(commands.Cog, name="Help command"):
             discord.SelectOption(
                 label="Default Page",
                 emoji="📚",
-                description="commands that don't fit into any other catagory",
+                description="Commands that don't fit into any other category.",
             ),
-            discord.SelectOption(label="Economy", emoji="💰", description="info about andromeda's economy system"),
+            discord.SelectOption(label="Economy", emoji="💰", description="Info about Andromeda's economy system."),
         ]
 
         if ctx.channel.permissions_for(ctx.author).manage_messages:
             options.append(
-                discord.SelectOption(label="Admin", emoji="🛡", description="administrator things"),
+                discord.SelectOption(label="Admin", emoji="🛡", description="Administrator commands."),
             )
 
-        set_page = Select(placeholder="change the current page", options=options)
+        set_page = Select(placeholder="Change the current page", options=options)
 
         async def set_page_func(interaction):
             if interaction.user != ctx.author:
@@ -76,7 +76,7 @@ class help(commands.Cog, name="Help command"):
             elif set_page.values[0] == "Admin":
                 page = "Admin"
             else:
-                await interaction.response.send_message("an error occured, sorry about that")
+                await interaction.response.send_message("An error occured, sorry about that!")
                 return False
 
             embed.clear_fields()
@@ -100,7 +100,7 @@ class help(commands.Cog, name="Help command"):
     async def help_category(self, ctx, data, entity):
         embed = discord.Embed()
         embed.set_author(name = f"{data['icon']} {data['name']}", icon_url = ctx.author.display_avatar.url)
-        embed.description = "can't find what you're looking for? join our [support server](https://discord.gg/8MdVe6NgVy) for help"
+        embed.description = "Can't find what you're looking for? Join our [support server](https://discord.gg/8MdVe6NgVy) for help!"
 
         commands = data["description"]
         commands = commands.split(" ")
@@ -121,7 +121,7 @@ class help(commands.Cog, name="Help command"):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="help", aliases=["commands"], description="The help command, woah")
+    @commands.command(name="help", aliases=["commands"], description="The help command!")
     @cooldown(5, 35, BucketType.user)
     async def help_command(self, ctx, *, Command=None):
         if not Command:
