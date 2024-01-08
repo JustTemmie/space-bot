@@ -14,7 +14,7 @@ class settings(commands.Cog):
     @commands.command(
         name="settings",
         aliases=["set", "config", "cfg", "setting"],
-        brief="change settings for commands",
+        brief="Change settings for commands.",
     )
     @cooldown(1, 2, BucketType.user)
     async def settingsCommand(self, ctx, category="None", setting="None", value="None"):
@@ -32,7 +32,7 @@ class settings(commands.Cog):
                 title="Categories",
                 color=ctx.author.colour,
             )
-            embed.set_footer(text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} vote <Setting> <Value>")
+            embed.set_footer(text=f"{ctx.prefix}{ctx.invoked_with} <category> <setting> <value>\nExample: {ctx.prefix}{ctx.invoked_with} vote <setting> <value>")
 
             for entry in settings:
                 fieldDesc = ""
@@ -67,7 +67,7 @@ Description: `{settings[category][child]['description']}`
 
         if value == "none":
             embed = Embed(title=f"`{category}` `{setting}`", color=ctx.author.color)
-            embed.set_footer(text=f"{ctx.prefix}{ctx.invoked_with} <Category> <Setting> <Value>\nExample: {ctx.prefix}{ctx.invoked_with} {category} {setting} true")
+            embed.set_footer(text=f"{ctx.prefix}{ctx.invoked_with} <category> <setting> <value>\nExample: {ctx.prefix}{ctx.invoked_with} {category} {setting} true")
 
             embed.add_field(
                 name="Current value:",
@@ -80,7 +80,7 @@ Description: `{settings[category][child]['description']}`
             return
 
         if value not in settings[category][setting]["values"]:
-            await ctx.send(f"`{value}` is not a valid value for `{category}` `{setting}`\ntry `{ctx.prefix}{ctx.invoked_with} {category} {setting}` to see all possible values")
+            await ctx.send(f"`{value}` is not a valid value for `{category}` `{setting}`\nType `{ctx.prefix}{ctx.invoked_with} {category} {setting}` to see all possible values.")
             return
 
         if value == "true":

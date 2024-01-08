@@ -306,7 +306,7 @@ class ecogeneration(commands.Cog):
     )
     @cooldown(1, 900, BucketType.user)
     async def finds_command(self, ctx):
-        if random.randint(0, 10) != 2:
+        if random.randint(0, 20) != 2:
             return
 
         await open_account(self, ctx)
@@ -331,7 +331,7 @@ class ecogeneration(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send("heh, finds,, enjoy this 1 log")
+        await ctx.send("heh, finds,, enjoy this 1 <:log:1019212550782599220>")
 
     @commands.hybrid_command(
         name="scavenge",
