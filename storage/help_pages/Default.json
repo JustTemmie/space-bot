@@ -2,7 +2,7 @@
     "recent": {
         "icon": "✨",
         "name": "New Commands",
-        "description": "`lyrics``"
+        "description": "`lyrics`"
     },
     "10th": {
         "icon": "🤗",
@@ -12,7 +12,7 @@
     "4th": {
         "icon": "🖼️",
         "name": "Images",
-        "description": "`flag` `squish` `ascii` `avatar` `qr` `texttoimage`"
+        "description": "`flag` `squish` `ascii` `avatar` `qr` `texttoimage`"it
     },
     "5th": {
         "icon": "🎱",

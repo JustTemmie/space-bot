@@ -383,7 +383,7 @@ class ecogeneration(commands.Cog):
             if random.random() > 0.95:
                 bonus_payout = random.randint(30, 50)
                 payout += bonus_payout
-                message += f"\nnwait, what's this? you found a lootcrate with {bonus_payout} logs in it!"
+                message += f"\nwait, what's this? you found a loot box with {bonus_payout} <:log:1019212550782599220> in it!"
         
         payout = round(payout)
 
