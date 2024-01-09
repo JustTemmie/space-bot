@@ -28,7 +28,7 @@ class search(commands.Cog):
         await ctx.typing()
         req = requests.get("http://api.urbandictionary.com/v0/define?term=" + urllib.parse.quote(search))
         if req.status_code == 404:
-            await ctx.send("No urban dictionary entry found for " + (await SL.removeat(search)).)
+            await ctx.send("No urban dictionary entry found for " + (await SL.removeat(search)))
             return
 
         entry = 0
