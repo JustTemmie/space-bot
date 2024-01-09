@@ -1,32 +1,4 @@
-2024-01-08 10:54:02,985:WARNING:root:warning
-2024-01-08 10:54:02,985:ERROR:root:error
-2024-01-08 10:54:02,985:CRITICAL:root:critical
-2024-01-08 10:54:03,771:INFO:discord.client:logging in using static token
-2024-01-08 10:54:05,208:INFO:discord.gateway:Shard ID 0 has connected to Gateway (Session ID: 177559ebebe91b6529f2950cf39f5513).
-2024-01-08 10:54:07,211:CRITICAL:root:SHARD 0 is ready!
-2024-01-08 10:54:07,741:ERROR:discord.ext.tasks:Unhandled exception in internal background task 'change_status_task'.
-Traceback (most recent call last):
-  File "/home/twig/Development/gitThings/space-bot/venv/lib/python3.11/site-packages/discord/ext/tasks/__init__.py", line 239, in _loop
-    await self.coro(*args, **kwargs)
-  File "/home/twig/Development/gitThings/space-bot/main.py", line 223, in change_status_task
-    await bot.status_out.send(f'status changed to "{status}"')
-          ^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'send'
-2024-01-08 10:55:27,142:INFO:root:prefix was successfully invoked by twig.py
-2024-01-08 10:55:27,142:ERROR:discord.client:Ignoring exception in on_command_completion
-Traceback (most recent call last):
-  File "/home/twig/Development/gitThings/space-bot/venv/lib/python3.11/site-packages/discord/client.py", line 441, in _run_event
-    await coro(*args, **kwargs)
-  File "/home/twig/Development/gitThings/space-bot/cogs/events.py", line 89, in on_command_completion
-    fileObj = open(f"temp/hourlyLogs/{floor(time()/3600)}.txt", "a")
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'temp/hourlyLogs/473529.txt'
-2024-01-08 10:55:29,321:INFO:root:help was successfully invoked by twig.py
-2024-01-08 10:55:29,322:ERROR:discord.client:Ignoring exception in on_command_completion
-Traceback (most recent call last):
-  File "/home/twig/Development/gitThings/space-bot/venv/lib/python3.11/site-packages/discord/client.py", line 441, in _run_event
-    await coro(*args, **kwargs)
-  File "/home/twig/Development/gitThings/space-bot/cogs/events.py", line 89, in on_command_completion
-    fileObj = open(f"temp/hourlyLogs/{floor(time()/3600)}.txt", "a")
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'temp/hourlyLogs/473529.txt'
+2024-01-09 17:22:18,693:WARNING:root:warning
+2024-01-09 17:22:18,694:ERROR:root:error
+2024-01-09 17:22:18,694:CRITICAL:root:critical
+2024-01-09 17:22:19,448:INFO:discord.client:logging in using static token
