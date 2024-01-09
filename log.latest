@@ -1,4 +1,0 @@
-2024-01-09 17:22:18,693:WARNING:root:warning
-2024-01-09 17:22:18,694:ERROR:root:error
-2024-01-09 17:22:18,694:CRITICAL:root:critical
-2024-01-09 17:22:19,448:INFO:discord.client:logging in using static token
