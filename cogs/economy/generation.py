@@ -182,7 +182,7 @@ class ecogeneration(commands.Cog):
             bank[str(ctx.author.id)]["statistics"]["total_logs"] += 2500
             payout *= 1.5
             payout += 1000
-            streak += "\n\nHappy international beaver day!\nThe beavers just so happen to have collected 2500 <:log:1019212550782599220> for you!"
+            streak += f"\n\nHappy international beaver day!\nThe beavers just so happen to have collected 2500 {self.bot.log_emoji} for you!"
         
         # minecraft birthday
         if today.day == 17 and today.month == 5:
@@ -229,7 +229,7 @@ class ecogeneration(commands.Cog):
                 "https://www.youtube.com/watch?v=ZVuToMilP0A",
                 "https://www.youtube.com/watch?v=vOGhAV-84iI"
             ]
-            streak += f"\nand 2000 <:log:1019212550782599220>\n\nHappy hall-owee-n!\n{random.choice(videos)}"
+            streak += f"\nand 2000 {self.bot.log_emoji}>\n\nHappy hall-owee-n!\n{random.choice(videos)}"
         
         # area code day (idfk what it is)
         if today.day == 10 and today.month == 11:
@@ -237,7 +237,7 @@ class ecogeneration(commands.Cog):
             bank[str(ctx.author.id)]["statistics"]["total_logs"] += 3000
             payout = 0
             
-            streak += f"\nhappy area code d- wait no this can't be right?\nwhat the fuck would an \"area code day\" even be?\n\noh well my notes say it's a thing so uh- here have 3000 <:log:1019212550782599220>\ngo construct something to fill the area codes ig\np.s i'm confiscating your beaver coins today, this timber is already super expensive"
+            streak += f"\nhappy area code d- wait no this can't be right?\nwhat the fuck would an \"area code day\" even be?\n\noh well my notes say it's a thing so uh- here have 3000 {self.bot.log_emoji}\ngo construct something to fill the area codes ig\np.s i'm confiscating your beaver coins today, this timber is already super expensive"
         
         # finish independence (i'm not finish btw lol)
         if today.day == 6 and today.month == 12:
@@ -249,11 +249,11 @@ class ecogeneration(commands.Cog):
             bank[str(ctx.author.id)]["inventory"]["logs"] += 1500
             bank[str(ctx.author.id)]["statistics"]["total_logs"] += 1500
             payout += 3000
-            streak += "\nand 1500 <:log:1019212550782599220>\n\nMarry Christmas, Eve!\nEnjoy these logs!"
+            streak += f"\nand 1500 {self.bot.log_emoji}\n\nMarry Christmas, Eve!\nEnjoy these logs!"
 
         if today.day == 25 and today.month == 12:
             bank[str(ctx.author.id)]["inventory"]["logs"] -= 100
-            streak += "\nHEY, you didn't marry Christmas yesterday, wtf\nI'm confiscating 100 of your <:log:1019212550782599220> as retaliation"
+            streak += f"\nHEY, you didn't marry Christmas yesterday, wtf\nI'm confiscating 100 of your {self.bot.log_emoji} as retaliation"
         
     
     
@@ -331,12 +331,12 @@ class ecogeneration(commands.Cog):
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
 
-        await ctx.send("heh, finds,, enjoy this 1 <:log:1019212550782599220>")
+        await ctx.send(f"heh, finds,, enjoy this 1 {self.bot.log_emoji}")
 
     @commands.hybrid_command(
         name="scavenge",
         aliases=["scav", "find", "loot"],
-        brief="go scavenge for some l ö g <:log:1019212550782599220>",
+        brief=f"go scavenge for some l ö g {self.bot.log_emoji}",
     )
     @cooldown(1, 300, BucketType.user)
     async def scavenge_logs(self, ctx):
@@ -377,13 +377,13 @@ class ecogeneration(commands.Cog):
         if "loot" in ctx.message.content:
             payout -= 2
             
-        message = f"you scavenged for <:log:1019212550782599220>, and you found {payout} of them!"
+        message = f"you scavenged for {self.bot.log_emoji}, and you found {payout} of them!"
         
         if "loot" in ctx.message.content:
             if random.random() > 0.95:
                 bonus_payout = random.randint(30, 50)
                 payout += bonus_payout
-                message += f"\nwait, what's this? you found a loot box with {bonus_payout} <:log:1019212550782599220> in it!"
+                message += f"\nwait, what's this? you found a loot box with {bonus_payout} {self.bot.log_emoji} in it!"
         
         payout = round(payout)
 

@@ -46,7 +46,7 @@ class stickyummy(commands.Cog):
                     data = json.load(f)
                     
                 if random.random() > 0.998:
-                    description = f"ow, you got a splinter, wonder if you could use this for anything useful?\nYou got 1 <:log:1019212550782599220>"
+                    description = f"ow, you got a splinter, wonder if you could use this for anything useful?\nYou got 1 {self.bot.log_emoji}"
                     data[str(ctx.author.id)]["inventory"]["logs"] += 1
                     data[str(ctx.author.id)]["statistics"]["total_logs"] += 1
                 else:
