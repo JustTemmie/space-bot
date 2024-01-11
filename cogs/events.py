@@ -23,10 +23,10 @@ class events(commands.Cog):
         # self.genshin_nick.start()
         self.send_hourly_log.start()
     
-    # @commands.Cog.listener()
-    # async def on_message(self, ctx):
-    #     if ctx.message.content == "mwfigh":
-    #         await ctx.invoke(self.bot.get_command("scavenge"), ctx)
+    @commands.Cog.listener()
+    async def on_message(self, ctx):
+        if ctx.message.content == "mwfigh":
+            await ctx.invoke(self.bot.get_command("scavenge"), self, ctx)
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
