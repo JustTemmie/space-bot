@@ -3,6 +3,8 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 from datetime import datetime
+from dateutil.easter import easter
+import time
 
 import libraries.standardLib as SL
 
@@ -50,7 +52,30 @@ class misc(commands.Cog):
     @commands.command(name="fahrenheit", brief="Converts fahrenheit to celsius.")
     async def fahrenheittocelsius(self, ctx, *, input):
         await ctx.send(f"{await SL.removeat(input)} fahrenheit is {(float(input) - 32)/9*5} celsius.")
+    
+    @commands.command(name="easter", brief="Check how many days are left until easter!")
+    async def eastercommand(self, ctx, year = datetime.now().year):
+        if year == datetime.now().year:
+            now = datetime.now()
+            thisEaster = round(time.mktime(easter(now.year).timetuple()))
+            
+            # if easter has not happened yet
+            if thisEaster > time.time():
+                await ctx.send(f"This year's easter is on <t:{thisEaster}:D>, which is <t:{thisEaster}:R>")
+            
+            # if easter has already happened
+            else:
+                await ctx.send(f"This year's easter was on <t:{thisEaster}:D>, which was <t:{thisEaster}:R>")
 
+        else:
+            thatEaster = round(time.mktime(easter(year).timetuple()))
+            # future
+            if thatEaster > time.time():
+                await ctx.send(f"Easter {year} will take place on <t:{thatEaster}:D>")
+            
+            # past
+            else:
+                await ctx.send(f"Easter {year} took place on <t:{thatEaster}:D>")
 
 async def setup(bot):
     await bot.add_cog(misc(bot))
