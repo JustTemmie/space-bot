@@ -57,25 +57,27 @@ class misc(commands.Cog):
     async def eastercommand(self, ctx, year = datetime.now().year):
         if year == datetime.now().year:
             now = datetime.now()
-            thisEaster = round(time.mktime(easter(now.year).timetuple()))
+            thisEaster = easter(now.year)
+            thisEasterUnix = round(time.mktime(thisEaster).timetuple())
             
             # if easter has not happened yet
-            if thisEaster > time.time():
-                await ctx.send(f"This year's easter is on <t:{thisEaster}:D>, which is <t:{thisEaster}:R>")
+            if thatEasterUnix > time.time():
+                await ctx.send(f"This year's easter will take place on {thisEaster.month} {thisEaster.day}, which is <t:{thisEaster}:R> (roughly)")
             
             # if easter has already happened
             else:
-                await ctx.send(f"This year's easter was on <t:{thisEaster}:D>, which was <t:{thisEaster}:R>")
+                await ctx.send(f"This year's easter was on <t:{thisEaster}:D>, which was <t:{thisEaster}:R> (rouhgly)")
 
         else:
-            thatEaster = round(time.mktime(easter(year).timetuple()))
+            thatEaster = easter(year)
+            thatEasterUnix = round(time.mktime(easter(thatEaster).timetuple()))
             # future
-            if thatEaster > time.time():
-                await ctx.send(f"Easter {year} will take place on <t:{thatEaster}:D>")
+            if thatEasterUnix > time.time():
+                await ctx.send(f"Easter {year} will take place on {thatEaster.month} {thatEaster.day}")
             
             # past
             else:
-                await ctx.send(f"Easter {year} took place on <t:{thatEaster}:D>")
+                await ctx.send(f"Easter {year} took place on {thatEaster.month} {thatEaster.day}")
 
 async def setup(bot):
     await bot.add_cog(misc(bot))
