@@ -52,32 +52,19 @@ class misc(commands.Cog):
     @commands.command(name="fahrenheit", brief="Converts fahrenheit to celsius.")
     async def fahrenheittocelsius(self, ctx, *, input):
         await ctx.send(f"{await SL.removeat(input)} fahrenheit is {(float(input) - 32)/9*5} celsius.")
-    
+
     @commands.command(name="easter", brief="Check how many days are left until easter!")
     async def eastercommand(self, ctx, year = datetime.now().year):
-        if year == datetime.now().year:
-            now = datetime.now()
-            thisEaster = easter(now.year)
-            thisEasterUnix = round(time.mktime(thisEaster).timetuple())
-            
-            # if easter has not happened yet
-            if thatEasterUnix > time.time():
-                await ctx.send(f"This year's easter will take place on {thisEaster.month} {thisEaster.day}, which is <t:{thisEaster}:R> (roughly)")
-            
-            # if easter has already happened
-            else:
-                await ctx.send(f"This year's easter was on <t:{thisEaster}:D>, which was <t:{thisEaster}:R> (rouhgly)")
+        thatEaster = easter(year)
+        thatEasterUnix = round(time.mktime(thatEaster.timetuple()))
+        
+        # future
+        if thatEasterUnix > time.time():
+            await ctx.send(f"Easter {year} will take place on {thatEaster.month} {thatEaster.day}")
 
+        # past
         else:
-            thatEaster = easter(year)
-            thatEasterUnix = round(time.mktime(easter(thatEaster).timetuple()))
-            # future
-            if thatEasterUnix > time.time():
-                await ctx.send(f"Easter {year} will take place on {thatEaster.month} {thatEaster.day}")
-            
-            # past
-            else:
-                await ctx.send(f"Easter {year} took place on {thatEaster.month} {thatEaster.day}")
+            await ctx.send(f"Easter {year} took place on {thatEaster.month} {thatEaster.day}")
 
 async def setup(bot):
     await bot.add_cog(misc(bot))
