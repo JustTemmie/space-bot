@@ -3,6 +3,8 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
 from datetime import datetime
+from dateutil.easter import easter
+import time
 
 import libraries.standardLib as SL
 
@@ -51,6 +53,18 @@ class misc(commands.Cog):
     async def fahrenheittocelsius(self, ctx, *, input):
         await ctx.send(f"{await SL.removeat(input)} fahrenheit is {(float(input) - 32)/9*5} celsius.")
 
+    @commands.command(name="easter", brief="Check how many days are left until easter!")
+    async def eastercommand(self, ctx, year = datetime.now().year):
+        thatEaster = easter(year)
+        thatEasterUnix = round(time.mktime(thatEaster.timetuple()))
+        
+        # future
+        if thatEasterUnix > time.time():
+            await ctx.send(f"Easter {year} will take place on {thatEaster.strftime('%B %d').lower()}")
+
+        # past
+        else:
+            await ctx.send(f"Easter {year} took place on {thatEaster.strftime('%B %d').lower()}")
 
 async def setup(bot):
     await bot.add_cog(misc(bot))

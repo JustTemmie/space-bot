@@ -94,7 +94,7 @@ class ecobuild(commands.Cog):
                 if level != len(dam_levels) - 1:
                     embed.add_field(
                         name="Logs needed for next level",
-                        value=f"╰ {dam_levels[level+1]} <:log:1019212550782599220>",
+                        value=f"╰ {dam_levels[level+1]} {self.bot.log_emoji}",
                         inline=False,
                     )
 
@@ -150,7 +150,7 @@ class ecobuild(commands.Cog):
 
             lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marry command"
             lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
-            lvl3 = f"╰ +2 skill points and + *something secret* ;) (good luck finding it!)"
+            lvl3 = f"╰ +2 skill points and + "
             lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
             lvl5 = f"╰ +5 skill points and another + 25% logs from {ctx.prefix}scavenge"
 

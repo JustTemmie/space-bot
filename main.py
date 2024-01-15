@@ -50,10 +50,14 @@ OWNER_IDS = config["OWNER_IDS"]
 STATUS_OUT = config["STATUS_OUT"]
 VERSION = config["VERSION"]
 
+
+filename = f"logs/{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log"
+filename = "log.latest"
+
 # Logging
 logging.basicConfig(
     level=logging.INFO,
-    filename=f"logs/{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log",
+    filename=filename,
     filemode="w",
     format="%(asctime)s:%(levelname)s:%(name)s:%(message)s",
 )
@@ -69,6 +73,7 @@ class Andromeda(commands.AutoShardedBot):
 
         self.scheduler = AsyncIOScheduler()
         self.start_time = datetime.now()
+        self.log_emoji = "<:log:1019212550782599220>"
         # db.autosave(self.scheduler)
 
     async def on_ready(self):

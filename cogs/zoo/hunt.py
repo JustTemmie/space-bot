@@ -25,7 +25,7 @@ class zooHunt(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="hunt", aliases=["hu"], brief="Go look for some animals, and perhaps even add them to your zoo!")
+    @commands.command(name="hunt", aliases=["hu", "honey"], brief="Go look for some animals, and perhaps even add them to your zoo!")
     @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
         await ecoLib.open_account(self, ctx)
@@ -128,6 +128,10 @@ class zooHunt(commands.Cog):
             discarded_roll += round(tiers[tier], 3)
 
         ID = random.randint(1, 6)
+        
+        if ctx.message.content == f"{ctx.prefix}honey":
+            if tier == "common":
+                ID = 4
 
         selectedAnimal = animals[tier]["animals"][str(ID)]
 
