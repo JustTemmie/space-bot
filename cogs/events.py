@@ -11,6 +11,8 @@ import os
 from time import time
 from math import floor
 
+import libraries.standardLib as SL
+
 cooldown_dictionary = {}
 
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
@@ -23,10 +25,10 @@ class events(commands.Cog):
         # self.genshin_nick.start()
         self.send_hourly_log.start()
     
-    # @commands.Cog.listener()
-    # async def on_message(self, ctx):
-    #     if ctx.message.content == "mwfigh":
-    #         await ctx.invoke(self.bot.get_command("scavenge"), ctx)
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.content == "mwfigh":
+            await SL.invoke(self, message, "scavenge")
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):

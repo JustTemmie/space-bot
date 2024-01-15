@@ -333,10 +333,10 @@ class ecogeneration(commands.Cog):
 
         await ctx.send(f"heh, finds,, enjoy this 1 {self.bot.log_emoji}")
 
-    @commands.hybrid_command(
+    @commands.command(
         name="scavenge",
         aliases=["scav", "find", "loot"],
-        brief=f"go scavenge for some l ö g {self.bot.log_emoji}",
+        brief=f"go scavenge for some l ö g <:log:1019212550782599220>",
     )
     @cooldown(1, 300, BucketType.user)
     async def scavenge_logs(self, ctx):

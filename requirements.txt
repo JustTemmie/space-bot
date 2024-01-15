@@ -19,3 +19,4 @@ Image
 interruptingcow
 discord.py
 lyricsgenius
+python-dateutil
