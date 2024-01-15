@@ -129,7 +129,7 @@ class zooHunt(commands.Cog):
 
         ID = random.randint(1, 6)
         
-        if ctx.message.content == f"{ctx.prexifx}honey":
+        if ctx.message.content == f"{ctx.prefix}honey":
             if tier == "common":
                 ID = 4
 
