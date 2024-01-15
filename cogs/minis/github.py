@@ -32,7 +32,19 @@ class github(commands.Cog):
         pattern = r'(https?://\S+)'
 
         git_commit = re.sub(pattern, r'<\1>', git_commit)
-        await ctx.send(git_commit)
+        
+        if len(git_commit) < 1975:
+            await ctx.send(git_commit)
+        
+        else:
+            n = 1994
+            split_strings = []
+
+            for index in range(0, len(git_commit), n):
+                split_strings.append(git_commit[index : index + n])
+
+            for message in split_strings:
+                await ctx.send(message)
 
         if len(output) < 1975:
             await ctx.send(f"```{output}```")
