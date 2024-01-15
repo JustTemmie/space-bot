@@ -129,8 +129,8 @@ class ecoeconomy(commands.Cog):
 
         leaderboard = []
         users = await get_bank_data()
-        if user_count > 10:
-            user_count = 10
+        if user_count > 25:
+            user_count = 25
 
         match category:
             case ("money" | "cash" | "coin"):
