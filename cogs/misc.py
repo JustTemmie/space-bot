@@ -60,11 +60,11 @@ class misc(commands.Cog):
         
         # future
         if thatEasterUnix > time.time():
-            await ctx.send(f"Easter {year} will take place on {thatEaster.strftime('%B %d').lower()}")
+            await ctx.send(f"Easter sunday {year} will take place on {thatEaster.strftime('%B %d').lower()}")
 
         # past
         else:
-            await ctx.send(f"Easter {year} took place on {thatEaster.strftime('%B %d').lower()}")
+            await ctx.send(f"Easter sunday {year} took place on {thatEaster.strftime('%B %d').lower()}")
 
 async def setup(bot):
     await bot.add_cog(misc(bot))
