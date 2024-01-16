@@ -55,10 +55,10 @@ class zooHunt(commands.Cog):
             chance_for_bonus += 0.3
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 3:
             chance_for_bonus += 0.5
-        if bank[str(ctx.author.id)]["lodge"]["level"] >= 6:
+        if bank[str(ctx.author.id)]["lodge"]["level"] >= 5:
             chance_for_bonus += 1
         
-        if bank[str(ctx.author.id)]["lodge"]["level"] >= 8:
+        if bank[str(ctx.author.id)]["lodge"]["level"] >= 7:
             tiers = baseTiers.copy()
             for i in tiers:
                 tiers[i] *= 1.2

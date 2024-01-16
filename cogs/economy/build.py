@@ -16,8 +16,6 @@ class ecobuild(commands.Cog):
     
     async def showOverview(data, ctx):
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
-        current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
-        current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
         
         embed = discord.Embed(
             title="Buildings",
@@ -27,14 +25,19 @@ class ecobuild(commands.Cog):
             text=f"{ctx.author.name}\nLogs:{logs}",
             icon_url=ctx.author.display_avatar.url )
 
+        
+        current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
+        current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
+
         embed.add_field(
             name=f"{dam_emoji} `Beaver Dam`: LV {current_damlevel}",
-            value=f"`{ctx.prefix}build dam`", inline=False, )
+            value=f"`{ctx.prefix}build dam`", inline=False )
         embed.add_field(
             name=f"{lodge_emoji} `Beaver Lodge`: LV {current_lodgelevel}",
-            value=f"`{ctx.prefix}build lodge`", inline=False, )
+            value=f"`{ctx.prefix}build lodge`", inline=False )
 
         await ctx.send(embed=embed)
+    
     
     async def buildGenericBuilding(
         self, data, ctx,
@@ -121,10 +124,9 @@ class ecobuild(commands.Cog):
             [12000, f"╰ another 30% chance to get a second animal from {ctx.prefix}hunt"],
             [25000, f"╰ guarantee a second animal from {ctx.prefix}hunt"],
             [40000, f"╰ +1 brief sense of accomplishment"],
-            [55000, f"╰ +1 long lasting sense of accomplishment"],
-            [70000, f"╰ a third animal from {ctx.prefix}hunt"],
-            [85000, f"╰ +15% to the animal selling price"],
-            [100000, f"╰ increase the chance of non-common animals by 20%"],
+            [55000, f"╰ a third animal from {ctx.prefix}hunt"],
+            [70000, f"╰ +15% to the animal selling price"],
+            [85000, f"╰ increase the chance of non-common animals by 20%"],
         ]
         
         await ecobuild.buildGenericBuilding(
