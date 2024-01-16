@@ -151,6 +151,7 @@ class ecobuild(commands.Cog):
 
         data = await get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
+        amount = round(amount)
         
         if amount < 0:
             return await ctx.send("you can't build with a negative amount of logs?")
