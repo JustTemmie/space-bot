@@ -161,12 +161,12 @@ class ecobuild(commands.Cog):
         
             
         match building.lower():
-            case ("none"):
-                await ecobuild.showOverview(data, ctx)
             case ("dam" | "wall"):
                 await ecobuild.buildDam(self, data, ctx, amount)
             case ("lodge" | "hut"):
                 await ecobuild.buildLodge(self, data, ctx, amount)
+            case _:
+                await ecobuild.showOverview(data, ctx)
 
 
 async def setup(bot):
