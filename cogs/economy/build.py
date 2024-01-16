@@ -9,6 +9,7 @@ from libraries.economyLib import *
 
 dam_emoji = "<:dam:1019212343760142387>"
 lodge_emoji = "<:lodge:1019212491143786527>"
+beehive_emoji = "<:beehive:1196823754295226490>"
 
 class ecobuild(commands.Cog):
     def __init__(self, bot):
@@ -28,6 +29,7 @@ class ecobuild(commands.Cog):
         
         current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
         current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
+        current_hivelevel = data[str(ctx.author.id)]["beehive"]["level"]
 
         embed.add_field(
             name=f"{dam_emoji} `Beaver Dam`: LV {current_damlevel}",
@@ -35,6 +37,9 @@ class ecobuild(commands.Cog):
         embed.add_field(
             name=f"{lodge_emoji} `Beaver Lodge`: LV {current_lodgelevel}",
             value=f"`{ctx.prefix}build lodge`", inline=False )
+        embed.add_field(
+            name=f"{beehive_emoji} `Beehive`: LV {current_hivelevel}",
+            value=f"`{ctx.prefix}build hive`", inline=False )
 
         await ctx.send(embed=embed)
     
@@ -105,11 +110,11 @@ class ecobuild(commands.Cog):
     async def buildDam(self, data, ctx, amount):
         dam_levels = [
             [0, ""],
-            [1000, f"╰ unlock the {ctx.prefix}marry command"],
-            [4000, f"╰ +25% logs from {ctx.prefix}scavenge"],
+            [1000, f"╰ unlock the `{ctx.prefix}marry` command"],
+            [4000, f"╰ +25% logs from `{ctx.prefix}scavenge`"],
             [10000, f"╰ something"],
-            [15000, f"╰ double coins from {ctx.prefix}daily"],
-            [25000, f"╰ another + 25% logs from {ctx.prefix}scavenge"],
+            [15000, f"╰ double coins from `{ctx.prefix}daily`"],
+            [25000, f"╰ another + 25% logs from `{ctx.prefix}scavenge`"],
         ]
         
         await ecobuild.buildGenericBuilding(
@@ -120,11 +125,11 @@ class ecobuild(commands.Cog):
     async def buildLodge(self, data, ctx, amount):
         lodge_levels = [
             [0, ""],
-            [5000, f"╰ a 20% chance to get a second animals from {ctx.prefix}hunt"],
-            [12000, f"╰ another 30% chance to get a second animal from {ctx.prefix}hunt"],
-            [25000, f"╰ guarantee a second animal from {ctx.prefix}hunt"],
+            [5000, f"╰ a 20% chance to get a second animals from `{ctx.prefix}hunt`"],
+            [12000, f"╰ another 30% chance to get a second animal from `{ctx.prefix}hunt`"],
+            [25000, f"╰ guarantee a second animal from `{ctx.prefix}hunt`"],
             [40000, f"╰ +1 brief sense of accomplishment"],
-            [55000, f"╰ a third animal from {ctx.prefix}hunt"],
+            [55000, f"╰ a third animal from `{ctx.prefix}hunt`"],
             [70000, f"╰ +15% to the animal selling price"],
             [85000, f"╰ increase the chance of non-common animals by 20%"],
         ]
@@ -133,7 +138,22 @@ class ecobuild(commands.Cog):
             self, data, ctx,
             amount, lodge_levels,
             "lodge", "Lodge", lodge_emoji )
-                
+    
+    async def buildHive(self, data, ctx, amount):
+        bee_levels = [
+            [0, ""],
+            [4000, f"╰ +20% sell price to all bees"],
+            [5000, f"╰ unlock the `{ctx.prefix}honey` command, where half of your commons will turn into bees\n  It has a shared cooldown with `{ctx.prefix}hunt`"],
+            [7000, f"╰ turn all commons caught thru `{ctx.prefix}honey` into bees"],
+            [12000, f"╰ +2 bees"],
+            [18000, f"╰ `{ctx.prefix}hunt` and `{ctx.prefix}honey` have a 20% chance to give you an extra bee"],
+        ]
+        
+        await ecobuild.buildGenericBuilding(
+            self, data, ctx,
+            amount, bee_levels,
+            "beehive", "Hive", beehive_emoji )
+    
 
     @commands.command(
         name="build",
@@ -167,6 +187,8 @@ class ecobuild(commands.Cog):
                 await ecobuild.buildDam(self, data, ctx, amount)
             case ("lodge" | "hut"):
                 await ecobuild.buildLodge(self, data, ctx, amount)
+            case ("hive" | "beehive" | "bee" | "wasp" | "fly"):
+                await ecobuild.buildHive(self, data, ctx, amount)
             case _:
                 await ecobuild.showOverview(data, ctx)
 

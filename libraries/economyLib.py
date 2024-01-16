@@ -7,8 +7,8 @@ from libraries.miscLib import *
 from discord import Embed
 from libraries.captchaLib import isUserBanned
 
-
-inv_version = 1.1
+#             1.yyyymmdd
+inv_version = 1.240116
 
 confirmations = [
     "consent",
@@ -182,6 +182,13 @@ async def update_accounts():
 
         if users[str(user)]["version"] <= 1.09:
             users[str(user)]["statistics"]["total_sticks_eaten"] = 0
+        
+        if users[str(user)]["version"] < 1.240116:
+            
+            users[str(user)]["beehive"] = {}
+            users[str(user)]["beehive"]["spent"] = {}
+            users[str(user)]["beehive"]["spent"]["logs"] = 0
+            users[str(user)]["beehive"]["level"] = 0
 
         if str(user) in users:
             users[str(user)]["version"] = inv_version
