@@ -98,6 +98,7 @@ class ecobuild(commands.Cog):
 
         await ctx.send(embed=embed)
     
+    
     async def buildDam(self, data, ctx, amount):
         dam_levels = [
             [0, ""],
@@ -111,7 +112,25 @@ class ecobuild(commands.Cog):
         await ecobuild.buildGenericBuilding(
             self, data, ctx,
             amount, dam_levels,
-            "dam", "Dam", dam_emoji)
+            "dam", "Dam", dam_emoji )
+    
+    async def buildLodge(self, data, ctx, amount):
+        lodge_levels = [
+            [0, ""],
+            [5000, f"╰ a 20% chance to get a second animals from {ctx.prefix}hunt"],
+            [12000, f"╰ another 30% chance to get a second animal from {ctx.prefix}hunt"],
+            [25000, f"╰ guarantee a second animal from {ctx.prefix}hunt"],
+            [40000, f"╰ +1 brief sense of accomplishment"],
+            [55000, f"╰ +1 long lasting sense of accomplishment"],
+            [70000, f"╰ a third animal from {ctx.prefix}hunt"],
+            [85000, f"╰ +15% to the animal selling price"],
+            [100000, f"╰ increase the chance of non-common animals by 20%"],
+        ]
+        
+        await ecobuild.buildGenericBuilding(
+            self, data, ctx,
+            amount, lodge_levels,
+            "lodge", "Lodge", lodge_emoji )
                 
 
     @commands.command(
@@ -131,13 +150,14 @@ class ecobuild(commands.Cog):
 
 
         data = await get_bank_data()
-        
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
-        if logs < amount:
-            return await ctx.send("you don't have that many logs")
         
         if amount < 0:
-            return await ctx.send("you can't build with a negative amount of logs")
+            return await ctx.send("you can't build with a negative amount of logs?")
+        
+        if logs < amount:
+            return await ctx.send("you don't have that many logs, sorry")
+        
             
         match building.lower():
             case ("none"):
