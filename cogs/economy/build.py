@@ -7,9 +7,112 @@ import json
 from libraries.economyLib import *
 
 
+dam_emoji = "<:dam:1019212343760142387>"
+lodge_emoji = "<:lodge:1019212491143786527>"
+
 class ecobuild(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    async def showOverview(data, ctx):
+        logs = data[str(ctx.author.id)]["inventory"]["logs"]
+        current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
+        current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
+        
+        embed = discord.Embed(
+            title="Buildings",
+            description="Please specify what you want to work on",
+            color=ctx.author.color )
+        embed.set_footer(
+            text=f"{ctx.author.name}\nLogs:{logs}",
+            icon_url=ctx.author.display_avatar.url )
+
+        embed.add_field(
+            name=f"{dam_emoji} `Beaver Dam`: LV {current_damlevel}",
+            value=f"`{ctx.prefix}build dam`", inline=False, )
+        embed.add_field(
+            name=f"{lodge_emoji} `Beaver Lodge`: LV {current_lodgelevel}",
+            value=f"`{ctx.prefix}build lodge`", inline=False, )
+
+        await ctx.send(embed=embed)
+    
+    async def buildGenericBuilding(
+        self, data, ctx,
+        amount, building_levels,
+        ID, display_name, emoji):
+        current_level = data[str(ctx.author.id)][ID]["level"]
+
+        # if at max level
+        if current_level + 1 >= len(building_levels):
+            bar = await progress_bar(25, 25, 25)
+            embed = discord.Embed(
+                title=f"{emoji} {display_name} LV {current_level}",
+                description=f"{bar} || MAX level",
+                color=ctx.author.color )
+
+        # if not at max level
+        else:
+            data[str(ctx.author.id)]["inventory"]["logs"] -= amount
+            data[str(ctx.author.id)][ID]["spent"]["logs"] += amount
+            
+            spent = data[str(ctx.author.id)][ID]["spent"]["logs"]
+            price_of_next_level = building_levels[current_level + 1][0]
+
+            # if user has spent enough to upgrade their dam's level
+            if spent >= price_of_next_level:
+                embed = discord.Embed(
+                    title=f"{emoji} {display_name}",
+                    description=f"You have upgraded your {display_name} to level {current_level+1}",
+                    color=ctx.author.color )
+
+                leftOverLogs = spent - price_of_next_level
+
+                data[str(ctx.author.id)][ID]["spent"]["logs"] = 0
+                data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
+                data[str(ctx.author.id)][ID]["level"] += 1
+                
+            else:
+                bar = await progress_bar(spent, price_of_next_level, 25)
+                embed = discord.Embed(
+                    title=f"{emoji} {display_name} LV {current_level}",
+                    description=f"{bar} || {spent/price_of_next_level} to LV {current_level+1}",
+                    color=ctx.author.color )
+                
+                if amount <= 0:
+                    embed.set_footer(text=f"{ctx.author.name}, please specify how many logs you want to spend upgrading your {display_name}", icon_url=ctx.author.display_avatar.url)
+            
+
+            with open("storage/playerInfo/bank.json", "w") as f:
+                json.dump(data, f)
+        
+        for i in range(1, len(building_levels)):
+            if current_level >= i:
+                isUnlocked = "**"
+            else:
+                isUnlocked = ""
+            
+            embed.add_field(
+                name=f"Level {i}:",
+                value=f"{isUnlocked}{building_levels[i][1]}{isUnlocked}",
+                inline=False )
+
+        await ctx.send(embed=embed)
+    
+    async def buildDam(self, data, ctx, amount):
+        dam_levels = [
+            [0, ""],
+            [1000, f"╰ unlock the {ctx.prefix}marry command"],
+            [4000, f"╰ +25% logs from {ctx.prefix}scavenge"],
+            [10000, f"╰ something"],
+            [15000, f"╰ double coins from {ctx.prefix}daily"],
+            [25000, f"╰ another + 25% logs from {ctx.prefix}scavenge"],
+        ]
+        
+        await ecobuild.buildGenericBuilding(
+            self, data, ctx,
+            amount, dam_levels,
+            "dam", "Dam", dam_emoji)
+                
 
     @commands.command(
         name="build",
@@ -17,12 +120,7 @@ class ecobuild(commands.Cog):
         brief="work your way through the build process on your very own dam",
     )
     @cooldown(8, 15, BucketType.user)
-    async def build_command(self, ctx, building="None", amount=0):
-        if amount < 0:
-            return await ctx.send("you can't build a dam with anegative amount of logs")
-
-        bonus_string = ""
-
+    async def build_command(self, ctx, building="none", amount=0):
         await open_account(self, ctx)
 
         userNotExist = await check_if_not_exist(ctx.author)
@@ -31,267 +129,23 @@ class ecobuild(commands.Cog):
         if userNotExist:
             return await ctx.send("i could not find an inventory for that user, they need to create an account first")
 
+
         data = await get_bank_data()
+        
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
-        current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
-        current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
-
-        if building == "None":
-            embed = discord.Embed(title="Buildings", description="Please specify what you want to build/upgrade", color=ctx.author.color)
-            embed.set_footer(text=f"{ctx.author.name}\nLogs:{logs}", icon_url=ctx.author.display_avatar.url)
-
-            embed.add_field(
-                name=f"<:dam:1019212343760142387> `Beaver Dam`: LV {current_damlevel}",
-                value=f"`{ctx.prefix}build dam`",
-                inline=False,
-            )
-            embed.add_field(
-                name=f"<:lodge:1019212491143786527> `Beaver Lodge`: LV {current_lodgelevel}",
-                value=f"`{ctx.prefix}build lodge`",
-                inline=False,
-            )
-
-            await ctx.send(embed=embed)
-            return
-
-        # amount = 0
-
-        if amount == 0:
-            bonus_string = "\nPlease specify how many logs you want to use in order to upgrade it"
-
-        # await ctx.send(f"no.")
-
-        if building.lower() == "dam":
-            if logs < amount:
-                return await ctx.send("you don't have that many logs")
-
-            dam_levels = [
-                1000,
-                4000,
-                10000,
-                15000,
-                25000,
-            ]
-
-            level = current_damlevel
-
-            data[str(ctx.author.id)]["inventory"]["logs"] -= amount
-            data[str(ctx.author.id)]["dam"]["spent"]["logs"] += amount
-            spent = data[str(ctx.author.id)]["dam"]["spent"]["logs"]
-
-            if level == len(dam_levels):
-                next_level = spent + 1
-                next_level_str = "MAX"
-                bar = await progress_bar(25, 25, 25)
-
-            else:
-                next_level = dam_levels[level]  # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
-                next_level_str = f"{spent}/{next_level}"
-                bar = await progress_bar(spent, next_level, 25)
-
-            if spent >= next_level:
-                embed = discord.Embed(title=f"Dam", description=f"You have upgraded your dam to level {level+1}", color=ctx.author.color)
-                if level != len(dam_levels) - 1:
-                    embed.add_field(
-                        name="Logs needed for next level",
-                        value=f"╰ {dam_levels[level+1]} {self.bot.log_emoji}",
-                        inline=False,
-                    )
-
-                data[str(ctx.author.id)]["dam"]["level"] += 1
-                leftOverLogs = data[str(ctx.author.id)]["dam"]["spent"]["logs"] - next_level
-
-                data[str(ctx.author.id)]["dam"]["spent"]["logs"] = 0
-                data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
-
-                newlvl = data[str(ctx.author.id)]["dam"]["level"]
-
-                if newlvl == 1:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 2:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 3:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 4:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 5:
-                    data[str(ctx.author.id)]["stats"]["points"] += 5
-
-            else:
-                embed = discord.Embed(
-                    title=f"<:dam:1019212343760142387> Dam LV {level}",
-                    description=f"{bar} || {next_level_str} to LV {level+1}",
-                    color=ctx.author.color,
-                )
-
-            # if bonus_string == "":
-
-            level = data[str(ctx.author.id)]["dam"]["level"]
-
-            with open("storage/playerInfo/bank.json", "w") as f:
-                json.dump(data, f)
-
-            lvl1bold = ""
-            lvl2bold = ""
-            lvl3bold = ""
-            lvl4bold = ""
-            lvl5bold = ""
-
-            if level >= 1:
-                lvl1bold = "**"
-            if level >= 2:
-                lvl2bold = "**"
-            if level >= 3:
-                lvl3bold = "**"
-            if level >= 4:
-                lvl4bold = "**"
-            if level >= 5:
-                lvl5bold = "**"
-
-            lvl1 = f"╰ +2 skill points and unlock the {ctx.prefix}marry command"
-            lvl2 = f"╰ +2 skill points and + 25% logs from {ctx.prefix}scavenge"
-            lvl3 = f"╰ +2 skill points and + "
-            lvl4 = f"╰ +2 skill points and double coins from {ctx.prefix}daily"
-            lvl5 = f"╰ +5 skill points and another + 25% logs from {ctx.prefix}scavenge"
-
-            embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
-            embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
-            embed.add_field(name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False)
-            embed.add_field(name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False)
-            embed.add_field(name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False)
-
-            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.display_avatar.url)
-
-            await ctx.send(embed=embed)
-            return
-
-        if building.lower() == "lodge":
-            if logs < amount:
-                return await ctx.send("you don't have that many logs")
-
-            lodge_levels = [
-                5000,
-                12000,
-                25000,
-                40000,
-                55000,
-                70000,
-                85000,
-                100000,
-            ]
-
-            level = current_lodgelevel
-
-            data[str(ctx.author.id)]["inventory"]["logs"] -= amount
-            data[str(ctx.author.id)]["lodge"]["spent"]["logs"] += amount
-            spent = data[str(ctx.author.id)]["lodge"]["spent"]["logs"]
-
-            if level == len(lodge_levels):
-                next_level = spent + 1
-                next_level_str = "MAX"
-                bar = await progress_bar(25, 25, 25)
-
-            else:
-                next_level = lodge_levels[level]  # sets the next level var to be the price of the next level, and the next level string to be the price of the next level OR "max" if it's the max level
-                next_level_str = f"{spent}/{next_level}"
-                bar = await progress_bar(spent, next_level, 25)
-
-            if spent >= next_level:
-                embed = discord.Embed(
-                    title=f"Lodge",
-                    description=f"You have upgraded your lodge to level {level+1}",
-                    color=ctx.author.color,
-                )
-                if level != len(lodge_levels) - 1:
-                    embed.add_field(
-                        name="Logs needed for next level",
-                        value=f"╰ {lodge_levels[level+1]} <:log:1019212550782599220>",
-                        inline=False,
-                    )
-
-                data[str(ctx.author.id)]["lodge"]["level"] += 1
-                leftOverLogs = data[str(ctx.author.id)]["lodge"]["spent"]["logs"] - next_level
-
-                data[str(ctx.author.id)]["lodge"]["spent"]["logs"] = 0
-                data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
-
-                newlvl = data[str(ctx.author.id)]["lodge"]["level"]
-
-                if newlvl == 1:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 2:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 3:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 4:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 5:
-                    data[str(ctx.author.id)]["stats"]["points"] += 2
-                if newlvl == 6:
-                    data[str(ctx.author.id)]["stats"]["points"] += 3
-                if newlvl == 7:
-                    data[str(ctx.author.id)]["stats"]["points"] += 5
-                if newlvl == 8:
-                    data[str(ctx.author.id)]["stats"]["points"] += 10
-
-            else:
-                embed = discord.Embed(
-                    title=f"<:lodge:1019212491143786527> lodge LV {level}",
-                    description=f"{bar} || {next_level_str} to LV {level+1}",
-                    color=ctx.author.color,
-                )
-
-            # if bonus_string == "":
-
-            level = data[str(ctx.author.id)]["lodge"]["level"]
-
-            with open("storage/playerInfo/bank.json", "w") as f:
-                json.dump(data, f)
-
-            lvl1bold = lvl2bold = lvl3bold = lvl4bold = lvl5bold = lvl6bold = lvl7bold = lvl8bold = ""
-
-            if level >= 1:
-                lvl1bold = "**"
-            if level >= 2:
-                lvl2bold = "**"
-            if level >= 3:
-                lvl3bold = "**"
-            if level >= 4:
-                lvl4bold = "**"
-            if level >= 5:
-                lvl5bold = "**"
-            if level >= 6:
-                lvl6bold = "**"
-            if level >= 7:
-                lvl7bold = "**"
-            if level >= 8:
-                lvl8bold = "**"
-
-            lvl1 = f"╰ +2 skill points and a 20% chance to get a second animals from {ctx.prefix}hunt"
-            lvl2 = f"╰ +2 skill points and another 30% chance to get a second animal from {ctx.prefix}hunt"
-            lvl3 = f"╰ +2 skill points and guarantee a second animal from {ctx.prefix}hunt"
-            lvl4 = f"╰ +2 skill points and +1 brief sense of accomplishment"
-            lvl5 = f"╰ +2 skill points and +1 long lasting sense of accomplishment"
-            lvl6 = f"╰ +3 skill points and a third animal from {ctx.prefix}hunt"
-            lvl7 = f"╰ +5 skill points and +15% to the animal selling price"
-            lvl8 = f"╰ +10 skill points and increase the chance of non-common animals by 20%"
-
-            embed.add_field(name="Level 1:", value=f"{lvl1bold}{lvl1}{lvl1bold}", inline=False)
-            embed.add_field(name="Level 2:", value=f"{lvl2bold}{lvl2}{lvl2bold}", inline=False)
-            embed.add_field(name="Level 3:", value=f"{lvl3bold}{lvl3}{lvl3bold}", inline=False)
-            embed.add_field(name="Level 4:", value=f"{lvl4bold}{lvl4}{lvl4bold}", inline=False)
-            embed.add_field(name="Level 5:", value=f"{lvl5bold}{lvl5}{lvl5bold}", inline=False)
-            embed.add_field(name="Level 6:", value=f"{lvl6bold}{lvl6}{lvl6bold}", inline=False)
-            embed.add_field(name="Level 7:", value=f"{lvl7bold}{lvl7}{lvl7bold}", inline=False)
-            embed.add_field(name="Level 8:", value=f"{lvl8bold}{lvl8}{lvl8bold}", inline=False)
-
-            embed.set_footer(text=f"{ctx.author.name}{bonus_string}", icon_url=ctx.author.display_avatar.url)
-
-            await ctx.send(embed=embed)
-            return
-
-        await ctx.send("that's not a valid building")
-        return
+        if logs < amount:
+            return await ctx.send("you don't have that many logs")
+        
+        if amount < 0:
+            return await ctx.send("you can't build with a negative amount of logs")
+            
+        match building.lower():
+            case ("none"):
+                await ecobuild.showOverview(data, ctx)
+            case ("dam" | "wall"):
+                await ecobuild.buildDam(self, data, ctx, amount)
+            case ("lodge" | "hut"):
+                await ecobuild.buildLodge(self, data, ctx, amount)
 
 
 async def setup(bot):
