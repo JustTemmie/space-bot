@@ -36,9 +36,9 @@ confirmations = [
 ]
 
 
-async def progress_bar(current, total, witdh=20):
-    percent = int(witdh * current / total)
-    bar = "█" * percent + "░" * (witdh - percent)
+async def progress_bar(current, total, width=20):
+    percent = int(width * current / total)
+    bar = "█" * percent + "░" * (width - percent)
 
     return bar
 

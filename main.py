@@ -51,8 +51,8 @@ STATUS_OUT = config["STATUS_OUT"]
 VERSION = config["VERSION"]
 
 
-filename = f"logs/{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log"
-filename = "log.latest"
+# filename = f"logs/{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log"
+filename = "latest.log"
 
 # Logging
 logging.basicConfig(

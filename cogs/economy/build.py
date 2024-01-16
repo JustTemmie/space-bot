@@ -75,7 +75,7 @@ class ecobuild(commands.Cog):
                 bar = await progress_bar(spent, price_of_next_level, 25)
                 embed = discord.Embed(
                     title=f"{emoji} {display_name} LV {current_level}",
-                    description=f"{bar} || {spent/price_of_next_level} to LV {current_level+1}",
+                    description=f"{bar} || {spent}/{price_of_next_level} to LV {current_level+1}",
                     color=ctx.author.color )
                 
                 if amount <= 0:
