@@ -252,7 +252,7 @@ class ecoshop(commands.Cog):
                 soldstr += f"\n\"Since i'm feeling generous, i gave you an extra {extraProfit} <:beaverCoin:1019212566095986768>\"\n"
             
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 6:
-            soldstr += f"\nSince you had a lodge level 7 or above, i gave you an extra 15% payout! ({payout*0.15} <:beaverCoin:1019212566095986768>)\n"
+            soldstr += f"\nSince you had a lodge level 7 or above, i gave you an extra 15% payout! ({floor(payout*0.15)} <:beaverCoin:1019212566095986768>)\n"
             payout = floor(payout * 1.15)
 
         with open("storage/playerInfo/animals.json", "w") as f:
