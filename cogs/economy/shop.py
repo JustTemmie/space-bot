@@ -207,7 +207,7 @@ class ecoshop(commands.Cog):
         }
         
         
-        if bank[str(ctx.author.id)]["beehive"]["level"] >= 1:
+        if bank[str(ctx.author.id)]["beehive"]["level"] >= 2:
             tier_prices["common"] = 11.2
 
         merchant_colours = [

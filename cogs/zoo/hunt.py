@@ -37,7 +37,7 @@ class zooHunt(commands.Cog):
             return await ctx.send(f"i could not find your inventory, you need to create an account first")
         
         bank = await ecoLib.get_bank_data()
-        if bank[str(ctx.author.id)]["beehive"]["level"] < 2:
+        if bank[str(ctx.author.id)]["beehive"]["level"] < 1:
             await ctx.send(f"you haven't unlocked this command yet, unlock it with {ctx.prefix}build hive")
             return
 
@@ -159,11 +159,11 @@ class zooHunt(commands.Cog):
             if ctx.message.content.startswith(f"{ctx.prefix}{i}"):
                 data = await ecoLib.get_bank_data() 
                 if tier == "common":
-                    if data[str(ctx.author.id)]["beehive"]["level"] == 2:
+                    if data[str(ctx.author.id)]["beehive"]["level"] >= 3:
+                        ID = 4
+                    elif data[str(ctx.author.id)]["beehive"]["level"] >= 1:
                         if random.random() > 0.5:
                            ID = 4
-                    elif data[str(ctx.author.id)]["beehive"]["level"] >= 3:
-                        ID = 4
 
         selectedAnimal = animals[tier]["animals"][str(ID)]
 
