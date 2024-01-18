@@ -205,6 +205,10 @@ class ecoshop(commands.Cog):
             "mythical": 5000,
             "legendary": 30000,
         }
+        
+        
+        if bank[str(ctx.author.id)]["beehive"]["level"] >= 1:
+            tier_prices["common"] = 11.2
 
         merchant_colours = [
             0xFFB3BA,

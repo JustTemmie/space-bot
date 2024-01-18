@@ -14,10 +14,10 @@ beehive_emoji = "<:beehive:1196823754295226490>"
 class ecobuild(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+
     async def showOverview(data, ctx):
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
-        
+
         embed = discord.Embed(
             title="Buildings",
             description="Please specify what you want to work on",
@@ -26,7 +26,7 @@ class ecobuild(commands.Cog):
             text=f"{ctx.author.name}\nLogs:{logs}",
             icon_url=ctx.author.display_avatar.url )
 
-        
+
         current_damlevel = data[str(ctx.author.id)]["dam"]["level"]
         current_lodgelevel = data[str(ctx.author.id)]["lodge"]["level"]
         current_hivelevel = data[str(ctx.author.id)]["beehive"]["level"]
@@ -42,8 +42,8 @@ class ecobuild(commands.Cog):
             value=f"`{ctx.prefix}build hive`", inline=False )
 
         await ctx.send(embed=embed)
-    
-    
+
+
     async def buildGenericBuilding(
         self, data, ctx,
         amount, building_levels,
@@ -62,7 +62,7 @@ class ecobuild(commands.Cog):
         else:
             data[str(ctx.author.id)]["inventory"]["logs"] -= amount
             data[str(ctx.author.id)][ID]["spent"]["logs"] += amount
-            
+
             spent = data[str(ctx.author.id)][ID]["spent"]["logs"]
             price_of_next_level = building_levels[current_level + 1][0]
 
@@ -78,35 +78,35 @@ class ecobuild(commands.Cog):
                 data[str(ctx.author.id)][ID]["spent"]["logs"] = 0
                 data[str(ctx.author.id)]["inventory"]["logs"] += leftOverLogs
                 data[str(ctx.author.id)][ID]["level"] += 1
-                
+
             else:
                 bar = await progress_bar(spent, price_of_next_level, 25)
                 embed = discord.Embed(
                     title=f"{emoji} {display_name} LV {current_level}",
                     description=f"{bar} || {spent}/{price_of_next_level} to LV {current_level+1}",
                     color=ctx.author.color )
-                
+
                 if amount <= 0:
                     embed.set_footer(text=f"{ctx.author.name}, please specify how many logs you want to spend upgrading your {display_name}", icon_url=ctx.author.display_avatar.url)
-            
+
 
             with open("storage/playerInfo/bank.json", "w") as f:
                 json.dump(data, f)
-        
+
         for i in range(1, len(building_levels)):
             if current_level >= i:
                 isUnlocked = "**"
             else:
                 isUnlocked = ""
-            
+
             embed.add_field(
                 name=f"Level {i}:",
                 value=f"{isUnlocked}{building_levels[i][1]}{isUnlocked}",
                 inline=False )
 
         await ctx.send(embed=embed)
-    
-    
+
+
     async def buildDam(self, data, ctx, amount):
         dam_levels = [
             [0, ""],
@@ -116,12 +116,12 @@ class ecobuild(commands.Cog):
             [15000, f"╰ double coins from `{ctx.prefix}daily`"],
             [25000, f"╰ another + 25% logs from `{ctx.prefix}scavenge`"],
         ]
-        
+
         await ecobuild.buildGenericBuilding(
             self, data, ctx,
             amount, dam_levels,
             "dam", "Dam", dam_emoji )
-    
+
     async def buildLodge(self, data, ctx, amount):
         lodge_levels = [
             [0, ""],
@@ -133,27 +133,26 @@ class ecobuild(commands.Cog):
             [70000, f"╰ +15% to the animal selling price"],
             [85000, f"╰ increase the chance of non-common animals by 20%"],
         ]
-        
+
         await ecobuild.buildGenericBuilding(
             self, data, ctx,
             amount, lodge_levels,
             "lodge", "Lodge", lodge_emoji )
-    
+
     async def buildHive(self, data, ctx, amount):
         bee_levels = [
             [0, ""],
-            [4000, f"╰ +20% sell price to all bees"],
+            [4000, f"╰ +12% sell price to all commons"],
             [5000, f"╰ unlock the `{ctx.prefix}honey` command, where half of your commons will turn into bees\n  It has a shared cooldown with `{ctx.prefix}hunt`"],
             [7000, f"╰ turn all commons caught thru `{ctx.prefix}honey` into bees"],
-            [12000, f"╰ +2 bees"],
-            [18000, f"╰ `{ctx.prefix}hunt` and `{ctx.prefix}honey` have a 20% chance to give you an extra bee"],
+            [12000, f"╰ `{ctx.prefix}hunt` and `{ctx.prefix}honey` have a 20% chance to give you an extra bee"],
         ]
-        
+
         await ecobuild.buildGenericBuilding(
             self, data, ctx,
             amount, bee_levels,
             "beehive", "Hive", beehive_emoji )
-    
+
 
     @commands.command(
         name="build",
@@ -174,20 +173,20 @@ class ecobuild(commands.Cog):
         data = await get_bank_data()
         logs = data[str(ctx.author.id)]["inventory"]["logs"]
         amount = round(amount)
-        
+
         if amount < 0:
             return await ctx.send("you can't build with a negative amount of logs?")
-        
+
         if logs < amount:
             return await ctx.send("you don't have that many logs, sorry")
-        
-            
+
+
         match building.lower():
             case ("dam" | "wall"):
                 await ecobuild.buildDam(self, data, ctx, amount)
             case ("lodge" | "hut"):
                 await ecobuild.buildLodge(self, data, ctx, amount)
-            case ("hive" | "beehive" | "bee" | "wasp" | "fly"):
+            case ("hive" | "beehive" | "bee"):
                 await ecobuild.buildHive(self, data, ctx, amount)
             case _:
                 await ecobuild.showOverview(data, ctx)

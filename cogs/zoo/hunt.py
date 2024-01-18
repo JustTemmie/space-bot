@@ -7,7 +7,7 @@ import random
 import libraries.animalLib as aniLib
 import libraries.economyLib as ecoLib
 from libraries.captchaLib import *
-from libraries.standardLib import removeat
+from libraries.standardLib import removeat, invoke
 
 baseTiers = {
     # chance of finding an animal, from 0 to 1 where 1 is 100%
@@ -24,8 +24,27 @@ baseTiers = {
 class zooHunt(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.command(name="honey", aliases=["hun"], brief="Go look for some bees, and perhaps even add them to your zoo!")
+    @cooldown(1, 300, BucketType.user)
+    async def honeyHunt(self, ctx):
+        await ecoLib.open_account(self, ctx)
+        
+        userNotExist = await ecoLib.check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send(f"i could not find your inventory, you need to create an account first")
+        
+        bank = await ecoLib.get_bank_data()
+        if bank[str(ctx.author.id)]["beehive"]["level"] < 2:
+            await ctx.send(f"you haven't unlocked this command yet, unlock it with {ctx.prefix}build hive")
+            return
 
-    @commands.command(name="hunt", aliases=["hu", "honey"], brief="Go look for some animals, and perhaps even add them to your zoo!")
+        await invoke(self, ctx.message, "hunt")
+        
+
+    @commands.command(name="hunt", aliases=["hu"], brief="Go look for some animals, and perhaps even add them to your zoo!")
     @cooldown(1, 300, BucketType.user)
     async def huntCommand(self, ctx):
         await ecoLib.open_account(self, ctx)
@@ -65,6 +84,7 @@ class zooHunt(commands.Cog):
         else:
             tiers = baseTiers.copy()
         
+            
         while chance_for_bonus >= 1:
             animals_to_get += 1
             chance_for_bonus -= 1
@@ -78,6 +98,11 @@ class zooHunt(commands.Cog):
             caught.append(animal)
             caughttier.append(tier)
 
+        if bank[str(ctx.author.id)]["beehive"]["level"] >= 5:
+            if random.random() > 0.8:
+                caught.append(animals["common"]["animals"]["4"])
+                caughttier.append("common")
+            
         if len(caught) == 1:
             await ctx.send(f"{await removeat(ctx.author.display_name)} went on a hunt and caught a {caught[0]['name'][0]} {caught[0]['icon']}, it's {animals[caughttier[0]]['aoran']} {caughttier[0]}{animals[caughttier[0]]['icon']} animal")
         else:
@@ -129,9 +154,16 @@ class zooHunt(commands.Cog):
 
         ID = random.randint(1, 6)
         
-        if ctx.message.content == f"{ctx.prefix}honey":
-            if tier == "common":
-                ID = 4
+        # if it's a!honey or a!hun, make them into bees
+        for i in ["honey", "hun"]:
+            if ctx.message.content.startswith(f"{ctx.prefix}{i}"):
+                data = await ecoLib.get_bank_data() 
+                if tier == "common":
+                    if data[str(ctx.author.id)]["beehive"]["level"] == 2:
+                        if random.random() > 0.5:
+                           ID = 4
+                    elif data[str(ctx.author.id)]["beehive"]["level"] >= 3:
+                        ID = 4
 
         selectedAnimal = animals[tier]["animals"][str(ID)]
 

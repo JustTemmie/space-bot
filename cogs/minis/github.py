@@ -33,6 +33,9 @@ class github(commands.Cog):
         pattern = r'(https?://\S+)'
 
         git_commit = re.sub(pattern, r'<\1>', git_commit)
+        if git_commit == "":
+            await ctx.send("up to date :3")
+            return
         
         if len(git_commit) < 1975:
             await ctx.send(git_commit)
