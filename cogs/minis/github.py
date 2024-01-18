@@ -38,14 +38,9 @@ class github(commands.Cog):
             await ctx.send(git_commit)
         
         else:
-            n = 1994
-            split_strings = []
-
-            for index in range(0, len(git_commit), n):
-                split_strings.append(git_commit[index : index + n])
-
-            for message in split_strings:
-                await ctx.send(message)
+            git_commits = git_commit.split("commit ")
+            for i in git_commits:
+                await ctx.send(f"commit {i}")
 
         if len(output) < 1975:
             await ctx.send(f"```{output}```")
