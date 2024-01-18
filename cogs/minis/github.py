@@ -21,7 +21,7 @@ class github(commands.Cog):
     @commands.command(name="update", brief="Updates the bot by pulling from github")
     @commands.is_owner()
     async def update_git_pull(self, ctx, restart="False"):
-        try
+        try:
             subprocess.call(["git", "fetch"])
             git_commit = subprocess.check_output(["git", "log", "--name-status", "HEAD^..origin"]).decode("utf-8")
             var = subprocess.check_output(["git", "pull"])
