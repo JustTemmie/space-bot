@@ -1,7 +1,0 @@
-temp/
-.github/
-__pycache__/
-
-poetry.lock
-pyproject.toml
-setup.txt
