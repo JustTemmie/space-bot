@@ -23,7 +23,7 @@ class github(commands.Cog):
     async def update_git_pull(self, ctx, restart="False"):
         try:
             subprocess.call(["git", "fetch"])
-            git_commit = subprocess.check_output(["git", "log", "--name-status", "HEAD^..origin"]).decode("utf-8")
+            git_commit = subprocess.check_output(["git", "log", "--name-status", "HEAD..origin"]).decode("utf-8")
             var = subprocess.check_output(["git", "pull"])
             output = var.decode("utf-8")
         except Exception as error:
