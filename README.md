@@ -54,13 +54,20 @@ top.gg from https://top.gg/bot/YOURBOTIDHERE/webhooks
 
 
 
-and lastly, just build the docker container using
+create a venv
 
-`sudo docker-compose build`
+```
+python -m venv venv/
+```
 
+install libraries
 
-now, whenever you want to start the bot just run
+```
+./venv/bin/python -m pip install -r requirements.txt
+```
 
-`sudo docker-compose up`
+then lastly, run the bot
 
-and it should theoretically work
+```
+./venv/bin/python main.py
+```
