@@ -50,7 +50,7 @@ class ecoprofile(commands.Cog):
             name="Buildings:",
             value = f"""<:dam:1019212343760142387> Dam: LV {current_damlevel}
                         <:lodge:1019212491143786527> Lodge: LV {current_lodgelevel}
-                        <:beehive:1196823754295226490> Hive: LV {current_beehivelevel}
+                        <:beehive:1196823754295226490> Beehive: LV {current_beehivelevel}
                         """,
             inline=False,
         )
