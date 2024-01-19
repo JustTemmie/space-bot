@@ -39,7 +39,7 @@ class ecobuild(commands.Cog):
             value=f"`{ctx.prefix}build lodge`", inline=False )
         embed.add_field(
             name=f"{beehive_emoji} `Beehive`: LV {current_hivelevel}",
-            value=f"`{ctx.prefix}build hive`", inline=False )
+            value=f"`{ctx.prefix}build beehive`", inline=False )
 
         await ctx.send(embed=embed)
 

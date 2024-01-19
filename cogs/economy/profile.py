@@ -33,7 +33,7 @@ class ecoprofile(commands.Cog):
         logs = bankdata[str(user.id)]["inventory"]["logs"]
         current_damlevel = bankdata[str(user.id)]["dam"]["level"]
         current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"]
-        current_hivelevel = bankdata[str(user.id)]["hive"]["level"]
+        current_beehivelevel = bankdata[str(user.id)]["beehive"]["level"]
 
         embed = discord.Embed(title=f"", colour=user.colour, timestamp=datetime.utcnow())
         embed.add_field(
@@ -50,7 +50,7 @@ class ecoprofile(commands.Cog):
             name="Buildings:",
             value = f"""<:dam:1019212343760142387> Dam: LV {current_damlevel}
                         <:lodge:1019212491143786527> Lodge: LV {current_lodgelevel}
-                        <:beehive:1196823754295226490> Hive: LV {current_hivelevel}
+                        <:beehive:1196823754295226490> Hive: LV {current_beehivelevel}
                         """,
             inline=False,
         )
