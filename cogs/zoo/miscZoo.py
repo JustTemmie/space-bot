@@ -139,7 +139,7 @@ class zooMisc(commands.Cog):
             value=f"""
 **Tier:** {zoo[animalTier]["icon"]} {animalTier}{aliasesString}
 **Caught:** {data[str(user.id)]["animals"][animalTier][animalName]["caught"]}
-**Total Caught:** {data["global"]["animals"][animalTier][animalName]["caught"]}
+**Global Caught:** {data["global"]["animals"][animalTier][animalName]["caught"]}
 **Count:** {data[str(user.id)]["animals"][animalTier][animalName]["count"]}
 **Sold:** {data[str(user.id)]["animals"][animalTier][animalName]["sold"]}
 **Sacrificed:** {data[str(user.id)]["animals"][animalTier][animalName]["sacrificed"]}
