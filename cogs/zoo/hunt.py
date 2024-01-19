@@ -25,7 +25,7 @@ class zooHunt(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command(name="honey", aliases=["hun"], brief="Go look for some bees, and perhaps even add them to your zoo!")
+    @commands.command(name="honey", aliases=["hon"], brief="Go look for some bees, and perhaps even add them to your zoo!")
     @cooldown(1, 300, BucketType.user)
     async def honeyHunt(self, ctx):
         await ecoLib.open_account(self, ctx)
@@ -154,9 +154,9 @@ class zooHunt(commands.Cog):
 
         ID = random.randint(1, 6)
         
-        # if it's a!honey or a!hun, make them into bees
-        for i in ["honey", "hun"]:
-            if ctx.message.content.startswith(f"{ctx.prefix}{i}"):
+        # if it's a!honey or a!hon, make them into bees
+        for i in ["honey", "hon"]:
+            if ctx.message.content == (f"{ctx.prefix}{i}"):
                 data = await ecoLib.get_bank_data() 
                 if tier == "common":
                     if data[str(ctx.author.id)]["beehive"]["level"] >= 3:
