@@ -211,12 +211,11 @@ class social(commands.Cog):
     async def bonkcommand(self, ctx, targets: Greedy[Member] = None):
         await open_account(self, ctx)
 
-        for user in targets:
-            userNotExist = await check_if_not_exist(user)
-            if userNotExist == "banned":
-                return
-            if userNotExist:
-                return await ctx.send(f"i could not find an inventory for {await SL.removeat(user.display_name)}, they need to create an account first")
+        userNotExist = await check_if_not_exist(ctx.author)
+        if userNotExist == "banned":
+            return
+        if userNotExist:
+            return await ctx.send(f"i could not find an inventory for {await SL.removeat(ctx.author.display_name)}, they need to create an account first")
 
         bank = await get_bank_data()
 
