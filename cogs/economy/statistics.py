@@ -15,6 +15,7 @@ class ecostatistics(commands.Cog):
 
     @commands.command(
         name="statistics",
+        aliases=["stats"],
         brief="show the statistics about some of the things you've done",
     )
     @cooldown(2, 5, BucketType.user)

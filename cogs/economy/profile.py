@@ -33,6 +33,7 @@ class ecoprofile(commands.Cog):
         logs = bankdata[str(user.id)]["inventory"]["logs"]
         current_damlevel = bankdata[str(user.id)]["dam"]["level"]
         current_lodgelevel = bankdata[str(user.id)]["lodge"]["level"]
+        current_hivelevel = bankdata[str(user.id)]["hive"]["level"]
 
         embed = discord.Embed(title=f"", colour=user.colour, timestamp=datetime.utcnow())
         embed.add_field(
@@ -47,20 +48,10 @@ class ecoprofile(commands.Cog):
         )
         embed.add_field(
             name="Buildings:",
-            value=f"<:dam:1019212343760142387> Dam: LV {current_damlevel}\n<:lodge:1019212491143786527> Lodge: LV {current_lodgelevel}",
-            inline=False,
-        )
-        embed.add_field(
-            name="Stats:",
-            value=f"""
-<:Strength:976244446595285032> Strength: **{bankdata[str(user.id)]["stats"]["strength"]}**
-<:Dexterity:976244452014301224> Dexterity: **{bankdata[str(user.id)]["stats"]["dexterity"]}**
-<:Intelligence:976244476710359171> Intelligence: **{bankdata[str(user.id)]["stats"]["intelligence"]}**
-<:Wisdom:976244483190558761> Wisdom: **{bankdata[str(user.id)]["stats"]["wisdom"]}**
-<:Charisma:976244498738855966> Charisma: **{bankdata[str(user.id)]["stats"]["charisma"]}**
-<:Perception:976244488894816366> Perception: **{bankdata[str(user.id)]["stats"]["perception"]}**
-<:Free:976244503713308742> Free Points: **{bankdata[str(user.id)]["stats"]["points"]}**
-                    """,
+            value = f"""<:dam:1019212343760142387> Dam: LV {current_damlevel}
+                        <:lodge:1019212491143786527> Lodge: LV {current_lodgelevel}
+                        <:beehive:1196823754295226490> Hive: LV {current_hivelevel}
+                        """,
             inline=False,
         )
 

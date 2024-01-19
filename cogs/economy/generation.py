@@ -352,6 +352,7 @@ class ecogeneration(commands.Cog):
             return
 
         data = await get_bank_data()
+        # stats have been removed
         strength = 3  # data[str(ctx.author.id)]["stats"]["strength"]
         perception = 3  # data[str(ctx.author.id)]["stats"]["perception"]
 
