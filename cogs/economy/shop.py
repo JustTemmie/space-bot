@@ -238,7 +238,7 @@ class ecoshop(commands.Cog):
             if animalAmount[1] != 0:
                 soldstr += f"{animalAmount[1]} {price[0]} animal for {price[1]} <:beaverCoin:1019212566095986768>"
                 if animalAmount[1] >= 2:
-                    soldstr += f" each, for a total of {price[1]*animalAmount[1]} <:beaverCoin:1019212566095986768>"
+                    soldstr += f" each, for a total of {floor(price[1]*animalAmount[1])} <:beaverCoin:1019212566095986768>"
                 soldstr += "\n"
 
                 payout += price[1] * animalAmount[1]
