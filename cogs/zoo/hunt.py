@@ -98,7 +98,7 @@ class zooHunt(commands.Cog):
             caught.append(animal)
             caughttier.append(tier)
 
-        if bank[str(ctx.author.id)]["beehive"]["level"] >= 5:
+        if bank[str(ctx.author.id)]["beehive"]["level"] >= 4:
             if random.random() > 0.8:
                 caught.append(animals["common"]["animals"]["4"])
                 caughttier.append("common")
