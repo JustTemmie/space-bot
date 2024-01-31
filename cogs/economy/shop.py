@@ -256,7 +256,7 @@ class ecoshop(commands.Cog):
                 soldstr += f"\n\"Since i'm feeling generous, i gave you an extra {extraProfit} <:beaverCoin:1019212566095986768>\"\n"
             
         if bank[str(ctx.author.id)]["lodge"]["level"] >= 6:
-            soldstr += f"\nSince you had a lodge level 6 or above, i gave you an extra 15% payout! ({floor(payout*0.15)} <:beaverCoin:1019212566095986768>)\n"
+            soldstr += f"\n**Level 6 lodge**:\nthru sheer will and black magic, the merchant paid 15% too much ({floor(payout*0.15)} <:beaverCoin:1019212566095986768>)\n"
             payout = floor(payout * 1.15)
 
         with open("storage/playerInfo/animals.json", "w") as f:
@@ -265,7 +265,7 @@ class ecoshop(commands.Cog):
         await ecoLib.update_bank_data(ctx.author, round(payout))
 
         if differentTiersSold != 1:
-            soldstr += f"\n\nI bought a total of {differentAnimalsSold} animals for {payout} <:beaverCoin:1019212566095986768>\nPlease come again!"
+            soldstr += f"\n\n\"I bought a total of {differentAnimalsSold} animals for {payout} <:beaverCoin:1019212566095986768>\nPlease come again!\""
 
         embed = discord.Embed()
         embed.title = f"{merchant_emoji} Merchant"
