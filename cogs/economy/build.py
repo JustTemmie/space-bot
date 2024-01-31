@@ -145,7 +145,7 @@ class ecobuild(commands.Cog):
             [4000, f"╰ unlock the `{ctx.prefix}honey` command, where half of your commons will turn into bees\n  It has a shared cooldown with `{ctx.prefix}hunt`"],
             [6000, f"╰ +12% sell price to all commons"],
             [7000, f"╰ turn all commons caught thru `{ctx.prefix}honey` into bees"],
-            [10000, f"╰ `{ctx.prefix}hunt` and `{ctx.prefix}honey` have a 20% chance to give you an extra bee"],
+            [10000, f"╰ `{ctx.prefix}hunt` and `{ctx.prefix}honey` have a 30% chance to give you an extra bee"],
         ]
 
         await ecobuild.buildGenericBuilding(
