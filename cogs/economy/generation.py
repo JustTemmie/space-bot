@@ -106,7 +106,7 @@ class ecogeneration(commands.Cog):
                 
             
             if daily_info["streak"] % 50 == 0:
-                streak += "omggggg... round streak number 🥺"
+                streak += "\nomgggggg\nggg\ngggggggggggggg\nggg... round streak number 🥺"
                 payout + 100
             
         
