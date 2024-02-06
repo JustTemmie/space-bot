@@ -264,6 +264,13 @@ async def open_account(self, ctx):
     users[str(user.id)]["lodge"]["spent"] = {}
     users[str(user.id)]["lodge"]["spent"]["logs"] = 0
     users[str(user.id)]["lodge"]["level"] = 0
+    
+    ###############################################################################
+    
+    users[str(user.id)]["beehive"] = {}
+    users[str(user.id)]["beehive"]["spent"] = {}
+    users[str(user.id)]["beehive"]["spent"]["logs"] = 0
+    users[str(user.id)]["beehive"]["level"] = 0
 
     ###############################################################################
 
