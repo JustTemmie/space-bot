@@ -58,6 +58,8 @@ class zooHunt(commands.Cog):
 
         if await check_captcha(self, ctx, 1.2):
             return
+        
+        ctx.message = await ctx.fetch_message(ctx.message.id)
 
         bank = await ecoLib.get_bank_data()
         animals = await aniLib.get_zoo_data()
@@ -154,11 +156,8 @@ class zooHunt(commands.Cog):
 
         ID = random.randint(1, 6)
         
-        
-        await ctx.send(f"{ctx.prefix.lower()}\n{ctx.message.content.lower()}\n{ctx.message.content.lower().startswith('qhoney')}")
-        # if it's a!honey or a!hon, make them into bees
+                # if it's a!honey or a!hon, make them into bees
         if ctx.message.content.lower().startswith(ctx.prefix.lower() + "hon"):
-            await ctx.send("honey!")
             data = await ecoLib.get_bank_data() 
             if tier == "common":
                 if data[str(ctx.author.id)]["beehive"]["level"] >= 3:
