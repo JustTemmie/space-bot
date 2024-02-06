@@ -155,7 +155,7 @@ class zooHunt(commands.Cog):
         ID = random.randint(1, 6)
         
         
-        await ctx.send(ctx.prefix.lower())
+        await ctx.send(f"{ctx.prefix.lower()}\n{ctx.message.content.lower()}\n{ctx.message.content.lower().startswith('qhoney')}")
         # if it's a!honey or a!hon, make them into bees
         if ctx.message.content.lower().startswith(ctx.prefix.lower() + "hon"):
             await ctx.send("honey!")
