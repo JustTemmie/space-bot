@@ -155,15 +155,14 @@ class zooHunt(commands.Cog):
         ID = random.randint(1, 6)
         
         # if it's a!honey or a!hon, make them into bees
-        for i in ["honey", "hon"]:
-            if ctx.message.content.lower().startswith(f"{ctx.prefix.lower()}{i}") or ctx.message.content.lower() == f"{ctx.prefix.lower()}{i}":
-                data = await ecoLib.get_bank_data() 
-                if tier == "common":
-                    if data[str(ctx.author.id)]["beehive"]["level"] >= 3:
+        if ctx.message.content.lower().startswith(ctx.prefix.lower() + "hon"):
+            data = await ecoLib.get_bank_data() 
+            if tier == "common":
+                if data[str(ctx.author.id)]["beehive"]["level"] >= 3:
+                    ID = 4
+                elif data[str(ctx.author.id)]["beehive"]["level"] >= 1:
+                    if random.random() > 0.5:
                         ID = 4
-                    elif data[str(ctx.author.id)]["beehive"]["level"] >= 1:
-                        if random.random() > 0.5:
-                           ID = 4
                     
         selectedAnimal = animals[tier]["animals"][str(ID)]
                 
