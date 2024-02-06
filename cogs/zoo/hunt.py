@@ -156,6 +156,7 @@ class zooHunt(commands.Cog):
         
         # if it's a!honey or a!hon, make them into bees
         if ctx.message.content.lower().startswith(ctx.prefix.lower() + "hon"):
+            await ctx.send("honey!")
             data = await ecoLib.get_bank_data() 
             if tier == "common":
                 if data[str(ctx.author.id)]["beehive"]["level"] >= 3:
