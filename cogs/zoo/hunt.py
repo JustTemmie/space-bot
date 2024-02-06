@@ -154,13 +154,9 @@ class zooHunt(commands.Cog):
 
         ID = random.randint(1, 6)
         
-        await ctx.send("hi")
         # if it's a!honey or a!hon, make them into bees
         for i in ["honey", "hon"]:
-            data = await ecoLib.get_bank_data() 
-            await ctx.send(f"```\n-{ctx.message.content}-\n-{data[str(ctx.author.id)]['beehive']['level']}-\n```")
-            if ctx.message.content.startswith(f"{ctx.prefix}{i}") or ctx.message.content == f"{ctx.prefix}{i}":
-                await ctx.send("hi2")
+            if ctx.message.content.lower().startswith(f"{ctx.prefix.lower()}{i}") or ctx.message.content.lower() == f"{ctx.prefix.lower()}{i}":
                 data = await ecoLib.get_bank_data() 
                 if tier == "common":
                     if data[str(ctx.author.id)]["beehive"]["level"] >= 3:
@@ -169,14 +165,8 @@ class zooHunt(commands.Cog):
                         if random.random() > 0.5:
                            ID = 4
                     
-                    await ctx.send(ID)
-
         selectedAnimal = animals[tier]["animals"][str(ID)]
-        
-        await ctx.send(f"{selectedAnimal} - {tier} - {ID}")
-        
-        exit()
-
+                
         return selectedAnimal, tier
 
 
