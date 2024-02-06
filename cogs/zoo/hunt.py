@@ -171,7 +171,7 @@ class zooHunt(commands.Cog):
 
         selectedAnimal = animals[tier]["animals"][str(ID)]
         
-        await ctx.send(f"{selectedAnimal} - {tier}")
+        await ctx.send(f"{selectedAnimal} - {tier} - {ID}")
 
         return selectedAnimal, tier
 
