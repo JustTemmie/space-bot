@@ -154,8 +154,11 @@ class zooHunt(commands.Cog):
 
         ID = random.randint(1, 6)
         
+        await ctx.send("hi")
         # if it's a!honey or a!hon, make them into bees
         for i in ["honey", "hon"]:
+            await ctx.send("hi2")
+            data = await ecoLib.get_bank_data() 
             await ctx.send(f"```\n-{ctx.message.content}-\n-{data[str(ctx.author.id)]['beehive']['level']}-\n```")
             if ctx.message.content.startswith(f"{ctx.prefix}{i}") or ctx.message.content == f"{ctx.prefix}{i}":
                 data = await ecoLib.get_bank_data() 
