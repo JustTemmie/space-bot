@@ -9,15 +9,15 @@ nouns = [
 ]
 
 
-class ball8(commands.Cog):
+class noun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(name="noun", brief="Get a random noun")
     @cooldown(5, 2, BucketType.user)
-    async def ball8_command(self, ctx):
+    async def noun_command(self, ctx):
         await ctx.edit(random.choice(nouns))
 
 
 async def setup(bot):
-    await bot.add_cog(ball8(bot))
+    await bot.add_cog(noun(bot))
