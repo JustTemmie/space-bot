@@ -16,7 +16,7 @@ class noun(commands.Cog):
     @commands.command(name="noun", brief="Get a random noun")
     @cooldown(5, 2, BucketType.user)
     async def noun_command(self, ctx):
-        await ctx.edit(random.choice(nouns))
+        await ctx.send(random.choice(nouns))
 
 
 async def setup(bot):
