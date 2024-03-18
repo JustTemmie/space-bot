@@ -8,7 +8,7 @@ class moveTaskClass(commands.Cog):
 
         self.moveTask.start()
 
-    @tasks.loop(seconds=5)
+    @tasks.loop(seconds=2)
     async def moveTask(self):
         channel = self.bot.get_channel(1215738895828910080)
         await channel.edit(channel.guild.categories[0])
