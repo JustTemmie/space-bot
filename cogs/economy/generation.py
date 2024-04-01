@@ -129,8 +129,8 @@ class ecogeneration(commands.Cog):
             payout = 1000
             await ctx.send(f"""
 \- "Hello Comrade. It's time for the daily resource distribution!"
-\- "Today's resources: 4,000 {self.bot.log_emoji}."
-\- "Each citizen receives 1,000 {self.bot.log_emoji}."
+\- "Today's resources: 4,000 <:beaverCoin:1019212566095986768>."
+\- "Each citizen receives 1,000 <:beaverCoin:1019212566095986768>."
 \- "Solidarity prevails! All hail the collective effort!"
 """)
             bank[str(ctx.author.id)]["wallet"] += payout
