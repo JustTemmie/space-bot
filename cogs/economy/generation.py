@@ -124,6 +124,26 @@ class ecogeneration(commands.Cog):
         pancakeOffset = timedelta(days = 47)
         pancakeDay = datetime(today.year, easterDate[1], easterDate[0]) - pancakeOffset
         
+                
+        if today.day == 1 and today.month == 4:
+            payout = 1000
+            await ctx.send(f"""
+\- "Hello Comrade. It's time for the daily resource distribution!"
+\- "Today's resources: 4,000 {self.bot.log_emoji}."
+\- "Each citizen receives 1,000 {self.bot.log_emoji}."
+\- "Solidarity prevails! All hail the collective effort!"
+""")
+            bank[str(ctx.author.id)]["wallet"] += payout
+            daily_info["day"] = (datetime.utcnow() - datetime(1970, 1, 1)).days
+            bank[str(ctx.author.id)]["daily"] = daily_info
+
+            bank[str(ctx.author.id)]["statistics"]["total_coins"] += payout
+
+            with open("storage/playerInfo/bank.json", "w") as f:
+                json.dump(bank, f)
+            
+            return
+        
         # easter
         if today.day == easterDate[0] and today.month == easterDate[1]:
             payout *= 2.5
@@ -285,19 +305,19 @@ class ecogeneration(commands.Cog):
 
 
         # 1st of april
-        if today.day == 1 and today.month == 4:
-            # henwee code
-            if ctx.author.id == 411536312961597440:
-                payout += 1
+        # if today.day == 1 and today.month == 4:
+        #     # henwee code
+        #     if ctx.author.id == 411536312961597440:
+        #         payout += 1
             
-            payout *= 10
+        #     payout *= 10
             
-            # more henwee code
-            if ctx.author.id == 411536312961597440:
-                payout -= 1
+        #     # more henwee code
+        #     if ctx.author.id == 411536312961597440:
+        #         payout -= 1
             
-            payout = await removeat(f"await EcoLib.grant(\"{payout}\", {ctx.author.id})")
-
+        #     payout = await removeat(f"await EcoLib.grant(\"{payout}\", {ctx.author.id})")
+        
         await ctx.send(f"you got +{payout} <:beaverCoin:1019212566095986768>!\n{streak}")
     
     @commands.command(
