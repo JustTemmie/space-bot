@@ -10,7 +10,7 @@ class blahaj(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="blahaj", brief="BLÅHAJ!!!")
+    @commands.command(name="blahaj", aliases=["blåhaj"], brief="BLÅHAJ!!!")
     @cooldown(1, 2, BucketType.user)
     async def blahaj_command(self, ctx):
         url = "https://blahaj.sexy"
