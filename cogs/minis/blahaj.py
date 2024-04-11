@@ -20,7 +20,7 @@ class blahaj(commands.Cog):
         image_link = url + image_tag['src']
         
         embed = Embed(
-            title=f"{ctx.prefix.title()}!",
+            title=f"{ctx.invoked_with.title()}!",
             colour=ctx.author.colour,
         )
         
