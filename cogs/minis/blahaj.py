@@ -2,9 +2,9 @@ from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 from discord import Embed
 
-import random
-import time
-from requests import request
+import requests 
+from bs4 import BeautifulSoup
+
 
 class blahaj(commands.Cog):
     def __init__(self, bot):
@@ -13,21 +13,19 @@ class blahaj(commands.Cog):
     @commands.command(name="blahaj", brief="BLÅHAJ!!!")
     @cooldown(1, 2, BucketType.user)
     async def blahaj_command(self, ctx):
-        async with request("GET", "https://blahaj.sexy", headers={}) as response:
-            if response.status == 200:
-                data = await response.json()
-                image_link = data["link"]
-                
-                embed = Embed(
-                    title=f"Blahaj!",
-                    colour=ctx.author.colour,
-                )
-                
-                embed.set_image(url=image_link)
-                await ctx.send(embed=embed)
-
-            else:
-                await ctx.send("whoopsie doopsie, something went a stinkers")
+        url = "https://blahaj.sexy"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        image_tag = soup.find('img', class_='stallman')
+        image_link = url + image_tag['src']
+        
+        embed = Embed(
+            title=f"Blahaj!",
+            colour=ctx.author.colour,
+        )
+        
+        embed.set_image(url=image_link)
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(blahaj(bot))
