@@ -10,7 +10,7 @@ nouns = [
     "creature",
 ]
 
-for i in range(50):
+for i in range(10):
     nouns.append("beaver")
 
 
@@ -31,7 +31,7 @@ class stupid_shit(commands.Cog):
         if random.random() > 0.95:
             await msg.reply("error: could not save file")
         else:
-            await msg.reply("save file update succesful")
+            await msg.reply("save file updated succesful")
 
 
 async def setup(bot):
