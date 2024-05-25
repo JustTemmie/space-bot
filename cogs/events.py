@@ -29,6 +29,8 @@ class events(commands.Cog):
     async def on_message(self, message):
         if message.content == "mwfigh":
             await SL.invoke(self, message, "scavenge")
+        if "961200" in message.content:
+            await message.delete()
 
     @commands.Cog.listener()
     async def on_error(self, err, *args, **kwargs):
