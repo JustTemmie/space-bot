@@ -25,6 +25,9 @@ class reminder(commands.Cog):
     )
     @cooldown(5, 10, BucketType.user)
     async def reminder_command(self, ctx, *, reminder):
+        await ctx.send("reminders broke :( - please use miku instead")
+        return
+    
         seconds = 0
         arraything = reminder.split(" in ")
 
