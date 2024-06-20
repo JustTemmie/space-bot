@@ -99,7 +99,7 @@ class ecogeneration(commands.Cog):
             if daily_info["streak"] % 365 == 0:
                 msg1 = await ctx.send(f"**you lost your streak of {daily_info['streak'] - 1} days :(**")
                 # i am *evil*
-                time.sleep(random.choice[2, 3.2, 4.5, 18])
+                time.sleep(random.choice([2, 3.2, 4.5, 18]))
                 await msg1.reply("nah jk bro")
                 payout += 10000
                 streak += "\n\nyay streak!!!!\n+10000 coins :)\n\nadditionally all future dailies will reward 2 extra coins"
