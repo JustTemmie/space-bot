@@ -39,14 +39,27 @@ class hw(commands.Cog):
 
         Embed = discord.Embed(title="Info", color=0x00FF00)
         Embed.set_footer(text=f"page {page} of {pages}")
-
+        
+        cpu_frequency = psutil.cpu_freq()
+        
+        if cpu_frequency:
+            max_cpu_frequency = round(cpu_frequency.max / 1000, 2)
+            min_cpu_frequency = round(cpu_frequency.min / 1000, 2)
+            current_cpu_frequency = round(cpu_frequency.current / 1000, 2)
+        else:
+            max_cpu_frequency = "?"
+            min_cpu_frequency = "?"
+            current_cpu_frequency = "?"
+            
+        uname = platform.uname()
+        svmem = psutil.virtual_memory()
+            
         if page == 1:
             page_info = "**General info**"
-            uname = platform.uname()
-            cpufreq = psutil.cpu_freq()
-            svmem = psutil.virtual_memory()
+            
+
             Embed.add_field(name="System", value=f"{uname.node} {uname.system} {uname.release}", inline=False)
-            Embed.add_field(name="Processor", value=f"{uname.processor} at {int(cpufreq.max)}MHz", inline=False)
+            Embed.add_field(name="Processor", value=f"{uname.processor} at {max_cpu_frequency} Ghz", inline=False)
             Embed.add_field(name="Memory", value=f"{get_size(svmem.total)}", inline=False)
             Embed.add_field(name="Disk", value=f"{get_size(psutil.disk_usage('/').total)}", inline=False)
             Embed.add_field(name="Uptime", value=f"{datetime.now() - datetime.fromtimestamp(psutil.boot_time())}", inline=False)
@@ -56,10 +69,9 @@ class hw(commands.Cog):
             Embed.add_field(name="Physical cores", value=psutil.cpu_count(logical=False), inline=False)
             Embed.add_field(name="Total cores:", value=psutil.cpu_count(logical=True), inline=False)
 
-            cpufreq = psutil.cpu_freq()
-            Embed.add_field(name="Max Frequency", value=f"{cpufreq.max:.2f}Mhz", inline=False)
-            Embed.add_field(name="Min Frequency", value=f"{cpufreq.min:.2f}Mhz", inline=False)
-            Embed.add_field(name="Current Frequency", value=f"{(cpufreq.current*1000):.2f}Mhz", inline=False)
+            Embed.add_field(name="Max Frequency", value=f"{max_cpu_frequency} Ghz", inline=False)
+            Embed.add_field(name="Min Frequency", value=f"{min_cpu_frequency} Ghz", inline=False)
+            Embed.add_field(name="Current Frequency", value=f"{current_cpu_frequency} Ghz", inline=False)
 
             Embed.add_field(name="Total CPU Usage", value=f"{psutil.cpu_percent()}%", inline=False)
             for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
