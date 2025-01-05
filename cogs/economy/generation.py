@@ -273,7 +273,7 @@ class ecogeneration(commands.Cog):
 
         if today.day == 25 and today.month == 12:
             bank[str(ctx.author.id)]["inventory"]["logs"] -= 100
-            streak += f"\nHEY, you didn't marry Christmas yesterday, wtf\nI'm confiscating 100 of your {self.bot.log_emoji} as retaliation"
+            streak += f"\nwtf Eve, you didn't marry Christmas yesterday, how rude\nI'm confiscating 100 of your {self.bot.log_emoji} as retaliation"
         
     
     
