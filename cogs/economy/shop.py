@@ -110,7 +110,7 @@ class ecoshop(commands.Cog):
 
     @commands.command(
         name="selllogs",
-        aliases="selllog",
+        aliases=["selllog"],
         brief='yeah this is a new command, i\m lazy, okay?',
     )
     async def sell_logs_command(self, ctx, amount=1):
