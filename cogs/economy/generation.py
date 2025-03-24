@@ -144,6 +144,11 @@ class ecogeneration(commands.Cog):
             
             return
         
+
+        # selllog command exists!!
+        if today.day == 25 and today.month == 3 and today.year == 2025:
+            streak += f"\n\nNothing special today, but you can sell your excess logs with {ctx.prefix}selllogs now!\n(yeah it's a new command, i'm lazy)"
+
         # easter
         if today.day == easterDate[0] and today.month == easterDate[1]:
             payout *= 2.5
