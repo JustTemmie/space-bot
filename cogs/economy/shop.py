@@ -109,6 +109,33 @@ class ecoshop(commands.Cog):
         await ctx.send("i could not find that item, sorry")
 
     @commands.command(
+        name="selllogs",
+        aliases="selllog",
+        brief='yeah this is a new command, i\m lazy, okay?',
+    )
+    async def sell_logs_command(self, ctx, amount=1):
+        data = await ecoLib.get_bank_data()
+
+        if amount == "all":
+            amount = data[str(ctx.author.id)]["inventory"]["logs"]
+        
+        if data[str(ctx.author.id)]["inventory"]["logs"] < amount:
+            await ctx.send("you don't have that many logs :p")
+        
+        embed = discord.Embed()
+        embed.title = f"🧑‍🌾 Merchant"
+        embed.colour = 0xFFB3BA
+        embed.add_field(name="||\n||", value=f'Thanks you for the {amount} <:log:1019212550782599220>! Here, have {amount*3} <:beaverCoin:1019212566095986768> for your efforts\nPlease come again!\"')
+        
+        data[str(ctx.author.id)]["wallet"] += 3 * amount
+        data[str(ctx.author.id)]["inventory"]["logs"] -= amount
+        
+        with open("storage/playerInfo/bank.json", "w") as f:
+            json.dump(data, f)
+        
+
+        
+    @commands.command(
         name="sell",
         brief='try selling your animals for money\nyou can sell a specific animal, an entire tier, or simly "all"',
     )
