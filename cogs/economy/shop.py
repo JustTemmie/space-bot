@@ -129,6 +129,8 @@ class ecoshop(commands.Cog):
         
         data[str(ctx.author.id)]["wallet"] += 3 * amount
         data[str(ctx.author.id)]["inventory"]["logs"] -= amount
+
+        await ctx.send(embed=embed) 
         
         with open("storage/playerInfo/bank.json", "w") as f:
             json.dump(data, f)
