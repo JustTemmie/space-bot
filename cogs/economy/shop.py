@@ -116,11 +116,17 @@ class ecoshop(commands.Cog):
     async def sell_logs_command(self, ctx, amount=1):
         data = await ecoLib.get_bank_data()
 
+        if amount < 0:
+            await ctx.send("that's a silly number, silly!")
+            return
+        
         if amount == "all":
             amount = data[str(ctx.author.id)]["inventory"]["logs"]
         
         if data[str(ctx.author.id)]["inventory"]["logs"] < amount:
             await ctx.send("you don't have that many logs :p")
+            return
+    
         
         embed = discord.Embed()
         embed.title = f"🧑‍🌾 Merchant"
