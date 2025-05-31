@@ -77,7 +77,7 @@ class Images(commands.Cog):
             embed.title = f"{ctx.prefix}{ctx.command}" + " [flag] [divider] [flag_2] {blur}"
             embed.description = """
 Generate a pride flag pfp
-Possible values are `progress`, `gay`, `bi`, `lesbian`, `sapphic`, `mlm`, `pan`, `polyamorous`, `polysexual`, `trans`, `agender`, `enby`, `aro`, `ace`, `french`, `genderfluid`, `genderqueer`, `maverique`, `bigender`, `demigender`, `demiboy`, `demigirl`, and lastly `femboy`
+Possible values are `progress`, `gay`, `bi`, `lesbian`, `sapphic`, `mlm`, `pan`, `polyamorous`, `polysexual`, `trans`, `agender`, `enby`, `aro`, `ace`, `aroace`, `french`, `genderfluid`, `genderqueer`, `maverique`, `bigender`, `demigender`, `demiboy`, `demigirl`, and lastly `femboy`
 
 You must specify 2 flags, this will put them side-by-side. The divider determines how the flags are split.
 Divider can be `-`, `|`, `/`, and `\` - this has to be done even if you only want to use one flag. (just use it twice lol)
