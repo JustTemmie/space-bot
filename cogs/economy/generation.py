@@ -214,6 +214,11 @@ class ecogeneration(commands.Cog):
             payout *= 1.5
             streak += "\n\nHappy Minecraft aniversary!"
         
+        # gay month!!
+        if today.day == 1 and today.month == 6:
+            payout += 2500
+            streak += "\n\nogay month!!! GAYYYY month!"
+        
         # ice cream day
         if today.day == 1 and today.month == 7:
             payout += 500
