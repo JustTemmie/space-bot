@@ -124,6 +124,8 @@ Divider can be `-`, `|`, `/`, and `\` - this has to be done even if you only wan
         # Prevent colour mode errors
         pfp = pfp.convert("RGBA")
 
+        flag = flag.replace(".", "").replace("/", "")
+
         # Load and resize the flags
         background = Image.open(f"images/flags/{flag.title()}.png")
         background = background.resize((PFP_SIZE, PFP_SIZE))
